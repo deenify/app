@@ -85,9 +85,8 @@ src/
 ## 🚀 Getting Started
 
 ### 1. Clone the repository
-```
+```ts
 git clone https://github.com/deenify/api.git
 cd  api
 npm i
-
 ```
