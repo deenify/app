@@ -82,6 +82,12 @@ src/
 - [ ] No comments left (❌ remove all except the top comment in `page.tsx` files that shows route, e.g. `// pages/home/page.tsx`)
 - [ ] README / types / config updated (if any structural or API changes were made)
 
+## 🚀 Getting Started
+
+### 1. Clone the repository
 ```
+git clone https://github.com/deenify/api.git
+cd  api
+npm i
 
 ```
