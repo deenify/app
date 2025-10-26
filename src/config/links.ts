@@ -1,21 +1,26 @@
 // config/links.ts
 
-/**
- * Main navigation links (header, sidebar, etc.)
- */
-export const navbarLinks = [
-  { label: "Home", href: "/" },
-  { label: "Quran", href: "/quran" },
-  { label: "Hadith", href: "/hadith" },
-  { label: "Dua", href: "/dua" },
-  { label: "Prayer Times", href: "/prayer-times" },
-  { label: "Live Adhan", href: "/live-adhan" },
-  { label: "Qibla Direction", href: "/qibla" },
-  { label: "Hijri Calendar", href: "/hijri" },
-  { label: "Miracles", href: "/miracles" },
-  { label: "Donate", href: "/donate" },
-  { label: "Why Islam?", href: "/why-islam" },
+import {
+  Home, Clock, BookOpen, FileText, Calendar, Compass,
+  Hand, User, BookHeart, GraduationCap, Scroll,
+} from 'lucide-react';
+
+
+//  Main navigation links (header, sidebar, etc.) 
+export const MenuLinks = [
+  { href: '/', label: 'Home', icon: Home },
+  { href: '/prayer', label: 'Prayer Times', icon: Clock },
+  { href: '/quran', label: 'Quran', icon: BookOpen },
+  { href: '/hadith', label: 'Hadith', icon: FileText },
+  { href: '/calendar', label: 'Islamic Calendar', icon: Calendar },
+  { href: '/qibla', label: 'Qibla Finder', icon: Compass },
+  { href: '/dhikr', label: 'Dhikr Counter', icon: Hand },
+  { href: '/supplications', label: 'Supplications', icon: BookHeart },
+  { href: '/guides', label: 'Guides & Learning', icon: GraduationCap },
+  { href: '/history', label: 'Islamic History', icon: Scroll },
+  { href: '/profile', label: 'Profile', icon: User },
 ];
+
 
 /**
  * Learn section for Islamic education

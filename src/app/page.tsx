@@ -4,7 +4,7 @@ import { requestNotificationPermission } from "@/lib/notification/permissions";
 
 const HomePage = () => {
   return (
-    <div>
+    <div className="container-lg">
       <p className="mt-8">fonts testing</p>
 
       <div className="mt-2 space-y-4">
