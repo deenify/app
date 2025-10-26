@@ -10,9 +10,9 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        heading: ["var(--font-poppins)", "sans-serif"], // heading
-        body: ["var(--font-noto)", "sans-serif"],       // description 
-        arabic: ["var(--font-noto-arabic)", "serif"], // Arabic
+        heading: ["var(--font-poppins)", "sans-serif"],
+        body: ["var(--font-noto)", "sans-serif"],
+        arabic: ["var(--font-noto-arabic)", "serif"],
       },
       screens: {
         xs: "480px",
@@ -24,17 +24,69 @@ const config: Config = {
       },
       colors: {
         primary: {
-          10: "oklch(var(--color-emerald-50))",
-          20: "oklch(var(--color-emerald-100))",
-          30: "oklch(var(--color-emerald-200))",
-          40: "oklch(var(--color-emerald-300))",
-          50: "oklch(var(--color-emerald-400))",
-          60: "oklch(var(--color-emerald-500))",
-          70: "oklch(var(--color-emerald-600))",
-          80: "oklch(var(--color-emerald-700))",
-          90: "oklch(var(--color-emerald-800))",
-          100: "oklch(var(--color-emerald-900))",
-          DEFAULT: "oklch(var(--color-emerald-600))",
+          50: "oklch(var(--color-emerald-50))",
+          100: "oklch(var(--color-emerald-100))",
+          200: "oklch(var(--color-emerald-200))",
+          300: "oklch(var(--color-emerald-300))",
+          400: "oklch(var(--color-emerald-400))",
+          500: "oklch(var(--color-emerald-500))",
+          600: "oklch(var(--color-emerald-600))",
+          700: "oklch(var(--color-emerald-700))",
+          800: "oklch(var(--color-emerald-800))",
+          900: "oklch(var(--color-emerald-900))",
+          DEFAULT: "oklch(var(--color-emerald-500))",
+        },
+        red: {
+          50: "oklch(var(--color-red-50))",
+          100: "oklch(var(--color-red-100))",
+          200: "oklch(var(--color-red-200))",
+          300: "oklch(var(--color-red-300))",
+          400: "oklch(var(--color-red-400))",
+          500: "oklch(var(--color-red-500))",
+          600: "oklch(var(--color-red-600))",
+          700: "oklch(var(--color-red-700))",
+          800: "oklch(var(--color-red-800))",
+          900: "oklch(var(--color-red-900))",
+          DEFAULT: "oklch(var(--color-red-500))",
+        },
+        amber: {
+          50: "oklch(var(--color-amber-50))",
+          100: "oklch(var(--color-amber-100))",
+          200: "oklch(var(--color-amber-200))",
+          300: "oklch(var(--color-amber-300))",
+          400: "oklch(var(--color-amber-400))",
+          500: "oklch(var(--color-amber-500))",
+          600: "oklch(var(--color-amber-600))",
+          700: "oklch(var(--color-amber-700))",
+          800: "oklch(var(--color-amber-800))",
+          900: "oklch(var(--color-amber-900))",
+          DEFAULT: "oklch(var(--color-amber-500))",
+        },
+        purple: {
+          50: "oklch(var(--color-purple-50))",
+          100: "oklch(var(--color-purple-100))",
+          200: "oklch(var(--color-purple-200))",
+          300: "oklch(var(--color-purple-300))",
+          400: "oklch(var(--color-purple-400))",
+          500: "oklch(var(--color-purple-500))",
+          600: "oklch(var(--color-purple-600))",
+          700: "oklch(var(--color-purple-700))",
+          800: "oklch(var(--color-purple-800))",
+          900: "oklch(var(--color-purple-900))",
+          DEFAULT: "oklch(var(--color-purple-500))",
+        },
+        blue: {
+          50: "oklch(var(--color-blue-50))",
+          100: "oklch(var(--color-blue-100))",
+          200: "oklch(var(--color-blue-200))",
+          300: "oklch(var(--color-blue-300))",
+          400: "oklch(var(--color-blue-400))",
+          500: "oklch(var(--color-blue-500))",
+          600: "oklch(var(--color-blue-600))",
+          700: "oklch(var(--color-blue-700))",
+          800: "oklch(var(--color-blue-800))",
+          900: "oklch(var(--color-blue-900))",
+          DEFAULT: "oklch(var(--color-blue-500))",
         },
       },
       backgroundImage: {
@@ -54,25 +106,58 @@ const config: Config = {
   },
 
   plugins: [
-    plugin(function ({ addUtilities }) {
-      const fontUtilities = {
-        ".font-12-400": {
-          fontSize: "12px",
-          fontWeight: "500",
-          fontFamily: "var(--font-syne)",
-          lineHeight: "110%",
+    // === Typography Utilities ===
+    plugin(function ({ addUtilities, addBase }) {
+      const textUtilities = {
+        /* === Headings (start from h2/h3) === */
+        ".heading-2": {
+          fontSize: "24px",
+          fontWeight: "600",
+          fontFamily: "var(--font-poppins)",
+          lineHeight: "130%",
         },
-        ".font-12-500": {
-          fontSize: "12px",
+        ".heading-3": {
+          fontSize: "20px",
+          fontWeight: "600",
+          fontFamily: "var(--font-poppins)",
+          lineHeight: "125%",
+        },
+
+        /* === Body Text === */
+        ".body-text-1": {
+          fontSize: "16px",
+          fontWeight: "400",
+          fontFamily: "var(--font-noto)",
+          lineHeight: "150%",
+        },
+        ".body-text-2": {
+          fontSize: "14px",
+          fontWeight: "400",
+          fontFamily: "var(--font-noto)",
+          lineHeight: "145%",
+        },
+
+        /* === Arabic Text === */
+        ".arabic-text-1": {
+          fontSize: "20px",
           fontWeight: "500",
-          fontFamily: "var(--font-raleway)",
-          lineHeight: "110%",
+          fontFamily: "var(--font-noto-arabic)",
+          lineHeight: "180%",
+          direction: "rtl",
+        },
+        ".arabic-text-2": {
+          fontSize: "16px",
+          fontWeight: "400",
+          fontFamily: "var(--font-noto-arabic)",
+          lineHeight: "170%",
+          direction: "rtl",
         },
       };
 
-      addUtilities(fontUtilities);
+      addUtilities(textUtilities);
     }),
   ],
+
 };
 
 export default config;
