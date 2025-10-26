@@ -1,21 +1,25 @@
-import { Raleway, Syne } from "next/font/google";
+import { Noto_Sans, Noto_Sans_Arabic, Poppins } from "next/font/google";
 
-export const SyneFont = Syne({
+// heading
+export const poppins = Poppins({
   subsets: ["latin"],
-  variable: "--font-syne",
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
   display: "swap",
-  weight: ["400", "500", "600", "700", "800"],
-  style: ["normal"],
-  fallback: ["sans-serif"],
-  preload: true,
+  variable: "--font-poppins",
 });
 
-export const RalewayFont = Raleway({
-  subsets: ["latin"],
-  variable: "--font-raleway",
-  display: "swap",
+// description 
+export const notoSans = Noto_Sans({
+  subsets: ["latin", "latin-ext", "devanagari", "cyrillic", "greek", "vietnamese"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-  style: ["normal"],
-  fallback: ["sans-serif"],
-  preload: true,
+  display: "swap",
+  variable: "--font-noto",
+});
+
+// arabic 
+export const notoSansArabic = Noto_Sans_Arabic({
+  subsets: ["arabic"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  display: "swap",
+  variable: "--font-noto-arabic",
 });
