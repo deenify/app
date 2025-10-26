@@ -10,8 +10,9 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        syne: "--font-syne",
-        Raleway: "--font-raleway",
+        heading: ["var(--font-poppins)", "sans-serif"], // heading
+        body: ["var(--font-noto)", "sans-serif"],       // description 
+        arabic: ["var(--font-noto-arabic)", "serif"], // Arabic
       },
       screens: {
         xs: "480px",
@@ -20,6 +21,21 @@ const config: Config = {
         lg: "991px",
         xl: "1170px",
         "2xl": "1280px",
+      },
+      colors: {
+        primary: {
+          10: "oklch(var(--color-emerald-50))",
+          20: "oklch(var(--color-emerald-100))",
+          30: "oklch(var(--color-emerald-200))",
+          40: "oklch(var(--color-emerald-300))",
+          50: "oklch(var(--color-emerald-400))",
+          60: "oklch(var(--color-emerald-500))",
+          70: "oklch(var(--color-emerald-600))",
+          80: "oklch(var(--color-emerald-700))",
+          90: "oklch(var(--color-emerald-800))",
+          100: "oklch(var(--color-emerald-900))",
+          DEFAULT: "oklch(var(--color-emerald-600))",
+        },
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
@@ -33,21 +49,6 @@ const config: Config = {
         lg: "10px",
         xl: "12px",
         full: "100%",
-      },
-      colors: {
-        primary: {
-          default: "#4345",
-          10: "#262626",
-          20: "#262626",
-          30: "#262626",
-          40: "#262626",
-          50: "#262626",
-          60: "#262626",
-          70: "#262626",
-          80: "#262626",
-          90: "#262626",
-          100: "#262626",
-        },
       },
     },
   },
