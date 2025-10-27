@@ -59,7 +59,7 @@ const Sidebar: React.FC<SidebarProptype> = ({ isSidbarExpanded, setIsSidbarExpan
                                                 href={item.href}
                                                 variant='faded'
                                                 className={cn(
-                                                    "w-full justify-start transition-colors font-heading text-sm font-normal",
+                                                    "w-full justify-start items-center transition-colors",
                                                     isActive
                                                         ? "bg-primary-50 hover:bg-primary-50 text-primary-900"
                                                         : "text-gray-700 hover:bg-gray-100 bg-transparent"
@@ -67,8 +67,8 @@ const Sidebar: React.FC<SidebarProptype> = ({ isSidbarExpanded, setIsSidbarExpan
                                                 rippleClassName='bg-primary-200'
                                                 rippleGoesFast
                                             >
-                                                <Icon className={cn("h-5 w-5", isActive ? "text-emerald-600" : "text-gray-500")} />
-                                                <span>{item.label}</span>
+                                                <Icon size={18} className={cn("leading-none", isActive ? "text-emerald-600" : "text-gray-500")} />
+                                                <span className='font-heading text-xs font-normal leading-none'>{item.label}</span>
                                             </Button>
                                         </li>
                                     );
