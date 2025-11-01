@@ -5,11 +5,6 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 
 const buttonVariants = tv({
-  base: cn(
-    "relative inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium outline-none",
-    "ease duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring !transition-all",
-    "focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 overflow-hidden px-[30px]"
-  ),
   variants: {
     variant: {
       default: "bg-primary-900 text-primary-foreground hover:bg-primary/90",
@@ -86,7 +81,10 @@ export const Button = <C extends React.ElementType = "button">({
   return (
     <Component
       className={cn(
-        "active:scale-95 transition-transform duration-150 ease-out relative overflow-hidden",
+        "active:scale-95 transition-transform duration-200 ease-out relative overflow-hidden",
+        "relative inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium outline-none",
+        "ease duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring !transition-all",
+        "focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 overflow-hidden px-[30px]",
         buttonVariants({ variant, size, className }),
       )}
       onMouseDown={props.onMouseDown}
