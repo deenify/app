@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-const siteTitle = "Deenify App";
+const siteTitle = "Deenify";
 const siteUrl = "https://deenify.com";
 const description = `Your daily Islamic lifestyle app — Quran, Hadith, Adhan, Qibla, and more. 
 Quran, Prayer Times, Qibla Direction, and more — all in one Deenify Islamic app.`;
