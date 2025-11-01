@@ -20,10 +20,10 @@ const LayoutWrapper = ({ children }: LayoutWrapperProptype) => {
             />
             <div className='flex-1 overflow-x-hidden overflow-y-auto scrollbar-thin pl-[250px]'>
                 <Header />
-                <div className='pt-[70px]'>
-                    <>{children}</>
+                <div className='pt-[70px] container-lg'>
+                    {children}
+                    <Footer />
                 </div>
-                <Footer />
             </div>
         </div>
     )

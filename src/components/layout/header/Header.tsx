@@ -23,9 +23,9 @@ const Header: React.FC<HeaderProps> = ({ userPreferences, onToggleSidebar }) => 
 
     const getGreeting = (username?: string) => {
         const hour = new Date().getHours()
-        if (hour < 12) return `Good Morning, ${username ?? "User"}`
-        if (hour < 18) return `Good Afternoon, ${username ?? "User"}`
-        return `Good Evening, ${username ?? "User"}`
+        if (hour < 12) return `Good Morning, ${username ?? "Guest"}`
+        if (hour < 18) return `Good Afternoon, ${username ?? "Guest"}`
+        return `Good Evening, ${username ?? "Guest"}`
     }
 
     const languages = [
@@ -41,9 +41,8 @@ const Header: React.FC<HeaderProps> = ({ userPreferences, onToggleSidebar }) => 
     const currentLang = languages.find((l) => l.code === selectedLang)
 
     return (
-        <header className="w-full border-b border-gray-200 bg-white">
-            <div className="flex items-center justify-between px-4 h-[70px] w-full">
-                {/* Greeting + Hamburger */}
+        <header className="w-full relative">
+            <div className="flex items-center justify-between px-4 h-[70px] w-full absolute inset-x-0 top-0 bg-white border-b border-gray-200 z-40">
                 <div className="flex items-center gap-3 min-w-0">
                     <Button
                         variant="ghost"
@@ -54,32 +53,32 @@ const Header: React.FC<HeaderProps> = ({ userPreferences, onToggleSidebar }) => 
                         <Menu className="h-5 w-5 text-gray-600" />
                     </Button>
 
-                    <div className="flex flex-col">
-                        <h4 className="text-gray-900 text-sm sm:text-base font-medium truncate">
+                    <div className="flex flex-col font-system font-normal">
+                        <h4 className="text-gray-900 text-sm sm:text-base truncate">
                             {getGreeting(userPreferences?.name)}
                         </h4>
-                        <p className="text-gray-500 text-xs sm:text-sm font-light truncate">
+                        <p className="text-gray-500 text-xs sm:text-sm truncate">
                             Assalamu Alaikum wa Rahmatullahi wa Barakatuh
                         </p>
                     </div>
                 </div>
 
                 <div className="flex items-center gap-2">
-                    {/* Search */}
-                    <div className="hidden md:flex relative">
-                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                    <div>
                         <Input
                             placeholder="Search..."
-                            className="pl-10 w-64 h-9 placeholder:text-sm"
+                            className="w-full h-9 max-w-[250px]"
+                            showSearchIcon
                         />
                     </div>
 
-                    {/* Language Dropdown */}
                     <DropdownMenu>
                         <DropdownMenuTrigger className="border-none outline-none w-[100px]">
-                            <Button variant="ghost" size="sm" className="gap-2 w-full h-9 justify-start" asChild>
+                            <Button variant="ghost" size="sm" className="gap-2 w-full h-9 justify-start border border-gray-300" asChild>
                                 <Globe size={18} className="text-gray-600 flex-shrink-0" />
-                                <span className="hidden sm:inline text-gray-600 truncate min-w-0 text-sm leading-none flex-1 text-left">{currentLang?.code}</span>
+                                <span className="hidden sm:inline text-gray-600 truncate min-w-0 text-xs leading-none flex-1 text-left uppercase">
+                                    {currentLang?.code}
+                                </span>
                                 <ChevronDown className="h-4 w-4 text-gray-600 flex-shrink-0" />
                             </Button>
                         </DropdownMenuTrigger>
@@ -107,21 +106,24 @@ const Header: React.FC<HeaderProps> = ({ userPreferences, onToggleSidebar }) => 
                         </DropdownMenuContent>
                     </DropdownMenu>
 
-                    {/* Notifications */}
-                    <Button variant="ghost" size="icon" className="relative w-9 h-9">
-                        <Bell className="h-5 w-5 text-gray-600" />
-                        <span className="absolute top-1 right-1 h-2 w-2 bg-red-500 rounded-full"></span>
+                    <Button variant="ghost" size="icon" className="w-9 h-9">
+                        <div className="w-max h-max relative">
+                            <Bell className="h-5 w-5 text-gray-600" />
+                            <span
+                                className="absolute top-0 right-0 h-2 w-2 bg-red-500 rounded-full"
+                                style={{ transform: "translateY(-55%) translateX(47%)" }}
+                            />
+                        </div>
                     </Button>
 
-                    {/* Profile */}
                     <Avatar className="w-[36px] h-[36px] cursor-pointer">
                         <AvatarFallback className="bg-emerald-600 text-white">
                             {userPreferences?.name?.charAt(0)?.toUpperCase() || 'U'}
                         </AvatarFallback>
                     </Avatar>
                 </div>
-            </div>
-        </header>
+            </div >
+        </header >
     )
 }
 
