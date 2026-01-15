@@ -1,5 +1,4 @@
-import type { Config } from "tailwindcss";
-import plugin from "tailwindcss/plugin";
+import type { Config } from "tailwindcss"; 
 
 const config: Config = {
   darkMode: ["class"],
@@ -10,12 +9,15 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      fontFamily: {
-        heading: ["var(--font-poppins)", "sans-serif"],
-        body: ["var(--font-noto)", "sans-serif"],
-        arabic: ["var(--font-noto-arabic)", "serif"],
-        system: ["system-ui", "sans-serif"],
+
+      // Font Family - Exact match to Figma Make
+      fontFamily: {  
+        heading: ["var(--font-heading)", "ui-sans-serif", "system-ui", "sans-serif"],
+        body: ["var(--font-noto)", "ui-sans-serif", "system-ui", "sans-serif"],
+        arabic: ["var(--font-noto-arabic)", "serif"], 
       },
+
+      // Screens
       screens: {
         xs: "480px",
         sm: "640px",
@@ -24,8 +26,10 @@ const config: Config = {
         xl: "1170px",
         "2xl": "1280px",
       },
-      colors: {
-        primary: {
+
+      // Colors
+      colors: { 
+        emerald: {
           "50": "var(--color-emerald-50)",
           "100": "var(--color-emerald-100)",
           "200": "var(--color-emerald-200)",
@@ -36,8 +40,7 @@ const config: Config = {
           "700": "var(--color-emerald-700)",
           "800": "var(--color-emerald-800)",
           "900": "var(--color-emerald-900)",
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
+          DEFAULT: "var(--color-emerald-500)",
         },
         red: {
           "50": "var(--color-red-50)",
@@ -92,6 +95,7 @@ const config: Config = {
           DEFAULT: "var(--color-blue-500)",
         },
 
+        // Radix UI / shadcn colors - Required for Radix UI components
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {
@@ -120,7 +124,8 @@ const config: Config = {
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
+        "input-background": "hsl(var(--input-background))",
+        ring: "hsl(var(--ring))",  
         chart: {
           "1": "hsl(var(--chart-1))",
           "2": "hsl(var(--chart-2))",
@@ -129,75 +134,27 @@ const config: Config = {
           "5": "hsl(var(--chart-5))",
         },
       },
+
+      // Background Images
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
-      borderRadius: {
-        xs: "4px",
-        sm: "calc(var(--radius) - 4px)",
-        md: "calc(var(--radius) - 2px)",
-        lg: "var(--radius)",
-        xl: "12px",
-        full: "100%",
+
+      // Border Radius - Exact match to Figma Make
+      borderRadius: { 
+        sm: "4px",
+        md: "8px",
+        lg: "12px",
+        xl: "16px",
+        full: "999px",
       },
+
     },
   },
 
-  plugins: [
-    // === Typography Utilities ===
-    plugin(function ({ addUtilities, addBase }) {
-      const textUtilities = {
-        /* === Headings (start from h2/h3) === */
-        ".heading-2": {
-          fontSize: "24px",
-          fontWeight: "600",
-          fontFamily: "var(--font-poppins)",
-          lineHeight: "130%",
-        },
-        ".heading-3": {
-          fontSize: "20px",
-          fontWeight: "600",
-          fontFamily: "var(--font-poppins)",
-          lineHeight: "125%",
-        },
-
-        /* === Body Text === */
-        ".body-text-1": {
-          fontSize: "16px",
-          fontWeight: "400",
-          fontFamily: "var(--font-noto)",
-          lineHeight: "150%",
-        },
-        ".body-text-2": {
-          fontSize: "14px",
-          fontWeight: "400",
-          fontFamily: "var(--font-noto)",
-          lineHeight: "145%",
-        },
-
-        /* === Arabic Text === */
-        ".arabic-text-1": {
-          fontSize: "20px",
-          fontWeight: "500",
-          fontFamily: "var(--font-noto-arabic)",
-          lineHeight: "180%",
-          direction: "rtl",
-        },
-        ".arabic-text-2": {
-          fontSize: "16px",
-          fontWeight: "400",
-          fontFamily: "var(--font-noto-arabic)",
-          lineHeight: "170%",
-          direction: "rtl",
-        },
-      };
-
-      addUtilities(textUtilities);
-    }),
-    require("tailwindcss-animate"),
-  ],
+  plugins: [require("tailwindcss-animate")],
 };
 
 export default config;

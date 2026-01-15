@@ -9,11 +9,11 @@ const HomePage = () => {
 
       <div className="space-y-4">
         <h1 className="font-heading text-3xl">Deenify Dashboard</h1>
-        <p className="font-body text-base">
+        <p className="text-base text-emerald-500">
           Welcome to your daily Islamic companion.
         </p>
-        <p className="font-arabic text-2xl">
-          بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+        <p className="font-mono text-2xl">
+          بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ 
         </p>
       </div>
     </div>

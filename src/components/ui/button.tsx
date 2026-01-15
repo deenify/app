@@ -7,24 +7,47 @@ import Link from "next/link";
 const buttonVariants = tv({
   variants: {
     variant: {
-      default: "bg-primary-900 text-primary-foreground hover:bg-primary/90",
-      destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-      outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
-      secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-      ghost: "hover:bg-accent hover:text-accent-foreground bg-transparent",
-      link: "text-primary underline-offset-4 hover:underline bg-transparent shadow-none",
-      faded: "text-gray-700 hover:bg-gray-100"
+      // Default variants
+      default: "bg-emerald-600 text-white hover:bg-emerald-700",
+      "default-red": "bg-red-600 text-white hover:bg-red-700",
+      "default-blue": "bg-blue-600 text-white hover:bg-blue-700",
+      "default-purple": "bg-purple-600 text-white hover:bg-purple-700",
+
+      // Outline variants
+      outline: "border border-gray-300 bg-white text-gray-900 hover:bg-gray-50",
+      "outline-emerald": "border border-emerald-600 text-emerald-700 hover:bg-emerald-50",
+      "outline-red": "border border-red-600 text-red-700 hover:bg-red-50",
+      "outline-blue": "border border-blue-600 text-blue-700 hover:bg-blue-50",
+      "outline-purple": "border border-purple-600 text-purple-700 hover:bg-purple-50",
+
+      // Ghost variants
+      ghost: "hover:bg-gray-100 hover:text-gray-900 bg-transparent",
+      "ghost-emerald": "hover:bg-emerald-50 hover:text-emerald-900 bg-transparent",
+      "ghost-red": "hover:bg-red-50 hover:text-red-900 bg-transparent",
+      "ghost-blue": "hover:bg-blue-50 hover:text-blue-900 bg-transparent",
+      "ghost-purple": "hover:bg-purple-50 hover:text-purple-900 bg-transparent",
+
+      // Link variants
+      link: "text-emerald-600 underline-offset-4 hover:underline bg-transparent shadow-none",
+      "link-red": "text-red-600 underline-offset-4 hover:underline bg-transparent shadow-none",
+      "link-blue": "text-blue-600 underline-offset-4 hover:underline bg-transparent shadow-none",
+
+      // Destructive / Secondary / Transparent
+      destructive: "bg-red-600 text-white hover:bg-red-700",
+      secondary: "bg-gray-100 text-gray-900 hover:bg-gray-200",
+      transparent: "bg-transparent text-gray-700 hover:bg-gray-50/50",
     },
     size: {
-      sm: "h-8 px-3 text-sm",
-      default: "h-10 px-5 text-base",
-      lg: "h-12 px-6 text-lg",
+      sm: "h-[36px] px-3 text-sm",
+      md: "h-10 px-5 text-sm",
+      lg: "h-12 px-6 text-base",
       icon: "h-10 w-10 p-0 text-base",
+      max: "w-max h-max"
     },
   },
   defaultVariants: {
     variant: "default",
-    size: "default",
+    size: "md",
   },
 });
 
@@ -37,6 +60,7 @@ export interface ButtonProps<C extends React.ElementType = "button">
   component?: C;
   rippleClassName?: string
   rippleGoesFast?: boolean
+  showRipple?: boolean
 }
 
 interface Ripple {
@@ -55,12 +79,13 @@ export const Button = <C extends React.ElementType = "button">({
   children,
   rippleClassName,
   rippleGoesFast = false,
+  showRipple = false,
   ...props
 }: ButtonProps<C> & Omit<React.ComponentPropsWithoutRef<C>, keyof ButtonProps<C>>) => {
   const [ripples, setRipples] = React.useState<Ripple[]>([]);
   const rippleKey = React.useRef(0);
 
-  const Component: React.ElementType = href ? Link : component ?? (asChild ? "span" : "button");
+  const Component: React.ElementType = href ? Link : component ?? (asChild ? "div" : "button");
 
   const handleMouseUp = (e: React.MouseEvent) => {
     if (props.onMouseUp) props.onMouseUp(e);
@@ -73,15 +98,13 @@ export const Button = <C extends React.ElementType = "button">({
     setRipples((prev) => [...prev, { x, y, key }]);
 
     // remove ripple after animation
-    setTimeout(() => {
-      setRipples((prev) => prev.filter((r) => r.key !== key));
-    }, 500);
+    setTimeout(() => setRipples((prev) => prev.filter((r) => r.key !== key)), 500);
   };
 
   return (
     <Component
       className={cn(
-        "active:scale-95 transition-transform duration-200 ease-out relative overflow-hidden",
+        "relative overflow-hidden cursor-pointer",
         "relative inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium outline-none",
         "ease duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring !transition-all",
         "focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 overflow-hidden px-[30px]",
@@ -94,7 +117,7 @@ export const Button = <C extends React.ElementType = "button">({
     >
       {children}
 
-      {ripples.map((ripple) => (
+      {showRipple && ripples.map((ripple) => (
         <span
           key={ripple.key}
           className={cn(

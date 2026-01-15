@@ -1,27 +1,42 @@
 "use client"
 import React, { ReactNode, useState } from 'react'
-import Sidebar from './sidebar/Sidebar'
+import { Sidebar } from './sidebar/Sidebar'
 import Footer from './footer/Footer'
-import { usePathname } from 'next/navigation'
 import Header from './header/Header'
+import { cn } from '@/lib/utils'
+import { useBreakpoint } from '@/hooks/useBreakpoint'
 
 interface LayoutWrapperProptype { readonly children: ReactNode }
 
-const LayoutWrapper = ({ children }: LayoutWrapperProptype) => {
-    const [isSidbarExpanded, setIsSidbarExpanded] = useState(false)
-    const pathName = usePathname()
+const LayoutWrapper = ({ children }: LayoutWrapperProptype) => { 
+    const [sidebarExpanded, setSidebarExpanded] = useState(false)
+    const [isLocked, setIsLocked] = useState(false)
+
+    const isMobile = useBreakpoint('lg', 'down')
 
     return (
         <div className='flex w-dvh h-dvh'>
-            <Sidebar
-                isSidbarExpanded={isSidbarExpanded}
-                setIsSidbarExpanded={setIsSidbarExpanded}
-                currentPage={pathName}
+            <Sidebar 
+                isMobile={isMobile}
+                isLocked={isLocked}
+                setIsLocked={setIsLocked}
+                sidebarExpanded={sidebarExpanded}
+                setSidebarExpanded={setSidebarExpanded}
             />
-            <div className='flex-1 overflow-x-hidden overflow-y-auto scrollbar-thin pl-[250px]'>
-                <Header />
-                <div className='pt-[70px] container-lg'>
-                    {children}
+
+            <div
+                className={cn("flex flex-col flex-1 overflow-hidden ease duration-300",
+                    !isMobile ? !isLocked ? "pl-[76px]" : "pl-[280px]" : null,
+                    isMobile && "pl-[76px]",
+                )}
+            >
+                <Header
+                    onToggleSidebar={() => setSidebarExpanded(!sidebarExpanded)}
+                />
+                <div className='flex-1 overflow-y-auto scrollbar-content'>
+                    <div className='h-[2000px]'>
+                        {children}
+                    </div>
                     <Footer />
                 </div>
             </div>

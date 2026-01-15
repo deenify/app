@@ -1,133 +1,223 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import { MenuLinks } from "@/config/links";
-import { cn } from "@/lib/utils";
-import { BookOpen, ChevronLeft, Moon, Sun, X } from "lucide-react";
+'use client';
 
-interface SidebarProptype {
-    isSidbarExpanded: boolean;
-    setIsSidbarExpanded: (v: boolean) => void;
-    className?: string;
-    currentPage: string;
+import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { ChevronLeft, BookOpen } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { sidebarSections } from './content';
+import Logo from '@/components/shared/Logo';
+
+interface SidebarPropTypes {
+    isLocked: boolean;
+    sidebarExpanded: boolean,
+    setSidebarExpanded: (v: boolean) => void
+    setIsLocked: (v: boolean) => void;
+    isMobile: boolean;
 }
 
-const Sidebar: React.FC<SidebarProptype> = ({
-    isSidbarExpanded,
-    setIsSidbarExpanded,
-    className,
-    currentPage,
-}) => {
+export function Sidebar(
+    {
+        sidebarExpanded,
+        setSidebarExpanded,
+        isLocked,
+        setIsLocked,
+        isMobile,
+    }: SidebarPropTypes
+) {
+    const pathname = usePathname();
+    const [showScrollbar, setShowScrollbar] = useState(false);
+
+    // Show scrollbar after expansion transition
+    useEffect(() => {
+        if (sidebarExpanded) {
+            const timer = setTimeout(() => {
+                setShowScrollbar(true);
+            }, 180); // Match transition duration
+            return () => clearTimeout(timer);
+        } else {
+            setShowScrollbar(false);
+        }
+    }, [sidebarExpanded]);
+
+    useEffect(() => {
+        if (isMobile) {
+            setSidebarExpanded(false);
+        }
+        else {
+            setSidebarExpanded(true);
+            setIsLocked(true);
+        }
+    }, [isMobile, setSidebarExpanded, setIsLocked]);
+
+
     return (
         <>
+            {/* Mobile-Backdrop when sidebar expanded */}
+            {isMobile && (
+                <div
+                    className={cn(
+                        "fixed inset-0 z-50 transition-opacity duration-300 ease-in-out",
+                        sidebarExpanded ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+                    )}
+                    onClick={() => setSidebarExpanded(false)}
+                />
+            )}
+
             <aside
+                onMouseEnter={() => {
+                    if (!isLocked && !isMobile) setSidebarExpanded(true);
+                }}
+                onMouseLeave={() => {
+                    if (!isLocked && !isMobile) setSidebarExpanded(false);
+                }}
                 className={cn(
-                    "fixed inset-y-0 left-0 z-50 bg-white border-r border-gray-200 transform transition-all duration-300 ease-in-out w-[250px]",
-                    // mobile-version-condition ? "translate-x-0" : "-translate-x-full lg:translate-x-0",
-                    className
-                )}
-            >
-                <div className="flex flex-col h-full relative">
-                    <main className="relative flex items-center h-[70px] px-6 border-b border-gray-200">
-                        <button
-                            onClick={() => setIsSidbarExpanded(!isSidbarExpanded)}
-                            className="hidden lg:flex absolute right-0 bottom-0 w-6 h-6 border rounded-full items-center hover:scale-110 ease duration-200
-                            justify-center bg-white hover:bg-emerald-50 hover:border-emerald-300 z-10 shadow-sm translate-y-1/2 translate-x-1/2"
-                            aria-label={
-                                isSidbarExpanded ? "Expand sidebar" : "Collapse sidebar"
+                    "bg-white border-r border-gray-200 flex flex-col fixed left-0 top-0 h-full min-h-dvh z-[51]",
+                    "transition-[width] duration-300 ease-in-out will-change-[width]",
+                    sidebarExpanded ? 'w-[280px]' : isMobile ? "w-[76px]" : "w-[76px]",
+                )}>
+
+                {/* Header - Logo */}
+                <header className="border-b border-gray-200 flex items-center px-4 h-[73px] w-full justify-center relative">
+                    {/* Logo and Title */}
+                    <div className="flex-shrink-0">
+                        <Logo className="w-11 h-11" />
+                    </div>
+                    <div className={cn(
+                        "flex-1 min-w-0 whitespace-nowrap overflow-hidden",
+                        !sidebarExpanded && "w-0"
+                    )}>
+                        <div className="pl-3">
+                            <h2 className="text-emerald-900 font-medium text-base leading-tight whitespace-nowrap">
+                                Deenify
+                            </h2>
+                            <p className="text-xs text-gray-500 leading-tight whitespace-nowrap">
+                                Your Islamic Companion
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* Collapse/Expand Toggler */}
+                    <button
+                        onClick={() => {
+                            if (!isLocked) {
+                                setIsLocked(true);
+                                setSidebarExpanded(true);
+                            } else {
+                                setIsLocked(false);
+                                setSidebarExpanded(false);
                             }
-                        >
-                            <ChevronLeft
-                                className={cn(
-                                    "h-4 w-4 text-gray-600 transition-transform duration-300",
-                                    isSidbarExpanded && "rotate-180"
-                                )}
-                            />
-                        </button>
-                        <div className="flex items-center space-x-3">
-                            <div className="w-10 h-10 bg-emerald-600 rounded-lg flex items-center justify-center">
-                                <BookOpen className="w-6 h-6 text-white" />
-                            </div>
-                            <div>
-                                <h2 className="text-emerald-900 text-base font-system">
-                                    Islamic Deenify
-                                </h2>
-                                <p className="text-xs text-gray-500 font-system">
-                                    Stay Connected
-                                </p>
-                            </div>
-                        </div>
-                    </main>
+                        }}
+                        className="absolute right-0 bottom-0 w-6 h-6 bg-white border border-gray-200 rounded-full flex items-center justify-center hover:bg-emerald-50 hover:border-emerald-300 transition-all duration-200 z-[60] shadow-md cursor-pointer translate-x-1/2 translate-y-1/2"
+                        aria-label={sidebarExpanded ? "Collapse sidebar" : "Expand sidebar"}
+                    >
+                        <ChevronLeft className={cn(
+                            "h-4 w-4 text-gray-600 transition-transform duration-300 rotate-180",
+                            isLocked && !isMobile && "rotate-0",
+                            isMobile && sidebarExpanded && "rotate-0"
+                        )} />
+                    </button>
+                </header>
 
-                    <header className="py-4 px-3 flex-1 overflow-y-auto scrollbar-thin">
-                        <nav className="w-full h-max">
-                            <ul className="flex flex-col gap-2">
-                                {MenuLinks.map((item, i) => {
-                                    const Icon = item.icon;
-                                    const isActive = currentPage === item.href;
-                                    return (
-                                        <li
-                                            key={i}
-                                            className="w-full h-max"
-                                        >
-                                            <Button
-                                                href={item.href}
-                                                variant="faded"
-                                                className={cn(
-                                                    "w-full justify-start items-center transition-colors border border-transparent rounded-lg",
-                                                    isActive
-                                                        ? "bg-primary-50 hover:bg-primary-50 text-primary-900 border-primary-300"
-                                                        : "text-gray-700 hover:bg-gray-100 bg-transparent"
-                                                )}
-                                                rippleClassName="bg-primary-200"
-                                                rippleGoesFast
-                                            >
-                                                <Icon
-                                                    size={18}
+                {/* Navigation container */}
+                <main className='w-full overflow-hidden flex flex-col flex-1'>
+                    {/* Navigation */}
+                    <nav className="flex-1 overflow-hidden flex py-4">
+                        <div className={cn(
+                            'overflow-y-auto flex-1 pl-3 pr-0',
+                            sidebarExpanded && showScrollbar
+                                ? "scrollbar-thin"
+                                : "scrollbar-hide"
+                        )}>
+                            {sidebarSections.map((section, idx) => (
+                                <div key={idx} className={cn(
+                                    idx !== sidebarSections.length - 1 && "mb-8"
+                                )}>
+                                    {/* Section Title */}
+                                    <div className={cn(
+                                        "overflow-hidden whitespace-nowrap mb-3 px-3 transition-opacity duration-300",
+                                        sidebarExpanded ? "opacity-100" : "opacity-0"
+                                    )}>
+                                        <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                                            {section.title}
+                                        </h3>
+                                    </div>
+
+                                    {/* Section Links */}
+                                    <div className="space-y-0.5 pr-3">
+                                        {section.items.map((item, idxx) => {
+                                            const Icon = item.icon;
+                                            const isActive = pathname === `/${item.href}` || pathname === item.href;
+
+                                            return (
+                                                <Link
+                                                    key={idxx}
+                                                    href={item.href}
                                                     className={cn(
-                                                        "leading-none",
-                                                        isActive ? "text-emerald-600" : "text-gray-500"
+                                                        "w-full flex items-center rounded-lg transition-colors duration-150 group relative truncate",
+                                                        "px-4 py-3 font-medium",
+                                                        isActive
+                                                            ? sidebarExpanded
+                                                                ? "bg-emerald-100 text-emerald-900 justify-start"
+                                                                : "bg-emerald-50 text-emerald-600 "
+                                                            : "text-gray-700 hover:bg-gray-50"
                                                     )}
-                                                />
-                                                <span className="font-heading text-xs font-normal leading-none">
-                                                    {item.label}
-                                                </span>
-                                            </Button>
-                                        </li>
-                                    );
-                                })}
-                            </ul>
-                        </nav>
-                    </header>
-
-                    <main className="py-4 px-3 border-t border-gray-200 flex flex-col gap-3">
-                        <Button variant="outline" size="sm" className="w-full">
-                            {true ? (
-                                <>
-                                    <Moon className="h-4 w-4" />
-                                    <span>Dark Mode</span>
-                                </>
-                            ) : (
-                                <>
-                                    <Sun className="h-4 w-4" />
-                                    <span>Light Mode</span>
-                                </>
-                            )}
-                        </Button>
-
-                        <div className="p-3 bg-emerald-50 rounded-lg">
-                            <p className="text-xs text-emerald-800 text-center">
-                                "Verily, in the remembrance of Allah do hearts find rest."
-                            </p>
-                            <p className="text-xs text-emerald-600 text-center mt-1">
-                                - Quran 13:28
-                            </p>
+                                                    onClick={() => {
+                                                        if (isMobile) {
+                                                            setSidebarExpanded(false);
+                                                        }
+                                                    }}
+                                                >
+                                                    <Icon className={cn(
+                                                        "flex-shrink-0 h-5 w-5",
+                                                        isActive
+                                                            ? "text-emerald-600"
+                                                            : "text-gray-500 group-hover:text-emerald-600",
+                                                    )} />
+                                                    <span className={cn(
+                                                        "whitespace-nowrap text-sm overflow-hidden truncate pl-3",
+                                                    )}>
+                                                        {item.label}
+                                                    </span>
+                                                </Link>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            ))}
                         </div>
-                    </main>
-                </div>
+                    </nav>
+
+                    {/* Footer */}
+                    <div className={cn(
+                        "border-t border-gray-200 flex-shrink-0 h-[120px]",
+                        sidebarExpanded ? "p-4" : "px-2 py-4"
+                    )}>
+                        {sidebarExpanded ? (
+                            <div className="bg-emerald-50 rounded-lg border border-emerald-100 w-full h-full p-3 flex flex-col justify-center">
+                                <p className="text-xs text-emerald-800 text-center leading-relaxed line-clamp-2">
+                                    "Verily, in the remembrance of Allah do hearts find rest."
+                                </p>
+                                <p className="text-xs text-emerald-600 text-center mt-1.5">- Quran 13:28</p>
+                            </div>
+                        ) : (
+                            <div className="w-full h-full flex flex-col justify-center items-center gap-3">
+                                <div className="w-12 h-12 bg-emerald-50 rounded-lg border border-emerald-100 flex items-center justify-center group cursor-pointer transition-all duration-200 hover:bg-emerald-100 hover:border-emerald-200 hover:scale-105" title="Quran 13:28">
+                                    <BookOpen className="h-6 w-6 text-emerald-600" />
+                                </div>
+                                <div className="flex flex-col items-center gap-1 opacity-60">
+                                    <div className="w-1 h-1 rounded-full bg-emerald-400"></div>
+                                    <div className="w-1 h-1 rounded-full bg-emerald-300"></div>
+                                    <div className="w-1 h-1 rounded-full bg-emerald-200"></div>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </main>
+
             </aside>
-            {/* {isSidbarExpanded && (<div className="fixed inset-0 bg-black/50 z-40 lg:hidden" />)} */}
         </>
-    );
-};
+    )
+}
 
 export default Sidebar;

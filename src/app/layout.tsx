@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
 import { cn } from "@/lib/utils/clsx";
 import { ReactNode } from "react";
-import { notoSans, notoSansArabic, poppins } from "@/config/fonts";
+import { notoSans, notoSansArabic, redHatText } from "@/config/fonts";
 import { defaultMeta } from "@/config/meta";
-import "@/assets/globals.css";
 import LayoutWrapper from "@/components/layout/LayoutWrapper";
-
-interface RootLayoutProptype { readonly children: ReactNode }
+import "@/assets/globals.css";
 
 export const metadata: Metadata = defaultMeta;
 export const viewport = {
@@ -17,11 +15,13 @@ export const viewport = {
   userScalable: false,
 };
 
+interface RootLayoutProptype { readonly children: ReactNode }
+
 export default function RootLayout({ children }: RootLayoutProptype) {
   return (
     <html
       lang="en"
-      className={cn(notoSans.variable, notoSansArabic.variable, poppins.variable)}
+      className={cn(notoSans.variable, notoSansArabic.variable, redHatText.variable)}
     >
       <body className={notoSans.className}>
         <LayoutWrapper>{children}</LayoutWrapper>
