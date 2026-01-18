@@ -58,6 +58,7 @@ export const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({
           asChild
           variant="ghost"
           className={cn("h-10 px-2 gap-2 min-w-[60px] justify-start", className)}
+          shouldScale
         >
           <Avatar className="h-9 w-9 flex-shrink-0">
             <AvatarFallback className="bg-emerald-600 text-white text-sm font-semibold">

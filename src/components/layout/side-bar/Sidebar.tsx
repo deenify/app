@@ -3,10 +3,9 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ChevronLeft, BookOpen } from 'lucide-react';
+import { ChevronLeft, BookOpen, Moon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { sidebarSections } from './content';
-import Logo from '@/components/shared/Logo';
 
 interface SidebarPropTypes {
     isLocked: boolean;
@@ -16,7 +15,7 @@ interface SidebarPropTypes {
     isMobile: boolean;
 }
 
-export function Sidebar(
+const Sidebar = (
     {
         sidebarExpanded,
         setSidebarExpanded,
@@ -24,7 +23,7 @@ export function Sidebar(
         setIsLocked,
         isMobile,
     }: SidebarPropTypes
-) {
+) => {
     const pathname = usePathname();
     const [showScrollbar, setShowScrollbar] = useState(false);
 
@@ -57,7 +56,7 @@ export function Sidebar(
             {isMobile && (
                 <div
                     className={cn(
-                        "fixed inset-0 z-50 transition-opacity duration-300 ease-in-out",
+                        "fixed inset-0 z-50 transition-opacity duration-300 ease-in-out bg-black/30 backdrop-blur-[2px]",
                         sidebarExpanded ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
                     )}
                     onClick={() => setSidebarExpanded(false)}
@@ -72,16 +71,26 @@ export function Sidebar(
                     if (!isLocked && !isMobile) setSidebarExpanded(false);
                 }}
                 className={cn(
-                    "bg-white border-r border-gray-200 flex flex-col fixed left-0 top-0 h-full min-h-dvh z-[51]",
-                    "transition-[width] duration-300 ease-in-out will-change-[width]",
-                    sidebarExpanded ? 'w-[280px]' : isMobile ? "w-[76px]" : "w-[76px]",
+                    "bg-white border-r border-layout-separator flex flex-col fixed left-0 top-0 h-full min-h-dvh z-[51]",
+                    isMobile
+                        ? "w-[280px] transition-transform duration-300 ease-in-out will-change-transform"
+                        : "transition-[width] duration-300 ease-in-out will-change-[width]",
+                    isMobile
+                        ? sidebarExpanded
+                            ? "translate-x-0"
+                            : "-translate-x-full"
+                        : sidebarExpanded
+                            ? "w-[280px]"
+                            : "w-[76px]",
                 )}>
 
                 {/* Header - Logo */}
-                <header className="border-b border-gray-200 flex items-center px-4 h-[73px] w-full justify-center relative">
+                <header className="border-b border-layout-separator flex items-center px-4 h-[73px] w-full justify-center relative">
                     {/* Logo and Title */}
                     <div className="flex-shrink-0">
-                        <Logo className="w-11 h-11" />
+                        <div className="w-11 h-11 bg-emerald-600 rounded-xl flex items-center justify-center">
+                            <Moon className="h-6 w-6 text-white" />
+                        </div>
                     </div>
                     <div className={cn(
                         "flex-1 min-w-0 whitespace-nowrap overflow-hidden",
@@ -92,7 +101,7 @@ export function Sidebar(
                                 Deenify
                             </h2>
                             <p className="text-xs text-gray-500 leading-tight whitespace-nowrap">
-                                Your Islamic Companion
+                                Islamic Companion
                             </p>
                         </div>
                     </div>
@@ -108,7 +117,7 @@ export function Sidebar(
                                 setSidebarExpanded(false);
                             }
                         }}
-                        className="absolute right-0 bottom-0 w-6 h-6 bg-white border border-gray-200 rounded-full flex items-center justify-center hover:bg-emerald-50 hover:border-emerald-300 transition-all duration-200 z-[60] shadow-md cursor-pointer translate-x-1/2 translate-y-1/2"
+                        className="absolute right-0 bottom-0 w-6 h-6 bg-white border border-layout-separator rounded-full flex items-center justify-center hover:bg-emerald-50 hover:border-emerald-300 transition-all duration-200 z-[60] shadow-md cursor-pointer translate-x-1/2 translate-y-1/2"
                         aria-label={sidebarExpanded ? "Collapse sidebar" : "Expand sidebar"}
                     >
                         <ChevronLeft className={cn(
@@ -190,7 +199,7 @@ export function Sidebar(
 
                     {/* Footer */}
                     <div className={cn(
-                        "border-t border-gray-200 flex-shrink-0 h-[120px]",
+                        "border-t border-layout-separator flex-shrink-0 h-[120px]",
                         sidebarExpanded ? "p-4" : "px-2 py-4"
                     )}>
                         {sidebarExpanded ? (
@@ -206,9 +215,9 @@ export function Sidebar(
                                     <BookOpen className="h-6 w-6 text-emerald-600" />
                                 </div>
                                 <div className="flex flex-col items-center gap-1 opacity-60">
-                                    <div className="w-1 h-1 rounded-full bg-emerald-400"></div>
-                                    <div className="w-1 h-1 rounded-full bg-emerald-300"></div>
-                                    <div className="w-1 h-1 rounded-full bg-emerald-200"></div>
+                                    <div className="w-1 h-1 rounded-full bg-emerald-400" />
+                                    <div className="w-1 h-1 rounded-full bg-emerald-300" />
+                                    <div className="w-1 h-1 rounded-full bg-emerald-200" />
                                 </div>
                             </div>
                         )}

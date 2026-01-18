@@ -1,5 +1,12 @@
 
-import { Home, Clock, BookOpen, FileText, Calendar, Compass, Hand, User, BookHeart, GraduationCap, Scroll, Users, Star, Target, Heart, Flame, HelpCircle, Gift } from 'lucide-react';
+import {
+    Home, Clock,
+    BookOpen, FileText,
+    Calendar, Compass, Hand, User,
+    BookHeart, GraduationCap,
+    Scroll, Users, Star, Target,
+    Heart, Flame, HelpCircle, Gift
+} from 'lucide-react';
 
 export const sidebarSections = [
     {

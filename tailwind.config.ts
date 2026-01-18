@@ -1,4 +1,4 @@
-import type { Config } from "tailwindcss"; 
+import type { Config } from "tailwindcss";
 
 const config: Config = {
   darkMode: ["class"],
@@ -11,10 +11,10 @@ const config: Config = {
     extend: {
 
       // Font Family - Exact match to Figma Make
-      fontFamily: {  
+      fontFamily: {
         heading: ["var(--font-heading)", "ui-sans-serif", "system-ui", "sans-serif"],
         body: ["var(--font-noto)", "ui-sans-serif", "system-ui", "sans-serif"],
-        arabic: ["var(--font-noto-arabic)", "serif"], 
+        arabic: ["var(--font-noto-arabic)", "serif"],
       },
 
       // Screens
@@ -22,13 +22,13 @@ const config: Config = {
         xs: "480px",
         sm: "640px",
         md: "768px",
-        lg: "991px",
+        lg: "1024px",
         xl: "1170px",
         "2xl": "1280px",
       },
 
       // Colors
-      colors: { 
+      colors: {
         emerald: {
           "50": "var(--color-emerald-50)",
           "100": "var(--color-emerald-100)",
@@ -95,6 +95,8 @@ const config: Config = {
           DEFAULT: "var(--color-blue-500)",
         },
 
+        "layout-separator": "#e5e7eb",
+
         // Radix UI / shadcn colors - Required for Radix UI components
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
@@ -125,7 +127,7 @@ const config: Config = {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         "input-background": "hsl(var(--input-background))",
-        ring: "hsl(var(--ring))",  
+        ring: "hsl(var(--ring))",
         chart: {
           "1": "hsl(var(--chart-1))",
           "2": "hsl(var(--chart-2))",
@@ -143,7 +145,7 @@ const config: Config = {
       },
 
       // Border Radius - Exact match to Figma Make
-      borderRadius: { 
+      borderRadius: {
         sm: "4px",
         md: "8px",
         lg: "12px",

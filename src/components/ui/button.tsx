@@ -21,7 +21,7 @@ const buttonVariants = tv({
       "outline-purple": "border border-purple-600 text-purple-700 hover:bg-purple-50",
 
       // Ghost variants
-      ghost: "hover:bg-gray-100 hover:text-gray-900 bg-transparent",
+      ghost: "hover:bg-gray-200/50 hover:text-gray-900 bg-transparent",
       "ghost-emerald": "hover:bg-emerald-50 hover:text-emerald-900 bg-transparent",
       "ghost-red": "hover:bg-red-50 hover:text-red-900 bg-transparent",
       "ghost-blue": "hover:bg-blue-50 hover:text-blue-900 bg-transparent",
@@ -61,6 +61,7 @@ export interface ButtonProps<C extends React.ElementType = "button">
   rippleClassName?: string
   rippleGoesFast?: boolean
   showRipple?: boolean
+  shouldScale?: boolean
 }
 
 interface Ripple {
@@ -80,14 +81,33 @@ export const Button = <C extends React.ElementType = "button">({
   rippleClassName,
   rippleGoesFast = false,
   showRipple = false,
+  shouldScale = false,
   ...props
 }: ButtonProps<C> & Omit<React.ComponentPropsWithoutRef<C>, keyof ButtonProps<C>>) => {
   const [ripples, setRipples] = React.useState<Ripple[]>([]);
+  const [isPressed, setIsPressed] = React.useState(false);
   const rippleKey = React.useRef(0);
 
   const Component: React.ElementType = href ? Link : component ?? (asChild ? "div" : "button");
 
+  // Global mouse up handler - reset scale 
+  React.useEffect(() => {
+    if (isPressed && shouldScale) {
+      const handleGlobalMouseUp = () => setIsPressed(false)
+      window.addEventListener("mouseup", handleGlobalMouseUp);
+      return () => window.removeEventListener("mouseup", handleGlobalMouseUp)
+    }
+  }, [isPressed, shouldScale]);
+
+  // Mouse down handler  
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (shouldScale) setIsPressed(true)
+    if (props.onMouseDown) props.onMouseDown(e);
+  };
+
+  // Mouse up handler
   const handleMouseUp = (e: React.MouseEvent) => {
+    if (shouldScale) setIsPressed(false)
     if (props.onMouseUp) props.onMouseUp(e);
 
     const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
@@ -96,10 +116,9 @@ export const Button = <C extends React.ElementType = "button">({
     const key = rippleKey.current++;
 
     setRipples((prev) => [...prev, { x, y, key }]);
-
-    // remove ripple after animation
     setTimeout(() => setRipples((prev) => prev.filter((r) => r.key !== key)), 500);
   };
+
 
   return (
     <Component
@@ -110,7 +129,12 @@ export const Button = <C extends React.ElementType = "button">({
         "focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 overflow-hidden px-[30px]",
         buttonVariants({ variant, size, className }),
       )}
-      onMouseDown={props.onMouseDown}
+      style={{
+        transform: shouldScale && isPressed ? "scale(0.90)" : "scale(1)",
+        transition: "transform 0.1s ease-out",
+        ...props.style,
+      }}
+      onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
       {...props}
       href={href}

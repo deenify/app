@@ -131,9 +131,9 @@ export const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
         <Button
           asChild
           variant="ghost"
+          shouldScale
           className={cn(
             "h-10 w-10 p-0 relative",
-            "hover:bg-gray-50",
             "!focus-visible:ring-0 !focus-visible:ring-offset-0 focus-visible:outline-none",
             "focus:outline-none !ring-0 !ring-offset-0",
             "active:ring-0 active:ring-offset-0",

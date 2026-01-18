@@ -1,4 +1,13 @@
-import { Settings, LogOut, HelpCircle, User, Heart, BookOpen, TrendingUp, Clock, LucideIcon } from "lucide-react";
+import {
+    Settings,
+    HelpCircle,
+    User,
+    BookOpen,
+    TrendingUp,
+    Clock,
+    LucideIcon,
+    Gift
+} from "lucide-react";
 
 export interface MenuItem {
     label: string;
@@ -25,7 +34,7 @@ export const profileMenuItems: MenuSection[] = [
         label: "Help & Support",
         sectionItems: [
             { label: "Support Center", icon: HelpCircle, href: "/support-center" },
-            { label: "Donate", icon: Heart, href: "/donate" },
+            { label: "Donate", icon: Gift, href: "/donate" },
         ]
     }
 ]

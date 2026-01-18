@@ -18,6 +18,7 @@ interface InputProps extends React.ComponentProps<"input"> {
   filteredItems?: SearchItem[]
   onItemSelect?: (item: SearchItem) => void
   className?: string
+  containerClassName?: string
 }
 
 function Input({
@@ -26,6 +27,7 @@ function Input({
   search = false,
   filteredItems = [],
   onItemSelect,
+  containerClassName,
   ...props
 }: InputProps) {
   const [showDropdown, setShowDropdown] = React.useState(false)
@@ -53,7 +55,7 @@ function Input({
   }
 
   return (
-    <div className="relative flex items-center w-full" ref={containerRef}>
+    <div className={cn("relative flex items-center w-full", containerClassName)} ref={containerRef}>
       {search && (
         <Search
           className="absolute left-3 text-gray-400 pointer-events-none h-4 w-4 z-10"
@@ -79,7 +81,7 @@ function Input({
           "dark:bg-input/30 dark:border-input dark:placeholder:text-muted-foreground",
           search && "pl-9",
           className
-        )} 
+        )}
         onFocus={() => search && filteredItems.length > 0 && setShowDropdown(true)}
         {...props}
       />
@@ -91,7 +93,7 @@ function Input({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
-            className="absolute top-full mt-2 w-full bg-white border border-gray-200 rounded-sm shadow-lg z-[100] overflow-hidden"
+            className="absolute top-full mt-2 w-full bg-white border border-layout-separator rounded-sm shadow-lg z-[100] overflow-hidden"
           >
             <div className="max-h-[320px] overflow-y-auto overflow-x-hidden scrollbar-thin p-[6px] pr-1">
               {filteredItems.map((item, index) => {
@@ -103,8 +105,8 @@ function Input({
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{
-                      duration: 0.15,
-                      delay: index * 0.03,
+                      duration: 0.2,
+                      delay: index * 0.06,
                       ease: [0.4, 0, 0.2, 1]
                     }}
                     className={cn(

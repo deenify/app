@@ -10,7 +10,7 @@ const breakpoints: Record<BreakpointKey, number> = {
     xs: 480,
     sm: 640,
     md: 768,
-    lg: 991,
+    lg: 1024,
     xl: 1170,
     "2xl": 1280,
 };

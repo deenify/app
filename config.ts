@@ -99,9 +99,9 @@ export const quranLanguages = [
     "Yau",
     "Yoruba",
     "Zulu",
-  ];
-  
-  export const quranLanguageVersions: Record<string, string[]> = {
+];
+
+export const quranLanguageVersions: Record<string, string[]> = {
     Achinese: [],
     Afar: [],
     Afrikaans: [],
@@ -199,20 +199,20 @@ export const quranLanguages = [
     Yau: ["la"],
     Yoruba: ["la"],
     Zulu: [],
-  };
-  
-  // Hadith --
-  export const hadithLanguages = ["english", "arabic"];
-  
-  export const hadithBooks = {
+};
+
+// Hadith --
+export const hadithLanguages = ["english", "arabic"];
+
+export const hadithBooks = {
     ABM_BOOKS: new Set(["abudawud", "bukhari", "muslim"]),
     ITN_BOOKS: new Set(["ibnmajah", "tirmidhi", "nasai"]),
     ALL_BOOKS: new Set([
-      "abudawud",
-      "bukhari",
-      "muslim",
-      "ibnmajah",
-      "tirmidhi",
-      "nasai",
+        "abudawud",
+        "bukhari",
+        "muslim",
+        "ibnmajah",
+        "tirmidhi",
+        "nasai",
     ]),
-  };
+};

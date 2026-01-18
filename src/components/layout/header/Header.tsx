@@ -12,10 +12,11 @@ import {
 } from "@/components/shared/UserProfileDropdown"
 import { cn } from "@/lib/utils"
 import { useRouter } from "next/navigation"
+import MenuIcon from "@/assets/svg/MenuIcon"
 
 export interface HeaderProps {
     userPreferences?: UserPreferences
-    onToggleSidebar?: () => void 
+    onToggleSidebar?: () => void
     searchItems?: SearchItem[]
     className?: string
 }
@@ -91,45 +92,48 @@ const Header: React.FC<HeaderProps> = ({
     }
 
     return (
-        <header className={cn("bg-white border-b border-gray-200 px-6 h-[73px] flex items-center", className)}>
-            <div className="flex items-center justify-between w-full">
+        <header className={cn("bg-white border-b border-layout-separator h-[73px] flex items-center md:px-6 px-4", className)}>
+            <div className="flex items-center justify-between w-full gap-2 sm:gap-4">
                 {/* Left Section - Mobile Menu & Greeting */}
-                <div className="flex items-center space-x-4 min-w-0">
+                <div className="flex items-center pr-2 sm:pr-4 min-w-0 flex-1">
                     <Button
                         variant="ghost"
                         size="sm"
                         onClick={onToggleSidebar}
-                        className="lg:hidden"
+                        className="lg:hidden flex-shrink-0"
                     >
-                        <Menu className="h-5 w-5 text-gray-600" />
-                    </Button> 
+                        <MenuIcon />
+                    </Button>
 
                     <div className="min-w-0">
-                        <h1 className="text-gray-900 text-base sm:text-lg font-medium truncate">
+                        <h1 className="text-gray-900 text-sm sm:text-base lg:text-lg font-medium truncate">
                             {getGreeting(userPreferences?.name)}
                         </h1>
-                        <p className="text-sm text-gray-500 truncate">
+                        <p className="text-xs sm:text-sm text-gray-500 truncate hidden sm:block">
                             Assalamu Alaikum wa Rahmatullahi wa Barakatuh
                         </p>
                     </div>
                 </div>
 
                 {/* Right Section - Search, Language, Notifications, Profile */}
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
                     <Input
                         search
                         placeholder="e.g., Quran, Hadith, ..."
                         filteredItems={searchItems}
                         onItemSelect={handleSearchSelect}
-                        className="w-64"
+                        className="w-64 h-10"
+                        containerClassName="hidden lg:block"
                     />
 
-                    <LanguageSelector
-                        onLanguageChange={(code) => {
-                            // Handle language change if needed
-                            console.log("Language changed to:", code)
-                        }}
-                    />
+                    <div className="hidden lg:flex">
+                        <LanguageSelector
+                            onLanguageChange={(code) => {
+                                // Handle language change if needed
+                                console.log("Language changed to:", code)
+                            }}
+                        />
+                    </div>
 
                     <NotificationsPopover
                         onSeeAll={() => {
