@@ -21,7 +21,9 @@ const LayoutWrapper = ({ children }: LayoutWrapperProptype) => {
     const isMobile = useBreakpoint('lg', 'down')
 
     return (
+        // Layout Wrapper
         <div className='flex w-dvh h-dvh'>
+            {/* Sidebar left-side  */}
             <Sidebar
                 isMobile={isMobile}
                 isLocked={isLocked}
@@ -30,35 +32,36 @@ const LayoutWrapper = ({ children }: LayoutWrapperProptype) => {
                 setSidebarExpanded={setSidebarExpanded}
             />
 
+            {/* Content-Container right-side */}
             <div
                 className={cn(
                     "flex flex-col flex-1 overflow-hidden ease duration-300",
                     isMobile ? "pl-0" : !isLocked ? "pl-[76px]" : "pl-[280px]",
                 )}
             >
+                {/* Header  top-bar */}
                 <Header
                     onToggleSidebar={() => {
                         if (isMobile) setActiveDrawerTab("menu")
                         else setSidebarExpanded(!sidebarExpanded)
                     }}
                 />
+
+                {/* Content-scroller inner-content */}
                 <div className='flex-1 overflow-y-auto scrollbar-content'>
-                    <div className={cn(
-                        'h-max min-h-full flex flex-col justify-between',
-                        isMobile && 'pb-16'
-                    )}>
+                    <div className={cn('h-max min-h-full flex flex-col justify-between')}>
                         <>{children}</>
                         <Footer />
                     </div>
                 </div>
-            </div>
 
-            {isMobile && (
+                {/* Mobile-Actions bottom-Bar */}
                 <BottomBar
+                    isVisible={isMobile}
                     activeDrawerTab={activeDrawerTab || null}
                     onDrawerTabChange={setActiveDrawerTab}
                 />
-            )}
+            </div>
         </div>
     )
 }

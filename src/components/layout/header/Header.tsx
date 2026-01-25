@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react"
-import { Menu, BookOpen, FileText, Clock, Compass, Users } from "lucide-react"
+import { Menu, BookOpen, FileText, Clock, Compass, Users, Moon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input, type SearchItem } from "@/components/ui/input"
 import { LanguageSelector } from "@/components/shared/LanguageSelector"
@@ -94,19 +94,17 @@ const Header: React.FC<HeaderProps> = ({
     return (
         <header className={cn("bg-white border-b border-layout-separator h-[73px] flex items-center md:px-6 px-4", className)}>
             <div className="flex items-center justify-between w-full gap-2 sm:gap-4">
-                {/* Left Section - Mobile Menu & Greeting */}
+                {/* Left Section - Logo (Mobile) & Greeting */}
                 <div className="flex items-center pr-2 sm:pr-4 min-w-0 flex-1">
-                    <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={onToggleSidebar}
-                        className="lg:hidden flex-shrink-0"
-                    >
-                        <MenuIcon />
-                    </Button>
+                    {/* Logo - Mobile Only */}
+                    <div className="lg:hidden flex-shrink-0 mr-3">
+                        <div className="w-10 h-10 bg-emerald-600 rounded-xl flex items-center justify-center">
+                            <Moon className="h-5 w-5 text-white" />
+                        </div>
+                    </div>
 
                     <div className="min-w-0">
-                        <h1 className="text-gray-900 text-sm sm:text-base lg:text-lg font-medium truncate">
+                        <h1 className="text-gray-900 text-sm sm:text-base lg:text-lg font-medium sm:truncate break-words leading-[1.16]">
                             {getGreeting(userPreferences?.name)}
                         </h1>
                         <p className="text-xs sm:text-sm text-gray-500 truncate hidden sm:block">
@@ -115,7 +113,7 @@ const Header: React.FC<HeaderProps> = ({
                     </div>
                 </div>
 
-                {/* Right Section - Search, Language, Notifications, Profile */}
+                {/* Right Section - Search, Language, Notifications, Profile, Menu (Mobile) */}
                 <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
                     <Input
                         search
@@ -148,6 +146,27 @@ const Header: React.FC<HeaderProps> = ({
                             console.log("Sign out clicked")
                         }}
                     />
+
+                    {/* Menu Button - Mobile Only (far right) */}
+                    <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={onToggleSidebar}
+                        shouldScale
+                        className={cn(
+                            "lg:hidden flex-shrink-0",
+                            "h-10 w-10 p-0",
+                            "hover:bg-gray-100/80 active:bg-gray-200/60",
+                            "text-gray-600 hover:text-gray-900",
+                            "rounded-lg",
+                            "transition-colors duration-150",
+                            "!focus-visible:ring-0 !focus-visible:ring-offset-0 focus-visible:outline-none",
+                            "focus:outline-none !ring-0 !ring-offset-0",
+                            "active:ring-0 active:ring-offset-0"
+                        )}
+                    >
+                        <MenuIcon />
+                    </Button>
                 </div>
             </div>
         </header>

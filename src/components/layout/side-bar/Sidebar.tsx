@@ -78,7 +78,7 @@ const Sidebar = (
                     isMobile
                         ? sidebarExpanded
                             ? "translate-x-0"
-                            : "-translate-x-full"
+                            : "-translate-x-[calc(100%+20px)]"
                         : sidebarExpanded
                             ? "w-[280px]"
                             : "w-[76px]",
@@ -88,7 +88,7 @@ const Sidebar = (
                 <header className="border-b border-layout-separator flex items-center px-4 h-[73px] w-full justify-center relative">
                     {/* Logo and Title */}
                     <div className="flex-shrink-0">
-                        <div className="w-11 h-11 bg-emerald-600 rounded-xl flex items-center justify-center">
+                        <div className="w-10 h-10 bg-emerald-600 rounded-xl flex items-center justify-center flex-shrink-0">
                             <Moon className="h-6 w-6 text-white" />
                         </div>
                     </div>

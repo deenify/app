@@ -16,12 +16,14 @@ import SettingsList from "./SettingsList"
 type DrawerTabsType = "menu" | "language" | "settings"
 
 interface BottomBarProps {
+    isVisible: boolean
     activeDrawerTab?: DrawerTabsType | null
     onDrawerTabChange?: (tab: DrawerTabsType | null) => void
 }
 
 
 const BottomBar = ({
+    isVisible,
     activeDrawerTab: externalActiveTab,
     onDrawerTabChange
 }: BottomBarProps) => {
@@ -40,11 +42,12 @@ const BottomBar = ({
         }
     }
 
+    if (!isVisible) return null
 
     return (
         <>
             {/* Bottom Bar */}
-            <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-[60] border-t border-layout-separator bg-white shadow-lg">
+            <nav className="lg:hidden  bottom-0 left-0 right-0 z-[60] border-t border-layout-separator bg-white shadow-lg">
                 <div className="grid grid-cols-4 h-16">
                     <Link
                         href="/"

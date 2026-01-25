@@ -57,7 +57,14 @@ export const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({
         <Button
           asChild
           variant="ghost"
-          className={cn("h-10 px-2 gap-2 min-w-[60px] justify-start", className)}
+          className={cn(
+            "h-10 justify-center",
+            "px-0 sm:px-2",
+            "gap-0 sm:gap-2",
+            "min-w-[40px] sm:min-w-[60px]",
+            "w-10 sm:w-auto",
+            className
+          )}
           shouldScale
         >
           <Avatar className="h-9 w-9 flex-shrink-0">
@@ -65,13 +72,24 @@ export const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({
               {initials}
             </AvatarFallback>
           </Avatar>
-          <ChevronDown className="h-4 w-4 text-gray-600 hidden sm:inline flex-shrink-0" />
+          <ChevronDown className="hidden sm:inline h-4 w-4 text-gray-600 flex-shrink-0" />
         </Button>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent align="end" className="w-[380px] border border-gray-200 shadow-none p-0">
+      <DropdownMenuContent
+        align="end"
+        side="bottom"
+        sideOffset={8}
+        collisionPadding={16}
+        className={cn(
+          "w-[calc(100vw-32px)] sm:w-[380px] max-w-[380px]",
+          "border border-gray-200 p-0",
+          "max-h-[calc(100vh-100px)] overflow-y-auto scrollbar-thin",
+          "shadow-lg"
+        )}
+      >
         {/* Header Section */}
-        <div className="p-5 border-b border-gray-200">
+        <div className="sm:p-5 py-5 px-3 border-b border-gray-200">
           <div className="flex items-center space-x-4 mb-5">
             <Avatar className="h-14 w-14 flex-shrink-0">
               <AvatarFallback className="bg-emerald-600 text-white text-lg font-semibold">
@@ -82,14 +100,14 @@ export const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({
               <p className="text-gray-900 font-semibold text-base truncate font-heading">
                 {user?.name || "User"}
               </p>
-              <p className="text-sm text-gray-500 truncate mt-1">
+              <p className="text-sm text-gray-500 truncate md:mt-1">
                 {user?.email || "user@example.com"}
               </p>
             </div>
           </div>
 
           {/* Stats Cards */}
-          <div className="grid grid-cols-3 gap-2.5">
+          <div className="grid grid-cols-3 sm:gap-2.5 gap-1">
             <div className="text-center p-3 bg-emerald-50 rounded-md border border-emerald-100">
               <p className="text-emerald-700 font-bold text-lg">
                 {stats.daysStreak || 0}
