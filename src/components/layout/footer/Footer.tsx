@@ -50,7 +50,7 @@ const Footer = () => {
                     {/* Main Footer Content */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-6 sm:mb-8">
                         {/* About Section */}
-                        <div className="space-y-3 sm:space-y-4 min-w-0">
+                        <div className="space-y-3 sm:space-y-4 min-w-0 max-w-[350px]">
                             <div className="flex items-center space-x-3">
                                 <div className="flex-shrink-0">
                                     <div className="w-11 h-11 bg-emerald-600 rounded-xl flex items-center justify-center">

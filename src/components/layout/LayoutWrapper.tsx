@@ -6,7 +6,7 @@ import Footer from './footer/Footer'
 import Sidebar from './side-bar/Sidebar'
 import BottomBar from './bottom-bar/BottomBar'
 import { useBreakpoint } from '@/hooks/useBreakpoint'
-import { cn } from '@/lib/utils'
+import { cn } from '@/lib/utils/clsx'
 
 
 type DrawerTabsType = "menu" | "language" | "settings"
@@ -36,7 +36,11 @@ const LayoutWrapper = ({ children }: LayoutWrapperProptype) => {
             <div
                 className={cn(
                     "flex flex-col flex-1 overflow-hidden ease duration-300",
-                    isMobile ? "pl-0" : !isLocked ? "pl-[76px]" : "pl-[280px]",
+                    isMobile
+                        ? "pl-0"
+                        : !isLocked
+                            ? "pl-[76px]"
+                            : "2xl:pl-[280px] pl-[215px]",
                 )}
             >
                 {/* Header  top-bar */}

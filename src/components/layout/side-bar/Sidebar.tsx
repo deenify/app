@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ChevronLeft, BookOpen, Moon } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/utils/clsx';
 import { sidebarSections } from './content';
 
 interface SidebarPropTypes {
@@ -57,7 +57,9 @@ const Sidebar = (
                 <div
                     className={cn(
                         "fixed inset-0 z-50 transition-opacity duration-300 ease-in-out bg-black/30 backdrop-blur-[2px]",
-                        sidebarExpanded ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+                        sidebarExpanded
+                            ? "opacity-100 pointer-events-auto"
+                            : "opacity-0 pointer-events-none"
                     )}
                     onClick={() => setSidebarExpanded(false)}
                 />
@@ -80,7 +82,7 @@ const Sidebar = (
                             ? "translate-x-0"
                             : "-translate-x-[calc(100%+20px)]"
                         : sidebarExpanded
-                            ? "w-[280px]"
+                            ? "2xl:w-[280px] w-[215px]"
                             : "w-[76px]",
                 )}>
 

@@ -1,7 +1,7 @@
 import { Check } from 'lucide-react'
 import React from 'react'
 import { LANGUAGES } from './content'
-import { cn } from '@/lib/utils'
+import { cn } from '@/lib/utils/clsx'
 
 interface LanguageListProps {
     selectedLanguage: string
@@ -11,7 +11,7 @@ interface LanguageListProps {
 const LanguageList = ({ selectedLanguage, setSelectedLanguage }: LanguageListProps) => {
     return (
         <div className="p-3 sm:p-4">
-            <div className="mb-3 sm:mb-4">
+            <div className="mb-4">
                 <h3 className="text-base font-heading font-medium text-gray-900 tracking-tighter">Select Language</h3>
                 <p className="text-[10px] sm:text-xs text-gray-500">Choose your preferred language</p>
             </div>

@@ -10,7 +10,7 @@ import {
     UserProfileDropdown,
     type UserPreferences,
 } from "@/components/shared/UserProfileDropdown"
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils/clsx"
 import { useRouter } from "next/navigation"
 import MenuIcon from "@/assets/svg/MenuIcon"
 

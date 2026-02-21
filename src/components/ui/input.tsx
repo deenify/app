@@ -1,6 +1,6 @@
 "use client"
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils/clsx"
 import { Search, LucideIcon } from "lucide-react"
 import * as React from "react"
 import { motion, AnimatePresence } from "framer-motion"

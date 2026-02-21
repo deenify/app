@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import React from 'react'
 import { sidebarSections } from '../side-bar/content'
-import { cn } from '@/lib/utils'
+import { cn } from '@/lib/utils/clsx'
 import { Moon } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 
@@ -59,7 +59,7 @@ const MenuList = ({ onDrawerTabChange }: MenuListProps) => {
                                     )} />
                                     <span className="text-sm font-medium flex-1 min-w-0 break-words">{item.label}</span>
                                     {isActive && (
-                                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-600 flex-shrink-0" />
+                                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-600 flex-shrink-0 inline-block" />
                                     )}
                                 </Link>
                             )

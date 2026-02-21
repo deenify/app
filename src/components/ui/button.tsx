@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import { tv, type VariantProps } from "tailwind-variants";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/clsx";
 import Link from "next/link";
 
 const buttonVariants = tv({
@@ -32,10 +32,11 @@ const buttonVariants = tv({
       "link-red": "text-red-600 underline-offset-4 hover:underline bg-transparent shadow-none",
       "link-blue": "text-blue-600 underline-offset-4 hover:underline bg-transparent shadow-none",
 
-      // Destructive / Secondary / Transparent
+      // Destructive / Secondary / Transparent / Faded
       destructive: "bg-red-600 text-white hover:bg-red-700",
       secondary: "bg-gray-100 text-gray-900 hover:bg-gray-200",
       transparent: "bg-transparent text-gray-700 hover:bg-gray-50/50",
+      faded: "bg-gray-100/50 text-gray-600 hover:bg-gray-100/70 opacity-70",
     },
     size: {
       sm: "h-[36px] px-3 text-sm",

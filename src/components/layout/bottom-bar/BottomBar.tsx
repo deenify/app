@@ -5,7 +5,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Home, Search, Settings, Globe, } from "lucide-react"
 import { Drawer, DrawerContent, DrawerThumb } from "@/components/ui/drawer"
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils/clsx"
 import { DrawerTabs } from "./content"
 import Tabs from "@/components/shared/Tabs"
 import MenuList from "./MenuList"
@@ -46,7 +46,7 @@ const BottomBar = ({
 
     return (
         <>
-            {/* Bottom Bar */}
+            {/* Actions Bottom Bar */}
             <nav className="lg:hidden  bottom-0 left-0 right-0 z-[60] border-t border-layout-separator bg-white shadow-lg">
                 <div className="grid grid-cols-4 h-16">
                     <Link
@@ -123,7 +123,7 @@ const BottomBar = ({
             </nav>
 
 
-            {/* Drawer */}
+            {/* Drawer Bottom-Bar */}
             <Drawer
                 open={isDrawerOpen}
                 onOpenChange={handleDrawerClose}
@@ -139,7 +139,6 @@ const BottomBar = ({
                         }}
                         showIndicator
                         className="flex-1 flex flex-col overflow-hidden"
-                        tabsContainerClassName="px-4"
                         contentContainerClassName="overflow-y-auto scrollbar-content"
                     >
                         {
