@@ -9,7 +9,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils/clsx"
 
 export type Language = {
   code: string
@@ -22,6 +22,7 @@ interface LanguageSelectorProps {
   defaultLanguage?: string
   onLanguageChange?: (code: string) => void
   className?: string
+  compact?: boolean
 }
 
 
@@ -42,6 +43,7 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
   defaultLanguage = "en",
   onLanguageChange,
   className,
+  compact = false,
 }) => {
   const [selectedLang, setSelectedLang] = useState(defaultLanguage)
   const [open, setOpen] = useState(false)
@@ -59,31 +61,38 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
         "!focus-visible:ring-0 !focus-visible:ring-offset-0 focus-visible:outline-none",
         "focus:outline-none !ring-0 !ring-offset-0",
         "active:ring-0 active:ring-offset-0",
-        "w-[100px]",
+        compact ? "w-10" : "w-[100px]"
       )} >
         <Button
           asChild
           variant="ghost"
           className={cn(
-            "h-10 px-3 gap-2 justify-between w-full",
-            "hover:bg-gray-50",
-            "data-[state=open]:bg-gray-50",
+            "h-10 w-full",
+            compact ? "px-0 justify-center" : "px-3 gap-2 justify-between",
             className
           )}
+          shouldScale
         >
-          <div className="flex items-center justify-start gap-2">
+          <div className={cn(
+            "flex items-center justify-start gap-2",
+            compact && "justify-center"
+          )}>
             <Globe className="h-5 w-5 text-gray-600 flex-shrink-0" />
-            <span className="hidden sm:inline text-gray-700 text-sm font-medium">
-              {currentLang?.code.toUpperCase() || "EN"}
-            </span>
+            {!compact && (
+              <span className="text-gray-700 text-sm font-medium">
+                {currentLang?.code.toUpperCase() || "EN"}
+              </span>
+            )}
           </div>
 
-          <ChevronDown
-            className={cn(
-              "h-4 w-4 text-gray-500 flex-shrink-0 transition-transform duration-200",
-              open ? "rotate-180" : "rotate-0"
-            )}
-          />
+          {!compact && (
+            <ChevronDown
+              className={cn(
+                "h-4 w-4 text-gray-500 flex-shrink-0 transition-transform duration-200",
+                open ? "rotate-180" : "rotate-0"
+              )}
+            />
+          )}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent

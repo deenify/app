@@ -9,7 +9,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils/clsx"
 
 export type Notification = {
   id: string
@@ -131,9 +131,9 @@ export const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
         <Button
           asChild
           variant="ghost"
+          shouldScale
           className={cn(
             "h-10 w-10 p-0 relative",
-            "hover:bg-gray-50",
             "!focus-visible:ring-0 !focus-visible:ring-offset-0 focus-visible:outline-none",
             "focus:outline-none !ring-0 !ring-offset-0",
             "active:ring-0 active:ring-offset-0",
@@ -148,17 +148,26 @@ export const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
       </PopoverTrigger>
 
       <PopoverContent
-        className="w-[380px] p-0 border border-gray-200 shadow-none bg-white"
+        side="bottom"
+        sideOffset={8}
         align="end"
+        collisionPadding={16}
+        className={cn(
+          "w-[calc(100vw-32px)] sm:w-[380px] max-w-[380px]",
+          "p-0 border border-gray-200 bg-white",
+          "max-h-[calc(100vh-120px)]",
+          "flex flex-col overflow-hidden",
+          "shadow-lg"
+        )}
       >
-        {/* Header Section */}
-        <header className="p-3 border-b border-gray-200">
+        {/* Header Section - Fixed at top */}
+        <header className="flex-shrink-0 px-4 py-3 border-b border-gray-200">
           <div className="flex items-center justify-between">
-            <h3 className="text-gray-900 font-semibold text-base font-heading">Notifications</h3>
+            <h3 className="text-gray-900 font-semibold text-sm font-heading">Notifications</h3>
             {unreadCount > 0 && (
               <Badge
                 severity="high"
-                className="px-2.5 py-0.5 font-medium text-xs"
+                className="px-2 py-0.5 font-medium text-xs"
               >
                 {unreadCount} new
               </Badge>
@@ -166,37 +175,44 @@ export const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
           </div>
         </header>
 
-        {/* Notifications Section  */}
-        <section className="h-[360px] overflow-y-auto scrollbar-thin">
-          <div className="p-[6px]">
-
+        {/* Notifications Section - Scrollable content */}
+        <section className="flex-1 overflow-y-auto scrollbar-thin min-h-0">
+          <div className="p-2">
             {!localNotifications?.length ? (
-              <main className="p-12 flex flex-col items-center justify-center text-center">
-                <div className="w-20 h-20 rounded-full bg-emerald-50 flex items-center justify-center mb-5">
-                  <CheckCircle2 className="h-10 w-10 text-emerald-500" strokeWidth={1.5} />
+              <div className="flex flex-col items-center justify-center text-center py-8 px-4">
+                <div className="w-16 h-16 rounded-full bg-emerald-50 flex items-center justify-center mb-4">
+                  <CheckCircle2 className="h-8 w-8 text-emerald-500" strokeWidth={1.5} />
                 </div>
 
-                <h4 className="text-gray-900 font-semibold text-lg font-heading mb-2">
+                <h4 className="text-gray-900 font-semibold text-base font-heading mb-2">
                   You're all caught up!
                 </h4>
-                <p className="text-sm text-gray-500 max-w-[240px] leading-relaxed">
+                <p className="text-sm text-gray-500 mb-4 leading-relaxed max-w-[240px]">
                   No new notifications at the moment. We'll notify you when something important happens.
                 </p>
-              </main>
+                <Button
+                  variant="link"
+                  className="text-emerald-600 font-medium text-sm"
+                  onClick={() => {
+                    setOpen(false)
+                    onSeeAll?.()
+                  }}
+                >
+                  See All
+                </Button>
+              </div>
             ) : (
               localNotifications?.map((notification, idx) => {
-
                 const Icon = notification.icon
                 const colorClass = colorClasses[notification.color || "blue"]
                 const isRead = notification.read
 
                 return (
-                  <main
+                  <div
                     key={idx}
                     onClick={() => handleNotificationClick(notification)}
                     className={cn(
-                      "group relative p-[10px] rounded-sm last:mb-0 transition-all duration-150 mb-[6px] select-none",
-
+                      "group relative p-2.5 rounded-md last:mb-0 transition-all duration-150 mb-1.5 select-none",
                       // Background & Gradients
                       isRead
                         ? "bg-gray-50/50 hover:bg-gray-50"
@@ -210,14 +226,13 @@ export const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                     <div className="flex items-start gap-2.5">
                       <div
                         className={cn(
-                          "w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0",
+                          "w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0",
                           colorClass
                         )}
                       >
-                        <Icon className="h-3.5 w-3.5" />
+                        <Icon className="h-3 w-3" />
                       </div>
                       <div className="flex-1 min-w-0 pr-6">
-
                         <h4 className={cn(
                           "text-sm mb-0.5 font-heading",
                           isRead ? "text-gray-700 font-medium" : "text-gray-900 font-semibold"
@@ -235,7 +250,7 @@ export const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                           {isRead && (
                             <>
                               <span className="h-1 w-1 bg-emerald-500 rounded-full"></span>
-                              <CheckCheck className="h-4 w-4 text-emerald-600" strokeWidth={2.5} />
+                              <CheckCheck className="h-3.5 w-3.5 text-emerald-600" strokeWidth={2.5} />
                             </>
                           )}
                         </div>
@@ -259,32 +274,29 @@ export const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                         </button>
                       </div>
                     </div>
-                  </main>
+                  </div>
                 )
               })
             )}
           </div>
         </section>
 
-        {/* Actions Section  */}
-        <section>
-          {localNotifications.length > 0 &&
-            (
-              <main className="p-2.5 border-t border-gray-200">
-                <Button
-                  variant="outline-emerald"
-                  size="md"
-                  className="w-full font-medium"
-                  onClick={() => {
-                    setOpen(false)
-                    onSeeAll?.()
-                  }}
-                >
-                  See All Notifications
-                </Button>
-              </main>
-            )}
-        </section>
+        {/* Actions Section - Fixed at bottom */}
+        {localNotifications.length > 0 && (
+          <footer className="flex-shrink-0 px-3 py-2.5 border-t border-gray-200">
+            <Button
+              variant="outline-emerald"
+              size="sm"
+              className="w-full font-medium"
+              onClick={() => {
+                setOpen(false)
+                onSeeAll?.()
+              }}
+            >
+              See All Notifications
+            </Button>
+          </footer>
+        )}
       </PopoverContent>
     </Popover>
   )

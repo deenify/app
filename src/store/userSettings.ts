@@ -1,7 +1,10 @@
 // useSettings.ts
 
 import { create } from "zustand";
-import { defaultUserSettings } from "@/config/settings";
+
+const defaultUserSettings = {
+  liveAdhan: true,
+}
 
 const useSettings = create((set) => ({
   ...defaultUserSettings,
