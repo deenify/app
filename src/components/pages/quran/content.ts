@@ -1,84 +1,3 @@
-import {
-    BookOpen,
-    Bookmark,
-    Headphones,
-    Languages,
-    BookMarked,
-    LucideIcon,
-} from "lucide-react"
-
-// Hero
-export type QuranHeroStatType = {
-    value: string
-    label: string
-}
-export const QuranHeroStats: QuranHeroStatType[] = [
-    { value: "114", label: "Surahs" },
-    { value: "6,236", label: "Verses" },
-    { value: "30", label: "Juz" },
-    { value: "7", label: "Manzil" },
-]
-
-// Quick access
-export type QuranQuickAccessType = {
-    icon: LucideIcon
-    title: string
-    desc: string
-    bgColor: string
-    iconColor: string
-    href: string
-}
-export const QuranQuickAccess: QuranQuickAccessType[] = [
-    {
-        icon: BookOpen,
-        title: "Continue Reading",
-        desc: "Al-Baqarah, Verse 255",
-        bgColor: "bg-emerald-100",
-        iconColor: "text-emerald-600",
-        href: "/quran/2/255",
-    },
-    {
-        icon: Bookmark,
-        title: "Bookmarks",
-        desc: "12 saved verses",
-        bgColor: "bg-blue-100",
-        iconColor: "text-blue-600",
-        href: "/quran/bookmarks",
-    },
-    {
-        icon: BookMarked,
-        title: "Last Read",
-        desc: "Surah Al-Fatiha",
-        bgColor: "bg-purple-100",
-        iconColor: "text-purple-600",
-        href: "/quran/1",
-    },
-]
-
-// Features
-export type QuranFeatureType = {
-    icon: LucideIcon
-    title: string
-    description: string
-}
-export const QuranFeatures: QuranFeatureType[] = [
-    {
-        icon: Languages,
-        title: "Multiple Translations",
-        description: "Read the Quran in your preferred language with verified translations.",
-    },
-    {
-        icon: Headphones,
-        title: "Audio Recitation",
-        description: "Listen to beautiful recitations by renowned Qaris from around the world.",
-    },
-    {
-        icon: Bookmark,
-        title: "Bookmarks & Notes",
-        description: "Save verses and add personal notes to enhance your study.",
-    },
-]
-
 // Surah list (114 surahs)
 export type QuranSurahType = {
     number: number
@@ -86,6 +5,30 @@ export type QuranSurahType = {
     nameEnglish: string
     verses: number
     revelation: "Meccan" | "Medinan"
+}
+
+// English meaning/translation of surah names (for card subtitle)
+export const surahNameMeaning: Record<number, string> = {
+    1: "The Opening", 2: "The Cow", 3: "Family of Imran", 4: "The Women", 5: "The Table Spread",
+    6: "The Cattle", 7: "The Heights", 8: "The Spoils of War", 9: "The Repentance", 10: "Jonah",
+    11: "Hud", 12: "Joseph", 13: "The Thunder", 14: "Abraham", 15: "The Rocky Tract", 16: "The Bee",
+    17: "The Night Journey", 18: "The Cave", 19: "Mary", 20: "Ta-Ha", 21: "The Prophets", 22: "The Pilgrimage",
+    23: "The Believers", 24: "The Light", 25: "The Criterion", 26: "The Poets", 27: "The Ant", 28: "The Stories",
+    29: "The Spider", 30: "The Romans", 31: "Luqman", 32: "The Prostration", 33: "The Combined Forces", 34: "Sheba",
+    35: "The Originator", 36: "Ya-Sin", 37: "Those Who Stand in Ranks", 38: "Sad", 39: "The Troops", 40: "The Forgiver",
+    41: "Explained in Detail", 42: "The Consultation", 43: "The Ornaments", 44: "The Smoke", 45: "The Crouching",
+    46: "The Wind-Curved Sandhills", 47: "Muhammad", 48: "The Victory", 49: "The Rooms", 50: "Qaf",
+    51: "The Winnowing Winds", 52: "The Mount", 53: "The Star", 54: "The Moon", 55: "The Beneficent", 56: "The Inevitable",
+    57: "The Iron", 58: "The Pleading Woman", 59: "The Exile", 60: "The Tested", 61: "The Ranks", 62: "The Friday",
+    63: "The Hypocrites", 64: "The Mutual Disillusion", 65: "The Divorce", 66: "The Prohibition", 67: "The Sovereignty",
+    68: "The Pen", 69: "The Inevitable", 70: "The Ascending Stairways", 71: "Noah", 72: "The Jinn", 73: "The Enshrouded One",
+    74: "The Cloaked One", 75: "The Resurrection", 76: "The Man", 77: "The Emissaries", 78: "The Tidings", 79: "The Extractors",
+    80: "He Frowned", 81: "The Overthrowing", 82: "The Cleaving", 83: "The Defrauding", 84: "The Splitting Open", 85: "The Constellations",
+    86: "The Night-Comer", 87: "The Most High", 88: "The Overwhelming", 89: "The Dawn", 90: "The City", 91: "The Sun",
+    92: "The Night", 93: "The Morning Hours", 94: "The Relief", 95: "The Fig", 96: "The Clot", 97: "The Power",
+    98: "The Clear Proof", 99: "The Earthquake", 100: "The Courser", 101: "The Striking Calamity", 102: "The Rivalry",
+    103: "The Afternoon", 104: "The Traducer", 105: "The Elephant", 106: "Quraysh", 107: "The Small Kindnesses", 108: "The Abundance",
+    109: "The Disbelievers", 110: "The Divine Support", 111: "The Palm Fiber", 112: "The Sincerity", 113: "The Daybreak", 114: "Mankind",
 }
 export const QuranSurahs: QuranSurahType[] = [
     { number: 1, nameArabic: "الفاتحة", nameEnglish: "Al-Fatiha", verses: 7, revelation: "Meccan" },
@@ -202,4 +145,57 @@ export const QuranSurahs: QuranSurahType[] = [
     { number: 112, nameArabic: "الإخلاص", nameEnglish: "Al-Ikhlas", verses: 4, revelation: "Meccan" },
     { number: 113, nameArabic: "الفلق", nameEnglish: "Al-Falaq", verses: 5, revelation: "Meccan" },
     { number: 114, nameArabic: "الناس", nameEnglish: "An-Nas", verses: 6, revelation: "Meccan" },
+]
+
+// Detail page verse mock for Al-Fatihah (used for UI only)
+export type QuranVerseType = {
+    number: number
+    arabic: string
+    transliteration: string
+    translation: string
+}
+
+export const SurahAlFatihahMockVerses: QuranVerseType[] = [
+    {
+        number: 1,
+        arabic: "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ",
+        transliteration: "Bismillāhi r-raḥmāni r-raḥīm",
+        translation: "In the name of Allah, the Most Gracious, the Most Merciful.",
+    },
+    {
+        number: 2,
+        arabic: "ٱلْحَمْدُ لِلَّهِ رَبِّ ٱلْعَٰلَمِينَ",
+        transliteration: "Al-ḥamdu lillāhi rabbi l-ʿālamīn",
+        translation: "All praise is due to Allah, Lord of all the worlds.",
+    },
+    {
+        number: 3,
+        arabic: "ٱلرَّحْمَٰنِ ٱلرَّحِيمِ",
+        transliteration: "Ar-raḥmāni r-raḥīm",
+        translation: "The Most Gracious, the Most Merciful.",
+    },
+    {
+        number: 4,
+        arabic: "مَٰلِكِ يَوْمِ ٱلدِّينِ",
+        transliteration: "Māliki yawmi d-dīn",
+        translation: "Master of the Day of Judgment.",
+    },
+    {
+        number: 5,
+        arabic: "إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ",
+        transliteration: "Iyyāka naʿbudu wa iyyāka nastaʿīn",
+        translation: "You alone we worship, and You alone we ask for help.",
+    },
+    {
+        number: 6,
+        arabic: "ٱهْدِنَا ٱلصِّرَٰطَ ٱلْمُسْتَقِيمَ",
+        transliteration: "Ihdinā ṣ-ṣirāṭa l-mustaqīm",
+        translation: "Guide us along the Straight Path,",
+    },
+    {
+        number: 7,
+        arabic: "صِرَٰطَ ٱلَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ ٱلْمَغْضُوبِ عَلَيْهِمْ وَلَا ٱلضَّآلِّينَ",
+        transliteration: "Ṣirāṭa lladhīna anʿamta ʿalayhim ghayri l-maghḍūbi ʿalayhim wa lā ḍ-ḍāllīn",
+        translation: "the Path of those You have blessed—not those You are displeased with, or those who are astray.",
+    },
 ]

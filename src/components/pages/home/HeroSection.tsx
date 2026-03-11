@@ -51,17 +51,18 @@ const HeroSection = ({ COMMUNITY_STATS }: { COMMUNITY_STATS: HeroCommunityStatTy
         </div>
 
         <div className="text-center max-w-3xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-heading text-gray-900 mb-6">
+          <h1 className="text-gray-900 text-3xl md:text-4xl font-heading mb-4">
             Your Complete Islamic Companion
           </h1>
-          <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+          <p className="mb-8 max-w-3xl mx-auto text-sm md:text-base text-gray-600">
             Strengthen your faith with accurate prayer times, complete Quran access, authentic Hadith
             collections, and essential Islamic tools - all in one beautifully designed application.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               size="lg"
-              className="bg-emerald-600 hover:bg-emerald-700"
+              variant="default"
+              className="font-normal gap-1"
               href="/quran"
             >
               <BookOpen className="mr-2 h-5 w-5" />
@@ -69,8 +70,8 @@ const HeroSection = ({ COMMUNITY_STATS }: { COMMUNITY_STATS: HeroCommunityStatTy
             </Button>
             <Button
               size="lg"
-              variant="outline"
-              className="border-emerald-600 text-emerald-700 hover:bg-emerald-50"
+              variant="outline-emerald"
+              className="font-normal gap-1"
               href="/prayer"
             >
               <Clock className="mr-2 h-5 w-5" />
@@ -85,8 +86,8 @@ const HeroSection = ({ COMMUNITY_STATS }: { COMMUNITY_STATS: HeroCommunityStatTy
               key={stat.label}
               className="text-center p-4 bg-white/80 backdrop-blur rounded-lg shadow-sm border border-emerald-100"
             >
-              <div className="text-2xl font-semibold text-emerald-700">{stat.value}</div>
-              <div className="text-sm text-gray-600">{stat.label}</div>
+              <div className="text-2xl font-semibold font-heading text-emerald-700">{stat.value}</div>
+              <div className="text-sm text-gray-600 tracking-tighter">{stat.label}</div>
             </div>
           ))}
         </div>
