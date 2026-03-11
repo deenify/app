@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { cn } from '@/lib/utils/clsx'
 
-export type TabType = "menu" | "language" | "settings"
+export type TabType = string
 
 export interface TabItem {
     id: TabType
@@ -23,6 +23,10 @@ interface TabsPropType {
     contentContainerClassName?: string
     showIndicator?: boolean
     variant?: "default" | "underline" | "pills"
+    align?: "left" | "center" | "right"
+    stretchTabs?: boolean
+    /** When false, content is rendered without framer-motion animation */
+    animateContent?: boolean
 }
 
 const Tabs = ({
@@ -34,7 +38,10 @@ const Tabs = ({
     tabsContainerClassName,
     contentContainerClassName,
     showIndicator = true,
-    variant = "underline"
+    variant = "underline",
+    align = "center",
+    stretchTabs = true,
+    animateContent = true,
 }: TabsPropType) => {
 
     const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 })
@@ -44,7 +51,20 @@ const Tabs = ({
     const updateIndicator = useCallback(() => {
         const activeTabElement = tabRefs.current[activeTab]
         const container = tabsContainerRef.current
-        if (activeTabElement && showIndicator && container) {
+
+        if (!activeTabElement) return
+
+        // For pills, position the white pill directly under the active tab
+        if (variant === "pills") {
+            setIndicatorStyle({
+                left: activeTabElement.offsetLeft,
+                width: activeTabElement.offsetWidth,
+            })
+            return
+        }
+
+        // For underline, use container-relative measurements (with scroll)
+        if (showIndicator && container) {
             const containerRect = container.getBoundingClientRect()
             const tabRect = activeTabElement.getBoundingClientRect()
             const scrollLeft = container.scrollLeft
@@ -54,7 +74,7 @@ const Tabs = ({
                 width: tabRect.width,
             })
         }
-    }, [activeTab, showIndicator])
+    }, [activeTab, showIndicator, variant])
 
     useEffect(() => {
         updateIndicator()
@@ -102,11 +122,41 @@ const Tabs = ({
                     tabsContainerClassName
                 )}
             >
-                <div className={cn(
-                    "flex w-max min-w-full",
-                    variant === "pills" && "gap-2",
-                    variant === "underline" && "justify-center"
-                )}>
+                <div
+                    className={cn(
+                        "flex relative",
+                        stretchTabs ? "w-full" : "w-max",
+                        stretchTabs && "min-w-full",
+
+                        variant === "pills" &&
+                        "w-max mx-auto rounded-full bg-gray-100 p-1 gap-1",
+
+                        variant === "underline" &&
+
+                        (align === "left"
+                            ? "justify-start"
+                            : align === "right"
+                                ? "justify-end"
+                                : "justify-center")
+                    )}
+                >
+
+                    {variant === "pills" && (
+                        <motion.div
+                            className="absolute top-[3px] bottom-[3px] rounded-full bg-white border border-gray-200 shadow-sm"
+                            initial={false}
+                            animate={{
+                                left: indicatorStyle.left,
+                                width: indicatorStyle.width,
+                            }}
+                            transition={{
+                                type: "spring",
+                                stiffness: 300,
+                                damping: 30,
+                            }}
+                        />
+                    )}
+
                     {allTabs.map((tab) => {
                         const Icon = tab.icon
                         const isActive = activeTab === tab.id
@@ -114,18 +164,26 @@ const Tabs = ({
                         if (variant === "pills") {
                             return (
                                 <button
+                                    ref={(el) => {
+                                        tabRefs.current[tab.id] = el
+                                    }}
                                     key={tab.id}
                                     onClick={() => onTabChange(tab.id)}
                                     className={cn(
-                                        "px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 whitespace-nowrap",
-                                        "flex items-center justify-center gap-2 flex-shrink-0 flex-1",
-                                        isActive
-                                            ? "bg-emerald-600 text-white shadow-sm"
-                                            : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+                                        "px-5 py-1.5 rounded-full text-sm font-medium transition-colors whitespace-nowrap",
+                                        "flex items-center justify-center gap-2 flex-shrink-0 h-8 px-12",
                                     )}
                                 >
-                                    {Icon && <Icon className="h-4 w-4" />}
-                                    {tab.label}
+                                    {Icon && (
+                                        <Icon
+                                            size={15}
+                                            className={cn(
+                                                "inline text-center text-sm z-3 relative",
+                                                isActive ? "text-gray-900" : "text-gray-600"
+                                            )}
+                                        />
+                                    )}
+                                    <span className='inline w-max text-center text-sm z-3 relative'> {tab.label}</span>
                                 </button>
                             )
                         }
@@ -139,7 +197,8 @@ const Tabs = ({
                                 onClick={() => onTabChange(tab.id)}
                                 className={cn(
                                     "py-3 px-4 sm:px-6 text-sm font-medium transition-colors relative whitespace-nowrap flex-shrink-0",
-                                    "flex items-center justify-center gap-2 flex-1",
+                                    "flex items-center justify-center gap-2",
+                                    stretchTabs && "flex-1",
                                     isActive ? "text-emerald-600" : "text-gray-500 hover:text-gray-700"
                                 )}
                             >
@@ -170,37 +229,45 @@ const Tabs = ({
 
             {/* Content */}
             <div className={cn("flex-1 relative overflow-hidden", contentContainerClassName)}>
-                <AnimatePresence mode="wait">
-                    {children ? (
-                        <motion.div
-                            key={activeTab}
-                            initial={{ opacity: 0, x: 10 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -10 }}
-                            transition={{
-                                duration: 0.2,
-                                ease: "easeInOut"
-                            }}
-                            className="h-full"
-                        >
-                            {children}
-                        </motion.div>
-                    ) : activeTabContent ? (
-                        <motion.div
-                            key={activeTab}
-                            initial={{ opacity: 0, x: 10 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -10 }}
-                            transition={{
-                                duration: 0.2,
-                                ease: "easeInOut"
-                            }}
-                            className="h-full"
-                        >
-                            {activeTabContent}
-                        </motion.div>
-                    ) : <>No content in the selected tab yet!</>}
-                </AnimatePresence>
+                {animateContent ? (
+                    <AnimatePresence mode="wait">
+                        {children ? (
+                            <motion.div
+                                key={activeTab}
+                                initial={{ opacity: 0, x: 10 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: -10 }}
+                                transition={{
+                                    duration: 0.2,
+                                    ease: "easeInOut"
+                                }}
+                                className="h-full"
+                            >
+                                {children}
+                            </motion.div>
+                        ) : activeTabContent ? (
+                            <motion.div
+                                key={activeTab}
+                                initial={{ opacity: 0, x: 10 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: -10 }}
+                                transition={{
+                                    duration: 0.2,
+                                    ease: "easeInOut"
+                                }}
+                                className="h-full"
+                            >
+                                {activeTabContent}
+                            </motion.div>
+                        ) : <>No content in the selected tab yet!</>}
+                    </AnimatePresence>
+                ) : (
+                    <AnimatePresence mode="wait">
+                        {children
+                            ? children
+                            : activeTabContent ?? <>No content in the selected tab yet!</>}
+                    </AnimatePresence>
+                )}
             </div>
         </section>
     )

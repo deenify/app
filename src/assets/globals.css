@@ -122,23 +122,8 @@
         -moz-osx-font-smoothing: grayscale;
         scroll-behavior: smooth;
     }
-}
 
-
-/* Utilities  */
-@layer utilities {
-
-    /* Typography defaults */
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        font-family: var(--font-heading, var(--font-noto), ui-sans-serif);
-        font-weight: 500;
-    }
-
+    /* Reset defaults */
     input::placeholder,
     textarea::placeholder,
     label,
@@ -153,6 +138,22 @@
         list-style: none;
         list-style-type: none;
     }
+
+    /* Typography defaults */
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: var(--font-heading, var(--font-noto), ui-sans-serif);
+        font-weight: 500;
+    }
+}
+
+
+/* Utilities  */
+@layer utilities {
 
     /* Scrollbar hide */
     .scrollbar-hide {

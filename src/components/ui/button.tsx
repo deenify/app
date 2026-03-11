@@ -123,12 +123,14 @@ export const Button = <C extends React.ElementType = "button">({
 
   return (
     <Component
+      href={href}
       className={cn(
         "relative overflow-hidden cursor-pointer",
         "relative inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium outline-none",
         "ease duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring !transition-all",
         "focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 overflow-hidden px-[30px]",
-        buttonVariants({ variant, size, className }),
+        buttonVariants({ variant, size }),
+        className
       )}
       style={{
         transform: shouldScale && isPressed ? "scale(0.90)" : "scale(1)",
@@ -138,7 +140,6 @@ export const Button = <C extends React.ElementType = "button">({
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
       {...props}
-      href={href}
     >
       {children}
 

@@ -26,9 +26,11 @@ const config: Config = {
         xl: "1170px",
         "2xl": "1280px",
       },
-
+      
       // Colors
       colors: {
+        "layout-separator": "#e5e7eb",
+
         emerald: {
           "50": "var(--color-emerald-50)",
           "100": "var(--color-emerald-100)",
@@ -95,7 +97,6 @@ const config: Config = {
           DEFAULT: "var(--color-blue-500)",
         },
 
-        "layout-separator": "#e5e7eb",
 
         // Radix UI / shadcn colors - Required for Radix UI components
         background: "hsl(var(--background))",
@@ -150,7 +151,7 @@ const config: Config = {
         md: "8px",
         lg: "12px",
         xl: "16px",
-        full: "999px",
+        full: "9999px",
       },
 
     },

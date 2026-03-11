@@ -1,9 +1,11 @@
-import React from 'react'
+import QuranExploreSection from "../../../components/pages/quran/QuranExploreSection"
 
-const page = () => {
+const QuranPage = () => {
     return (
-        <div>page</div>
+        <div>
+            <QuranExploreSection />
+        </div>
     )
 }
 
-export default page
+export default QuranPage

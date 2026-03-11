@@ -45,6 +45,7 @@ function Badge({ className, variant, severity, ...props }: BadgeProps) {
     <div
       className={cn(
         badgeVariants({ variant, severity }),
+        "text-xs font-medium",
         className
       )}
       {...props}
