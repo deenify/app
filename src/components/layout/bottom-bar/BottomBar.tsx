@@ -12,9 +12,7 @@ import MenuList from "./MenuList"
 import LanguageList from "./LanguageList"
 import SettingsList from "./SettingsList"
 
-
 type DrawerTabsType = "menu" | "language" | "settings"
-
 interface BottomBarProps {
     isVisible: boolean
     activeDrawerTab?: DrawerTabsType | null
@@ -135,7 +133,7 @@ const BottomBar = ({
                         activeTab={activeDrawerTab}
                         variant="underline"
                         onTabChange={(tabId) => {
-                            onDrawerTabChange?.(tabId)
+                            onDrawerTabChange?.(tabId as DrawerTabsType)
                         }}
                         showIndicator
                         className="flex-1 flex flex-col overflow-hidden"
