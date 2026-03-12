@@ -2,9 +2,10 @@
 
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
-import type { QuranVerseType } from "./content"
 import { cn } from "@/lib/utils/clsx"
 import { Bookmark, Copy, Heart, MessageCircle, Share2 } from "lucide-react"
+import { motion, Transition, TargetAndTransition } from "framer-motion"
+import type { QuranVerseType } from "./content"
 
 export type VerseCardVariant = "read" | "translation"
 
@@ -13,28 +14,42 @@ interface VerseCardProps {
     verse: QuranVerseType
     fontSize: number
     className?: string
+    initial?: TargetAndTransition
+    animate?: TargetAndTransition
+    transition?: Transition & { delay?: number }
 }
 
-const VerseCard = ({ variant, verse, fontSize, className }: VerseCardProps) => {
+const VerseCard = ({
+    variant,
+    verse,
+    fontSize,
+    className,
+    initial,
+    animate,
+    transition
+}: VerseCardProps) => {
+
     if (variant === "read") {
         return (
-            <div
-                className={cn(
-                    "flex flex-row-reverse items-baseline gap-2 py-1 text-right",
-                    className
-                )}
-                style={{ direction: "rtl" }}
+            <motion.p
+                className={cn("inline break-words text-center", className)}
+                transition={transition}
+                initial={initial}
+                animate={animate}
+
+                style={{
+                    fontSize: `${Math.max(18, fontSize - 4)}px`,
+                    lineHeight: 2.1,
+                    direction: "rtl",
+                }}
             >
-                <span className="inline-flex h-6 min-w-6 items-center justify-center rounded-md border border-emerald-200 bg-emerald-50 px-2 text-xs font-semibold text-emerald-700 tabular-nums">
+                {verse.arabic}{" "}
+                <span className="ml-2 inline-flex h-7 min-w-7 items-center justify-center rounded-full border border-emerald-200 
+                  bg-emerald-50 px-2 text-xs font-semibold text-emerald-700 tabular-nums align-middle"
+                >
                     {verse.number}
                 </span>
-                <p
-                    className="flex-1 break-words text-gray-900 font-arabic"
-                    style={{ fontSize: `${fontSize}px` }}
-                >
-                    {verse.arabic}
-                </p>
-            </div>
+            </motion.p>
         )
     }
 
@@ -60,6 +75,7 @@ const VerseCard = ({ variant, verse, fontSize, className }: VerseCardProps) => {
                         </p>
                         <p className="text-sm text-gray-600 italic">{verse.transliteration}</p>
                         <p className="text-sm text-gray-800 leading-relaxed">{verse.translation}</p>
+
                         <div className="pt-1 flex items-center gap-1.5">
                             <button
                                 type="button"

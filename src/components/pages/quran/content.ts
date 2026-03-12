@@ -147,6 +147,7 @@ export const QuranSurahs: QuranSurahType[] = [
     { number: 114, nameArabic: "الناس", nameEnglish: "An-Nas", verses: 6, revelation: "Meccan" },
 ]
 
+
 // Detail page verse mock for Al-Fatihah (used for UI only)
 export type QuranVerseType = {
     number: number
@@ -154,7 +155,6 @@ export type QuranVerseType = {
     transliteration: string
     translation: string
 }
-
 export const SurahAlFatihahMockVerses: QuranVerseType[] = [
     {
         number: 1,

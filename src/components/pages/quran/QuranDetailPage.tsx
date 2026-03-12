@@ -10,19 +10,24 @@ import Tabs, { type TabItem } from "@/components/shared/Tabs"
 import {
     QuranSurahs,
     surahNameMeaning,
-    type QuranVerseType,
     SurahAlFatihahMockVerses,
 } from "./content"
 import { cn } from "@/lib/utils/clsx"
 import VerseCard from "./VerseCard"
 import { Card, CardContent } from "@/components/ui/card"
 
-type DetailTabId = "read" | "translation"
 
+type DetailTabId = "read" | "translation"
 interface QuranDetailPageProps {
     surahNumber: number
-    verseNumber?: number
+    verseNumber?: number | undefined
 }
+
+const tabs: TabItem[] = [
+    { id: "read" as DetailTabId, label: "Read", icon: BookOpen },
+    { id: "translation" as DetailTabId, label: "Translation", icon: Languages },
+]
+
 
 export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetailPageProps) {
     const router = useRouter()
@@ -44,10 +49,7 @@ export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetai
         return SurahAlFatihahMockVerses.slice(0, Math.min(7, surah.verses))
     }, [surah.number, surah.verses])
 
-    const tabs: TabItem[] = [
-        { id: "read" as DetailTabId, label: "Read", icon: BookOpen },
-        { id: "translation" as DetailTabId, label: "Translation", icon: Languages },
-    ]
+
 
     useEffect(() => {
         const el = scrollRef.current
@@ -78,10 +80,10 @@ export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetai
                 <div className="container">
                     <header className="py-8 sm:py-10">
                         <Button
-                            variant="ghost"
+                            variant="ghost-emerald"
                             shouldScale={false}
                             onClick={() => router.push("/quran")}
-                            className="mb-5 sm:mb-6 hover:bg-emerald-50"
+                            className="mb-5 sm:mb-6"
                         >
                             <ArrowLeft className="h-4 w-4 mr-2" />
                             Back to Surahs
@@ -90,12 +92,12 @@ export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetai
                         {/* Bismillah + surah meta */}
                         <div className="text-center">
                             <motion.div
-                                className="mb-7 sm:mb-8"
+                                className="mb-6"
                                 initial={{ opacity: 0, y: -16 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.9, ease: "easeOut" }}
                             >
-                                <p className="text-5xl sm:text-6xl text-emerald-700 mb-2 font-arabic">
+                                <p className="text-5xl sm:text-6xl text-emerald-700 mb-2 font-body py-3">
                                     بسم الله
                                 </p>
                                 <p className="text-xs sm:text-sm text-gray-600 italic">In the name of Allah</p>
@@ -103,9 +105,10 @@ export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetai
 
                             <h1 className="text-gray-900 mb-1 text-sm sm:text-base font-medium flex items-center gap-2 justify-center">
                                 <span>Surah {surah.nameEnglish}</span>
-                                <p className="flex items-center">
+                                <span className="text-emerald-700">—</span>
+                                <p className="flex items-center text-emerald-700">
                                     (<span className="text-emerald-700 font-arabic font-medium text-base 
-                                    sm:text-xl leading-none mt-2"
+                                    sm:text-xl leading-none"
                                         dir="rtl"
                                     >
                                         {surah.nameArabic}
@@ -166,23 +169,40 @@ export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetai
                                                 <div
                                                     key={activeTab}
                                                     className="mx-auto w-full max-w-2xl text-center font-arabic text-[24px] sm:text-[28px] 
-                                                    leading-[2.6] justify-center"
+                                                    leading-[2] justify-center"
                                                     style={{ direction: "rtl" }}
                                                 >
-                                                    {verses.map((verse) => (
-                                                        <motion.p
-                                                            key={verse.number}
-                                                            initial={{ opacity: 0, y: 18 }}
-                                                            animate={{ opacity: 1, y: 0 }}
-                                                            transition={{ delay: verse.number * 0.06 }}
-                                                            className="inline break-words text-center">
-                                                            {verse.arabic}{" "}
-                                                            <span className="ml-2 inline-flex h-7 min-w-7 items-center justify-center rounded-full border border-emerald-200 
-                                                            bg-emerald-50 px-2 text-xs font-semibold text-emerald-700 tabular-nums align-middle">
-                                                                {verse.number}
-                                                            </span>
-                                                        </motion.p>
-                                                    ))}
+                                                    {verses.map((verse) => {
+
+                                                        return (
+                                                            <VerseCard
+                                                                key={verse.number}
+                                                                initial={{ opacity: 0, y: 18 }}
+                                                                animate={{ opacity: 1, y: 0 }}
+                                                                transition={{ delay: verse.number * 0.08 }}
+                                                                variant="read"
+                                                                verse={verse}
+                                                                fontSize={fontSize}
+                                                                className="inline break-words text-center"
+                                                            />
+                                                        )
+
+                                                        // required-comment as backup for single-line verses display-behaviour 
+                                                        // return (
+                                                        //     <motion.p
+                                                        //         key={verse.number}
+                                                        //         initial={{ opacity: 0, y: 18 }}
+                                                        //         animate={{ opacity: 1, y: 0 }}
+                                                        //         transition={{ delay: verse.number * 0.06 }}
+                                                        //         className="inline break-words text-center">
+                                                        //         {verse.arabic}{" "}
+                                                        //         <span className="ml-2 inline-flex h-7 min-w-7 items-center justify-center rounded-full border border-emerald-200 
+                                                        //     bg-emerald-50 px-2 text-xs font-semibold text-emerald-700 tabular-nums align-middle">
+                                                        //             {verse.number}
+                                                        //         </span>
+                                                        //     </motion.p>
+                                                        // )
+                                                    })}
                                                 </div>
                                             ) : (
                                                 <div className="flex flex-col gap-4 sm:gap-5 py-2" key={activeTab}>
@@ -191,9 +211,13 @@ export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetai
                                                             key={verse.number}
                                                             initial={{ opacity: 0, y: 18 }}
                                                             animate={{ opacity: 1, y: 0 }}
-                                                            transition={{ delay: verse.number * 0.06 }}
+                                                            transition={{ delay: verse.number * 0.08 }}
                                                         >
-                                                            <VerseCard variant="translation" verse={verse} fontSize={fontSize} />
+                                                            <VerseCard
+                                                                variant="translation"
+                                                                verse={verse}
+                                                                fontSize={fontSize}
+                                                            />
                                                         </motion.div>
                                                     ))}
                                                 </div>
