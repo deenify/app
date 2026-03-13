@@ -19,6 +19,7 @@ import {
     type QuranSurahType,
     type ReciterType,
 } from "./content"
+import { motion } from "framer-motion"
 
 interface ListenTabSectionProps {
     surahs: QuranSurahType[]
@@ -168,13 +169,16 @@ export default function ListenTabSection({ surahs }: ListenTabSectionProps) {
                 ) : (
                     <>
                         <div className="grid gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                            {filteredSurahs.map((surah) => {
+                            {filteredSurahs.map((surah, index) => {
                                 const reciters = getRecitersForSurah(surah.number)
                                 return (
-                                    <button
+                                    <motion.button
                                         key={surah.number}
                                         type="button"
                                         onClick={() => router.push(`/quran/${surah.number}`)}
+                                        initial={{ opacity: 0, y: 8, scale: 0.99 }}
+                                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                                        transition={{ duration: 0.2, delay: index * 0.02, ease: "easeOut" }}
                                         className="group flex flex-col gap-3 rounded-xl border border-gray-100 bg-white p-4 text-left shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-[box-shadow,border-color] hover:border-emerald-300 hover:shadow-md"
                                     >
                                         <div className="flex items-center gap-3">
@@ -202,7 +206,7 @@ export default function ListenTabSection({ surahs }: ListenTabSectionProps) {
                                         <div className="border-t border-gray-50 pt-2">
                                             <ReciterStack reciters={reciters} />
                                         </div>
-                                    </button>
+                                    </motion.button>
                                 )
                             })}
                         </div>

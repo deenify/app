@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Bookmark } from "lucide-react"
+import { motion } from "framer-motion"
 import type { BookmarkItemType } from "./content"
 
 interface BookmarksTabSectionProps {
@@ -21,14 +22,14 @@ export default function BookmarksTabSection({ bookmarks }: BookmarksTabSectionPr
                 <header className="mb-4 sm:mb-5 flex items-end justify-between gap-3">
                     <div>
                         <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-emerald-700/80">
-                            passages
+                            Saved passages
                         </p>
                         <h2 className="mt-1 text-lg font-medium tracking-tight text-gray-900 sm:text-xl">
                             Your bookmarks
                         </h2>
                     </div>
-                    <div className="inline-flex items-center gap-1 rounded-full border border-gray-200 bg-white px-3 py-1 text-xs font-medium text-gray-600 shadow-[0_1px_2px_rgba(0,0,0,0.03)] sm:text-sm">
-                        <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                    <div className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50/80 px-3 py-1 text-[11px] font-medium text-emerald-800 shadow-[0_1px_2px_rgba(16,185,129,0.18)] sm:text-xs">
+                        <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-500" />
                         <span className="tabular-nums">{items.length}</span>
                         <span>bookmarks</span>
                     </div>
@@ -51,10 +52,13 @@ export default function BookmarksTabSection({ bookmarks }: BookmarksTabSectionPr
                 ) : (
                     <div className="grid gap-3 sm:gap-4 sm:grid-cols-2 xl:grid-cols-3">
                         {items.map((item, i) => (
-                            <button
+                            <motion.button
                                 key={`${item.surahNumber}-${item.verseNumber}-${i}`}
                                 type="button"
                                 onClick={() => router.push(`/quran/${item.surahNumber}`)}
+                                initial={{ opacity: 0, y: 8, scale: 0.99 }}
+                                animate={{ opacity: 1, y: 0, scale: 1 }}
+                                transition={{ duration: 0.2, delay: i * 0.02, ease: "easeOut" }}
                                 className="group flex flex-col rounded-xl border border-gray-100 bg-white p-4 text-left
                                 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-[border-color,box-shadow] hover:border-emerald-300 
                                 hover:shadow-md justify-between gap-2"
@@ -67,9 +71,7 @@ export default function BookmarksTabSection({ bookmarks }: BookmarksTabSectionPr
                                         <span className="font-semibold text-gray-900">
                                             {item.surahNameEnglish}
                                         </span>
-                                        <Badge
-                                            variant="emerald"
-                                        >
+                                        <Badge variant="emerald">
                                             Verse {item.verseNumber}
                                         </Badge>
                                         <Button
@@ -110,7 +112,7 @@ export default function BookmarksTabSection({ bookmarks }: BookmarksTabSectionPr
                                         Open in Quran →
                                     </p>
                                 </div>
-                            </button>
+                            </motion.button>
                         ))}
                     </div>
                 )}
