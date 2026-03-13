@@ -9,11 +9,11 @@ import { QuranSurahType, surahNameMeaning } from "./content"
 import { cn } from "@/lib/utils/clsx"
 import { Button } from "@/components/ui/button"
 
-interface SurahListSectionProps {
+interface ReadTabSectionProps {
     SURAHS: QuranSurahType[]
 }
 
-const SurahListSection = ({ SURAHS }: SurahListSectionProps) => {
+const ReadTabSection = ({ SURAHS }: ReadTabSectionProps) => {
     const router = useRouter()
     const [bookmarked, setBookmarked] = useState<Set<number>>(new Set())
 
@@ -29,85 +29,26 @@ const SurahListSection = ({ SURAHS }: SurahListSectionProps) => {
     }
 
     return (
-        <section className="pt-5 pb-20 sm:pt-8 sm:pb-20">
+        <section className="py-8 sm:py-10 bg-[linear-gradient(180deg,#f8faf8_0%,#f0f7f4_100%)]">
             <div className="container px-4 sm:px-6 md:px-6">
-                <div className="mb-4 sm:mb-5 flex items-baseline justify-between gap-3">
-                    <h2 className="text-base font-semibold tracking-tight text-gray-800 sm:text-sm sm:uppercase 
-                     sm:tracking-wide sm:text-gray-500"
-                    >
-                        All Surahs
-                    </h2>
-                    <span className="text-sm text-gray-500 tabular-nums sm:text-xs sm:text-gray-400">
-                        {SURAHS.length} surahs
-                    </span>
-                </div>
-
-                {/* Mobile: list layout — one column, clean rows */}
-                <div className="sm:hidden divide-y divide-gray-100 rounded-xl border border-gray-100 bg-white overflow-hidden">
-                    {SURAHS.map((surah) => (
-                        <main
-                            key={surah.number}
-                            className="flex w-full items-center gap-2.5 px-3 py-3 min-h-[52px] text-left hover:bg-gray-50 active:bg-gray-50/80 
-                            transition-colors min-[400px]:gap-3 min-[400px]:px-4 min-[400px]:py-3.5 cursor-pointer"
-                            onClick={() => router.push(`/quran/${surah.number}`)}
-                        >
-                            <div className="flex h-9 w-9 min-[400px]:h-10 min-[400px]:w-10 shrink-0 items-center justify-center 
-                                 rounded-full bg-emerald-50 text-emerald-700"
-                            >
-                                <span className="text-xs min-[400px]:text-sm font-bold tabular-nums">{surah.number}</span>
-                            </div>
-
-                            <div className="min-w-0 flex-1 overflow-hidden pr-1 min-[380px]:pr-2">
-                                <div className="flex flex-wrap items-center justify-start gap-1.5 min-[380px]:gap-2">
-                                    <span className="font-semibold text-gray-900 text-[15px] min-w-0 truncate">
-                                        {surah.nameEnglish}
-                                    </span>
-                                    <span>—</span>
-                                    <span
-                                        className="text-[15px] font-medium font-arabic text-emerald-800/90"
-                                        dir="rtl"
-                                    >
-                                        ({surah.nameArabic})
-                                    </span>
-                                </div>
-
-                                <div className="mt-1 flex items-center gap-1.5 text-xs text-gray-500 min-[380px]:text-[13px]">
-                                    <span>{surah.verses} verses</span>
-                                    <span
-                                        aria-hidden
-                                        className="inline-block w-1 h-1 shrink-0 rounded-full bg-gray-400"
-                                    />
-                                    <span>{surah.revelation}</span>
-                                </div>
-                            </div>
-
-                            <Button
-                                variant="ghost"
-                                size="icon"
-                                shouldScale
-                                aria-label={bookmarked.has(surah.number) ? "Remove bookmark" : "Bookmark surah"}
-                                onClick={(e: React.MouseEvent<HTMLButtonElement>) => toggleBookmark(e, surah.number)}
-                                className={cn(
-                                    "flex w-7 h-7 shrink-0 items-center justify-center rounded-full transition-colors",
-                                    "hover:bg-emerald-50 active:bg-emerald-100",
-                                    bookmarked.has(surah.number)
-                                        ? "text-emerald-600 fill-emerald-600"
-                                        : "text-gray-400 group-hover:text-emerald-500"
-                                )}
-                            >
-                                <Bookmark
-                                    className={cn("h-4 w-4 text-black/80",
-                                        bookmarked.has(surah.number) && "fill-current text-emerald-600")}
-                                    size={16}
-                                    strokeWidth={1.5}
-                                />
-                            </Button>
-                        </main>
-                    ))}
-                </div>
+                <header className="mb-4 sm:mb-5 flex items-end justify-between gap-3">
+                    <div>
+                        <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-emerald-700/80">
+                            Reading
+                        </p>
+                        <h2 className="mt-1 text-lg font-medium tracking-tight text-gray-900 sm:text-xl">
+                            Quranic surahs
+                        </h2>
+                    </div>
+                    <div className="inline-flex items-center gap-1 rounded-full border border-gray-200 bg-white px-3 py-1 text-xs font-medium text-gray-600 shadow-[0_1px_2px_rgba(0,0,0,0.03)] sm:text-sm">
+                        <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                        <span className="tabular-nums">{SURAHS.length}</span>
+                        <span>surahs</span>
+                    </div>
+                </header>
 
                 {/* Desktop: card grid — 2 cols sm, 3 cols lg */}
-                <div className="hidden sm:grid sm:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-4">
                     {SURAHS.map((surah) => {
                         return (
                             <Card
@@ -127,7 +68,7 @@ const SurahListSection = ({ SURAHS }: SurahListSectionProps) => {
                                     {/* Right: info-contente */}
                                     <div className="flex-1 min-w-0">
                                         <div className="flex items-start justify-between gap-3">
-                                            <h3 className="truncate font-semibold text-gray-900 leading-tight text-sm sm:text-base">
+                                            <h3 className="truncate font-semibold text-gray-900">
                                                 {surah.nameEnglish}
                                             </h3>
                                             <p
@@ -139,7 +80,7 @@ const SurahListSection = ({ SURAHS }: SurahListSectionProps) => {
                                         </div>
 
                                         <div>
-                                            <p className="truncate text-xs text-gray-600 leading-snug mt-0.5">
+                                            <p className="truncate text-sm text-gray-600 leading-snug mb-1">
                                                 {surahNameMeaning[surah.number] ?? surah.nameEnglish}
                                             </p>
                                         </div>
@@ -147,16 +88,10 @@ const SurahListSection = ({ SURAHS }: SurahListSectionProps) => {
                                         {/* Row 2: chips */}
                                         <div className="flex flex-1 flex-wrap items-center justify-between gap-1.5 pt-0.5 sm:gap-2 sm:pt-1">
                                             <div className="flex flex-wrap items-center gap-1.5 pt-0.5 sm:gap-2">
-                                                <Badge
-                                                    variant="outline"
-                                                    className="rounded-md border-gray-200 bg-gray-50 px-1.5 py-0.5 text-[10px] font-medium text-gray-700 sm:px-2 sm:text-[11px]"
-                                                >
+                                                <Badge variant="outline"  >
                                                     {surah.verses} verses
                                                 </Badge>
-                                                <Badge
-                                                    variant={surah.revelation === "Meccan" ? "blue" : "purple"}
-                                                    className="rounded-md px-1.5 py-0.5 text-[10px] font-medium sm:px-2 sm:text-[11px]"
-                                                >
+                                                <Badge variant={surah.revelation === "Meccan" ? "blue" : "purple"}>
                                                     {surah.revelation}
                                                 </Badge>
                                             </div>
@@ -194,4 +129,4 @@ const SurahListSection = ({ SURAHS }: SurahListSectionProps) => {
     )
 }
 
-export default SurahListSection
+export default ReadTabSection

@@ -199,3 +199,45 @@ export const SurahAlFatihahMockVerses: QuranVerseType[] = [
         translation: "the Path of those You have blessed—not those You are displeased with, or those who are astray.",
     },
 ]
+
+// Mock bookmarks for Bookmarks tab (UI only)
+export type BookmarkItemType = {
+    surahNumber: number
+    surahNameEnglish: string
+    verseNumber: number
+    translation: string
+}
+
+export const MockBookmarks: BookmarkItemType[] = [
+    { surahNumber: 1, surahNameEnglish: "Al-Fatiha", verseNumber: 1, translation: "In the name of Allah, the Most Gracious, the Most Merciful." },
+    { surahNumber: 1, surahNameEnglish: "Al-Fatiha", verseNumber: 2, translation: "All praise is due to Allah, Lord of all the worlds." },
+    { surahNumber: 1, surahNameEnglish: "Al-Fatiha", verseNumber: 5, translation: "You alone we worship, and You alone we ask for help." },
+    { surahNumber: 1, surahNameEnglish: "Al-Fatiha", verseNumber: 7, translation: "the Path of those You have blessed—not those You are displeased with, or those who are astray." },
+    { surahNumber: 2, surahNameEnglish: "Al-Baqarah", verseNumber: 255, translation: "Allah—there is no deity except Him, the Ever-Living, the Sustainer of [all] existence." },
+]
+
+// Mock reciters for Listen tab (UI only). id used for filtering.
+export type ReciterType = {
+    id: number
+    name: string
+    shortName: string
+}
+export const MockReciters: ReciterType[] = [
+    { id: 1, name: "Sheikh Abdul Basit", shortName: "A. Basit" },
+    { id: 2, name: "Sheikh Mishary Rashid", shortName: "M. Rashid" },
+    { id: 3, name: "Sheikh Maher Al Muaiqly", shortName: "M. Muaiqly" },
+    { id: 4, name: "Sheikh Saad Al-Ghamdi", shortName: "S. Ghamdi" },
+]
+
+// Surah number -> reciter ids who have this surah (for filter by reciter)
+export const SurahRecitersMap: Record<number, number[]> = (() => {
+    const map: Record<number, number[]> = {}
+    for (let n = 1; n <= 114; n++) {
+        // Each surah has 2–3 reciters for variety; pattern so filter works
+        const a = ((n - 1) % 4) + 1
+        const b = (n % 4) + 1
+        const c = n <= 30 ? ((n + 1) % 4) + 1 : undefined
+        map[n] = c !== undefined && c !== a && c !== b ? [a, b, c] : [a, b]
+    }
+    return map
+})()
