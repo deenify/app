@@ -200,20 +200,27 @@ export const SurahAlFatihahMockVerses: QuranVerseType[] = [
     },
 ]
 
-// Mock bookmarks for Bookmarks tab (UI only)
+// Mock bookmarks for Bookmarks tab (UI only). savedAt = ISO date string for date filter.
 export type BookmarkItemType = {
     surahNumber: number
     surahNameEnglish: string
     verseNumber: number
     translation: string
+    savedAt: string
+}
+
+function daysAgo(days: number): string {
+    const d = new Date()
+    d.setDate(d.getDate() - days)
+    return d.toISOString()
 }
 
 export const MockBookmarks: BookmarkItemType[] = [
-    { surahNumber: 1, surahNameEnglish: "Al-Fatiha", verseNumber: 1, translation: "In the name of Allah, the Most Gracious, the Most Merciful." },
-    { surahNumber: 1, surahNameEnglish: "Al-Fatiha", verseNumber: 2, translation: "All praise is due to Allah, Lord of all the worlds." },
-    { surahNumber: 1, surahNameEnglish: "Al-Fatiha", verseNumber: 5, translation: "You alone we worship, and You alone we ask for help." },
-    { surahNumber: 1, surahNameEnglish: "Al-Fatiha", verseNumber: 7, translation: "the Path of those You have blessed—not those You are displeased with, or those who are astray." },
-    { surahNumber: 2, surahNameEnglish: "Al-Baqarah", verseNumber: 255, translation: "Allah—there is no deity except Him, the Ever-Living, the Sustainer of [all] existence." },
+    { surahNumber: 1, surahNameEnglish: "Al-Fatiha", verseNumber: 1, translation: "In the name of Allah, the Most Gracious, the Most Merciful.", savedAt: daysAgo(0) },
+    { surahNumber: 1, surahNameEnglish: "Al-Fatiha", verseNumber: 2, translation: "All praise is due to Allah, Lord of all the worlds.", savedAt: daysAgo(2) },
+    { surahNumber: 1, surahNameEnglish: "Al-Fatiha", verseNumber: 5, translation: "You alone we worship, and You alone we ask for help.", savedAt: daysAgo(5) },
+    { surahNumber: 1, surahNameEnglish: "Al-Fatiha", verseNumber: 7, translation: "the Path of those You have blessed—not those You are displeased with, or those who are astray.", savedAt: daysAgo(14) },
+    { surahNumber: 2, surahNameEnglish: "Al-Baqarah", verseNumber: 255, translation: "Allah—there is no deity except Him, the Ever-Living, the Sustainer of [all] existence.", savedAt: daysAgo(365) },
 ]
 
 // Mock reciters for Listen tab (UI only). id used for filtering.

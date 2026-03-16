@@ -1,24 +1,9 @@
 "use client"
 
-import { useMemo, useState } from "react"
 import { useRouter } from "next/navigation"
-import { Button } from "@/components/ui/button"
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { Headphones, Play, User } from "lucide-react"
-import { ChevronDown, Check } from "lucide-react"
-import { cn } from "@/lib/utils/clsx"
-import {
-    MockReciters,
-    SurahRecitersMap,
-    type QuranSurahType,
-    type ReciterType,
-} from "./content"
+import { Headphones, Play } from "lucide-react"
+import { MockReciters, SurahRecitersMap, type QuranSurahType, type ReciterType } from "./content"
 import { motion } from "framer-motion"
 
 interface ListenTabSectionProps {
@@ -67,21 +52,10 @@ function ReciterStack({ reciters }: { reciters: ReciterType[] }) {
     )
 }
 
+
+
 export default function ListenTabSection({ surahs }: ListenTabSectionProps) {
     const router = useRouter()
-    const [reciterId, setReciterId] = useState<number | "all">("all")
-
-    const filteredSurahs = useMemo(() => {
-        if (reciterId === "all") return surahs
-        return surahs.filter((s) =>
-            (SurahRecitersMap[s.number] ?? []).includes(reciterId)
-        )
-    }, [surahs, reciterId])
-
-    const reciterLabel =
-        reciterId === "all"
-            ? "All reciters"
-            : MockReciters.find((r) => r.id === reciterId)?.name ?? "All reciters"
 
     if (surahs.length === 0) {
         return (
@@ -115,61 +89,20 @@ export default function ListenTabSection({ surahs }: ListenTabSectionProps) {
                             Listen by surah
                         </h2>
                     </div>
-                    <DropdownMenu>
-                        <DropdownMenuTrigger >
-                            <Button
-                                type="button"
-                                variant="ghost"
-                                size="sm"
-                                className="h-9 shrink-0 justify-between gap-2 rounded-lg border border-gray-200 bg-white px-3 text-xs font-medium text-gray-700 hover:bg-gray-50 sm:w-[200px]"
-                            >
-                                <span className="flex items-center gap-1.5 truncate">
-                                    <User className="h-3.5 w-3.5 shrink-0 text-gray-500" />
-                                    {reciterLabel}
-                                </span>
-                                <ChevronDown className="h-3.5 w-3.5 shrink-0 text-gray-400" />
-                            </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end" className="w-[200px] border-gray-200 p-1">
-                            <DropdownMenuItem
-                                onClick={() => setReciterId("all")}
-                                className={cn(
-                                    "flex items-center justify-between rounded-sm px-2 py-2 text-xs",
-                                    reciterId === "all"
-                                        ? "bg-emerald-50 text-emerald-900"
-                                        : "text-gray-700 hover:bg-gray-50"
-                                )}
-                            >
-                                All reciters
-                                {reciterId === "all" && <Check className="h-3.5 w-3.5" strokeWidth={2} />}
-                            </DropdownMenuItem>
-                            {MockReciters.map((r) => (
-                                <DropdownMenuItem
-                                    key={r.id}
-                                    onClick={() => setReciterId(r.id)}
-                                    className={cn(
-                                        "flex items-center justify-between rounded-sm px-2 py-2 text-xs",
-                                        reciterId === r.id
-                                            ? "bg-emerald-50 text-emerald-900"
-                                            : "text-gray-700 hover:bg-gray-50"
-                                    )}
-                                >
-                                    {r.name}
-                                    {reciterId === r.id && <Check className="h-3.5 w-3.5" strokeWidth={2} />}
-                                </DropdownMenuItem>
-                            ))}
-                        </DropdownMenuContent>
-                    </DropdownMenu>
+                    <div className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50/80 px-3 py-1 text-[11px] font-medium text-emerald-800 shadow-[0_1px_2px_rgba(16,185,129,0.18)] sm:text-xs">
+                        <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                        15+ reciters
+                    </div>
                 </header>
 
-                {filteredSurahs.length === 0 ? (
+                {surahs.length === 0 ? (
                     <p className="rounded-xl border border-gray-100 bg-white py-8 text-center text-sm text-gray-500">
-                        No surahs available for this reciter. Select another or All reciters.
+                        No surahs match your search or reciter filter. Try a different search or select All reciters.
                     </p>
                 ) : (
                     <>
                         <div className="grid gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                            {filteredSurahs.map((surah, index) => {
+                            {surahs.map((surah, index) => {
                                 const reciters = getRecitersForSurah(surah.number)
                                 return (
                                     <motion.button

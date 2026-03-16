@@ -163,7 +163,7 @@ export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetai
                                     >
                                         <div
                                             ref={scrollRef}
-                                            className="max-h-[600px] overflow-y-auto pr-1 sm:pr-2 scrollbar-hide"
+                                            className="max-h-[600px] overflow-y-auto pr-1 sm:pr-2 scrollbar-thin"
                                         >
                                             {activeTab === "read" ? (
                                                 <div
@@ -177,9 +177,9 @@ export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetai
                                                         return (
                                                             <VerseCard
                                                                 key={verse.number}
-                                                                initial={{ opacity: 0, y: 18 }}
-                                                                animate={{ opacity: 1, y: 0 }}
-                                                                transition={{ delay: verse.number * 0.08 }}
+                                                                initial={{ opacity: 0 }}
+                                                                animate={{ opacity: 1 }}
+                                                                transition={{ delay: verse.number * 0.07 }}
                                                                 variant="read"
                                                                 verse={verse}
                                                                 fontSize={fontSize}

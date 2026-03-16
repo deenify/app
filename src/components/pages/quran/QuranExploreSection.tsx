@@ -2,16 +2,18 @@
 
 import { useMemo, useState } from "react"
 import { SurahOrderMap } from "@/constant/quranic-conatant"
-import { QuranSurahs, MockBookmarks } from "./content"
+import { QuranSurahs, MockBookmarks, MockReciters, SurahRecitersMap } from "./content"
 import ReadTabSection from "./ReadTabSection"
 import ListenTabSection from "./ListenTabSection"
 import BookmarksTabSection from "./BookmarksTabSection"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import Tabs, { TabItem } from "@/components/shared/Tabs"
-import QuranOrderDropdown, { type OrderMode } from "./QuranOrderDropdown"
+import QuranFilterDropdown, { type QuranFilterOption } from "./QuranFilterDropdown"
+import type { OrderMode } from "./QuranOrderDropdown"
 
 type QuranTabId = "all" | "bookmarks" | "listen"
+export type BookmarkDateFilter = "all" | "today" | "week" | "month" | "year"
 
 const quranTabs: TabItem[] = [
     { id: "all" as QuranTabId, label: "Read" },
@@ -19,10 +21,39 @@ const quranTabs: TabItem[] = [
     { id: "bookmarks" as QuranTabId, label: "Bookmarks" },
 ]
 
-const QuranExploreSection = () => {
+function isSavedInRange(savedAt: string, filter: BookmarkDateFilter): boolean {
+    if (filter === "all") return true
+    const date = new Date(savedAt)
+    const now = new Date()
+    const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+    if (filter === "today") return date >= todayStart
+    if (filter === "week") return date >= new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000)
+    if (filter === "month") return date >= new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000)
+    if (filter === "year") return date >= new Date(now.getTime() - 365 * 24 * 60 * 60 * 1000)
+    return true
+}
 
+const orderOptions: QuranFilterOption[] = [
+    { value: "quran", label: "Quranic order" },
+    { value: "revelation", label: "Revelation order" },
+]
+const reciterOptions: QuranFilterOption[] = [
+    { value: "all", label: "All reciters" },
+    ...MockReciters.map((r) => ({ value: r.id, label: r.name })),
+]
+const bookmarkDateOptions: QuranFilterOption[] = [
+    { value: "all", label: "All time" },
+    { value: "today", label: "Today" },
+    { value: "week", label: "Last 7 days" },
+    { value: "month", label: "Last 30 days" },
+    { value: "year", label: "Last year" },
+]
+
+const QuranExploreSection = () => {
     const [searchQuery, setSearchQuery] = useState("")
     const [orderMode, setOrderMode] = useState<OrderMode>("quran")
+    const [reciterId, setReciterId] = useState<string | number>("all")
+    const [bookmarkDateFilter, setBookmarkDateFilter] = useState<BookmarkDateFilter>("all")
     const [activeTab, setActiveTab] = useState<QuranTabId>("all")
 
     const processedSurahs = useMemo(() => {
@@ -35,19 +66,50 @@ const QuranExploreSection = () => {
                     return aOrder - bOrder
                 })
 
-        if (!searchQuery.trim()) {
-            return ordered
-        }
-
+        if (!searchQuery.trim()) return ordered
         const q = searchQuery.toLowerCase().trim()
-        return ordered.filter((surah) => {
-            return (
+        return ordered.filter(
+            (surah) =>
                 surah.nameEnglish.toLowerCase().includes(q) ||
                 surah.nameArabic.toLowerCase().includes(q) ||
                 surah.number.toString() === q
-            )
-        })
+        )
     }, [orderMode, searchQuery])
+
+    const filteredListenSurahs = useMemo(() => {
+        if (reciterId === "all") return processedSurahs
+        return processedSurahs.filter((s) => (SurahRecitersMap[s.number] ?? []).includes(reciterId as number))
+    }, [processedSurahs, reciterId])
+
+    const processedBookmarks = useMemo(() => {
+        let list = MockBookmarks.filter((b) => isSavedInRange(b.savedAt, bookmarkDateFilter))
+        if (searchQuery.trim()) {
+            const q = searchQuery.toLowerCase().trim()
+            list = list.filter(
+                (b) =>
+                    b.surahNameEnglish.toLowerCase().includes(q) ||
+                    b.translation.toLowerCase().includes(q) ||
+                    b.surahNumber.toString() === q ||
+                    b.verseNumber.toString() === q
+            )
+        }
+        return list
+    }, [bookmarkDateFilter, searchQuery])
+
+    const dropdownOptions = activeTab === "all" ? orderOptions : activeTab === "listen" ? reciterOptions : bookmarkDateOptions
+    const dropdownValue = activeTab === "all" ? orderMode : activeTab === "listen" ? reciterId : bookmarkDateFilter
+    const setDropdownValue = (v: string | number) => {
+        if (activeTab === "all") setOrderMode(v as OrderMode)
+        else if (activeTab === "listen") setReciterId(v)
+        else setBookmarkDateFilter(v as BookmarkDateFilter)
+    }
+
+    const searchPlaceholder =
+        activeTab === "all"
+            ? "Search by surah name, number, or translation..."
+            : activeTab === "listen"
+                ? "Search by surah name, number, or translation..."
+                : "Search by surah, verse, or translation..."
 
     return (
         <div className="bg-gray-50/50">
@@ -91,16 +153,17 @@ const QuranExploreSection = () => {
                             <Input
                                 search
                                 type="input"
-                                placeholder="Search by surah name, number, or translation..."
+                                placeholder={searchPlaceholder}
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 containerClassName="flex-1 min-w-0"
                                 className="min-h-[42px] h-10 sm:h-11 rounded-lg border-gray-200 bg-gray-50/80 text-sm placeholder:text-gray-400 focus:bg-white"
                             />
                             <div className="w-full sm:w-[220px] sm:shrink-0">
-                                <QuranOrderDropdown
-                                    orderMode={orderMode}
-                                    onChange={(mode) => setOrderMode(mode)}
+                                <QuranFilterDropdown
+                                    options={dropdownOptions}
+                                    value={dropdownValue}
+                                    onChange={setDropdownValue}
                                 />
                             </div>
                         </div>
@@ -122,24 +185,10 @@ const QuranExploreSection = () => {
                 </div>
             </section>
 
-
-            {/* Surah Read Tab  */}
-            {activeTab as QuranTabId === "all"
-                ? <ReadTabSection SURAHS={processedSurahs} />
-                : null
-            }
-
-            {/* Surah Listen Tab  */}
-            {activeTab as QuranTabId === "listen"
-                ? <ListenTabSection surahs={processedSurahs} />
-                : null
-            }
-
-            {/* Surah Bookmarks Tab  */}
-            {activeTab as QuranTabId === "bookmarks"
-                ? <BookmarksTabSection bookmarks={MockBookmarks} />
-                : null
-            }
+            {/* Read, Listen tabs - content */}
+            {activeTab === "all" && <ReadTabSection SURAHS={processedSurahs} />}
+            {activeTab === "listen" && <ListenTabSection surahs={filteredListenSurahs} />}
+            {activeTab === "bookmarks" && <BookmarksTabSection bookmarks={processedBookmarks} />}
         </div>
     )
 }

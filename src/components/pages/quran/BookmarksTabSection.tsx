@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -15,6 +15,10 @@ interface BookmarksTabSectionProps {
 export default function BookmarksTabSection({ bookmarks }: BookmarksTabSectionProps) {
     const router = useRouter()
     const [items, setItems] = useState<BookmarkItemType[]>(bookmarks)
+
+    useEffect(() => {
+        setItems(bookmarks)
+    }, [bookmarks])
 
     return (
         <section className="relative border-t border-gray-100 bg-[linear-gradient(180deg,#fafafa_0%,#f5f5f5_100%)] py-8 sm:py-10 min-h-[320px]">
@@ -106,7 +110,7 @@ export default function BookmarksTabSection({ bookmarks }: BookmarksTabSectionPr
 
                                 <div className="mt-2 flex items-center justify-between gap-2">
                                     <p className="text-xs font-medium text-gray-700 tracking-wide uppercase">
-                                        13 Mar 2026
+                                        {new Date(item.savedAt).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}
                                     </p>
                                     <p className="text-[11px] font-medium text-emerald-700/90 opacity-0 transition-opacity group-hover:opacity-100">
                                         Open in Quran →
