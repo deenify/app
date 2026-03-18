@@ -158,7 +158,10 @@ const Sidebar = (
                                     <div className="space-y-0.5 pr-3">
                                         {section.items.map((item, idxx) => {
                                             const Icon = item.icon;
-                                            const isActive = pathname === `/${item.href}` || pathname === item.href;
+                                            const isActive =
+                                                item.href === "/"
+                                                    ? pathname === "/"
+                                                    : pathname.startsWith(item.href);
 
                                             return (
                                                 <Link
@@ -170,7 +173,7 @@ const Sidebar = (
                                                         isActive
                                                             ? sidebarExpanded
                                                                 ? "bg-emerald-100 text-emerald-900 justify-start"
-                                                                : "bg-emerald-50 text-emerald-600 "
+                                                                : "bg-emerald-50 text-emerald-600"
                                                             : "text-gray-700 hover:bg-gray-50"
                                                     )}
                                                     onClick={() => {
