@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useMemo, useRef, useState } from "react"
+import { useMemo, useState } from "react"
 import { useRouter } from "next/navigation"
 import { motion } from "framer-motion"
 import { ArrowLeft, BookOpen, Languages, Settings } from "lucide-react"
@@ -12,11 +12,8 @@ import {
     surahNameMeaning,
     SurahAlFatihahMockVerses,
 } from "./content"
-import { cn } from "@/lib/utils/clsx"
 import VerseCard from "./VerseCard"
-import { Card, CardContent } from "@/components/ui/card"
-
-
+import SettingSidebar from "./SettingSidebar"
 type DetailTabId = "read" | "translation"
 interface QuranDetailPageProps {
     surahNumber: number
@@ -33,10 +30,7 @@ export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetai
     const router = useRouter()
     const [activeTab, setActiveTab] = useState<DetailTabId>("read")
     const [fontSize, setFontSize] = useState(24)
-    const [translationLang, setTranslationLang] = useState<"english" | "urdu">("english")
     const [showSettings, setShowSettings] = useState(false)
-
-    const scrollRef = useRef<HTMLDivElement | null>(null)
 
     const surah = useMemo(() => {
         const n = Number.isFinite(surahNumber) && surahNumber >= 1 && surahNumber <= 114 ? surahNumber : 1
@@ -48,31 +42,6 @@ export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetai
         if (surah.number === 1) return SurahAlFatihahMockVerses
         return SurahAlFatihahMockVerses.slice(0, Math.min(7, surah.verses))
     }, [surah.number, surah.verses])
-
-
-
-    useEffect(() => {
-        const el = scrollRef.current
-        if (!el) return
-
-        const onScroll = () => {
-            const scrollTop = el.scrollTop
-            const scrollHeight = el.scrollHeight - el.clientHeight
-            const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0
-            // reserved for future progress UI
-            void progress
-        }
-
-        el.addEventListener("scroll", onScroll, { passive: true })
-        onScroll()
-        return () => el.removeEventListener("scroll", onScroll)
-    }, [activeTab])
-
-    useEffect(() => {
-        if (!verseNumber || !scrollRef.current) return
-        // Minimal: keep behavior safe. We'll implement exact verse jump when real verses exist.
-    }, [verseNumber])
-
     return (
         <div>
             {/* Header section */}
@@ -137,7 +106,7 @@ export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetai
 
             {/* Body section */}
             <section className="relative bg-gradient-to-br from-emerald-50 via-white to-teal-50
-            border-t border-gray-100 w-full">
+            border-t border-layout-separator w-full">
                 <motion.div
                     className="pointer-events-none absolute -top-10 left-[-40px] h-40 w-40 rounded-full bg-emerald-100 blur-3xl opacity-30"
                     animate={{ scale: [1, 1.1, 1], opacity: [0.25, 0.35, 0.25] }}
@@ -162,7 +131,6 @@ export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetai
                                         contentContainerClassName="pt-10 pb-7"
                                     >
                                         <div
-                                            ref={scrollRef}
                                             className="max-h-[600px] overflow-y-auto pr-1 sm:pr-2 scrollbar-thin"
                                         >
                                             {activeTab === "read" ? (
@@ -228,58 +196,11 @@ export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetai
                             </div>
                         </main>
 
-                        <aside
-                            className={cn(
-                                "transition-all duration-300 overflow-hidden border-l border-gray-100 bg-white",
-                                showSettings ? "w-80" : "w-0"
-                            )}
-                        >
-                            <div className="h-full p-6 w-80 flex flex-col gap-6">
-                                <div className="flex items-center justify-between">
-                                    <h3 className="text-gray-900 font-medium">Settings</h3>
-                                    <Button variant="ghost" size="sm" shouldScale={false} onClick={() => setShowSettings(false)}>
-                                        Close
-                                    </Button>
-                                </div>
-
-                                <div className="flex flex-col gap-3">
-                                    <label className="text-sm text-gray-700">Arabic Font Size</label>
-                                    <div className="flex flex-col gap-2">
-                                        <input
-                                            type="range"
-                                            min={16}
-                                            max={48}
-                                            step={2}
-                                            value={fontSize}
-                                            onChange={(e) => setFontSize(Number(e.target.value))}
-                                            className="w-full accent-emerald-600"
-                                        />
-                                        <p className="text-xs text-gray-500 text-center tabular-nums">{fontSize}px</p>
-                                    </div>
-                                </div>
-
-                                <div className="flex flex-col gap-3">
-                                    <label className="text-sm text-gray-700">Translation</label>
-                                    <select
-                                        value={translationLang}
-                                        onChange={(e) => setTranslationLang(e.target.value as "english" | "urdu")}
-                                        className="w-full h-10 rounded-lg border border-gray-200 bg-white px-3 text-sm text-gray-800 outline-none focus:border-emerald-300 focus:ring-2 focus:ring-emerald-100"
-                                    >
-                                        <option value="english">English</option>
-                                        <option value="urdu">Urdu</option>
-                                    </select>
-                                </div>
-
-                                <Card className="bg-gradient-to-br from-emerald-50 to-teal-50 border-emerald-200">
-                                    <CardContent className="p-4">
-                                        <p className="text-sm text-emerald-800">
-                                            <span className="font-semibold">About {surah.nameEnglish}:</span> A focused reading space with
-                                            adjustable Arabic size and translation view.
-                                        </p>
-                                    </CardContent>
-                                </Card>
-                            </div>
-                        </aside>
+                        <SettingSidebar
+                            open={showSettings}
+                            onClose={() => setShowSettings(false)}
+                            surahNumber={surah.number}
+                        />
                     </div>
                 </div>
 
