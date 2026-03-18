@@ -114,3 +114,5 @@ export const SurahOrderMap = {
     113: { name: "Al-Falaq", nameEnglish: "Daybreak", revelationOrder: 20 },
     114: { name: "An-Nas", nameEnglish: "Mankind", revelationOrder: 21 }
 } as const;
+
+

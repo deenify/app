@@ -12,27 +12,41 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { cn } from "@/lib/utils/clsx"
+import useQuranReaderSettingsStore from "@/store/quran"
 
 interface SettingSidebarProps {
     open: boolean
     onClose: () => void
-    surahNumber: number
 }
 
-const SettingSidebar: React.FC<SettingSidebarProps> = ({ open, onClose, surahNumber }) => {
-    const [arabicFontSize, setArabicFontSize] = useState(28)
-    const [transliterationSize, setTransliterationSize] = useState(14)
-    const [translationSize, setTranslationSize] = useState(16)
-    const [showArabic, setShowArabic] = useState(true)
-    const [showTransliteration, setShowTransliteration] = useState(true)
-    const [showTranslation, setShowTranslation] = useState(true)
-    const [translationSource, setTranslationSource] = useState("english-sahih")
+const SettingSidebar: React.FC<SettingSidebarProps> = ({ open, onClose }) => {
+
+    const {
+        arabicFontSize,
+        showArabic,
+        transliterationSize,
+        showTransliteration,
+        translationSize,
+        showTranslation,
+        translationLanguage,
+        reciter,
+        playbackSpeed,
+        autoScroll,
+        setArabicFontSize,
+        setShowArabic,
+        setTransliterationSize,
+        setShowTransliteration,
+        setTranslationSize,
+        setShowTranslation,
+        setTranslationLanguage,
+        setReciter,
+        setPlaybackSpeed,
+        setAutoScroll,
+    } = useQuranReaderSettingsStore()
+
     const [translationLangSearch, setTranslationLangSearch] = useState("")
     const [translationLangMenuOpen, setTranslationLangMenuOpen] = useState(false)
     const translationLangSearchRef = useRef<HTMLInputElement | null>(null)
-    const [reciter, setReciter] = useState("mishary")
-    const [playbackSpeed, setPlaybackSpeed] = useState(1)
-    const [autoScroll, setAutoScroll] = useState(true)
 
     const translationLanguages = [
         { value: "english-sahih", label: "English – Sahih International" },
@@ -48,7 +62,7 @@ const SettingSidebar: React.FC<SettingSidebarProps> = ({ open, onClose, surahNum
     ] as const
 
     const translationSelectedLabel =
-        translationLanguages.find((l) => l.value === translationSource)?.label ?? "Select language"
+        translationLanguages.find((l) => l.value === translationLanguage)?.label ?? "Select language"
 
     const translationLangFiltered = translationLanguages.filter((l) =>
         l.label.toLowerCase().includes(translationLangSearch.trim().toLowerCase()),
@@ -127,6 +141,7 @@ const SettingSidebar: React.FC<SettingSidebarProps> = ({ open, onClose, surahNum
                                         variant="emerald"
                                         checked={showArabic}
                                         onCheckedChange={setShowArabic}
+                                        disabled={!showTransliteration && !showTranslation}
                                     />
                                 </CardContent>
                             </Card>
@@ -211,6 +226,7 @@ const SettingSidebar: React.FC<SettingSidebarProps> = ({ open, onClose, surahNum
                                         variant="blue"
                                         checked={showTransliteration}
                                         onCheckedChange={setShowTransliteration}
+                                        disabled={!showArabic && !showTranslation}
                                     />
                                 </CardContent>
                             </Card>
@@ -295,6 +311,7 @@ const SettingSidebar: React.FC<SettingSidebarProps> = ({ open, onClose, surahNum
                                         variant="purple"
                                         checked={showTranslation}
                                         onCheckedChange={setShowTranslation}
+                                        disabled={!showArabic && !showTransliteration}
                                     />
                                 </CardContent>
                             </Card>
@@ -348,14 +365,14 @@ const SettingSidebar: React.FC<SettingSidebarProps> = ({ open, onClose, surahNum
                                                     <DropdownMenuItem
                                                         key={lang.value}
                                                         onSelect={() => {
-                                                            setTranslationSource(lang.value)
+                                                            setTranslationLanguage(lang.value)
                                                             setTranslationLangMenuOpen(false)
                                                             setTranslationLangSearch("")
                                                         }}
                                                         className={cn(
                                                             "cursor-pointer rounded-sm mx-0 px-3 py-2 border transition-colors flex items-center justify-between gap-3",
                                                             "focus:outline-none mt-1",
-                                                            translationSource === lang.value
+                                                            translationLanguage === lang.value
                                                                 ? "bg-purple-50 border-purple-200 text-purple-900 hover:bg-purple-50 hover:border-purple-300 focus:bg-purple-50 focus:border-purple-200 focus:text-purple-900 data-[highlighted]:bg-purple-50 data-[highlighted]:border-purple-200"
                                                                 : "border-transparent text-gray-900 hover:border-purple-200 hover:bg-purple-50 focus:bg-purple-50/70 focus:border-purple-200 focus:text-gray-900 data-[highlighted]:bg-purple-50/70 data-[highlighted]:border-purple-200"
                                                         )}
@@ -363,7 +380,7 @@ const SettingSidebar: React.FC<SettingSidebarProps> = ({ open, onClose, surahNum
                                                         <span
                                                             className={cn(
                                                                 "text-sm font-medium truncate",
-                                                                translationSource === lang.value
+                                                                translationLanguage === lang.value
                                                                     ? "text-purple-900"
                                                                     : "text-gray-900"
                                                             )}
@@ -371,7 +388,7 @@ const SettingSidebar: React.FC<SettingSidebarProps> = ({ open, onClose, surahNum
                                                             {lang.label}
                                                         </span>
 
-                                                        {translationSource === lang.value && (
+                                                        {translationLanguage === lang.value && (
                                                             <Check
                                                                 className="h-4 w-4 shrink-0 text-purple-600"
                                                                 strokeWidth={2}
