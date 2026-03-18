@@ -14,6 +14,7 @@ import {
 } from "./content"
 import VerseCard from "./VerseCard"
 import SettingSidebar from "./SettingSidebar"
+import useQuranReaderSettingsStore from "@/store/quran"
 type DetailTabId = "read" | "translation"
 interface QuranDetailPageProps {
     surahNumber: number
@@ -29,8 +30,15 @@ const tabs: TabItem[] = [
 export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetailPageProps) {
     const router = useRouter()
     const [activeTab, setActiveTab] = useState<DetailTabId>("read")
-    const [fontSize, setFontSize] = useState(24)
     const [showSettings, setShowSettings] = useState(false)
+    const {
+        arabicFontSize,
+        transliterationSize,
+        translationSize,
+        showArabic,
+        showTransliteration,
+        showTranslation,
+    } = useQuranReaderSettingsStore()
 
     const surah = useMemo(() => {
         const n = Number.isFinite(surahNumber) && surahNumber >= 1 && surahNumber <= 114 ? surahNumber : 1
@@ -42,6 +50,8 @@ export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetai
         if (surah.number === 1) return SurahAlFatihahMockVerses
         return SurahAlFatihahMockVerses.slice(0, Math.min(7, surah.verses))
     }, [surah.number, surah.verses])
+
+
     return (
         <div>
             {/* Header section */}
@@ -115,6 +125,7 @@ export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetai
 
                 <div className="relative">
                     <div className="flex items-start gap-6">
+                        {/* left-side surah content */}
                         <main className="flex-1 min-w-0">
                             <div className="container py-4 sm:py-6">
                                 <div className="max-w-3xl mx-auto">
@@ -150,8 +161,9 @@ export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetai
                                                                 transition={{ delay: verse.number * 0.07 }}
                                                                 variant="read"
                                                                 verse={verse}
-                                                                fontSize={fontSize}
-                                                                className="inline break-words text-center"
+                                                                arabicFontSize={arabicFontSize}
+                                                                showArabic={showArabic}
+                                                                className="inline break-words text-center font-arabic"
                                                             />
                                                         )
 
@@ -184,7 +196,13 @@ export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetai
                                                             <VerseCard
                                                                 variant="translation"
                                                                 verse={verse}
-                                                                fontSize={fontSize}
+                                                                arabicFontSize={arabicFontSize}
+                                                                transliterationFontSize={transliterationSize}
+                                                                translationFontSize={translationSize}
+                                                                showArabic={showArabic}
+                                                                showTransliteration={showTransliteration}
+                                                                showTranslation={showTranslation}
+                                                                className="font-arabic"
                                                             />
                                                         </motion.div>
                                                     ))}
@@ -196,10 +214,10 @@ export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetai
                             </div>
                         </main>
 
+                        {/* Settings Sidebar */}
                         <SettingSidebar
                             open={showSettings}
                             onClose={() => setShowSettings(false)}
-                            surahNumber={surah.number}
                         />
                     </div>
                 </div>

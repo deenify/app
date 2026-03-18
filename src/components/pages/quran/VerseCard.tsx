@@ -12,7 +12,12 @@ export type VerseCardVariant = "read" | "translation"
 interface VerseCardProps {
     variant: VerseCardVariant
     verse: QuranVerseType
-    fontSize: number
+    arabicFontSize: number
+    transliterationFontSize?: number
+    translationFontSize?: number
+    showArabic?: boolean
+    showTransliteration?: boolean
+    showTranslation?: boolean
     className?: string
     initial?: TargetAndTransition
     animate?: TargetAndTransition
@@ -22,7 +27,12 @@ interface VerseCardProps {
 const VerseCard = ({
     variant,
     verse,
-    fontSize,
+    arabicFontSize,
+    transliterationFontSize,
+    translationFontSize,
+    showArabic = true,
+    showTransliteration = true,
+    showTranslation = true,
     className,
     initial,
     animate,
@@ -38,7 +48,7 @@ const VerseCard = ({
                 animate={animate}
 
                 style={{
-                    fontSize: `${Math.max(18, fontSize - 4)}px`,
+                    fontSize: `${Math.max(18, arabicFontSize - 4)}px`,
                     lineHeight: 2.1,
                     direction: "rtl",
                 }}
@@ -63,18 +73,36 @@ const VerseCard = ({
                         {verse.number}
                     </Badge>
                     <div className="min-w-0 flex-1 flex flex-col gap-2">
-                        <p
-                            className="text-right text-gray-900 font-arabic"
-                            style={{
-                                fontSize: `${Math.max(18, fontSize - 4)}px`,
-                                lineHeight: 2.1,
-                                direction: "rtl",
-                            }}
-                        >
-                            {verse.arabic}
-                        </p>
-                        <p className="text-sm text-gray-600 italic">{verse.transliteration}</p>
-                        <p className="text-sm text-gray-800 leading-relaxed">{verse.translation}</p>
+                        {showArabic && (
+                            <p
+                                className="text-right text-gray-900 font-arabic"
+                                style={{
+                                    fontSize: `${Math.max(18, arabicFontSize - 4)}px`,
+                                    lineHeight: 2.1,
+                                    direction: "rtl",
+                                }}
+                            >
+                                {verse.arabic}
+                            </p>
+                        )}
+
+                        {showTransliteration && (
+                            <p
+                                className="text-gray-600 italic"
+                                style={{ fontSize: `${transliterationFontSize ?? 14}px` }}
+                            >
+                                {verse.transliteration}
+                            </p>
+                        )}
+
+                        {showTranslation && (
+                            <p
+                                className="text-gray-800 leading-relaxed"
+                                style={{ fontSize: `${translationFontSize ?? 16}px` }}
+                            >
+                                {verse.translation}
+                            </p>
+                        )}
 
                         <div className="pt-1 flex items-center gap-1.5">
                             <button
