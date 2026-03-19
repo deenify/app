@@ -169,11 +169,11 @@ const Sidebar = (
                                                     href={item.href}
                                                     className={cn(
                                                         "w-full flex items-center rounded-lg transition-colors duration-150 group relative truncate",
-                                                        "px-4 py-3 font-medium",
+                                                        "px-[15px] py-3 font-medium border border-transparent",
                                                         isActive
                                                             ? sidebarExpanded
-                                                                ? "bg-emerald-100 text-emerald-900 justify-start"
-                                                                : "bg-emerald-50 text-emerald-600"
+                                                                ? "bg-emerald-50 text-emerald-900 justify-start border-emerald-200"
+                                                                : "bg-emerald-50 text-emerald-600 border-transparent"
                                                             : "text-gray-700 hover:bg-gray-50"
                                                     )}
                                                     onClick={() => {
