@@ -54,7 +54,8 @@ export default function QuranFilterDropdown({
             </DropdownMenuTrigger>
             <DropdownMenuContent
                 align="end"
-                className="w-full min-w-0 border border-gray-200 bg-white p-1 sm:p-1.5 shadow-md text-xs sm:text-sm sm:min-w-[200px]"
+                className="w-[var(--radix-dropdown-menu-trigger-width)] min-w-[var(--radix-dropdown-menu-trigger-width)]
+                 border border-gray-200 bg-white p-1 sm:p-1.5 shadow-md text-xs sm:text-sm"
             >
                 {options.map((opt) => (
                     <DropdownMenuItem
