@@ -27,6 +27,7 @@ interface TabsPropType {
     stretchTabs?: boolean
     /** When false, content is rendered without framer-motion animation */
     animateContent?: boolean
+    tabClassName?: string
 }
 
 const Tabs = ({
@@ -42,6 +43,7 @@ const Tabs = ({
     align = "center",
     stretchTabs = true,
     animateContent = true,
+    tabClassName,
 }: TabsPropType) => {
 
     const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 })
@@ -170,8 +172,9 @@ const Tabs = ({
                                     key={tab.id}
                                     onClick={() => onTabChange(tab.id)}
                                     className={cn(
-                                        "px-5 py-1.5 rounded-full text-sm font-medium transition-colors whitespace-nowrap",
+                                        "py-1.5 rounded-full text-sm font-medium transition-colors whitespace-nowrap",
                                         "flex items-center justify-center gap-2 flex-shrink-0 h-8 px-12",
+                                        tabClassName
                                     )}
                                 >
                                     {Icon && (
@@ -199,7 +202,8 @@ const Tabs = ({
                                     "py-3 px-4 sm:px-6 text-sm font-medium transition-colors relative whitespace-nowrap flex-shrink-0",
                                     "flex items-center justify-center gap-2",
                                     stretchTabs && "flex-1",
-                                    isActive ? "text-emerald-600" : "text-gray-500 hover:text-gray-700"
+                                    isActive ? "text-emerald-600" : "text-gray-500 hover:text-gray-700",
+                                    tabClassName
                                 )}
                             >
                                 {Icon && <Icon className="h-4 w-4" />}

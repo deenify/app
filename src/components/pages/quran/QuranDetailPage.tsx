@@ -140,9 +140,10 @@ export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetai
                                         className=""
                                         tabsContainerClassName="flex justify-center border-none"
                                         contentContainerClassName="pt-10 pb-7"
+                                        tabClassName="px-7 sm:px-8 md:px-10 lg:px-12"
                                     >
                                         <div
-                                            className="max-h-[600px] overflow-y-auto pr-1 sm:pr-2 scrollbar-thin"
+                                            className="h-[460px] md:h-[540px] xl:h-[600px] overflow-y-auto pr-1 sm:pr-2 scrollbar-thin"
                                         >
                                             {activeTab === "read" ? (
                                                 <div
