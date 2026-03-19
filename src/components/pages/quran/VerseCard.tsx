@@ -67,18 +67,21 @@ const VerseCard = ({
     return (
         <Card className={cn("border border-gray-100 bg-white shadow-sm", className)}>
             <CardContent className="p-5 sm:p-6">
+                <Badge className="flex sm:hidden h-7 w-7 items-center justify-center rounded-md bg-emerald-600 
+                p-0 text-xs font-semibold text-white tabular-nums mb-2 leading-none pt-0.5">
+                    {verse.number}
+                </Badge>
                 <div className="flex items-start gap-4">
-                    <Badge className="flex h-7 w-7 items-center justify-center rounded-md bg-emerald-600 p-0 text-[11px] 
-                    font-semibold text-white tabular-nums">
+                    <Badge className="hidden sm:flex h-7 w-7 items-center justify-center rounded-md bg-emerald-600 
+                    p-0 text-[11px] font-semibold text-white tabular-nums leading-none pt-0.5">
                         {verse.number}
                     </Badge>
                     <div className="min-w-0 flex-1 flex flex-col gap-2">
                         {showArabic && (
                             <p
-                                className="text-right text-gray-900 font-arabic"
+                                className="text-right text-gray-900 font-arabic leading-relaxed"
                                 style={{
                                     fontSize: `${Math.max(18, arabicFontSize - 4)}px`,
-                                    lineHeight: 2.1,
                                     direction: "rtl",
                                 }}
                             >
