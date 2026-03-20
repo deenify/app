@@ -32,6 +32,7 @@ const SettingSidebar: React.FC<SettingSidebarProps> = ({ open, onClose }) => {
         configurations,
         arabicFontSize,
         showArabic,
+        useArabicFontFamily,
         transliterationSize,
         showTransliteration,
         translationSize,
@@ -42,6 +43,7 @@ const SettingSidebar: React.FC<SettingSidebarProps> = ({ open, onClose }) => {
         autoScroll,
         setArabicFontSize,
         setShowArabic,
+        setUseArabicFontFamily,
         setTransliterationSize,
         setShowTransliteration,
         setTranslationSize,
@@ -154,6 +156,24 @@ const SettingSidebar: React.FC<SettingSidebarProps> = ({ open, onClose }) => {
                                     />
                                 </CardContent>
                             </Card>
+
+                            <div className="flex items-center justify-between gap-4">
+                                <div className="min-w-0">
+                                    <p className="text-[12px] font-medium text-gray-800 truncate">
+                                        Arabic font
+                                    </p>
+                                    <p className="text-[10px] text-gray-500 leading-tight">
+                                        Quranic family
+                                    </p>
+                                </div>
+                                <Switch
+                                    size="sm"
+                                    variant="emerald"
+                                    checked={useArabicFontFamily}
+                                    onCheckedChange={setUseArabicFontFamily}
+                                    disabled={!showArabic}
+                                />
+                            </div>
 
                             <div className="flex flex-col gap-3">
                                 <p className="text-[11px] font-medium uppercase tracking-[0.12em] text-gray-600">
