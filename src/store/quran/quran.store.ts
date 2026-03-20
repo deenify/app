@@ -11,6 +11,7 @@ const defaultState: QuranSettingInitialStateType = {
     // arabic 
     arabicFontSize: 28,
     showArabic: true,
+    useArabicFontFamily: true,
     // transliteration 
     transliterationSize: 16,
     showTransliteration: true,
@@ -72,6 +73,7 @@ const useQuranReaderSettingsStore = create<QuranSettingStateType>()(
             // arabic 
             setArabicFontSize: (value) => set({ arabicFontSize: value }),
             setShowArabic: (value) => set({ showArabic: value }),
+            setUseArabicFontFamily: (value) => set({ useArabicFontFamily: value }),
             // transliteration 
             setTransliterationSize: (value) => set({ transliterationSize: value }),
             setShowTransliteration: (value) => set({ showTransliteration: value }),
@@ -91,6 +93,7 @@ const useQuranReaderSettingsStore = create<QuranSettingStateType>()(
                 // arabic 
                 arabicFontSize: state.arabicFontSize,
                 showArabic: state.showArabic,
+                useArabicFontFamily: state.useArabicFontFamily,
                 // transliteration 
                 transliterationSize: state.transliterationSize,
                 showTransliteration: state.showTransliteration,

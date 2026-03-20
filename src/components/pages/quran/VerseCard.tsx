@@ -22,6 +22,7 @@ interface VerseCardProps {
     initial?: TargetAndTransition
     animate?: TargetAndTransition
     transition?: Transition & { delay?: number }
+    useArabicFontFamily?: boolean
 }
 
 const VerseCard = ({
@@ -36,13 +37,18 @@ const VerseCard = ({
     className,
     initial,
     animate,
-    transition
+    transition,
+    useArabicFontFamily = true
 }: VerseCardProps) => {
 
     if (variant === "read") {
         return (
             <motion.p
-                className={cn("inline break-words text-center", className)}
+                className={cn(
+                    "inline break-words text-center",
+                    useArabicFontFamily ? "font-arabic" : "font-body",
+                    className
+                )}
                 transition={transition}
                 initial={initial}
                 animate={animate}
@@ -79,7 +85,10 @@ const VerseCard = ({
                     <div className="min-w-0 flex-1 flex flex-col gap-2">
                         {showArabic && (
                             <p
-                                className="text-right text-gray-900 font-arabic leading-relaxed"
+                                className={cn(
+                                    "text-right text-gray-900 leading-relaxed",
+                                    useArabicFontFamily ? "font-arabic" : "font-body"
+                                )}
                                 style={{
                                     fontSize: `${Math.max(18, arabicFontSize - 4)}px`,
                                     direction: "rtl",
