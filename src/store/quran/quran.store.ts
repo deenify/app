@@ -9,7 +9,7 @@ import type {
 // initial-state 
 const defaultState: QuranSettingInitialStateType = {
     // arabic 
-    arabicFontSize: 28,
+    arabicFontSize: 20,
     showArabic: true,
     useArabicFontFamily: true,
     // transliteration 
@@ -27,27 +27,27 @@ const defaultState: QuranSettingInitialStateType = {
     // configurations
     configurations: {
         arabic: {
-            min: 16,
-            max: 44,
+            min: 18,
+            max: 34,
             step: 1,
-            defaultSize: 28,
-            presets: { S: 20, M: 28, L: 36, XL: 44, },
+            defaultSize: 24,
+            presets: { S: 20, M: 24, L: 28, XL: 32, },
             preview: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
         },
         transliteration: {
-            min: 12,
-            max: 18,
+            min: 14,
+            max: 24,
             step: 1,
             defaultSize: 16,
-            presets: { S: 12, M: 14, L: 16, XL: 18, },
+            presets: { S: 16, M: 18, L: 20, XL: 22, },
             preview: "Bismillāhi r-raḥmāni r-raḥīm",
         },
         translation: {
             min: 14,
-            max: 20,
+            max: 24,
             step: 1,
             defaultSize: 18,
-            presets: { S: 14, M: 16, L: 18, XL: 20, },
+            presets: { S: 16, M: 18, L: 20, XL: 22, },
             preview: "In the name of Allah, the Most Gracious, the Most Merciful.",
         },
         audio: {

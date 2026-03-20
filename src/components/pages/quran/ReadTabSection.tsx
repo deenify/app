@@ -9,6 +9,7 @@ import { QuranSurahType, surahNameMeaning } from "./content"
 import { cn } from "@/lib/utils/clsx"
 import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
+import useQuranReaderSettingsStore from "@/store/quran"
 
 interface ReadTabSectionProps {
     SURAHS: QuranSurahType[]
@@ -17,6 +18,8 @@ interface ReadTabSectionProps {
 const ReadTabSection = ({ SURAHS }: ReadTabSectionProps) => {
     const router = useRouter()
     const [bookmarked, setBookmarked] = useState<Set<number>>(new Set())
+
+    const { useArabicFontFamily } = useQuranReaderSettingsStore()
 
     const toggleBookmark = (e: React.MouseEvent, number: number) => {
         e.preventDefault()
@@ -78,7 +81,10 @@ const ReadTabSection = ({ SURAHS }: ReadTabSectionProps) => {
                                                     {surah.nameEnglish}
                                                 </h3>
                                                 <p
-                                                    className="min-w-0 truncate text-base font-medium text-emerald-800/90 leading-tight font-arabic"
+                                                    className={cn(
+                                                        "min-w-0 truncate text-base font-medium text-emerald-800/90 leading-tight",
+                                                        useArabicFontFamily ? "font-arabic" : "font-body"
+                                                    )}
                                                     dir="rtl"
                                                 >
                                                     {surah.nameArabic}

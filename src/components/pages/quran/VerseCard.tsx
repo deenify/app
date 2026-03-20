@@ -54,8 +54,8 @@ const VerseCard = ({
                 animate={animate}
 
                 style={{
-                    fontSize: `${useArabicFontFamily ? arabicFontSize : arabicFontSize + 6}px`,
-                    lineHeight: 2.1,
+                    fontSize: `${useArabicFontFamily ? arabicFontSize : arabicFontSize + 4}px`,
+                    lineHeight: useArabicFontFamily ? 2.1 : 1.5,
                     direction: "rtl",
                 }}
             >
@@ -90,7 +90,8 @@ const VerseCard = ({
                                     useArabicFontFamily ? "font-arabic" : "font-body"
                                 )}
                                 style={{
-                                    fontSize: `${useArabicFontFamily ? arabicFontSize : arabicFontSize + 6}px`,
+                                    fontSize: `${useArabicFontFamily ? arabicFontSize : arabicFontSize + 4}px`,
+                                    lineHeight: useArabicFontFamily ? 2.1 : 1.5,
                                     direction: "rtl",
                                 }}
                             >

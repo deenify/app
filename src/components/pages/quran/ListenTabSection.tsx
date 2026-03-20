@@ -5,6 +5,8 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Headphones, Play } from "lucide-react"
 import { MockReciters, SurahRecitersMap, type QuranSurahType, type ReciterType } from "./content"
 import { motion } from "framer-motion"
+import { cn } from "@/lib/utils/clsx"
+import useQuranReaderSettingsStore from "@/store/quran"
 
 interface ListenTabSectionProps {
     surahs: QuranSurahType[]
@@ -56,6 +58,7 @@ function ReciterStack({ reciters }: { reciters: ReciterType[] }) {
 
 export default function ListenTabSection({ surahs }: ListenTabSectionProps) {
     const router = useRouter()
+    const { useArabicFontFamily } = useQuranReaderSettingsStore()
 
     if (surahs.length === 0) {
         return (
@@ -123,7 +126,10 @@ export default function ListenTabSection({ surahs }: ListenTabSectionProps) {
                                                     {surah.nameEnglish}
                                                 </p>
                                                 <p
-                                                    className="truncate text-base font-arabic font-medium text-emerald-800/90"
+                                                    className={cn(
+                                                        "truncate text-base font-medium text-emerald-800/90",
+                                                        useArabicFontFamily ? "font-arabic" : "font-body"
+                                                    )}
                                                     dir="rtl"
                                                 >
                                                     {surah.nameArabic}
