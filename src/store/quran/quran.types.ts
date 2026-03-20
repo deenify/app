@@ -1,4 +1,39 @@
 export type QuranSettingInitialStateType = {
+    // configurations
+    configurations: {
+        arabic: {
+            min: number
+            max: number
+            step: number
+            defaultSize: number
+            presets: Record<string, number>
+            preview: string
+        }
+        transliteration: {
+            min: number
+            max: number
+            step: number
+            defaultSize: number
+            presets: Record<string, number>
+            preview: string
+        }
+        translation: {
+            min: number
+            max: number
+            step: number
+            defaultSize: number
+            presets: Record<string, number>
+            preview: string
+        }
+        audio: {
+            defaultReciter: string
+            defaultPlaybackSpeed: number
+            defaultAutoScroll: boolean
+            presets: Record<string, number>
+            reciters: { id: string; label: string }[]
+        }
+    }
+
     // arabic 
     arabicFontSize: number
     showArabic: boolean
