@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useRef, useState } from "react"
+import React, { useState } from "react"
 import { Check, ChevronDown, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -17,23 +17,19 @@ import { cn } from "@/lib/utils/clsx"
 import { useBreakpoint } from "@/hooks/useBreakpoint"
 import useQuranReaderSettingsStore from "@/store/quran"
 
-/** Matches VerseCard: rendered Arabic size uses max(18, store - 4). */
-const arabicRenderedPx = (arabicFontSize: number) => Math.max(18, arabicFontSize - 4)
-
-const PREVIEW_ARABIC = "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ"
-const PREVIEW_TRANSLITERATION = "Bismillāhi r-raḥmāni r-raḥīm"
-const PREVIEW_TRANSLATION = "In the name of Allah, the Most Gracious, the Most Merciful."
-
 interface SettingSidebarProps {
     open: boolean
     onClose: () => void
 }
 
+
 const SettingSidebar: React.FC<SettingSidebarProps> = ({ open, onClose }) => {
     /** Below xl the sidebar overlays the reader — show live font previews there. */
-    const isSidebarOverlay = useBreakpoint("xl", "down")
+    const isXlDown = useBreakpoint("xl", "down")
+    const isSidebarOverlay = isXlDown
 
     const {
+        configurations,
         arabicFontSize,
         showArabic,
         transliterationSize,
@@ -58,7 +54,6 @@ const SettingSidebar: React.FC<SettingSidebarProps> = ({ open, onClose }) => {
 
     const [translationLangSearch, setTranslationLangSearch] = useState("")
     const [translationLangMenuOpen, setTranslationLangMenuOpen] = useState(false)
-    const translationLangSearchRef = useRef<HTMLInputElement | null>(null)
 
     const translationLanguages = [
         { value: "english-sahih", label: "English – Sahih International" },
@@ -80,18 +75,13 @@ const SettingSidebar: React.FC<SettingSidebarProps> = ({ open, onClose }) => {
         l.label.toLowerCase().includes(translationLangSearch.trim().toLowerCase()),
     )
 
-    useEffect(() => {
-        if (!translationLangMenuOpen) return
-        // Small UX improvement: focus the search input when menu opens.
-        const t = window.setTimeout(() => translationLangSearchRef.current?.focus(), 0)
-        return () => window.clearTimeout(t)
-    }, [translationLangMenuOpen])
-
     return (
         <aside
             className={cn(
                 "transition-all duration-300 overflow-hidden",
                 "absolute right-0 top-0 bottom-0 z-50 xl:static xl:right-auto",
+                // "h-[560px] md:h-[640px] xl:h-[756px]",
+                "h-full",
                 open ? "w-[min(100vw,360px)]" : "w-0"
             )}
         >
@@ -133,7 +123,7 @@ const SettingSidebar: React.FC<SettingSidebarProps> = ({ open, onClose }) => {
                 </div>
 
                 {/* Content */}
-                <div className="flex-1 max-h-[600px] overflow-y-auto py-5 px-5 flex flex-col gap-6 scrollbar-thin">
+                <div className="flex-1 overflow-y-auto py-5 px-5 flex flex-col gap-6 scrollbar-thin">
                     {/* Arabic text section */}
                     <section className="flex flex-col gap-4">
                         <div className="flex items-center justify-between">
@@ -144,7 +134,7 @@ const SettingSidebar: React.FC<SettingSidebarProps> = ({ open, onClose }) => {
                                 </h4>
                             </div>
                             <Badge variant="emerald">
-                                {arabicFontSize}px
+                                {arabicFontSize ?? configurations.arabic.defaultSize}px
                             </Badge>
                         </div>
 
@@ -170,18 +160,13 @@ const SettingSidebar: React.FC<SettingSidebarProps> = ({ open, onClose }) => {
                                     Font size preset
                                 </p>
                                 <div className="grid grid-cols-4 gap-1 rounded-lg bg-white p-1 text-[11px] border border-emerald-200">
-                                    {[
-                                        { label: "S", value: 20 },
-                                        { label: "M", value: 28 },
-                                        { label: "L", value: 36 },
-                                        { label: "XL", value: 44 },
-                                    ].map((preset) => {
-                                        const isActive = arabicFontSize === preset.value
+                                    {Object.entries(configurations.arabic.presets).map(([key, value]) => {
+                                        const isActive = arabicFontSize === value
                                         return (
                                             <button
-                                                key={preset.label}
+                                                key={key}
                                                 type="button"
-                                                onClick={() => setArabicFontSize(preset.value)}
+                                                onClick={() => setArabicFontSize(value)}
                                                 className={cn(
                                                     "flex items-center justify-center rounded-md px-2 py-1 font-medium transition-colors",
                                                     isActive
@@ -189,7 +174,7 @@ const SettingSidebar: React.FC<SettingSidebarProps> = ({ open, onClose }) => {
                                                         : "text-gray-600 hover:bg-slate-100"
                                                 )}
                                             >
-                                                {preset.label}
+                                                {key}
                                             </button>
                                         )
                                     })}
@@ -202,17 +187,17 @@ const SettingSidebar: React.FC<SettingSidebarProps> = ({ open, onClose }) => {
                                 </p>
                                 <div className="pt-1 pb-4">
                                     <RangeSlider
-                                        min={16}
-                                        max={48}
-                                        step={1}
+                                        min={configurations.arabic.min}
+                                        max={configurations.arabic.max}
+                                        step={configurations.arabic.step}
                                         value={arabicFontSize}
                                         onChange={(e) => setArabicFontSize(Number(e.target.value))}
                                         color="emerald"
                                     />
                                     <div className="mt-3 flex items-center justify-between text-xs text-gray-500">
-                                        <span className="text-emerald-600 font-medium">16px</span>
+                                        <span className="text-emerald-600 font-medium">{configurations.arabic.min}px</span>
                                         <span className="text-gray-400">Slide to adjust</span>
-                                        <span className="text-emerald-600 font-medium">48px</span>
+                                        <span className="text-emerald-600 font-medium">{configurations.arabic.max}px</span>
                                     </div>
                                     {isSidebarOverlay && showArabic && (
                                         <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 px-2 py-2 sm:px-3">
@@ -228,12 +213,13 @@ const SettingSidebar: React.FC<SettingSidebarProps> = ({ open, onClose }) => {
                                             <p
                                                 className="mt-2 font-arabic text-gray-900 break-words text-right"
                                                 style={{
-                                                    fontSize: `${arabicRenderedPx(arabicFontSize)}px`,
+                                                    /** Matches VerseCard: rendered Arabic size uses max(18, store - 4). */
+                                                    fontSize: `${Math.max(18, arabicFontSize - 4)}px`,
                                                     lineHeight: 2.1,
                                                     direction: "rtl",
                                                 }}
                                             >
-                                                {PREVIEW_ARABIC}
+                                                {configurations.arabic.preview}
                                             </p>
                                         </div>
                                     )}
@@ -252,7 +238,7 @@ const SettingSidebar: React.FC<SettingSidebarProps> = ({ open, onClose }) => {
                                 </h4>
                             </div>
                             <Badge variant="blue">
-                                {transliterationSize}px
+                                {transliterationSize ?? configurations.transliteration.defaultSize}px
                             </Badge>
                         </div>
 
@@ -278,18 +264,13 @@ const SettingSidebar: React.FC<SettingSidebarProps> = ({ open, onClose }) => {
                                     Font size preset
                                 </p>
                                 <div className="grid grid-cols-4 gap-1 rounded-lg bg-slate-100 p-1 text-[11px]">
-                                    {[
-                                        { label: "S", value: 12 },
-                                        { label: "M", value: 14 },
-                                        { label: "L", value: 16 },
-                                        { label: "XL", value: 18 },
-                                    ].map((preset) => {
-                                        const isActive = transliterationSize === preset.value
+                                    {Object.entries(configurations.transliteration.presets).map(([key, value]) => {
+                                        const isActive = transliterationSize === value
                                         return (
                                             <button
-                                                key={preset.label}
+                                                key={key}
                                                 type="button"
-                                                onClick={() => setTransliterationSize(preset.value)}
+                                                onClick={() => setTransliterationSize(value)}
                                                 className={cn(
                                                     "flex items-center justify-center rounded-md px-2 py-1 font-medium transition-colors",
                                                     isActive
@@ -297,7 +278,7 @@ const SettingSidebar: React.FC<SettingSidebarProps> = ({ open, onClose }) => {
                                                         : "text-gray-600 hover:bg-white"
                                                 )}
                                             >
-                                                {preset.label}
+                                                {key}
                                             </button>
                                         )
                                     })}
@@ -310,17 +291,17 @@ const SettingSidebar: React.FC<SettingSidebarProps> = ({ open, onClose }) => {
                                 </p>
                                 <div className="pt-1 pb-4">
                                     <RangeSlider
-                                        min={10}
-                                        max={20}
-                                        step={1}
+                                        min={configurations.transliteration.min}
+                                        max={configurations.transliteration.max}
+                                        step={configurations.transliteration.step}
                                         value={transliterationSize}
                                         onChange={(e) => setTransliterationSize(Number(e.target.value))}
                                         color="blue"
                                     />
                                     <div className="mt-3 flex items-center justify-between text-[11px] text-gray-500">
-                                        <span className="text-blue-600 font-medium">10px</span>
+                                        <span className="text-blue-600 font-medium">{configurations.transliteration.min}px</span>
                                         <span className="text-gray-400">Slide to adjust</span>
-                                        <span className="text-blue-600 font-medium">20px</span>
+                                        <span className="text-blue-600 font-medium">{configurations.transliteration.max}px</span>
                                     </div>
                                     {isSidebarOverlay && showTransliteration && (
                                         <div className="mt-3 rounded-lg border border-blue-200 bg-blue-50 px-2 py-2 sm:px-3">
@@ -337,7 +318,7 @@ const SettingSidebar: React.FC<SettingSidebarProps> = ({ open, onClose }) => {
                                                 className="mt-2 text-black italic break-words"
                                                 style={{ fontSize: `${transliterationSize}px`, lineHeight: 1.5 }}
                                             >
-                                                {PREVIEW_TRANSLITERATION}
+                                                {configurations.transliteration.preview}
                                             </p>
                                         </div>
                                     )}
@@ -356,7 +337,7 @@ const SettingSidebar: React.FC<SettingSidebarProps> = ({ open, onClose }) => {
                                 </h4>
                             </div>
                             <Badge variant="purple">
-                                {translationSize}px
+                                {translationSize ?? configurations.translation.defaultSize}px
                             </Badge>
                         </div>
 
@@ -413,11 +394,12 @@ const SettingSidebar: React.FC<SettingSidebarProps> = ({ open, onClose }) => {
                                         >
                                             <div className="px-1 pb-2">
                                                 <input
-                                                    ref={translationLangSearchRef}
                                                     value={translationLangSearch}
                                                     onChange={(e) => setTranslationLangSearch(e.target.value)}
                                                     placeholder="Search languages..."
-                                                    className="w-full h-9 rounded-md border border-purple-200 bg-white px-3 text-sm text-gray-800 outline-none placeholder:text-gray-400 focus:border-purple-300 focus:ring-2 focus:ring-purple-100 transition-colors"
+                                                    className="w-full h-9 rounded-md border border-purple-200 bg-white px-3 text-sm 
+                                                    text-gray-800 outline-none placeholder:text-gray-400 focus:border-purple-300 focus:ring-2 
+                                                    focus:ring-purple-100 transition-colors"
                                                 />
                                             </div>
 
@@ -478,18 +460,13 @@ const SettingSidebar: React.FC<SettingSidebarProps> = ({ open, onClose }) => {
                                     Font size preset
                                 </p>
                                 <div className="grid grid-cols-4 gap-1 rounded-lg bg-gray-100 p-1 text-[11px]">
-                                    {[
-                                        { label: "S", value: 12 },
-                                        { label: "M", value: 16 },
-                                        { label: "L", value: 18 },
-                                        { label: "XL", value: 22 },
-                                    ].map((preset) => {
-                                        const isActive = translationSize === preset.value
+                                    {Object.entries(configurations.translation.presets).map(([key, value]) => {
+                                        const isActive = translationSize === value
                                         return (
                                             <button
-                                                key={preset.label}
+                                                key={key}
                                                 type="button"
-                                                onClick={() => setTranslationSize(preset.value)}
+                                                onClick={() => setTranslationSize(value)}
                                                 className={cn(
                                                     "flex items-center justify-center rounded-md px-2 py-1 font-medium transition-colors",
                                                     isActive
@@ -497,7 +474,7 @@ const SettingSidebar: React.FC<SettingSidebarProps> = ({ open, onClose }) => {
                                                         : "text-gray-600 hover:bg-white"
                                                 )}
                                             >
-                                                {preset.label}
+                                                {key}
                                             </button>
                                         )
                                     })}
@@ -511,17 +488,17 @@ const SettingSidebar: React.FC<SettingSidebarProps> = ({ open, onClose }) => {
                                 </p>
                                 <div className="pt-1 pb-4">
                                     <RangeSlider
-                                        min={12}
-                                        max={24}
-                                        step={1}
+                                        min={configurations.translation.min}
+                                        max={configurations.translation.max}
+                                        step={configurations.translation.step}
                                         value={translationSize}
                                         onChange={(e) => setTranslationSize(Number(e.target.value))}
                                         color="purple"
                                     />
                                     <div className="mt-3 flex items-center justify-between text-[11px] text-gray-500">
-                                        <span className="text-purple-600 font-medium">12px</span>
+                                        <span className="text-purple-600 font-medium">{configurations.translation.min}px</span>
                                         <span className="text-gray-400">Slide to adjust</span>
-                                        <span className="text-purple-600 font-medium">24px</span>
+                                        <span className="text-purple-600 font-medium">{configurations.translation.max}px</span>
                                     </div>
                                     {isSidebarOverlay && showTranslation && (
                                         <div className="mt-3 rounded-lg border border-purple-200 bg-purple-50 px-2 py-2 sm:px-3">
@@ -538,7 +515,7 @@ const SettingSidebar: React.FC<SettingSidebarProps> = ({ open, onClose }) => {
                                                 className="mt-2 text-gray-800 leading-relaxed break-words"
                                                 style={{ fontSize: `${translationSize}px` }}
                                             >
-                                                {PREVIEW_TRANSLATION}
+                                                {configurations.translation.preview}
                                             </p>
                                         </div>
                                     )}
@@ -569,12 +546,7 @@ const SettingSidebar: React.FC<SettingSidebarProps> = ({ open, onClose }) => {
                                         </div>
                                     </div>
                                     <div className="grid grid-cols-2 gap-2 pt-1">
-                                        {[
-                                            { id: "mishary", label: "Mishary Rashid" },
-                                            { id: "basit", label: "Abdul Basit" },
-                                            { id: "maher", label: "Maher Al-Muaiqly" },
-                                            { id: "saad", label: "Saad Al-Ghamdi" },
-                                        ].map((r) => {
+                                        {configurations.audio.reciters.map((r) => {
                                             const isActive = reciter === r.id
                                             return (
                                                 <button
@@ -607,17 +579,17 @@ const SettingSidebar: React.FC<SettingSidebarProps> = ({ open, onClose }) => {
                                             </p>
                                         </div>
                                         <Badge variant="pink">
-                                            {playbackSpeed.toFixed(1)}x
+                                            {playbackSpeed.toFixed(1) ?? configurations.audio.defaultPlaybackSpeed.toFixed(1)}x
                                         </Badge>
                                     </div>
                                     <div className="grid grid-cols-4 gap-1">
-                                        {[0.75, 1, 1.25, 1.5].map((speed) => {
-                                            const isActive = playbackSpeed === speed
+                                        {Object.entries(configurations.audio.presets).map(([key, value]) => {
+                                            const isActive = playbackSpeed === value
                                             return (
                                                 <button
-                                                    key={speed}
+                                                    key={key}
                                                     type="button"
-                                                    onClick={() => setPlaybackSpeed(speed)}
+                                                    onClick={() => setPlaybackSpeed(value)}
                                                     className={cn(
                                                         "rounded-md px-2 py-1 text-[11px] font-medium transition-colors",
                                                         isActive
@@ -625,7 +597,7 @@ const SettingSidebar: React.FC<SettingSidebarProps> = ({ open, onClose }) => {
                                                             : "text-gray-600 hover:bg-gray-50"
                                                     )}
                                                 >
-                                                    {speed}x
+                                                    {value.toFixed(1)}x
                                                 </button>
                                             )
                                         })}
@@ -645,8 +617,8 @@ const SettingSidebar: React.FC<SettingSidebarProps> = ({ open, onClose }) => {
                                     <Switch
                                         size="md"
                                         variant="pink"
-                                        checked={autoScroll}
-                                        onCheckedChange={setAutoScroll}
+                                        checked={autoScroll ?? configurations.audio.defaultAutoScroll}
+                                        onCheckedChange={() => setAutoScroll(!autoScroll)}
                                     />
                                 </CardContent>
                             </Card>

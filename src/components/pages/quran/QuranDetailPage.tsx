@@ -15,6 +15,7 @@ import {
 import VerseCard from "./VerseCard"
 import SettingSidebar from "./SettingSidebar"
 import useQuranReaderSettingsStore from "@/store/quran"
+import { cn } from "@/lib/utils/clsx"
 type DetailTabId = "read" | "translation"
 interface QuranDetailPageProps {
     surahNumber: number
@@ -115,20 +116,22 @@ export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetai
             </section>
 
             {/* Body section */}
-            <section className="relative bg-gradient-to-br from-emerald-50 via-white to-teal-50
-            border-t border-layout-separator w-full">
+            <section className={cn(
+                "relative bg-gradient-to-br from-emerald-50 via-white to-teal-50 border-t border-layout-separator w-full",
+                "h-[560px] md:h-[640px] xl:h-[756px] border-t border-layout-separator w-full"
+            )}>
                 <motion.div
                     className="pointer-events-none absolute -top-10 left-[-40px] h-40 w-40 rounded-full bg-emerald-100 blur-3xl opacity-30"
                     animate={{ scale: [1, 1.1, 1], opacity: [0.25, 0.35, 0.25] }}
                     transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
                 />
 
-                <div className="relative">
-                    <div className="flex items-start gap-6">
+                <div className="relative h-full">
+                    <div className="flex items-start gap-6 h-full">
                         {/* left-side surah content */}
-                        <main className="flex-1 min-w-0">
-                            <div className="container py-4 sm:py-6">
-                                <div className="max-w-3xl mx-auto">
+                        <main className="flex-1 min-w-0 h-full">
+                            <div className="container py-4 sm:py-6 h-full">
+                                <div className="max-w-3xl mx-auto h-full">
                                     <Tabs
                                         allTabs={tabs}
                                         activeTab={activeTab}
@@ -137,13 +140,15 @@ export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetai
                                         animateContent={false}
                                         align="center"
                                         stretchTabs={false}
-                                        className=""
-                                        tabsContainerClassName="flex justify-center border-none"
-                                        contentContainerClassName="pt-10 pb-7"
+
+                                        className="h-full flex flex-col"
+                                        contentContainerClassName="pt-10 pb-7 flex-1"
+
+                                        tabsContainerClassName="flex justify-center border-none h-max"
                                         tabClassName="px-7 sm:px-8 md:px-10 lg:px-12"
                                     >
                                         <div
-                                            className="h-[460px] md:h-[540px] xl:h-[600px] overflow-y-auto pr-1 sm:pr-2 scrollbar-thin"
+                                            className="h-full overflow-y-auto pr-1 sm:pr-2 scrollbar-thin"
                                         >
                                             {activeTab === "read" ? (
                                                 <div
