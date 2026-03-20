@@ -16,11 +16,14 @@ import VerseCard from "./VerseCard"
 import SettingSidebar from "./SettingSidebar"
 import useQuranReaderSettingsStore from "@/store/quran"
 import { cn } from "@/lib/utils/clsx"
+
+
 type DetailTabId = "read" | "translation"
 interface QuranDetailPageProps {
     surahNumber: number
     verseNumber?: number | undefined
 }
+
 
 const tabs: TabItem[] = [
     { id: "read" as DetailTabId, label: "Read", icon: BookOpen },
@@ -29,9 +32,14 @@ const tabs: TabItem[] = [
 
 
 export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetailPageProps) {
+
+    console.log("surahNumber", surahNumber)
+    console.log("verseNumber", verseNumber)
+
     const router = useRouter()
     const [activeTab, setActiveTab] = useState<DetailTabId>("read")
     const [showSettings, setShowSettings] = useState(false)
+
     const {
         arabicFontSize,
         transliterationSize,
@@ -39,6 +47,7 @@ export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetai
         showArabic,
         showTransliteration,
         showTranslation,
+        useArabicFontFamily
     } = useQuranReaderSettingsStore()
 
     const surah = useMemo(() => {
@@ -153,7 +162,7 @@ export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetai
                                             {activeTab === "read" ? (
                                                 <div
                                                     key={activeTab}
-                                                    className="mx-auto w-full max-w-2xl text-center font-arabic text-[24px] sm:text-[28px] 
+                                                    className="mx-auto w-full max-w-2xl text-center text-[24px] sm:text-[28px] 
                                                     leading-[2] justify-center"
                                                     style={{ direction: "rtl" }}
                                                 >
@@ -169,7 +178,8 @@ export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetai
                                                                 verse={verse}
                                                                 arabicFontSize={arabicFontSize}
                                                                 showArabic={showArabic}
-                                                                className="inline break-words text-center font-arabic"
+                                                                useArabicFontFamily={!!useArabicFontFamily}
+                                                                className="inline break-words text-center"
                                                             />
                                                         )
 
@@ -208,7 +218,7 @@ export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetai
                                                                 showArabic={showArabic}
                                                                 showTransliteration={showTransliteration}
                                                                 showTranslation={showTranslation}
-                                                                className="font-arabic"
+                                                                useArabicFontFamily={!!useArabicFontFamily}
                                                             />
                                                         </motion.div>
                                                     ))}

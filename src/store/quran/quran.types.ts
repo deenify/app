@@ -37,6 +37,7 @@ export type QuranSettingInitialStateType = {
     // arabic 
     arabicFontSize: number
     showArabic: boolean
+    useArabicFontFamily: boolean
     // transliteration 
     transliterationSize: number
     showTransliteration: boolean
@@ -54,6 +55,7 @@ export type QuranSettingStateActionsType = {
     // arabic 
     setArabicFontSize: (value: number) => void
     setShowArabic: (value: boolean) => void
+    setUseArabicFontFamily: (value: boolean) => void
     // transliteration 
     setTransliterationSize: (value: number) => void
     setShowTransliteration: (value: boolean) => void
