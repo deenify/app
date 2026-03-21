@@ -78,7 +78,7 @@ const ReadTabSection = ({ SURAHS }: ReadTabSectionProps) => {
                                                     {surah.nameEnglish}
                                                 </h3>
                                                 <p
-                                                    className="min-w-0 truncate text-base font-medium text-emerald-800/90 leading-tight font-arabic"
+                                                    className="min-w-0 truncate text-base font-medium text-emerald-800 leading-tight font-arabic"
                                                     dir="rtl"
                                                 >
                                                     {surah.nameArabic}
