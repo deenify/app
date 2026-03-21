@@ -72,9 +72,9 @@ export default function BookmarksTabSection({ bookmarks }: BookmarksTabSectionPr
                                         <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald-50 text-sm font-bold tabular-nums text-emerald-800">
                                             {item.surahNumber}
                                         </span>
-                                        <span className="font-semibold text-gray-900">
+                                        <h3 className="font-semibold text-gray-900">
                                             {item.surahNameEnglish}
-                                        </span>
+                                        </h3>
                                         <Badge variant="emerald">
                                             Verse {item.verseNumber}
                                         </Badge>

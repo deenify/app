@@ -119,11 +119,11 @@ export default function ListenTabSection({ surahs }: ListenTabSectionProps) {
                                                 {surah.number}
                                             </span>
                                             <div className="min-w-0 flex-1">
-                                                <p className="truncate font-semibold text-gray-900">
+                                                <h3 className="truncate font-semibold text-gray-900">
                                                     {surah.nameEnglish}
-                                                </p>
+                                                </h3>
                                                 <p
-                                                    className="truncate text-base font-arabic font-medium text-emerald-800/90"
+                                                    className="truncate text-base font-arabic font-medium text-emerald-800"
                                                     dir="rtl"
                                                 >
                                                     {surah.nameArabic}
