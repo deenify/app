@@ -1,6 +1,18 @@
 "use client"
 
 import { useMemo, useState } from "react"
+import {
+    ArrowDownWideNarrow,
+    ArrowUpDown,
+    ArrowUpWideNarrow,
+    CalendarClock,
+    CalendarDays,
+    CalendarRange,
+    Clock,
+    History,
+    Mic2,
+    Users,
+} from "lucide-react"
 import { SurahOrderMap } from "@/constant/quranic-conatant"
 import { QuranSurahs, MockBookmarks, MockReciters, SurahRecitersMap } from "./content"
 import ReadTabSection from "./ReadTabSection"
@@ -34,19 +46,19 @@ function isSavedInRange(savedAt: string, filter: BookmarkDateFilter): boolean {
 }
 
 const orderOptions: QuranFilterOption[] = [
-    { value: "quran", label: "Quranic order" },
-    { value: "revelation", label: "Revelation order" },
+    { value: "quran", label: "Quranic order", icon: ArrowDownWideNarrow },
+    { value: "revelation", label: "Revelation order", icon: ArrowUpWideNarrow },
 ]
 const reciterOptions: QuranFilterOption[] = [
-    { value: "all", label: "All reciters" },
-    ...MockReciters.map((r) => ({ value: r.id, label: r.name })),
+    { value: "all", label: "All reciters", icon: Users },
+    ...MockReciters.map((r) => ({ value: r.id, label: r.name, icon: Mic2 })),
 ]
 const bookmarkDateOptions: QuranFilterOption[] = [
-    { value: "all", label: "All time" },
-    { value: "today", label: "Today" },
-    { value: "week", label: "Last 7 days" },
-    { value: "month", label: "Last 30 days" },
-    { value: "year", label: "Last year" },
+    { value: "all", label: "All time", icon: CalendarDays },
+    { value: "today", label: "Today", icon: Clock },
+    { value: "week", label: "Last 7 days", icon: History },
+    { value: "month", label: "Last 30 days", icon: CalendarRange },
+    { value: "year", label: "Last year", icon: CalendarClock },
 ]
 
 const QuranExploreSection = () => {
@@ -164,6 +176,13 @@ const QuranExploreSection = () => {
                                     options={dropdownOptions}
                                     value={dropdownValue}
                                     onChange={setDropdownValue}
+                                    triggerIcon={
+                                        activeTab === "all"
+                                            ? ArrowUpDown
+                                            : activeTab === "listen"
+                                              ? Mic2
+                                              : History
+                                    }
                                 />
                             </div>
                         </div>
