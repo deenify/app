@@ -119,7 +119,9 @@ const Sidebar = (
                                 setSidebarExpanded(false);
                             }
                         }}
-                        className="absolute right-0 bottom-0 w-6 h-6 bg-white border border-layout-separator rounded-full flex items-center justify-center hover:bg-emerald-50 hover:border-emerald-300 transition-all duration-200 z-[60] shadow-md cursor-pointer translate-x-1/2 translate-y-1/2"
+                        className="absolute right-0 bottom-0 w-6 h-6 bg-white border border-layout-separator rounded-full flex items-center 
+                        justify-center hover:bg-emerald-50 hover:border-emerald-300 transition-all duration-200 z-[60] shadow-md cursor-pointer 
+                        translate-x-1/2 translate-y-1/2"
                         aria-label={sidebarExpanded ? "Collapse sidebar" : "Expand sidebar"}
                     >
                         <ChevronLeft className={cn(

@@ -232,10 +232,15 @@ const SettingSidebar: React.FC<SettingSidebarProps> = ({ open, onClose }) => {
                                             </div>
                                             <p
                                                 className="mt-2 font-arabic text-gray-900 break-words text-right"
+                                                // style={{
+                                                //     /** Matches VerseCard: rendered Arabic size uses max(18, store - 4). */
+                                                //     fontSize: `${Math.max(18, arabicFontSize - 4)}px`,
+                                                //     lineHeight: 2.1,
+                                                //     direction: "rtl",
+                                                // }}
                                                 style={{
-                                                    /** Matches VerseCard: rendered Arabic size uses max(18, store - 4). */
-                                                    fontSize: `${Math.max(18, arabicFontSize - 4)}px`,
-                                                    lineHeight: 2.1,
+                                                    fontSize: `${useArabicFontFamily ? arabicFontSize : arabicFontSize + 4}px`,
+                                                    lineHeight: useArabicFontFamily ? 2.1 : 1.5,
                                                     direction: "rtl",
                                                 }}
                                             >

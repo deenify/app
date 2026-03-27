@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react"
 import { useRouter } from "next/navigation"
 import { motion } from "framer-motion"
-import { ArrowLeft, BookOpen, Languages, Settings } from "lucide-react"
+import { ArrowLeft, BookOpen, ChevronLeft, Languages, Settings } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import Tabs, { type TabItem } from "@/components/shared/Tabs"
@@ -16,6 +16,7 @@ import VerseCard from "./VerseCard"
 import SettingSidebar from "./SettingSidebar"
 import useQuranReaderSettingsStore from "@/store/quran"
 import { cn } from "@/lib/utils/clsx"
+import { useBreakpoint } from "@/hooks/useBreakpoint"
 
 
 type DetailTabId = "read" | "translation"
@@ -36,9 +37,11 @@ export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetai
     console.log("surahNumber", surahNumber)
     console.log("verseNumber", verseNumber)
 
-    const router = useRouter()
     const [activeTab, setActiveTab] = useState<DetailTabId>("read")
     const [showSettings, setShowSettings] = useState(false)
+
+    const isLgDown = useBreakpoint('lg', 'down')
+    const router = useRouter()
 
     const {
         arabicFontSize,
@@ -69,13 +72,33 @@ export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetai
                 <div className="container">
                     <header className="py-8 sm:py-10">
                         <Button
-                            variant="ghost-emerald"
+                            variant={isLgDown ? "transparent" : "ghost-emerald"}
                             shouldScale={false}
                             onClick={() => router.push("/quran")}
+                            size="default"
                             className="mb-5 sm:mb-6"
                         >
-                            <ArrowLeft className="h-4 w-4 mr-2" />
-                            Back to Surahs
+                            {isLgDown ? (
+                                <div className="flex items-center gap-2 w-full h-full hover:">
+                                    <span
+                                        className={cn(
+                                            "w-6 h-6 border rounded-full flex items-center justify-center",
+                                            "bg-emerald-50 border-emerald-300 transition-all duration-200 z-[60] shadow-md"
+                                        )}>
+                                        <ChevronLeft
+                                            size={16}
+                                            strokeWidth={1.5}
+                                            className="h-4 w-4 text-gray-600 transition-transform duration-300"
+                                        />
+                                    </span>
+                                    Back
+                                </div>
+                            ) : (
+                                <span className="flex items-center gap-2 w-full h-full">
+                                    <ArrowLeft className="h-4 w-4 mr-2" />
+                                    Back to Surahs
+                                </span>
+                            )}
                         </Button>
 
                         {/* Bismillah + surah meta */}
