@@ -77,7 +77,7 @@ export default function HadithDetailPage({ collectionId }: HadithCollectionPageP
                                 </h1>
 
                                 <p
-                                    className="mx-auto mt-3 max-w-xl font-arabic text-xl font-medium leading-relaxed text-emerald-800 sm:text-2xl"
+                                    className="mx-auto mt-3 max-w-xl text-xl font-medium leading-relaxed text-emerald-800 sm:text-2xl"
                                     dir="rtl"
                                 >
                                     {collection.nameArabic}
@@ -152,7 +152,6 @@ export default function HadithDetailPage({ collectionId }: HadithCollectionPageP
                             <Settings
                                 className={cn(
                                     "h-5 w-5 sm:h-[22px] sm:w-[22px]",
-                                    // Layered shadow: rim highlight + tight depth + soft bloom (single filter so nothing overrides)
                                     "drop-shadow-[0_1px_0_rgb(255_255_255_/_0.45),0_2px_4px_rgb(90_45_10_/_0.55),0_6px_18px_rgb(69_26_3_/_0.45)]"
                                 )}
                                 strokeWidth={2.25}
