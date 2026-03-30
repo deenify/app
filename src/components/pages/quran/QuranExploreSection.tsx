@@ -21,7 +21,7 @@ import BookmarksTabSection from "./BookmarksTabSection"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import Tabs, { TabItem } from "@/components/shared/Tabs"
-import QuranFilterDropdown, { type QuranFilterOption } from "./QuranFilterDropdown"
+import FilterDropdown, { type FilterOption } from "@/components/shared/FilterDropdown"
 import type { OrderMode } from "./QuranOrderDropdown"
 
 type QuranTabId = "all" | "bookmarks" | "listen"
@@ -45,15 +45,15 @@ function isSavedInRange(savedAt: string, filter: BookmarkDateFilter): boolean {
     return true
 }
 
-const orderOptions: QuranFilterOption[] = [
+const orderOptions: FilterOption[] = [
     { value: "quran", label: "Quranic order", icon: ArrowDownWideNarrow },
     { value: "revelation", label: "Revelation order", icon: ArrowUpWideNarrow },
 ]
-const reciterOptions: QuranFilterOption[] = [
+const reciterOptions: FilterOption[] = [
     { value: "all", label: "All reciters", icon: Users },
     ...MockReciters.map((r) => ({ value: r.id, label: r.name, icon: Mic2 })),
 ]
-const bookmarkDateOptions: QuranFilterOption[] = [
+const bookmarkDateOptions: FilterOption[] = [
     { value: "all", label: "All time", icon: CalendarDays },
     { value: "today", label: "Today", icon: Clock },
     { value: "week", label: "Last 7 days", icon: History },
@@ -108,8 +108,18 @@ const QuranExploreSection = () => {
         return list
     }, [bookmarkDateFilter, searchQuery])
 
-    const dropdownOptions = activeTab === "all" ? orderOptions : activeTab === "listen" ? reciterOptions : bookmarkDateOptions
-    const dropdownValue = activeTab === "all" ? orderMode : activeTab === "listen" ? reciterId : bookmarkDateFilter
+    const dropdownOptions = activeTab === "all"
+        ? orderOptions
+        : activeTab === "listen"
+            ? reciterOptions
+            : bookmarkDateOptions
+
+    const dropdownValue = activeTab === "all"
+        ? orderMode
+        : activeTab === "listen"
+            ? reciterId
+            : bookmarkDateFilter
+
     const setDropdownValue = (v: string | number) => {
         if (activeTab === "all") setOrderMode(v as OrderMode)
         else if (activeTab === "listen") setReciterId(v)
@@ -172,7 +182,7 @@ const QuranExploreSection = () => {
                                 className="min-h-[42px] h-10 sm:h-11 rounded-lg border-gray-200 bg-gray-50/80 text-sm placeholder:text-gray-400 focus:bg-white"
                             />
                             <div className="w-full sm:w-[220px] sm:shrink-0">
-                                <QuranFilterDropdown
+                                <FilterDropdown
                                     options={dropdownOptions}
                                     value={dropdownValue}
                                     onChange={setDropdownValue}
@@ -180,8 +190,8 @@ const QuranExploreSection = () => {
                                         activeTab === "all"
                                             ? ArrowUpDown
                                             : activeTab === "listen"
-                                              ? Mic2
-                                              : History
+                                                ? Mic2
+                                                : History
                                     }
                                 />
                             </div>

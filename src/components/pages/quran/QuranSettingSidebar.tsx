@@ -17,13 +17,13 @@ import { cn } from "@/lib/utils/clsx"
 import { useBreakpoint } from "@/hooks/useBreakpoint"
 import useQuranReaderSettingsStore from "@/store/quran"
 
-interface SettingSidebarProps {
+interface QuranSettingSidebarProps {
     open: boolean
     onClose: () => void
 }
 
 
-const SettingSidebar: React.FC<SettingSidebarProps> = ({ open, onClose }) => {
+const QuranSettingSidebar: React.FC<QuranSettingSidebarProps> = ({ open, onClose }) => {
     /** Below xl the sidebar overlays the reader — show live font previews there. */
     const isXlDown = useBreakpoint("xl", "down")
     const isSidebarOverlay = isXlDown
@@ -660,4 +660,4 @@ const SettingSidebar: React.FC<SettingSidebarProps> = ({ open, onClose }) => {
     )
 }
 
-export default SettingSidebar
+export default QuranSettingSidebar

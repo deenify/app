@@ -12,15 +12,15 @@ import {
 import { Check, ChevronDown } from "lucide-react"
 import { cn } from "@/lib/utils/clsx"
 
-export type QuranFilterOption = {
+export type FilterOption = {
     value: string | number
     label: string
     /** Optional icon shown in trigger (when selected) and in each menu row */
     icon?: LucideIcon
 }
 
-interface QuranFilterDropdownProps {
-    options: QuranFilterOption[]
+interface FilterDropdownProps {
+    options: FilterOption[]
     value: string | number
     onChange: (value: string | number) => void
     placeholder?: string
@@ -28,13 +28,13 @@ interface QuranFilterDropdownProps {
     triggerIcon?: LucideIcon
 }
 
-export default function QuranFilterDropdown({
+const FilterDropdown = ({
     options,
     value,
     onChange,
     placeholder = "Filter",
     triggerIcon: TriggerIconFallback,
-}: QuranFilterDropdownProps) {
+}: FilterDropdownProps) => {
     const [open, setOpen] = useState(false)
     const selected = options.find((o) => o.value === value)
     const label = selected?.label ?? placeholder
@@ -111,3 +111,6 @@ export default function QuranFilterDropdown({
         </DropdownMenu>
     )
 }
+
+
+export default FilterDropdown
