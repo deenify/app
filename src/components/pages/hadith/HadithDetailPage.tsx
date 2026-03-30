@@ -142,10 +142,21 @@ export default function HadithDetailPage({ collectionId }: HadithCollectionPageP
                             type="button"
                             shouldScale
                             onClick={() => setShowSettings(true)}
-                            className="h-11 w-11 rounded-full border border-amber-300 bg-amber-400 px-0 text-amber-950 shadow-lg hover:bg-amber-500 sm:h-12 sm:w-12"
+                            className={cn(
+                                "h-11 w-11 rounded-full border border-amber-300 bg-amber-400 px-0 shadow-lg",
+                                "text-amber-50 hover:bg-amber-500 hover:text-white hover:border-amber-400",
+                                "sm:h-12 sm:w-12"
+                            )}
                             aria-label="Open reader settings"
                         >
-                            <Settings className="h-5 w-5" strokeWidth={2} />
+                            <Settings
+                                className={cn(
+                                    "h-5 w-5 sm:h-[22px] sm:w-[22px]",
+                                    // Layered shadow: rim highlight + tight depth + soft bloom (single filter so nothing overrides)
+                                    "drop-shadow-[0_1px_0_rgb(255_255_255_/_0.45),0_2px_4px_rgb(90_45_10_/_0.55),0_6px_18px_rgb(69_26_3_/_0.45)]"
+                                )}
+                                strokeWidth={2.25}
+                            />
                         </Button>
                     </div>
                 ) : null}

@@ -175,7 +175,11 @@ const HadithCard = ({
                                         "pt-1 text-right font-medium leading-[1.95] text-gray-900",
                                         useArabicFontFamily && "font-arabic"
                                     )}
-                                    style={{ fontSize: arabicFontSize }}
+                                    style={{
+                                        fontSize: `${useArabicFontFamily ? arabicFontSize : arabicFontSize + 4}px`,
+                                        lineHeight: useArabicFontFamily ? 2.1 : 1.5,
+                                        direction: "rtl",
+                                    }}
                                     dir="rtl"
                                 >
                                     {hadith.arabic}
