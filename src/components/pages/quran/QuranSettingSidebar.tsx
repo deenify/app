@@ -83,14 +83,14 @@ const QuranSettingSidebar: React.FC<QuranSettingSidebarProps> = ({ open, onClose
                 "transition-all duration-300 overflow-hidden",
                 "absolute right-0 top-0 bottom-0 z-50 xl:static xl:right-auto",
                 // "h-[560px] md:h-[640px] xl:h-[756px]",
-                "h-full",
-                open ? "w-[min(100vw,360px)]" : "w-0"
+                "h-full w-full",
+                open ? "max-w-[min(100vw,360px)]" : "max-w-0"
             )}
         >
             <div
                 className={cn(
                     "h-full bg-gradient-to-b from-emerald-50 via-white to-slate-50 border-l border-layout-separator flex flex-col",
-                    "w-full min-w-0 max-w-[min(100vw,360px)]"
+                    "min-w-0 w-[min(100vw,360px)]"
                 )}
             >
                 {/* Header */}
