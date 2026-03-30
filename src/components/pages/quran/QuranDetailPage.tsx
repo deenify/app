@@ -13,7 +13,7 @@ import {
     SurahAlFatihahMockVerses,
 } from "./content"
 import VerseCard from "./VerseCard"
-import SettingSidebar from "./SettingSidebar"
+import QuranSettingSidebar from "./QuranSettingSidebar"
 import useQuranReaderSettingsStore from "@/store/quran"
 import { cn } from "@/lib/utils/clsx"
 import { useBreakpoint } from "@/hooks/useBreakpoint"
@@ -54,7 +54,9 @@ export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetai
     } = useQuranReaderSettingsStore()
 
     const surah = useMemo(() => {
-        const n = Number.isFinite(surahNumber) && surahNumber >= 1 && surahNumber <= 114 ? surahNumber : 1
+        const n = Number.isFinite(surahNumber) && surahNumber >= 1 && surahNumber <= 114
+            ? surahNumber
+            : 1
         return QuranSurahs.find((s) => s.number === n) ?? QuranSurahs[0]
     }, [surahNumber])
 
@@ -150,20 +152,21 @@ export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetai
             {/* Body section */}
             <section className={cn(
                 "relative bg-gradient-to-br from-emerald-50 via-white to-teal-50 border-t border-layout-separator w-full",
-                "h-[560px] md:h-[640px] xl:h-[756px] border-t border-layout-separator w-full"
+                "border-t border-layout-separator w-full flex-1",
+                // "h-[560px] md:h-[640px] xl:h-[756px]"
             )}>
-                <motion.div
+                {/* <motion.div
                     className="pointer-events-none absolute -top-10 left-[-40px] h-40 w-40 rounded-full bg-emerald-100 blur-3xl opacity-30"
                     animate={{ scale: [1, 1.1, 1], opacity: [0.25, 0.35, 0.25] }}
                     transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-                />
+                /> */}
 
-                <div className="relative h-full">
+                <div className="relative h-[calc(100vh-180px)]">
                     <div className="flex items-start gap-6 h-full">
                         {/* left-side surah content */}
                         <main className="flex-1 min-w-0 h-full">
                             <div className="container py-4 sm:py-6 h-full">
-                                <div className="max-w-3xl mx-auto h-full">
+                                <div className="mx-auto h-full">
                                     <Tabs
                                         allTabs={tabs}
                                         activeTab={activeTab}
@@ -180,12 +183,12 @@ export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetai
                                         tabClassName="px-7 sm:px-8 md:px-10 lg:px-12"
                                     >
                                         <div
-                                            className="h-full overflow-y-auto pr-1 sm:pr-2 scrollbar-thin"
+                                            className="overflow-y-auto pr-1 sm:pr-2 scrollbar-thin max-w-4xl mx-auto h-full"
                                         >
                                             {activeTab === "read" ? (
                                                 <div
                                                     key={activeTab}
-                                                    className="mx-auto w-full max-w-2xl text-center text-[24px] sm:text-[28px] 
+                                                    className="mx-auto w-full text-center text-[24px] sm:text-[28px] 
                                                     leading-[2] justify-center"
                                                     style={{ direction: "rtl" }}
                                                 >
@@ -254,7 +257,7 @@ export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetai
                         </main>
 
                         {/* Settings Sidebar */}
-                        <SettingSidebar
+                        <QuranSettingSidebar
                             open={showSettings}
                             onClose={() => setShowSettings(false)}
                         />
