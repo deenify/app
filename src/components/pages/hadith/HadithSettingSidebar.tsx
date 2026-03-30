@@ -300,6 +300,11 @@ const HadithSettingSidebar: FC<HadithSettingSidebarProps> = ({ open, onClose }) 
                         </div>
                     </section>
                 </div>
+
+                {/* Footer hint */}
+                <div className="border-t border-emerald-100 bg-white/95 px-5 py-3 text-sm text-gray-500">
+                    Changes here affect only this device and will be remembered for your next reading session.
+                </div>
             </div>
         </aside>
     )
