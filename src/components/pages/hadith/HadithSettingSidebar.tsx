@@ -166,6 +166,11 @@ const HadithSettingSidebar: FC<HadithSettingSidebarProps> = ({ open, onClose }) 
 
                             {isXlDown && showArabic && (
                                 <p
+                                    style={{
+                                        fontSize: `${useArabicFontFamily ? arabicFontSize : arabicFontSize + 4}px`,
+                                        lineHeight: useArabicFontFamily ? 2.1 : 1.5,
+                                        direction: "rtl",
+                                    }}
                                     className={cn(
                                         "rounded-md border border-amber-100 bg-amber-50 px-3 py-2 text-right text-[15px] leading-relaxed text-gray-900",
                                         useArabicFontFamily && "font-arabic"
