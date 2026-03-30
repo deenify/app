@@ -70,14 +70,12 @@ const HadithSavedTabSection = ({ items: itemsProp }: HadithSavedTabSectionProps)
                                     <div className="min-w-0 flex-1 space-y-0.5">
                                         <p
                                             className="truncate text-base font-medium leading-tight text-gray-900"
-                                            title={item.collectionName}
                                         >
                                             {item.collectionName}
                                         </p>
                                         <p
                                             className="truncate text-lg font-medium leading-tight text-emerald-800"
                                             dir="rtl"
-                                            title={item.collectionNameArabic}
                                         >
                                             {item.collectionNameArabic}
                                         </p>
@@ -107,13 +105,11 @@ const HadithSavedTabSection = ({ items: itemsProp }: HadithSavedTabSectionProps)
                                 <div className="mt-3 min-w-0 border-t border-layout-separator pt-3">
                                     <h3
                                         className="line-clamp-2 text-sm font-medium leading-snug text-gray-900"
-                                        title={item.titleEnglish}
                                     >
                                         {item.titleEnglish}
                                     </h3>
                                     <p
                                         dir="rtl"
-                                        title={item.titleArabic}
                                         className="line-clamp-2 mt-1 font-arabic text-lg font-medium leading-snug text-emerald-900"
                                     >
                                         {item.titleArabic}
@@ -142,7 +138,7 @@ const HadithSavedTabSection = ({ items: itemsProp }: HadithSavedTabSectionProps)
                                     {item.snippet}
                                 </p>
 
-                                <div className="mt-3 flex items-center justify-between gap-2 border-t border-layout-separator pt-3">
+                                <div className="flex items-center justify-between gap-2 pt-3">
                                     <time
                                         className="text-[11px] font-medium tabular-nums text-gray-500"
                                         dateTime={item.savedAt}
