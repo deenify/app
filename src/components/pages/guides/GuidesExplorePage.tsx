@@ -7,13 +7,19 @@ import { BookOpen, Bookmark, Filter, GraduationCap } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import FilterDropdown from "@/components/shared/FilterDropdown"
-import Tabs, { type TabItem } from "@/components/shared/Tabs"
+import Tabs from "@/components/shared/Tabs"
 import { cn } from "@/lib/utils/clsx"
 import {
     GuideCategories,
     GuidesMock,
 } from "./content"
 import GuidesCard from "./GuidesCard"
+
+
+const guideTabs = [
+    { id: "all", label: "All Guides", icon: BookOpen },
+    { id: "bookmarks", label: "Bookmarks", icon: Bookmark }
+]
 
 const GuidesExplorePage = () => {
     const router = useRouter()
@@ -51,17 +57,7 @@ const GuidesExplorePage = () => {
                 : filteredGuides,
         [activeTab, bookmarkedGuideIds, filteredGuides]
     )
-    const bookmarkedCount = useMemo(
-        () => filteredGuides.filter((g) => bookmarkedGuideIds.has(g.id)).length,
-        [filteredGuides, bookmarkedGuideIds]
-    )
-    const guideTabs = useMemo<TabItem[]>(
-        () => [
-            { id: "all", label: `All Guides (${filteredGuides.length})`, icon: BookOpen },
-            { id: "bookmarks", label: `Bookmarks (${bookmarkedCount})`, icon: Bookmark },
-        ],
-        [bookmarkedCount, filteredGuides.length]
-    )
+
 
     return (
         <div className="bg-gray-50">
@@ -107,10 +103,10 @@ const GuidesExplorePage = () => {
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 containerClassName="min-w-0 flex-1"
-                                className="h-10 min-h-[42px] rounded-lg border-gray-200 bg-white text-sm 
+                                className="h-10 rounded-lg border-gray-200 bg-white text-sm 
                                 placeholder:text-gray-400 focus:bg-white sm:h-11"
                             />
-                            <div className="w-full sm:w-[260px] sm:shrink-0">
+                            <div className="flex-1 sm:max-w-[260px] sm:shrink-0 flex items-center justify-between gap-2 xs:gap-4">
                                 <FilterDropdown
                                     options={categoryOptions}
                                     value={category}
@@ -120,53 +116,73 @@ const GuidesExplorePage = () => {
                                     theme="purple"
                                     contentClassName="scrollbar-thin"
                                 />
+                                <div className="sm:hidden inline-flex h-9 w-[100px] xs:w-[120px] shrink-0 items-center justify-center 
+                                rounded-md border border-emerald-200 bg-emerald-50 px-3 text-xs font-medium text-gray-700 shadow-sm">
+                                    <span className="tabular-nums font-semibold text-gray-900">100+</span>
+                                    <span className="ml-1">guides</span>
+                                </div>
                             </div>
                         </div>
 
-                        <Tabs
-                            allTabs={guideTabs}
-                            activeTab={activeTab}
-                            onTabChange={(tabId) => setActiveTab(tabId as "all" | "bookmarks")}
-                            variant="pills"
-                            showIndicator
-                            align="left"
-                            stretchTabs={false}
-                            className="pt-0"
-                            tabsContainerClassName="w-full border-none"
-                            contentContainerClassName="hidden"
-                            tabClassName="h-9 px-4 sm:px-5 text-sm"
-                            classNames={{
-                                pillsIndicator: "bg-white border border-layout-separator",
-                                tabsWrapper: "border border-layout-separator"
-                            }}
-                        />
+                        <main className="pt-6 flex items-center justify-between">
+                            <Tabs
+                                allTabs={guideTabs}
+                                activeTab={activeTab}
+                                onTabChange={(tabId) => setActiveTab(tabId as "all" | "bookmarks")}
+                                variant="pills"
+                                showIndicator
+                                align="left"
+                                stretchTabs={false}
 
-                        {guides.length === 0 ? (
-                            <div className="rounded-xl bg-white p-8 text-center">
-                                <p className="text-sm font-medium text-gray-900">No guides found</p>
-                                <p className="mt-1 text-sm text-gray-500">Try another keyword or topic.</p>
+                                className="pt-0"
+                                contentContainerClassName="hidden"
+
+                                tabsContainerClassName="flex justify-center border-none h-max"
+                                tabClassName="px-5 xs:px-7 sm:px-8 md:px-10 lg:px-12"
+
+                                classNames={{
+                                    pillsIndicator: "bg-white border border-layout-separator",
+                                    tabsWrapper: "border border-layout-separator",
+                                    labelClassName: "text-xs xs:text-sm"
+                                }}
+                            />
+
+                            <div className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50/80 px-3 py-1 text-[11px] font-medium text-emerald-800 shadow-[0_1px_2px_rgba(16,185,129,0.18)] sm:text-xs">
+                                <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                                <span className="tabular-nums">{GuidesMock.length - 1}+</span>
+                                <span>Guides</span>
                             </div>
-                        ) : (
-                            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 sm:gap-4">
-                                {guides.map((g, index) => (
-                                    <GuidesCard
-                                        key={g.id}
-                                        guide={g}
-                                        index={index}
-                                        isBookmarked={bookmarkedGuideIds.has(g.id)}
-                                        onToggleBookmark={() =>
-                                            setBookmarkedGuideIds((prev) => {
-                                                const next = new Set(prev)
-                                                if (next.has(g.id)) next.delete(g.id)
-                                                else next.add(g.id)
-                                                return next
-                                            })
-                                        }
-                                        onOpen={() => router.push(`/guides/${g.id}`)}
-                                    />
-                                ))}
-                            </div>
-                        )}
+                        </main>
+
+
+                        <main>
+                            {guides.length === 0 ? (
+                                <div className="rounded-xl bg-white p-8 text-center">
+                                    <p className="text-sm font-medium text-gray-900">No guides found</p>
+                                    <p className="mt-1 text-sm text-gray-500">Try another keyword or topic.</p>
+                                </div>
+                            ) : (
+                                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 sm:gap-4">
+                                    {guides.map((g, index) => (
+                                        <GuidesCard
+                                            key={g.id}
+                                            guide={g}
+                                            index={index}
+                                            isBookmarked={bookmarkedGuideIds.has(g.id)}
+                                            onToggleBookmark={() =>
+                                                setBookmarkedGuideIds((prev) => {
+                                                    const next = new Set(prev)
+                                                    if (next.has(g.id)) next.delete(g.id)
+                                                    else next.add(g.id)
+                                                    return next
+                                                })
+                                            }
+                                            onOpen={() => router.push(`/guides/${g.id}`)}
+                                        />
+                                    ))}
+                                </div>
+                            )}
+                        </main>
                     </div>
                 </div>
             </section>
