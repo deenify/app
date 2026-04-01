@@ -39,7 +39,11 @@ const MenuList = ({ onDrawerTabChange }: MenuListProps) => {
                     <div className="space-y-1">
                         {section.items.map((item: typeof section.items[0]) => {
                             const Icon = item.icon
-                            const isActive = pathname === item.href
+                            // const isActive = pathname === item.href
+                            const isActive =
+                                item.href === "/"
+                                    ? pathname === "/"
+                                    : pathname.startsWith(item.href);
 
                             return (
                                 <Link

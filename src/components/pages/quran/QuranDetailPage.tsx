@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react"
 import { useRouter } from "next/navigation"
 import { motion } from "framer-motion"
-import { ArrowLeft, BookOpen, ChevronLeft, Languages, Settings } from "lucide-react"
+import { BookOpen, Languages, Settings } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import Tabs, { type TabItem } from "@/components/shared/Tabs"
@@ -16,7 +16,7 @@ import VerseCard from "./VerseCard"
 import QuranSettingSidebar from "./QuranSettingSidebar"
 import useQuranReaderSettingsStore from "@/store/quran"
 import { cn } from "@/lib/utils/clsx"
-import { useBreakpoint } from "@/hooks/useBreakpoint"
+import BackButton from "@/components/shared/BackButton"
 
 
 type DetailTabId = "read" | "translation"
@@ -40,7 +40,6 @@ export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetai
     const [activeTab, setActiveTab] = useState<DetailTabId>("read")
     const [showSettings, setShowSettings] = useState(false)
 
-    const isLgDown = useBreakpoint('lg', 'down')
     const router = useRouter()
 
     const {
@@ -73,35 +72,17 @@ export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetai
             <section className="bg-white">
                 <div className="container">
                     <header className="py-8 sm:py-10">
-                        <Button
-                            variant={isLgDown ? "transparent" : "ghost-emerald"}
-                            shouldScale={false}
-                            onClick={() => router.push("/quran")}
-                            size="default"
-                            className="mb-5 sm:mb-6"
-                        >
-                            {isLgDown ? (
-                                <div className="flex items-center gap-2 w-full h-full hover:">
-                                    <span
-                                        className={cn(
-                                            "w-6 h-6 border rounded-full flex items-center justify-center",
-                                            "bg-emerald-50 border-emerald-300 transition-all duration-200 z-[60] shadow-md"
-                                        )}>
-                                        <ChevronLeft
-                                            size={16}
-                                            strokeWidth={1.5}
-                                            className="h-4 w-4 text-gray-600 transition-transform duration-300"
-                                        />
-                                    </span>
-                                    Back
-                                </div>
-                            ) : (
-                                <span className="flex items-center gap-2 w-full h-full">
-                                    <ArrowLeft className="h-4 w-4 mr-2" />
-                                    Back to Surahs
-                                </span>
-                            )}
-                        </Button>
+                        <BackButton
+                            renderMobileVariant={false}
+                            buttonProps={{
+                                variant: "ghost-emerald",
+                                shouldScale: false,
+                                onClick: () => router.push("/quran"),
+                                size: "default",
+                            }}
+                            label="Back to Surahs"
+                            labelMbl="Back"
+                        />
 
                         {/* Bismillah + surah meta */}
                         <div className="text-center">
@@ -161,7 +142,7 @@ export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetai
                     transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
                 /> */}
 
-                <div className="relative h-[calc(100vh-180px)]">
+                <div className="relative h-[calc(100vh-200px)]">
                     <div className="flex items-start gap-6 h-full">
                         {/* left-side surah content */}
                         <main className="flex-1 min-w-0 h-full">

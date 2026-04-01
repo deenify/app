@@ -72,6 +72,11 @@ interface Ripple {
     key: number;
 }
 
+
+export type ButtonPropsType<C extends React.ElementType = "button"> =
+    ButtonProps<C> &
+    Omit<React.ComponentPropsWithoutRef<C>, keyof ButtonProps<C>>;
+
 export const Button = <C extends React.ElementType = "button">({
     asChild,
     href,

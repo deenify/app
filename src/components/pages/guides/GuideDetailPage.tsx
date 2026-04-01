@@ -10,6 +10,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Progress } from "@/components/ui/progress"
 import { cn } from "@/lib/utils/clsx"
 import { getGuideById, getGuideSectionsMock } from "./content"
+import BackButton from "@/components/shared/BackButton"
 
 interface GuideDetailPageProps {
     guideId: string
@@ -38,15 +39,17 @@ const GuideDetailPage = ({ guideId }: GuideDetailPageProps) => {
             <section className="border-b border-gray-100 bg-white">
                 <div className="container px-4 sm:px-6 md:px-6">
                     <div className="mx-auto pb-8 pt-6 sm:pb-10 sm:pt-8 md:pb-12 md:pt-10">
-                        <Button
-                            variant="ghost-emerald"
-                            shouldScale={false}
-                            onClick={() => router.push("/guides")}
-                            className="mb-6 sm:mb-8"
-                        >
-                            <ArrowLeft className="mr-2 h-4 w-4" />
-                            Back to Guides
-                        </Button>
+                        <BackButton
+                            renderMobileVariant={false}
+                            buttonProps={{
+                                variant: "ghost-emerald",
+                                shouldScale: false,
+                                onClick: () => router.push("/guides"),
+                                size: "default",
+                            }}
+                            label="Back to Guides"
+                            labelMbl="Back"
+                        />
 
                         <header className="text-center">
                             <motion.div
