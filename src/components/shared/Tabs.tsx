@@ -18,16 +18,19 @@ interface TabsPropType {
     activeTab: TabType
     onTabChange: (tabId: TabType) => void
     children?: React.ReactNode
-    className?: string
     tabsContainerClassName?: string
     contentContainerClassName?: string
     showIndicator?: boolean
     variant?: "default" | "underline" | "pills"
     align?: "left" | "center" | "right"
     stretchTabs?: boolean
-    /** When false, content is rendered without framer-motion animation */
     animateContent?: boolean
     tabClassName?: string
+    className?: string
+    classNames?: {
+        pillsIndicator?: string
+        tabsWrapper?: string
+    }
 }
 
 const Tabs = ({
@@ -36,6 +39,7 @@ const Tabs = ({
     children,
     onTabChange,
     className,
+    classNames,
     tabsContainerClassName,
     contentContainerClassName,
     showIndicator = true,
@@ -139,13 +143,18 @@ const Tabs = ({
                             ? "justify-start"
                             : align === "right"
                                 ? "justify-end"
-                                : "justify-center")
+                                : "justify-center"),
+
+                        classNames?.tabsWrapper
                     )}
                 >
 
                     {variant === "pills" && (
                         <motion.div
-                            className="absolute top-[3px] bottom-[3px] rounded-full bg-white border border-gray-200 shadow-sm"
+                            className={cn(
+                                "absolute top-[3px] bottom-[3px] rounded-full bg-white border border-gray-200 shadow-sm",
+                                classNames?.pillsIndicator
+                            )}
                             initial={false}
                             animate={{
                                 left: indicatorStyle.left,

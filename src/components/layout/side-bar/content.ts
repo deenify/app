@@ -25,7 +25,7 @@ export const sidebarSections = [
         title: 'Learn',
         items: [
             { href: '/supplications', label: 'Supplications', icon: BookHeart },
-            { href: '/guides', label: 'Islamic Guides', icon: GraduationCap },
+            { href: '/guides', label: 'Guides & Learning', icon: GraduationCap },
             { href: '/history', label: 'Islamic History', icon: Scroll },
             { href: '/prophets', label: 'Prophetic Chain', icon: Users },
             { href: '/miracles', label: 'Islamic Miracles', icon: Star },

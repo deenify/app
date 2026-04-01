@@ -34,7 +34,7 @@ const ReadTabSection = ({ SURAHS }: ReadTabSectionProps) => {
             <div className="container px-4 sm:px-6 md:px-6">
                 <header className="mb-4 sm:mb-5 flex items-end justify-between gap-3">
                     <div>
-                        <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-emerald-700/80">
+                        <p className="text-[11px] font-medium uppercase tracking-[0.18em]">
                             Reading
                         </p>
                         <h2 className="mt-1 text-lg font-medium tracking-tight text-gray-900 sm:text-xl">
