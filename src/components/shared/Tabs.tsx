@@ -30,6 +30,7 @@ interface TabsPropType {
     classNames?: {
         pillsIndicator?: string
         tabsWrapper?: string
+        labelClassName?: string
     }
 }
 
@@ -195,7 +196,7 @@ const Tabs = ({
                                             )}
                                         />
                                     )}
-                                    <span className='inline w-max text-center text-sm z-3 relative'> {tab.label}</span>
+                                    <span className={cn('inline w-max text-center text-sm z-3 relative', classNames?.labelClassName)}> {tab.label}</span>
                                 </button>
                             )
                         }
@@ -216,7 +217,7 @@ const Tabs = ({
                                 )}
                             >
                                 {Icon && <Icon className="h-4 w-4" />}
-                                <span>{tab.label}</span>
+                                <span className={cn("", classNames?.labelClassName)}>{tab.label}</span>
                             </button>
                         )
                     })}
