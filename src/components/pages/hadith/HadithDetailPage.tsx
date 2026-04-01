@@ -3,13 +3,14 @@
 import { useMemo, useState } from "react"
 import { useRouter } from "next/navigation"
 import { motion } from "framer-motion"
-import { ArrowLeft, ScrollText, Settings } from "lucide-react"
+import { ScrollText, Settings } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils/clsx"
 import HadithCard from "./HadithCard"
 import HadithSettingSidebar from "./HadithSettingSidebar"
 import { HadithCollections, getMockHadithsForCollection } from "./content"
+import BackButton from "@/components/shared/BackButton"
 
 interface HadithCollectionPageProps {
     collectionId: string
@@ -41,15 +42,17 @@ export default function HadithDetailPage({ collectionId }: HadithCollectionPageP
             <section className="border-b border-gray-100 bg-white">
                 <div className="container px-4 sm:px-6 md:px-6">
                     <div className="mx-auto pb-8 pt-6 sm:pb-10 sm:pt-8 md:pb-12 md:pt-10">
-                        <Button
-                            variant="ghost-emerald"
-                            shouldScale={false}
-                            onClick={() => router.push("/hadith")}
-                            className="mb-6 sm:mb-8"
-                        >
-                            <ArrowLeft className="mr-2 h-4 w-4" />
-                            Back to Hadith
-                        </Button>
+                        <BackButton
+                            renderMobileVariant={false}
+                            buttonProps={{
+                                variant: "ghost-emerald",
+                                shouldScale: false,
+                                onClick: () => router.push("/hadith"),
+                                size: "default",
+                            }}
+                            label="Back to Hadith"
+                            labelMbl="Back"
+                        />
 
                         <header className="text-center">
                             <motion.div
@@ -115,7 +118,7 @@ export default function HadithDetailPage({ collectionId }: HadithCollectionPageP
                     aria-hidden
                 />
 
-                <div className="relative h-[calc(100vh-150px)] flex">
+                <div className="relative h-[calc(100vh-200px)] flex">
                     <main className="container h-full py-4 sm:py-6 overflow-hidden">
                         <div className="mx-auto flex h-full max-w-4xl flex-col scrollbar-thin overflow-y-auto pr-1 sm:pr-2">
                             <div className="flex flex-col gap-5 py-2 sm:gap-6 h-max">
