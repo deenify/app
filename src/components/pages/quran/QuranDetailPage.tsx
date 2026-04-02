@@ -141,6 +141,10 @@ export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetai
                     animate={{ scale: [1, 1.1, 1], opacity: [0.25, 0.35, 0.25] }}
                     transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
                 /> */}
+                <motion.div
+                    className="pointer-events-none absolute bottom-0 right-0 h-40 w-40 rounded-full bg-teal-100 blur-3xl"
+                    aria-hidden
+                />
 
                 <div className="relative h-[calc(100vh-200px)]">
                     <div className="flex items-start gap-6 h-full">

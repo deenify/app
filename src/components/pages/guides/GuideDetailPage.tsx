@@ -3,11 +3,11 @@
 import { useMemo } from "react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils/clsx"
 import { getGuideById, getGuideSectionsMock } from "./content"
 import GuideDetailHeader from "./GuideDetailHeader"
 import GuideDetailContent from "./GuideDetailContent"
 import GuideDetailSidebar from "./GuideDetailSidebar"
+import { motion } from "framer-motion"
 
 interface GuideDetailPageProps {
     guideId: string
@@ -71,7 +71,20 @@ const GuideDetailPage = ({ guideId }: GuideDetailPageProps) => {
                 </div>
             </section>
 
-            <section className={cn("relative w-full")}>
+            <section className="relative w-full">
+                <motion.div
+                    aria-hidden
+                    className="pointer-events-none absolute -top-10 left-[-24px] h-40 w-40 rounded-full bg-amber-50 blur-3xl"
+                    animate={{ opacity: [0.25, 0.45, 0.25], scale: [1, 1.08, 1] }}
+                    transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+                />
+                <motion.div
+                    aria-hidden
+                    className="pointer-events-none absolute right-0 top-16 h-36 w-36 rounded-full bg-emerald-300 blur-3xl"
+                    animate={{ opacity: [0.2, 0.38, 0.2], scale: [1, 1.05, 1] }}
+                    transition={{ duration: 11, repeat: Infinity, ease: "easeInOut", delay: 0.8 }}
+                />
+
                 <div className="container py-6 sm:py-7">
                     <div className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] lg:gap-6">
                         <GuideDetailContent

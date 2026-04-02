@@ -52,7 +52,7 @@ const LayoutWrapper = ({ children }: LayoutWrapperProptype) => {
                 />
 
                 {/* Content-scroller inner-content */}
-                <div className='flex-1 overflow-y-auto scrollbar-content'>
+                <div className='flex-1 overflow-y-auto overflow-x-hidden scrollbar-content'>
                     <div className={cn('h-max min-h-full flex flex-col justify-between')}>
                         <>{children}</>
                         <Footer />

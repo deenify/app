@@ -22,7 +22,7 @@ type GuideDetailHeaderProps = {
 
 const GuideDetailHeader = ({ guide, sectionsCount, onBack }: GuideDetailHeaderProps) => {
     return (
-        <header className="space-y-4 border-b border-gray-100 pb-6 sm:pb-7">
+        <header className="space-y-4 border-b border-layout-separator pb-6 sm:pb-7">
             <BackButton
                 renderMobileVariant={false}
                 buttonProps={{
