@@ -7,32 +7,27 @@ import Link from "next/link";
 const buttonVariants = tv({
     variants: {
         variant: {
-            // Default variants
             default: "bg-emerald-600 text-white hover:bg-emerald-700",
             "default-red": "bg-red-600 text-white hover:bg-red-700",
             "default-blue": "bg-blue-600 text-white hover:bg-blue-700",
             "default-purple": "bg-purple-600 text-white hover:bg-purple-700",
 
-            // Outline variants
             outline: "border border-gray-300 bg-white text-gray-900 hover:bg-gray-50",
             "outline-emerald": "border border-emerald-600 text-emerald-700 hover:bg-emerald-50",
             "outline-red": "border border-red-600 text-red-700 hover:bg-red-50",
             "outline-blue": "border border-blue-600 text-blue-700 hover:bg-blue-50",
             "outline-purple": "border border-purple-600 text-purple-700 hover:bg-purple-50",
 
-            // Ghost variants
             ghost: "hover:bg-gray-200/50 hover:text-gray-900 bg-transparent",
             "ghost-emerald": "hover:bg-emerald-50 hover:text-emerald-900 bg-transparent",
             "ghost-red": "hover:bg-red-50 hover:text-red-900 bg-transparent",
             "ghost-blue": "hover:bg-blue-50 hover:text-blue-900 bg-transparent",
             "ghost-purple": "hover:bg-purple-50 hover:text-purple-900 bg-transparent",
 
-            // Link variants
             link: "text-emerald-600 underline-offset-4 hover:underline bg-transparent shadow-none",
             "link-red": "text-red-600 underline-offset-4 hover:underline bg-transparent shadow-none",
             "link-blue": "text-blue-600 underline-offset-4 hover:underline bg-transparent shadow-none",
 
-            // Destructive / Secondary / Transparent / Faded
             destructive: "bg-red-600 text-white hover:bg-red-700",
             secondary: "bg-gray-100 text-gray-900 hover:bg-gray-200",
             transparent: "bg-transparent text-gray-700 hover:bg-transparent",
@@ -60,10 +55,10 @@ export interface ButtonProps<C extends React.ElementType = "button">
     children: React.ReactNode;
     className?: string;
     component?: C;
-    rippleClassName?: string
-    rippleGoesFast?: boolean
-    showRipple?: boolean
-    shouldScale?: boolean
+    rippleClassName?: string;
+    rippleGoesFast?: boolean;
+    showRipple?: boolean;
+    shouldScale?: boolean;
 }
 
 interface Ripple {
@@ -71,7 +66,6 @@ interface Ripple {
     y: number;
     key: number;
 }
-
 
 export type ButtonPropsType<C extends React.ElementType = "button"> =
     ButtonProps<C> &
@@ -91,65 +85,82 @@ export const Button = <C extends React.ElementType = "button">({
     shouldScale = false,
     ...props
 }: ButtonProps<C> & Omit<React.ComponentPropsWithoutRef<C>, keyof ButtonProps<C>>) => {
+
     const [ripples, setRipples] = React.useState<Ripple[]>([]);
     const [isPressed, setIsPressed] = React.useState(false);
+
     const rippleKey = React.useRef(0);
+    const pressStart = React.useRef(0);
+    const releaseTimeout = React.useRef<NodeJS.Timeout | null>(null);
 
-    const Component: React.ElementType = href ? Link : component ?? (asChild ? "div" : "button");
+    const Component: React.ElementType =
+        href ? Link : component ?? (asChild ? "div" : "button");
 
-    // Global mouse up handler - reset scale 
-    React.useEffect(() => {
-        if (isPressed && shouldScale) {
-            const handleGlobalMouseUp = () => setIsPressed(false)
-            window.addEventListener("mouseup", handleGlobalMouseUp);
-            return () => window.removeEventListener("mouseup", handleGlobalMouseUp)
-        }
-    }, [isPressed, shouldScale]);
-
-    // Mouse down handler  
     const handleMouseDown = (e: React.MouseEvent) => {
-        if (shouldScale) setIsPressed(true)
-        if (props.onMouseDown) props.onMouseDown(e);
+        if (shouldScale) {
+            pressStart.current = Date.now();
+            setIsPressed(true);
+        }
+        props.onMouseDown?.(e);
     };
 
-    // Mouse up handler
     const handleMouseUp = (e: React.MouseEvent) => {
-        if (shouldScale) setIsPressed(false)
-        if (props.onMouseUp) props.onMouseUp(e);
+        props.onMouseUp?.(e);
+
+        if (shouldScale) {
+            const duration = Date.now() - pressStart.current;
+
+            if (releaseTimeout.current) {
+                clearTimeout(releaseTimeout.current);
+            }
+
+            if (duration < 150) {
+                releaseTimeout.current = setTimeout(() => setIsPressed(false), 150 - duration);
+            } else {
+                setIsPressed(false);
+            }
+        }
 
         const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
         const key = rippleKey.current++;
 
-        setRipples((prev) => [...prev, { x, y, key }]);
-        setTimeout(() => setRipples((prev) => prev.filter((r) => r.key !== key)), 500);
+        setRipples(prev => [...prev, { x, y, key }]);
+
+        setTimeout(() => {
+            setRipples(prev => prev.filter(r => r.key !== key));
+        }, 500);
     };
 
+    const handleMouseLeave = () => {
+        if (shouldScale) setIsPressed(false);
+    };
 
     return (
         <Component
             href={href}
             className={cn(
-                "relative overflow-hidden cursor-pointer",
-                "relative inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium outline-none",
-                "ease duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring !transition-all",
-                "focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 overflow-hidden px-[30px]",
+                "relative inline-flex items-center justify-center gap-2 rounded-md font-medium outline-none",
+                "cursor-pointer overflow-hidden px-[30px]",
+                "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                "disabled:pointer-events-none disabled:opacity-50",
                 buttonVariants({ variant, size }),
                 className
             )}
             style={{
-                transform: shouldScale && isPressed ? "scale(0.90)" : "scale(1)",
-                transition: "transform 0.1s ease-out",
+                transform: shouldScale && isPressed ? "scale(0.94)" : "scale(1)",
+                transition: "transform 180ms cubic-bezier(0.22, 1, 0.36, 1)",
                 ...props.style,
             }}
             onMouseDown={handleMouseDown}
             onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseLeave}
             {...props}
         >
             {children}
 
-            {showRipple && ripples.map((ripple) => (
+            {showRipple && ripples.map(ripple => (
                 <span
                     key={ripple.key}
                     className={cn(
@@ -157,7 +168,10 @@ export const Button = <C extends React.ElementType = "button">({
                         rippleGoesFast ? "animate-ripple-4" : "animate-ripple-8",
                         rippleClassName
                     )}
-                    style={{ top: ripple.y - 10, left: ripple.x - 10, }}
+                    style={{
+                        top: ripple.y - 10,
+                        left: ripple.x - 10,
+                    }}
                 />
             ))}
         </Component>
