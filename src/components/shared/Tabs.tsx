@@ -70,15 +70,13 @@ const Tabs = ({
             return
         }
 
-        // For underline, use container-relative measurements (with scroll)
+        // For underline — use offsetLeft relative to the scroll container
         if (showIndicator && container) {
-            const containerRect = container.getBoundingClientRect()
-            const tabRect = activeTabElement.getBoundingClientRect()
-            const scrollLeft = container.scrollLeft
-
-            setIndicatorStyle({
-                left: tabRect.left - containerRect.left + scrollLeft,
-                width: tabRect.width,
+            requestAnimationFrame(() => {
+                setIndicatorStyle({
+                    left: activeTabElement.offsetLeft,
+                    width: activeTabElement.offsetWidth,
+                })
             })
         }
     }, [activeTab, showIndicator, variant])
@@ -120,40 +118,45 @@ const Tabs = ({
 
     return (
         <section className={cn("flex flex-col", className)}>
-            {/* Tabs Header */}
+            {/* Tabs-Buttons Section  */}
             <div
                 ref={tabsContainerRef}
                 className={cn(
-                    "relative overflow-x-auto scrollbar-hide w-full",
+                    "relative overflow-x-auto scrollbar-hide w-full select-none",
                     variant === "underline" && "border-b border-layout-separator",
                     tabsContainerClassName
                 )}
             >
+                {/* Tabs Wrapper  */}
                 <div
                     className={cn(
+                        // base + stretch 
                         "flex relative",
                         stretchTabs ? "w-full" : "w-max",
                         stretchTabs && "min-w-full",
-
+                        // pills 
                         variant === "pills" &&
                         "w-max mx-auto rounded-full bg-gray-100 p-1 gap-1",
-
+                        // underline 
                         variant === "underline" &&
-
+                        // align 
                         (align === "left"
                             ? "justify-start"
                             : align === "right"
                                 ? "justify-end"
                                 : "justify-center"),
-
+                        // parental class
                         classNames?.tabsWrapper
                     )}
                 >
 
+                    {/* Indicator Animations - inside-tab-wrapper  */}
+                    {/* pills-variant Indicator  */}
                     {variant === "pills" && (
                         <motion.div
                             className={cn(
-                                "absolute top-[3px] bottom-[3px] rounded-full bg-white border border-gray-200 shadow-sm",
+                                "absolute top-[3px] bottom-[3px] rounded-full bg-white border border-gray-200",
+                                "shadow-sm pointer-events-none",
                                 classNames?.pillsIndicator
                             )}
                             initial={false}
@@ -169,10 +172,13 @@ const Tabs = ({
                         />
                     )}
 
+
+                    {/* Maping Tab Buttons  */}
                     {allTabs.map((tab) => {
                         const Icon = tab.icon
                         const isActive = activeTab === tab.id
 
+                        // pILL-variant button 
                         if (variant === "pills") {
                             return (
                                 <button
@@ -180,6 +186,7 @@ const Tabs = ({
                                         tabRefs.current[tab.id] = el
                                     }}
                                     key={tab.id}
+                                    type="button"
                                     onClick={() => onTabChange(tab.id)}
                                     className={cn(
                                         "py-1.5 rounded-full text-sm font-medium transition-colors whitespace-nowrap",
@@ -201,16 +208,18 @@ const Tabs = ({
                             )
                         }
 
+                        // default-variant as underline button 
                         return (
                             <button
                                 key={tab.id}
+                                type="button"
                                 ref={(el) => {
                                     tabRefs.current[tab.id] = el
                                 }}
                                 onClick={() => onTabChange(tab.id)}
                                 className={cn(
                                     "py-3 px-4 sm:px-6 text-sm font-medium transition-colors relative whitespace-nowrap flex-shrink-0",
-                                    "flex items-center justify-center gap-2",
+                                    "flex items-center justify-center gap-2 select-none",
                                     stretchTabs && "flex-1",
                                     isActive ? "text-emerald-600" : "text-gray-500 hover:text-gray-700",
                                     tabClassName
@@ -223,10 +232,12 @@ const Tabs = ({
                     })}
                 </div>
 
-                {/* Animated Indicator */}
+
+                {/* Indicator Animations - outside-tab-wrapper  */}
+                {/* underline-variant Indicator  */}
                 {showIndicator && variant === "underline" && (
                     <motion.div
-                        className="absolute bottom-0 h-0.5 bg-emerald-600"
+                        className="absolute bottom-0 h-0.5 bg-emerald-600 pointer-events-none"
                         initial={false}
                         animate={{
                             left: indicatorStyle.left,
@@ -241,7 +252,8 @@ const Tabs = ({
                 )}
             </div>
 
-            {/* Content */}
+
+            {/* Content Section */}
             <div className={cn("flex-1 relative overflow-hidden", contentContainerClassName)}>
                 {animateContent ? (
                     <AnimatePresence mode="wait">

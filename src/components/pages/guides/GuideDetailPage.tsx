@@ -85,7 +85,7 @@ const GuideDetailPage = ({ guideId }: GuideDetailPageProps) => {
                     transition={{ duration: 11, repeat: Infinity, ease: "easeInOut", delay: 0.8 }}
                 />
 
-                <div className="container py-6 sm:py-7">
+                <div className="container py-6 sm:py-7 relative">
                     <div className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] lg:gap-6">
                         <GuideDetailContent
                             title={guide.title}
