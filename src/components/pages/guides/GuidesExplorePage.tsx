@@ -1,7 +1,6 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { useRouter } from "next/navigation"
 import { motion } from "framer-motion"
 import { BookOpen, Bookmark, Filter, GraduationCap } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
@@ -9,24 +8,24 @@ import { Input } from "@/components/ui/input"
 import FilterDropdown from "@/components/shared/FilterDropdown"
 import Tabs from "@/components/shared/Tabs"
 import { cn } from "@/lib/utils/clsx"
-import {
-    GuideCategories,
-    GuidesMock,
-} from "./content"
-import GuidesCard from "./GuidesCard"
+import { GuideCategories, GuidesMock } from "./content"
+import GuidesCollectionsTabSection from "./GuidesCollectionsTabSection"
+import GuidesBookmarksTabSection from "./GuidesBookmarksTabSection"
 
+export type GuideExploreTabId = "collections" | "bookmarks"
 
 const guideTabs = [
-    { id: "all", label: "All Guides", icon: BookOpen },
-    { id: "bookmarks", label: "Bookmarks", icon: Bookmark }
+    { id: "collections" as const, label: "All Guides", icon: BookOpen },
+    { id: "bookmarks" as const, label: "Bookmarks", icon: Bookmark },
 ]
 
 const GuidesExplorePage = () => {
-    const router = useRouter()
     const [searchQuery, setSearchQuery] = useState("")
     const [category, setCategory] = useState<string>("all")
-    const [activeTab, setActiveTab] = useState<"all" | "bookmarks">("all")
-    const [bookmarkedGuideIds, setBookmarkedGuideIds] = useState<Set<string>>(() => new Set(["wudu", "salah", "ramadan"]))
+    const [activeTab, setActiveTab] = useState<GuideExploreTabId>("collections")
+    const [bookmarkedGuideIds, setBookmarkedGuideIds] = useState<Set<string>>(
+        () => new Set(["wudu", "salah", "ramadan"])
+    )
 
     const categoryOptions = useMemo(
         () =>
@@ -50,14 +49,21 @@ const GuidesExplorePage = () => {
         })
     }, [category, searchQuery])
 
-    const guides = useMemo(
-        () =>
-            activeTab === "bookmarks"
-                ? filteredGuides.filter((g) => bookmarkedGuideIds.has(g.id))
-                : filteredGuides,
-        [activeTab, bookmarkedGuideIds, filteredGuides]
+    const bookmarkGuides = useMemo(
+        () => filteredGuides.filter((g) => bookmarkedGuideIds.has(g.id)),
+        [bookmarkedGuideIds, filteredGuides]
     )
 
+    const toggleBookmark = (id: string) => {
+        setBookmarkedGuideIds((prev) => {
+            const next = new Set(prev)
+            if (next.has(id)) next.delete(id)
+            else next.add(id)
+            return next
+        })
+    }
+
+    const catalogCountLabel = `${GuidesMock.length - 1}+`
 
     return (
         <div className="bg-gray-50">
@@ -95,18 +101,21 @@ const GuidesExplorePage = () => {
             <section className={cn("relative w-full border-t border-layout-separator", "bg-gray-50")}>
                 <div className="container py-6 sm:py-8">
                     <div className="mx-auto max-w-6xl space-y-4 sm:space-y-5">
-                        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+                        <section className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
                             <Input
                                 search
                                 type="input"
-                                placeholder="Search guides..."
+                                placeholder={
+                                    activeTab === "bookmarks"
+                                        ? "Search your saved guides..."
+                                        : "Search guides..."
+                                }
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 containerClassName="min-w-0 flex-1"
-                                className="h-10 rounded-lg border-gray-200 bg-white text-sm 
-                                placeholder:text-gray-400 focus:bg-white sm:h-11"
+                                className="h-10 rounded-lg border-gray-200 bg-white text-sm placeholder:text-gray-400 focus:bg-white sm:h-11"
                             />
-                            <div className="flex-1 sm:max-w-[260px] sm:shrink-0 flex items-center justify-between gap-2 xs:gap-4">
+                            <div className="flex flex-1 items-center justify-between gap-2 xs:gap-4 sm:max-w-[260px] sm:shrink-0">
                                 <FilterDropdown
                                     options={categoryOptions}
                                     value={category}
@@ -116,79 +125,72 @@ const GuidesExplorePage = () => {
                                     theme="purple"
                                     contentClassName="scrollbar-thin"
                                 />
-                                <div className="sm:hidden inline-flex h-9 w-[100px] xs:w-[120px] shrink-0 items-center justify-center 
-                                rounded-md border border-emerald-200 bg-emerald-50 px-3 text-xs font-medium text-gray-700 shadow-sm">
+                                <div
+                                    className="inline-flex h-9 w-[100px] shrink-0 items-center justify-center rounded-md border border-emerald-200 
+                                    bg-emerald-50 px-3 text-xs font-medium text-gray-700 shadow-sm xs:w-[120px] sm:hidden"
+                                >
                                     <span className="tabular-nums font-semibold text-gray-900">100+</span>
                                     <span className="ml-1">guides</span>
                                 </div>
                             </div>
-                        </div>
+                        </section>
 
-                        <main className="pt-6 flex items-center justify-between">
+                        <section className="flex items-center justify-between pt-6">
                             <Tabs
                                 allTabs={guideTabs}
                                 activeTab={activeTab}
-                                onTabChange={(tabId) => setActiveTab(tabId as "all" | "bookmarks")}
+                                onTabChange={(tabId) => setActiveTab(tabId as GuideExploreTabId)}
                                 variant="pills"
                                 showIndicator
                                 align="left"
                                 stretchTabs={false}
-
                                 className="pt-0"
                                 contentContainerClassName="hidden"
-
-                                tabsContainerClassName="flex justify-center border-none h-max"
+                                tabsContainerClassName="flex h-max justify-center border-none"
                                 tabClassName="px-5 xs:px-7 sm:px-8 md:px-10 lg:px-12"
-
                                 classNames={{
-                                    pillsIndicator: "bg-white border border-layout-separator",
+                                    pillsIndicator: "border border-layout-separator bg-white",
                                     tabsWrapper: "border border-layout-separator",
-                                    labelClassName: "text-xs xs:text-sm"
+                                    labelClassName: "text-xs xs:text-sm",
                                 }}
                             />
 
-                            <div className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50/80 px-3 py-1 text-[11px] font-medium text-emerald-800 shadow-[0_1px_2px_rgba(16,185,129,0.18)] sm:text-xs">
+                            <div className="hidden items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50/80 px-3 py-1 
+                            text-[11px] font-medium text-emerald-800 shadow-[0_1px_2px_rgba(16,185,129,0.18)] sm:inline-flex sm:text-xs">
                                 <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                                <span className="tabular-nums">{GuidesMock.length - 1}+</span>
-                                <span>Guides</span>
+                                {activeTab === "collections" ? (
+                                    <>
+                                        <span className="tabular-nums">{catalogCountLabel}</span>
+                                        <span>Guides</span>
+                                    </>
+                                ) : (
+                                    <>
+                                        <span className="tabular-nums">{bookmarkedGuideIds.size}</span>
+                                        <span>saved</span>
+                                    </>
+                                )}
                             </div>
-                        </main>
-
-
-                        <main>
-                            {guides.length === 0 ? (
-                                <div className="rounded-xl bg-white p-8 text-center">
-                                    <p className="text-sm font-medium text-gray-900">No guides found</p>
-                                    <p className="mt-1 text-sm text-gray-500">Try another keyword or topic.</p>
-                                </div>
-                            ) : (
-                                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 sm:gap-4">
-                                    {guides.map((g, index) => (
-                                        <GuidesCard
-                                            key={g.id}
-                                            guide={g}
-                                            index={index}
-                                            isBookmarked={bookmarkedGuideIds.has(g.id)}
-                                            onToggleBookmark={() =>
-                                                setBookmarkedGuideIds((prev) => {
-                                                    const next = new Set(prev)
-                                                    if (next.has(g.id)) next.delete(g.id)
-                                                    else next.add(g.id)
-                                                    return next
-                                                })
-                                            }
-                                            onOpen={() => router.push(`/guides/${g.id}`)}
-                                        />
-                                    ))}
-                                </div>
-                            )}
-                        </main>
+                        </section>
                     </div>
                 </div>
             </section>
+
+            {activeTab === "collections" && (
+                <GuidesCollectionsTabSection
+                    guides={filteredGuides}
+                    bookmarkedIds={bookmarkedGuideIds}
+                    onToggleBookmark={toggleBookmark}
+                />
+            )}
+            {activeTab === "bookmarks" && (
+                <GuidesBookmarksTabSection
+                    guides={bookmarkGuides}
+                    bookmarkedIds={bookmarkedGuideIds}
+                    onToggleBookmark={toggleBookmark}
+                />
+            )}
         </div>
     )
 }
 
 export default GuidesExplorePage
-
