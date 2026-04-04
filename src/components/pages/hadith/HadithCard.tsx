@@ -105,25 +105,34 @@ const HadithCard = ({
                     className
                 )}
             >
-                <CardContent className="p-5 sm:p-6">
-                    <div className="flex gap-4 sm:gap-5">
-                        {/* Col 1 — catalog / hadith number */}
-                        <div className="flex shrink-0 flex-col items-stretch self-start pt-0.5">
+                <CardContent className="px-4 pb-5 pt-4 sm:px-5 sm:pb-6 sm:pt-5 md:p-6">
+                    <div className="flex flex-col gap-2.5 sm:gap-3 md:flex-row md:gap-5">
+                        {/* Col 1 — catalog / hadith number (mobile: pill chip + looser inset; md+: catalog block) */}
+                        <div className="flex shrink-0 flex-col items-start self-start md:items-stretch md:pt-0.5">
                             <div
                                 className={cn(
-                                    "flex min-h-[2.875rem] min-w-[2.75rem] items-center justify-center rounded-lg border border-emerald-200",
-                                    "bg-emerald-600 px-2 py-1.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.65)]",
-                                    "sm:min-h-[3rem] sm:min-w-[3rem] sm:px-2.5"
+                                    "inline-flex h-7 items-center justify-center tabular-nums text-white",
+                                    "md:flex md:h-auto md:min-h-[2.875rem] md:min-w-[2.75rem] md:rounded-lg md:bg-emerald-600",
+                                    "md:px-2 md:py-1.5 md:shadow-[inset_0_1px_0_rgba(255,255,255,0.65)]",
+                                    "lg:min-h-[3rem] lg:min-w-[3rem] lg:px-2.5",
+                                    // Mobile only — pill chip, gradient, soft shadow (no gradient bleed on md)
+                                    "max-md:rounded-md max-md:bg-gradient-to-b max-md:from-emerald-500 max-md:to-emerald-700",
+                                    "max-md:px-2.5 max-md:shadow-[0_1px_3px_rgba(5,46,22,0.22)]"
                                 )}
                             >
-                                <span className="text-base font-medium tabular-nums leading-none text-white font-heading">
+                                <span
+                                    className={cn(
+                                        "font-heading text-[11px] font-semibold leading-none tracking-wide",
+                                        "md:text-base md:font-medium md:tracking-normal"
+                                    )}
+                                >
                                     #{hadith.catalogNumber}
                                 </span>
                             </div>
                         </div>
 
                         {/* Col 2 — body */}
-                        <div className="min-w-0 flex-1 flex flex-col gap-3">
+                        <div className="min-w-0 flex-1 flex flex-col gap-2.5 sm:gap-3 md:gap-3.5">
                             {/* 1. Collection title + optional in-book ref */}
                             <div
                                 className={cn(
