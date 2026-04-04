@@ -217,6 +217,7 @@ const Tabs = ({
                                     tabRefs.current[tab.id] = el
                                 }}
                                 onClick={() => onTabChange(tab.id)}
+                                onFocus={() => onTabChange(tab.id)}
                                 className={cn(
                                     "py-3 px-4 sm:px-6 text-sm font-medium transition-colors relative whitespace-nowrap flex-shrink-0",
                                     "flex items-center justify-center gap-2 select-none",
@@ -225,8 +226,8 @@ const Tabs = ({
                                     tabClassName
                                 )}
                             >
-                                {Icon && <Icon className="h-4 w-4" />}
-                                <span className={cn("", classNames?.labelClassName)}>{tab.label}</span>
+                                {Icon && <Icon className="h-4 w-4 select-none pointer-events-none" />}
+                                <span className={cn("select-none pointer-events-none", classNames?.labelClassName)}>{tab.label}</span>
                             </button>
                         )
                     })}
