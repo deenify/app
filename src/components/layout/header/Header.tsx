@@ -98,9 +98,14 @@ const Header: React.FC<HeaderProps> = ({
                 <div className="flex items-center pr-2 sm:pr-4 min-w-0 flex-1">
                     {/* Logo - Mobile Only */}
                     <div className="lg:hidden flex-shrink-0 mr-3">
-                        <div className="w-10 h-10 bg-emerald-600 rounded-xl flex items-center justify-center">
-                            <Moon className="h-5 w-5 text-white" />
-                        </div>
+                        <a
+                            href="/"
+                            aria-label="Go to home page"
+                        >
+                            <div className="w-10 h-10 bg-emerald-600 rounded-xl flex items-center justify-center">
+                                <Moon className="h-5 w-5 text-white" />
+                            </div>
+                        </a>
                     </div>
 
                     <div className="min-w-0">

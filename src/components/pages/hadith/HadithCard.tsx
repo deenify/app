@@ -146,8 +146,9 @@ const HadithCard = ({
                                         variant="outline"
                                         className="max-w-full border-amber-200 bg-amber-50 text-[10px] font-normal text-amber-950 sm:text-[11px]"
                                     >
-                                        Book {hadith.reference.book} · Hadith {hadith.reference.hadithNumber} · Ch.{" "}
-                                        {hadith.reference.chapter}
+                                        Book {hadith.reference.book} {" "}
+                                        · Ch. {hadith.reference.chapter} {" "}
+                                        · Hadith {hadith.reference.hadithNumber}
                                     </Badge>
                                 ) : null}
                             </div>

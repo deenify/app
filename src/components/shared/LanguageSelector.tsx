@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState } from "react"
-import { Globe, ChevronDown, Check } from "lucide-react"
+import { Globe, ChevronDown, Check, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
     DropdownMenu,
@@ -38,6 +38,7 @@ const DEFAULT_LANGUAGES: Language[] = [
     { code: "bn", name: "বাংলা", flag: "🇧🇩" },
 ]
 
+
 export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
     languages = DEFAULT_LANGUAGES,
     defaultLanguage = "en",
@@ -61,7 +62,7 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
                 "!focus-visible:ring-0 !focus-visible:ring-offset-0 focus-visible:outline-none",
                 "focus:outline-none !ring-0 !ring-offset-0",
                 "active:ring-0 active:ring-offset-0",
-                compact ? "w-10" : "w-[100px]"
+                compact ? "w-10" : "w-[100px]",
             )} >
                 <Button
                     asChild
@@ -69,7 +70,8 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
                     className={cn(
                         "h-10 w-full",
                         compact ? "px-0 justify-center" : "px-3 gap-2 justify-between",
-                        className
+                        className,
+                        open ? "bg-gray-200/50 text-gray-900" : "bg-transparent"
                     )}
                     shouldScale
                 >
