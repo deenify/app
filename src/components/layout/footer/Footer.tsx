@@ -53,13 +53,22 @@ const Footer = () => {
                         <div className="space-y-3 sm:space-y-4 min-w-0 max-w-[350px]">
                             <div className="flex items-center space-x-3">
                                 <div className="flex-shrink-0">
-                                    <div className="w-11 h-11 bg-emerald-600 rounded-xl flex items-center justify-center">
+                                    <a
+                                        href="/"
+                                        aria-label="Go to home page"
+                                        className="w-11 h-11 bg-emerald-600 rounded-xl flex items-center justify-center"
+                                    >
                                         <Moon className="h-6 w-6 text-white" />
-                                    </div>
+                                    </a>
                                 </div>
                                 <div className="min-w-0">
-                                    <h3 className="text-gray-900 font-medium text-sm sm:text-base">Deenify</h3>
-                                    <p className="text-xs text-gray-500">Islamic Companion</p>
+                                    <a
+                                        href="/"
+                                        aria-label="Go to home page"
+                                    >
+                                        <h3 className="text-gray-900 font-medium text-sm sm:text-base">Deenify</h3>
+                                        <p className="text-xs text-gray-500">Islamic Companion</p>
+                                    </a>
                                 </div>
                             </div>
                             <p className="text-gray-600 text-xs sm:text-sm leading-relaxed">

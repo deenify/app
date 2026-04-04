@@ -147,7 +147,7 @@ const Header: React.FC<HeaderProps> = ({
                         }}
                     />
 
-                    {/* Menu Button - Mobile Only (far right) */}
+                    {/* Ham-Burger Menu-Button - Mobile-Only */}
                     <Button
                         variant="ghost"
                         size="icon"
