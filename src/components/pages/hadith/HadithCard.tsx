@@ -3,10 +3,11 @@
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import { cn } from "@/lib/utils/clsx"
-import { Bookmark, Copy, Heart, MessageCircle, Share2, User } from "lucide-react"
+import { Copy, Heart, MessageCircle, Share2, User } from "lucide-react"
 import { motion, type TargetAndTransition, type Transition } from "framer-motion"
 import useHadithReaderSettingsStore from "@/store/hadith"
 import type { HadithAuthenticityGrade, MockHadithNarrationType } from "./content"
+import BookmarkButton from "@/components/shared/buttons/BookmarkButton"
 
 interface HadithCardProps {
     hadith: MockHadithNarrationType
@@ -207,14 +208,16 @@ const HadithCard = ({
                                     >
                                         <Copy className="h-4 w-4" strokeWidth={1.7} />
                                     </button>
-                                    <button
-                                        type="button"
-                                        aria-label="Bookmark hadith"
-                                        className="inline-flex h-8 w-8 items-center justify-center rounded-full text-gray-500 
-                                        transition-colors hover:bg-emerald-50 hover:text-emerald-700 active:bg-emerald-100"
-                                    >
-                                        <Bookmark className="h-4 w-4" strokeWidth={1.7} />
-                                    </button>
+
+                                    <BookmarkButton
+                                        isBookmarked={false}
+                                        buttonProps={{
+                                            onClick: (e: React.MouseEvent<HTMLButtonElement>) => { },
+                                            "aria-label": "Bookmark hadith",
+                                        }}
+                                        classNames={{ icon: "text-gray-500 hover:text-emerald-700" }}
+                                    />
+
                                     <button
                                         type="button"
                                         aria-label="Like hadith"
@@ -240,6 +243,8 @@ const HadithCard = ({
                                         <Share2 className="h-4 w-4" strokeWidth={1.7} />
                                     </button>
                                 </div>
+
+                                {/* Authenticity grade */}
                                 <AuthenticityBadge grade={hadith.authenticityGrade} />
                             </div>
                         </div>

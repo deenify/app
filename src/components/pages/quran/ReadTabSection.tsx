@@ -4,11 +4,9 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
-import { Bookmark } from "lucide-react"
 import { QuranSurahType, surahNameMeaning } from "./content"
-import { cn } from "@/lib/utils/clsx"
-import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
+import BookmarkButton from "@/components/shared/buttons/BookmarkButton"
 
 interface ReadTabSectionProps {
     SURAHS: QuranSurahType[]
@@ -102,27 +100,13 @@ const ReadTabSection = ({ SURAHS }: ReadTabSectionProps) => {
                                                     </Badge>
                                                 </div>
 
-                                                <Button
-                                                    variant="ghost"
-                                                    size="icon"
-                                                    shouldScale
-                                                    aria-label={bookmarked.has(surah.number) ? "Remove bookmark" : "Bookmark surah"}
-                                                    onClick={(e: React.MouseEvent<HTMLButtonElement>) => toggleBookmark(e, surah.number)}
-                                                    className={cn(
-                                                        "flex w-7 h-7 shrink-0 items-center justify-center rounded-full transition-colors",
-                                                        "hover:bg-emerald-50 active:bg-emerald-100",
-                                                        bookmarked.has(surah.number)
-                                                            ? "text-emerald-600 fill-emerald-600"
-                                                            : "text-gray-400 group-hover:text-emerald-500"
-                                                    )}
-                                                >
-                                                    <Bookmark
-                                                        className={cn("h-4 w-4 text-black",
-                                                            bookmarked.has(surah.number) && "fill-current text-emerald-600")}
-                                                        size={16}
-                                                        strokeWidth={1.5}
-                                                    />
-                                                </Button>
+                                                <BookmarkButton
+                                                    isBookmarked={bookmarked.has(surah.number)}
+                                                    buttonProps={{
+                                                        onClick: (e: React.MouseEvent<HTMLButtonElement>) => toggleBookmark(e, surah.number),
+                                                        "aria-label": bookmarked.has(surah.number) ? "Remove bookmark" : "Bookmark surah"
+                                                    }}
+                                                />
                                             </div>
                                         </div>
                                     </CardContent>

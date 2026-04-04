@@ -16,7 +16,7 @@ import VerseCard from "./VerseCard"
 import QuranSettingSidebar from "./QuranSettingSidebar"
 import useQuranReaderSettingsStore from "@/store/quran"
 import { cn } from "@/lib/utils/clsx"
-import BackButton from "@/components/shared/BackButton"
+import BackButton from "@/components/shared/buttons/BackButton"
 
 
 type DetailTabId = "read" | "translation"
@@ -134,7 +134,6 @@ export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetai
             <section className={cn(
                 "relative bg-gradient-to-br from-emerald-50 via-white to-teal-50 border-t border-layout-separator w-full",
                 "border-t border-layout-separator w-full flex-1",
-                // "h-[560px] md:h-[640px] xl:h-[756px]"
             )}>
                 {/* <motion.div
                     className="pointer-events-none absolute -top-10 left-[-40px] h-40 w-40 rounded-full bg-emerald-100 blur-3xl opacity-30"

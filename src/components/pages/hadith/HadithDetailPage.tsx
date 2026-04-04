@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils/clsx"
 import HadithCard from "./HadithCard"
 import HadithSettingSidebar from "./HadithSettingSidebar"
 import { HadithCollections, getMockHadithsForCollection } from "./content"
-import BackButton from "@/components/shared/BackButton"
+import BackButton from "@/components/shared/buttons/BackButton"
 
 interface HadithCollectionPageProps {
     collectionId: string
@@ -30,7 +30,7 @@ export default function HadithDetailPage({ collectionId }: HadithCollectionPageP
         return (
             <div className="container px-4 py-16 text-center sm:px-6">
                 <p className="text-gray-600">Collection not found.</p>
-                <Button variant="ghost-emerald" className="mt-4" onClick={() => router.push("/hadith")}>
+                <Button variant="ghost-emerald" className="mt-4" href="/hadith">
                     Back to Hadith
                 </Button>
             </div>
@@ -119,6 +119,7 @@ export default function HadithDetailPage({ collectionId }: HadithCollectionPageP
                 />
 
                 <div className="relative h-[calc(100vh-200px)] flex">
+                    {/* hadiths-listings  */}
                     <main className="container h-full py-4 sm:py-6 overflow-hidden">
                         <div className="mx-auto flex h-full max-w-4xl flex-col scrollbar-thin overflow-y-auto pr-1 sm:pr-2">
                             <div className="flex flex-col gap-5 py-2 sm:gap-6 h-max">
@@ -136,9 +137,11 @@ export default function HadithDetailPage({ collectionId }: HadithCollectionPageP
                         </div>
                     </main>
 
+                    {/* settings-sidebar  */}
                     <HadithSettingSidebar open={showSettings} onClose={() => setShowSettings(false)} />
                 </div>
 
+                {/* settings-sidebar toggler  */}
                 {!showSettings ? (
                     <div className="fixed right-4 top-28 z-10 sm:right-6 sm:top-32">
                         <Button
