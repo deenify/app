@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import { QuranSurahType, surahNameMeaning } from "./content"
 import { motion } from "framer-motion"
+import { useIncrementalReveal } from "@/hooks/useIncrementalReveal"
 import BookmarkButton from "@/components/shared/buttons/BookmarkButton"
 
 interface ReadTabSectionProps {
@@ -15,6 +16,8 @@ interface ReadTabSectionProps {
 const ReadTabSection = ({ SURAHS }: ReadTabSectionProps) => {
     const router = useRouter()
     const [bookmarked, setBookmarked] = useState<Set<number>>(new Set())
+    const { visibleCount, sentinelRef, newFromIndex } = useIncrementalReveal(SURAHS.length)
+    const visibleSurahs = SURAHS.slice(0, visibleCount)
 
     const toggleBookmark = (e: React.MouseEvent, number: number) => {
         e.preventDefault()
@@ -47,76 +50,88 @@ const ReadTabSection = ({ SURAHS }: ReadTabSectionProps) => {
                 </header>
 
                 {/* Desktop: card grid — animated cards */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-4">
-                    {SURAHS.map((surah, index) => {
-                        return (
-                            <motion.div
-                                key={surah.number}
-                                initial={{ opacity: 0, y: 8, scale: 0.99 }}
-                                animate={{ opacity: 1, y: 0, scale: 1 }}
-                                transition={{ duration: 0.2, delay: index * 0.02, ease: "easeOut" }}
-                            >
-                                <Card
-                                    className="group cursor-pointer border border-gray-100 bg-white shadow-sm transition-[border-color,box-shadow] 
-                                hover:border-emerald-300 hover:shadow-sm overflow-hidden"
-                                    onClick={() => router.push(`/quran/${surah.number}`)}
+                <section className="h-max min-h-[60dvh]">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-4">
+                        {visibleSurahs.map((surah, index) => {
+                            const batchIndex = index - newFromIndex  // resets to 0 for each new batch
+                            const isNew = index >= newFromIndex
+
+                            return (
+                                <motion.div
+                                    key={surah.number}
+                                    initial={isNew ? { opacity: 0, y: 8, scale: 0.99 } : false}
+                                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                                    transition={{
+                                        duration: 0.2,
+                                        delay: isNew ? batchIndex * 0.02 : 0,
+                                        ease: "easeOut"
+                                    }}
                                 >
-                                    <CardContent className="flex items-start justify-between gap-3 sm:gap-4 p-4">
-                                        {/* Left: number pill */}
-                                        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-700 
+                                    <Card
+                                        className="group cursor-pointer border border-gray-100 bg-white shadow-sm transition-[border-color,box-shadow] 
+                                hover:border-emerald-300 hover:shadow-sm overflow-hidden"
+                                        onClick={() => router.push(`/quran/${surah.number}`)}
+                                    >
+                                        <CardContent className="flex items-start justify-between gap-3 sm:gap-4 p-4">
+                                            {/* Left: number pill */}
+                                            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-700 
                                          transition-colors group-hover:bg-emerald-100 sm:h-14 sm:w-14"
-                                        >
-                                            <span className="text-base font-bold tabular-nums sm:text-lg">{surah.number}</span>
-                                        </div>
-
-                                        {/* Right: info-content */}
-                                        <div className="flex-1 min-w-0">
-                                            <div className="flex items-start justify-between gap-3">
-                                                <h3 className="truncate font-semibold text-gray-900">
-                                                    {surah.nameEnglish}
-                                                </h3>
-                                                <p
-                                                    className="min-w-0 truncate text-base font-medium text-emerald-800 leading-tight font-arabic"
-                                                    dir="rtl"
-                                                >
-                                                    {surah.nameArabic}
-                                                </p>
+                                            >
+                                                <span className="text-base font-bold tabular-nums sm:text-lg">{surah.number}</span>
                                             </div>
 
-                                            <div>
-                                                <p className="truncate text-sm text-gray-600 leading-snug mb-1">
-                                                    {surahNameMeaning[surah.number] ?? surah.nameEnglish}
-                                                </p>
-                                            </div>
-
-                                            {/* Row 2: chips */}
-                                            <div className="flex flex-1 flex-wrap items-center justify-between gap-1.5 pt-0.5 sm:gap-2 sm:pt-1">
-                                                <div className="flex flex-wrap items-center gap-1.5 pt-0.5 sm:gap-2">
-                                                    <Badge variant="outline"  >
-                                                        {surah.verses} verses
-                                                    </Badge>
-                                                    <Badge variant={surah.revelation === "Meccan" ? "blue" : "purple"}>
-                                                        {surah.revelation}
-                                                    </Badge>
+                                            {/* Right: info-content */}
+                                            <div className="flex-1 min-w-0">
+                                                <div className="flex items-start justify-between gap-3">
+                                                    <h3 className="truncate font-semibold text-gray-900">
+                                                        {surah.nameEnglish}
+                                                    </h3>
+                                                    <p
+                                                        className="min-w-0 truncate text-base font-medium text-emerald-800 leading-tight font-arabic"
+                                                        dir="rtl"
+                                                    >
+                                                        {surah.nameArabic}
+                                                    </p>
                                                 </div>
 
-                                                <BookmarkButton
-                                                    isBookmarked={bookmarked.has(surah.number)}
-                                                    buttonProps={{
-                                                        onClick: (e: React.MouseEvent<HTMLButtonElement>) => toggleBookmark(e, surah.number),
-                                                        "aria-label": bookmarked.has(surah.number) ? "Remove bookmark" : "Bookmark surah"
-                                                    }}
-                                                />
+                                                <div>
+                                                    <p className="truncate text-sm text-gray-600 leading-snug mb-1">
+                                                        {surahNameMeaning[surah.number] ?? surah.nameEnglish}
+                                                    </p>
+                                                </div>
+
+                                                {/* Row 2: chips */}
+                                                <div className="flex flex-1 flex-wrap items-center justify-between gap-1.5 pt-0.5 sm:gap-2 sm:pt-1">
+                                                    <div className="flex flex-wrap items-center gap-1.5 pt-0.5 sm:gap-2">
+                                                        <Badge variant="outline"  >
+                                                            {surah.verses} verses
+                                                        </Badge>
+                                                        <Badge variant={surah.revelation === "Meccan" ? "blue" : "purple"}>
+                                                            {surah.revelation}
+                                                        </Badge>
+                                                    </div>
+
+                                                    <BookmarkButton
+                                                        isBookmarked={bookmarked.has(surah.number)}
+                                                        buttonProps={{
+                                                            onClick: (e: React.MouseEvent<HTMLButtonElement>) => toggleBookmark(e, surah.number),
+                                                            "aria-label": bookmarked.has(surah.number) ? "Remove bookmark" : "Bookmark surah"
+                                                        }}
+                                                    />
+                                                </div>
                                             </div>
-                                        </div>
-                                    </CardContent>
-                                </Card>
-                            </motion.div>
-                        )
-                    })}
-                </div>
+                                        </CardContent>
+                                    </Card>
+                                </motion.div>
+                            )
+                        })}
+
+                        {/* Sentinel — after skeletons */}
+                        <div ref={sentinelRef} aria-hidden />
+                    </div>
+                </section>
             </div>
-        </section>
+        </section >
     )
 }
 

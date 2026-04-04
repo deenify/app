@@ -35,7 +35,7 @@ type SortMode = "az" | "za" | "count"
 const hadithTabs: TabItem[] = [
     { id: "collections" as HadithTabId, label: "Collections" },
     { id: "topics" as HadithTabId, label: "Topics" },
-    { id: "saved" as HadithTabId, label: "Saved" },
+    { id: "saved" as HadithTabId, label: "bookmarks" },
 ]
 
 function isSavedInRange(savedAt: string, filter: HadithDateFilter): boolean {

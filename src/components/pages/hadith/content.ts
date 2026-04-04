@@ -148,6 +148,7 @@ export type HadithSavedItemType = {
     /** Hadith order within this chapter / bab */
     hadithInChapter: number
     snippet: string
+    snippetArabic: string
     savedAt: string
 }
 
@@ -164,6 +165,7 @@ export const MockHadithSaved: HadithSavedItemType[] = [
         hadithInBook: 1,
         hadithInChapter: 1,
         snippet: "The commencement of the Divine Inspiration to Allah's Messenger was in the form of good dreams…",
+        snippetArabic: "كَيْفَ كَانَ بَدْءُ الْوَحْيِ إِلَى رَسُولِ اللَّهِ",
         savedAt: new Date().toISOString(),
     },
     {
@@ -178,6 +180,7 @@ export const MockHadithSaved: HadithSavedItemType[] = [
         hadithInBook: 45,
         hadithInChapter: 2,
         snippet: "It is narrated on the authority of Umar that the Messenger of Allah said: Actions are judged by intentions…",
+        snippetArabic: "حَدَّثَنَا أَبُو الأَحْوَصِ، حَدَّثَنَا أَبُو عَاصِمٍ، عَنْ عَبْدِ اللَّهِ بْنِ عَبْدِ اللَّهِ بْنِ عَتَّابٍ، عَنْ أَبِي هُرَيْرَةَ، عَنِ النَّبِيِّ صلى الله عليه",
         savedAt: new Date(Date.now() - 86400000 * 3).toISOString(),
     },
 ]
