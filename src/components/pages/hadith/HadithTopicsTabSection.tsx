@@ -14,8 +14,9 @@ const chipVariants = ["outline", "emerald", "blue", "purple"] as const
 
 const HadithTopicsTabSection = ({ topics }: HadithTopicsTabSectionProps) => {
     return (
-        <section className="relative border-t border-gray-100 bg-[linear-gradient(180deg,#fafafa_0%,#f5f5f5_100%)] py-8 sm:py-10">
+        <section className="relative border-t border-gray-100 bg-[linear-gradient(180deg,#f8faf8_0%,#f0f7f4_100%)] py-8 sm:py-10">
             <div className="container px-4 sm:px-6 md:px-6">
+                {/* Header section  */}
                 <header className="mb-4 sm:mb-5 flex items-end justify-between gap-3">
                     <div>
                         <p className="text-[11px] font-medium uppercase tracking-[0.18em]">
@@ -32,47 +33,33 @@ const HadithTopicsTabSection = ({ topics }: HadithTopicsTabSectionProps) => {
                     </div>
                 </header>
 
-                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3 xl:grid-cols-4">
-                    {topics.map((t, index) => (
-                        <motion.div
-                            key={t.id}
-                            initial={{ opacity: 0, y: 8 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.2, delay: index * 0.03, ease: "easeOut" }}
-                        >
-                            <Card className="h-full border border-gray-100 bg-white shadow-sm transition-[border-color,box-shadow] hover:border-emerald-200 hover:shadow-sm">
-                                <CardContent className="flex flex-col gap-3 p-4">
-                                    <div className="flex items-start gap-3">
-                                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-emerald-50 text-emerald-700">
-                                            <Hash className="h-5 w-5" strokeWidth={1.5} />
+                {/* Content section  */}
+                <section className="h-max min-h-[45dvh]">
+                    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3 xl:grid-cols-4">
+                        {topics.map((t, index) => (
+                            <motion.div
+                                key={t.id}
+                                initial={{ opacity: 0, y: 8 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.2, delay: index * 0.03, ease: "easeOut" }}
+                            >
+                                <Card className="h-full border border-gray-100 bg-white shadow-sm transition-[border-color,box-shadow] hover:border-emerald-200 hover:shadow-sm">
+                                    <CardContent className="flex flex-col gap-3 p-4">
+                                        <div className="flex items-start gap-3">
+                                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-emerald-50 text-emerald-700">
+                                                <Hash className="h-5 w-5" strokeWidth={1.5} />
+                                            </div>
+                                            <div className="min-w-0 flex-1">
+                                                <h3 className="font-medium text-gray-900">{t.label}</h3>
+                                                <p className="mt-1 text-xs leading-relaxed text-gray-600">{t.blurb}</p>
+                                            </div>
                                         </div>
-                                        <div className="min-w-0 flex-1">
-                                            <h3 className="font-medium text-gray-900">{t.label}</h3>
-                                            <p className="mt-1 text-xs leading-relaxed text-gray-600">{t.blurb}</p>
-                                        </div>
-                                    </div>
-
-                                    {/* <div className="flex flex-wrap items-center gap-1.5 border-t border-gray-100 pt-3">
-
-                                        {t.sourceBooks.map((name, i) => (
-                                            <Badge
-                                                key={`${t.id}-${name}`}
-                                                variant={chipVariants[i % chipVariants.length]}
-                                                className="max-w-full truncate px-2 py-0.5 text-[10px] font-medium sm:text-[11px]"
-                                            >
-                                                {name}
-                                            </Badge>
-                                        ))}
-                                    </div> */}
-
-                                    {/* <Badge variant="outline" className="w-fit text-[11px]">
-                                        ~{t.hadithCount.toLocaleString()} narrations
-                                    </Badge> */}
-                                </CardContent>
-                            </Card>
-                        </motion.div>
-                    ))}
-                </div>
+                                    </CardContent>
+                                </Card>
+                            </motion.div>
+                        ))}
+                    </div>
+                </section>
             </div>
         </section>
     )

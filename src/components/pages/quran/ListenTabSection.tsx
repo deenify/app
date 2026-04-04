@@ -5,6 +5,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Headphones, Play } from "lucide-react"
 import { MockReciters, SurahRecitersMap, type QuranSurahType, type ReciterType } from "./content"
 import { motion } from "framer-motion"
+import { useIncrementalReveal } from "@/hooks/useIncrementalReveal"
 
 interface ListenTabSectionProps {
     surahs: QuranSurahType[]
@@ -56,6 +57,8 @@ function ReciterStack({ reciters }: { reciters: ReciterType[] }) {
 
 export default function ListenTabSection({ surahs }: ListenTabSectionProps) {
     const router = useRouter()
+    const { visibleCount, sentinelRef, newFromIndex } = useIncrementalReveal(surahs.length)
+    const visibleSurahs = surahs.slice(0, visibleCount)
 
     if (surahs.length === 0) {
         return (
@@ -95,56 +98,69 @@ export default function ListenTabSection({ surahs }: ListenTabSectionProps) {
                     </div>
                 </header>
 
-                {surahs.length === 0 ? (
-                    <p className="rounded-xl border border-gray-100 bg-white py-8 text-center text-sm text-gray-500">
-                        No surahs match your search or reciter filter. Try a different search or select All reciters.
-                    </p>
-                ) : (
-                    <>
-                        <div className="grid gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                            {surahs.map((surah, index) => {
-                                const reciters = getRecitersForSurah(surah.number)
-                                return (
-                                    <motion.button
-                                        key={surah.number}
-                                        type="button"
-                                        onClick={() => router.push(`/quran/${surah.number}`)}
-                                        initial={{ opacity: 0, y: 8, scale: 0.99 }}
-                                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                                        transition={{ duration: 0.2, delay: index * 0.02, ease: "easeOut" }}
-                                        className="group flex flex-col gap-3 rounded-xl border border-gray-100 bg-white p-4 text-left shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-[box-shadow,border-color] hover:border-emerald-300 hover:shadow-md"
-                                    >
-                                        <div className="flex items-center gap-3">
-                                            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-emerald-50 text-sm font-bold tabular-nums text-emerald-800">
-                                                {surah.number}
-                                            </span>
-                                            <div className="min-w-0 flex-1">
-                                                <h3 className="truncate font-semibold text-gray-900">
-                                                    {surah.nameEnglish}
-                                                </h3>
-                                                <p
-                                                    className="truncate text-base font-arabic font-medium text-emerald-800"
-                                                    dir="rtl"
-                                                >
-                                                    {surah.nameArabic}
-                                                </p>
-                                                <p className="mt-0.5 text-xs text-gray-500">
-                                                    {surah.verses} verses
-                                                </p>
+                <section className="h-max min-h-[60dvh]">
+                    {surahs.length === 0 ? (
+                        <p className="rounded-xl border border-gray-100 bg-white py-8 text-center text-sm text-gray-500">
+                            No surahs match your search or reciter filter. Try a different search or select All reciters.
+                        </p>
+                    ) : (
+                        <>
+                            <div className="grid gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                                {visibleSurahs.map((surah, index) => {
+                                    const reciters = getRecitersForSurah(surah.number)
+
+                                    const batchIndex = index - newFromIndex  // resets to 0 for each new batch
+                                    const isNew = index >= newFromIndex
+
+                                    return (
+                                        <motion.button
+                                            key={surah.number}
+                                            type="button"
+                                            onClick={() => router.push(`/quran/${surah.number}`)}
+                                            initial={{ opacity: 0, y: 8, scale: 0.99 }}
+                                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                                            transition={{
+                                                duration: 0.2,
+                                                delay: isNew ? batchIndex * 0.02 : 0,
+                                                ease: "easeOut"
+                                            }}
+                                            className="group flex flex-col gap-3 rounded-xl border border-gray-100 bg-white p-4 text-left shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-[box-shadow,border-color] hover:border-emerald-300 hover:shadow-md"
+                                        >
+                                            <div className="flex items-center gap-3">
+                                                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-emerald-50 text-sm font-bold tabular-nums text-emerald-800">
+                                                    {surah.number}
+                                                </span>
+                                                <div className="min-w-0 flex-1">
+                                                    <h3 className="truncate font-semibold text-gray-900">
+                                                        {surah.nameEnglish}
+                                                    </h3>
+                                                    <p
+                                                        className="truncate text-base font-arabic font-medium text-emerald-800"
+                                                        dir="rtl"
+                                                    >
+                                                        {surah.nameArabic}
+                                                    </p>
+                                                    <p className="mt-0.5 text-xs text-gray-500">
+                                                        {surah.verses} verses
+                                                    </p>
+                                                </div>
+                                                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 transition-colors group-hover:bg-emerald-200">
+                                                    <Play className="h-4 w-4 ml-0.5" strokeWidth={2.5} />
+                                                </span>
                                             </div>
-                                            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 transition-colors group-hover:bg-emerald-200">
-                                                <Play className="h-4 w-4 ml-0.5" strokeWidth={2.5} />
-                                            </span>
-                                        </div>
-                                        <div className="border-t border-gray-50 pt-2">
-                                            <ReciterStack reciters={reciters} />
-                                        </div>
-                                    </motion.button>
-                                )
-                            })}
-                        </div>
-                    </>
-                )}
+                                            <div className="border-t border-gray-50 pt-2">
+                                                <ReciterStack reciters={reciters} />
+                                            </div>
+                                        </motion.button>
+                                    )
+                                })}
+
+                                {/* Sentinel item-observer  */}
+                                <div ref={sentinelRef} aria-hidden />
+                            </div>
+                        </>
+                    )}
+                </section>
             </div>
         </section>
     )
