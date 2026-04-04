@@ -27,7 +27,7 @@ export function useIncrementalReveal(totalCount: number, batchSize = 15) {
 
         const observer = new IntersectionObserver(([entry]) => {
             if (entry?.isIntersecting) loadMore()
-        }, { rootMargin: "0px 0px 400px 0px" })
+        }, { rootMargin: "0px 0px 800px 0px" })
 
         const onScroll = () => {
             const rect = el.getBoundingClientRect()
