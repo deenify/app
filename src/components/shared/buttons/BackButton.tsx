@@ -1,11 +1,11 @@
 "use client";
 
 import React from 'react'
-import { Button, ButtonPropsType } from '../ui/button'
 import { useBreakpoint } from '@/hooks/useBreakpoint'
 import { cn } from '@/lib/utils/clsx'
 import { ChevronLeft } from 'lucide-react'
 import { ArrowLeft } from 'lucide-react'
+import { Button, ButtonPropsType } from '@/components/ui/button';
 
 type BackButtonParentalProps = Omit<ButtonPropsType<"button">, "children">
 

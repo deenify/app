@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Bookmark } from "lucide-react"
 import { motion } from "framer-motion"
 import type { BookmarkItemType } from "./content"
+import BookmarkButton from "@/components/shared/buttons/BookmarkButton"
 
 interface BookmarksTabSectionProps {
     bookmarks: BookmarkItemType[]
@@ -68,40 +69,40 @@ export default function BookmarksTabSection({ bookmarks }: BookmarksTabSectionPr
                                 hover:shadow-md justify-between gap-2"
                             >
                                 <div className="h-max">
-                                    <div className="flex flex-wrap items-center gap-2">
-                                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald-50 text-sm font-bold tabular-nums text-emerald-800">
-                                            {item.surahNumber}
-                                        </span>
-                                        <h3 className="font-semibold text-gray-900">
-                                            {item.surahNameEnglish}
-                                        </h3>
-                                        <Badge variant="emerald">
-                                            Verse {item.verseNumber}
-                                        </Badge>
-                                        <Button
-                                            type="button"
-                                            variant="ghost"
-                                            size="icon"
-                                            shouldScale
-                                            aria-label="Remove bookmark"
-                                            onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                                                e.preventDefault()
-                                                e.stopPropagation()
-                                                setItems((prev) =>
-                                                    prev.filter(
-                                                        (b, idx) =>
-                                                            !(
-                                                                b.surahNumber === item.surahNumber &&
-                                                                b.verseNumber === item.verseNumber &&
-                                                                idx === i
-                                                            )
+                                    <div className="flex items-center justify-between gap-2">
+                                        <div className="flex flex-wrap items-center gap-2">
+                                            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald-50 text-sm font-bold tabular-nums text-emerald-800">
+                                                {item.surahNumber}
+                                            </span>
+                                            <h3 className="font-semibold text-gray-900 truncate">
+                                                {item.surahNameEnglish}
+                                            </h3>
+                                            <Badge variant="emerald">
+                                                Verse {item.verseNumber}
+                                            </Badge>
+                                        </div>
+
+                                        <BookmarkButton
+                                            isBookmarked={true}
+                                            buttonProps={{
+                                                onClick: (e: React.MouseEvent<HTMLButtonElement>) => {
+                                                    e.preventDefault()
+                                                    e.stopPropagation()
+                                                    setItems((prev) =>
+                                                        prev.filter(
+                                                            (b, idx) =>
+                                                                !(
+                                                                    b.surahNumber === item.surahNumber &&
+                                                                    b.verseNumber === item.verseNumber &&
+                                                                    idx === i
+                                                                )
+                                                        )
                                                     )
-                                                )
+                                                },
+                                                className: "ml-auto",
+                                                "aria-label": "Remove bookmark",
                                             }}
-                                            className="ml-auto flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-emerald-600 hover:bg-emerald-50"
-                                        >
-                                            <Bookmark className="fill-current" strokeWidth={1.5} size={15} />
-                                        </Button>
+                                        />
                                     </div>
                                     <p className="mt-2.5 line-clamp-2 text-sm leading-relaxed text-gray-700">
                                         {item.translation}

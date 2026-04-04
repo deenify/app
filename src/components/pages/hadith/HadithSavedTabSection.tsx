@@ -5,9 +5,8 @@ import { useRouter } from "next/navigation"
 import { motion } from "framer-motion"
 import { Bookmark } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils/clsx"
 import type { HadithSavedItemType } from "./content"
+import BookmarkButton from "@/components/shared/buttons/BookmarkButton"
 
 interface HadithSavedTabSectionProps {
     items: HadithSavedItemType[]
@@ -80,26 +79,18 @@ const HadithSavedTabSection = ({ items: itemsProp }: HadithSavedTabSectionProps)
                                             {item.collectionNameArabic}
                                         </p>
                                     </div>
-                                    <Button
-                                        type="button"
-                                        variant="ghost"
-                                        size="icon"
-                                        shouldScale
-                                        aria-label="Remove saved hadith"
-                                        onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                                            e.preventDefault()
-                                            e.stopPropagation()
-                                            setItems((prev) => prev.filter((x) => x.id !== item.id))
+
+                                    <BookmarkButton
+                                        isBookmarked={true}
+                                        buttonProps={{
+                                            onClick: (e: React.MouseEvent<HTMLButtonElement>) => {
+                                                e.preventDefault()
+                                                e.stopPropagation()
+                                                setItems((prev) => prev.filter((x) => x.id !== item.id))
+                                            },
+                                            "aria-label": "Remove saved hadith"
                                         }}
-                                        className={cn(
-                                            "mt-0.5 h-7 w-7 shrink-0 rounded-full",
-                                            "!text-emerald-600 hover:!bg-emerald-50 hover:!text-emerald-700",
-                                            "active:!bg-emerald-100 active:!text-emerald-800",
-                                            "focus-visible:ring-2 focus-visible:ring-emerald-200 focus-visible:ring-offset-1"
-                                        )}
-                                    >
-                                        <Bookmark className="fill-current" strokeWidth={1.5} size={15} />
-                                    </Button>
+                                    />
                                 </div>
 
                                 <div className="mt-3 min-w-0 border-t border-layout-separator pt-3">
