@@ -19,10 +19,9 @@ type GuidesCardProps = {
     index: number
     isBookmarked: boolean
     onToggleBookmark: () => void
-    onOpen: () => void
 }
 
-const GuidesCard = ({ guide, index, isBookmarked, onToggleBookmark, onOpen }: GuidesCardProps) => {
+const GuidesCard = ({ guide, index, isBookmarked, onToggleBookmark }: GuidesCardProps) => {
     return (
         <Link href={`/guides/${guide.id}`}>
             <motion.div
