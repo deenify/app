@@ -3,45 +3,10 @@
 import React from 'react'
 import Link from 'next/link'
 import { Moon, Mail, Phone, MapPin } from 'lucide-react'
+import { quickLinks, resources, community, legal } from './content'
 
 const Footer = () => {
     const currentYear = new Date().getFullYear()
-
-    const quickLinks = [
-        { label: 'Prayer Times', page: '/prayer' },
-        { label: 'Quran', page: '/quran' },
-        { label: 'Hadith', page: '/hadith' },
-        { label: 'Calendar', page: '/calendar' },
-        { label: 'Qibla Finder', page: '/qibla' },
-        { label: 'Dhikr Counter', page: '/dhikr' },
-    ]
-
-    const resources = [
-        { label: 'Supplications', page: '/supplications' },
-        { label: 'Guides & Learning', page: '/guides' },
-        { label: 'Islamic History', page: '/history' },
-        { label: 'Prophetic Chain', page: '/prophets' },
-        { label: 'Islamic Miracles', page: '/miracles' },
-        { label: 'Five Pillars', page: '/pillars' },
-    ]
-
-    const community = [
-        { label: 'About Us', page: '/about' },
-        { label: 'Contact Us', page: '/contact' },
-        { label: 'Community Forum', page: '/forum' },
-        { label: 'Blog & Articles', page: '/blog' },
-        { label: 'FAQs', page: '/faqs' },
-        { label: 'Support Center', page: '/support' },
-    ]
-
-    const legal = [
-        { label: 'Privacy Policy', page: '/privacy' },
-        { label: 'Terms of Service', page: '/terms' },
-        { label: 'Cookie Policy', page: '/cookies' },
-        { label: 'Disclaimer', page: '/disclaimer' },
-        { label: 'Accessibility', page: '/accessibility' },
-        { label: 'Licenses', page: '/licenses' },
-    ]
 
     return (
         <footer className="bg-gradient-to-br from-gray-50 to-emerald-50 border-t border-layout-separator">
@@ -53,13 +18,22 @@ const Footer = () => {
                         <div className="space-y-3 sm:space-y-4 min-w-0 max-w-[350px]">
                             <div className="flex items-center space-x-3">
                                 <div className="flex-shrink-0">
-                                    <div className="w-11 h-11 bg-emerald-600 rounded-xl flex items-center justify-center">
+                                    <a
+                                        href="/"
+                                        aria-label="Go to home page"
+                                        className="w-11 h-11 bg-emerald-600 rounded-xl flex items-center justify-center"
+                                    >
                                         <Moon className="h-6 w-6 text-white" />
-                                    </div>
+                                    </a>
                                 </div>
                                 <div className="min-w-0">
-                                    <h3 className="text-gray-900 font-medium text-sm sm:text-base">Deenify</h3>
-                                    <p className="text-xs text-gray-500">Islamic Companion</p>
+                                    <a
+                                        href="/"
+                                        aria-label="Go to home page"
+                                    >
+                                        <h3 className="text-gray-900 font-medium text-sm sm:text-base">Deenify</h3>
+                                        <p className="text-xs text-gray-500">Islamic Companion</p>
+                                    </a>
                                 </div>
                             </div>
                             <p className="text-gray-600 text-xs sm:text-sm leading-relaxed">
