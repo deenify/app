@@ -1,7 +1,6 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { useRouter } from "next/navigation"
 import { motion } from "framer-motion"
 import { BookOpen, Languages, Settings } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
@@ -39,8 +38,6 @@ export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetai
 
     const [activeTab, setActiveTab] = useState<DetailTabId>("read")
     const [showSettings, setShowSettings] = useState(false)
-
-    const router = useRouter()
 
     const {
         arabicFontSize,
@@ -135,11 +132,6 @@ export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetai
                 "relative bg-gradient-to-br from-emerald-50 via-white to-teal-50 border-t border-layout-separator w-full",
                 "border-t border-layout-separator w-full flex-1",
             )}>
-                {/* <motion.div
-                    className="pointer-events-none absolute -top-10 left-[-40px] h-40 w-40 rounded-full bg-emerald-100 blur-3xl opacity-30"
-                    animate={{ scale: [1, 1.1, 1], opacity: [0.25, 0.35, 0.25] }}
-                    transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-                /> */}
                 <motion.div
                     className="pointer-events-none absolute bottom-0 right-0 h-40 w-40 rounded-full bg-teal-100 blur-3xl"
                     aria-hidden
@@ -177,7 +169,6 @@ export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetai
                                                     style={{ direction: "rtl" }}
                                                 >
                                                     {verses.map((verse) => {
-
                                                         return (
                                                             <VerseCard
                                                                 key={verse.number}
@@ -192,22 +183,6 @@ export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetai
                                                                 className="inline break-words text-center"
                                                             />
                                                         )
-
-                                                        // required-comment as backup for single-line verses display-behaviour 
-                                                        // return (
-                                                        //     <motion.p
-                                                        //         key={verse.number}
-                                                        //         initial={{ opacity: 0, y: 18 }}
-                                                        //         animate={{ opacity: 1, y: 0 }}
-                                                        //         transition={{ delay: verse.number * 0.06 }}
-                                                        //         className="inline break-words text-center">
-                                                        //         {verse.arabic}{" "}
-                                                        //         <span className="ml-2 inline-flex h-7 min-w-7 items-center justify-center rounded-full border border-emerald-200 
-                                                        //     bg-emerald-50 px-2 text-xs font-semibold text-emerald-700 tabular-nums align-middle">
-                                                        //             {verse.number}
-                                                        //         </span>
-                                                        //     </motion.p>
-                                                        // )
                                                     })}
                                                 </div>
                                             ) : (
