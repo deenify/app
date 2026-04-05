@@ -47,7 +47,7 @@ export default function HadithDetailPage({ collectionId }: HadithCollectionPageP
                             buttonProps={{
                                 variant: "ghost-emerald",
                                 shouldScale: false,
-                                onClick: () => router.push("/hadith"),
+                                href: "/hadith",
                                 size: "default",
                             }}
                             label="Back to Hadith"

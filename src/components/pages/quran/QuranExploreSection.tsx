@@ -217,9 +217,11 @@ const QuranExploreSection = () => {
             </section>
 
             {/* Read, Listen tabs - content */}
-            {activeTab === "all" && <ReadTabSection SURAHS={processedSurahs} />}
-            {activeTab === "listen" && <ListenTabSection surahs={filteredListenSurahs} />}
-            {activeTab === "bookmarks" && <BookmarksTabSection bookmarks={processedBookmarks} />}
+            <main className="bg-[linear-gradient(180deg,#f8faf8_0%,#f0f7f4_100%)]">
+                {activeTab === "all" && <ReadTabSection SURAHS={processedSurahs} />}
+                {activeTab === "listen" && <ListenTabSection surahs={filteredListenSurahs} />}
+                {activeTab === "bookmarks" && <BookmarksTabSection bookmarks={processedBookmarks} />}
+            </main>
         </div>
     )
 }

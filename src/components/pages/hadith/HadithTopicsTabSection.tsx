@@ -1,20 +1,19 @@
 "use client"
 
-import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import { motion } from "framer-motion"
-import { BookMarked, Hash } from "lucide-react"
 import type { HadithTopicType } from "./content"
+import { Hash } from "lucide-react"
 
 interface HadithTopicsTabSectionProps {
     topics: HadithTopicType[]
 }
 
-const chipVariants = ["outline", "emerald", "blue", "purple"] as const
+// const chipVariants = ["outline", "emerald", "blue", "purple"] as const
 
 const HadithTopicsTabSection = ({ topics }: HadithTopicsTabSectionProps) => {
     return (
-        <section className="relative border-t border-gray-100 bg-[linear-gradient(180deg,#f8faf8_0%,#f0f7f4_100%)] py-8 sm:py-10">
+        <section className="relative py-8 sm:py-10">
             <div className="container px-4 sm:px-6 md:px-6">
                 {/* Header section  */}
                 <header className="mb-4 sm:mb-5 flex items-end justify-between gap-3">

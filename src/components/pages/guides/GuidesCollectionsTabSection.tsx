@@ -15,7 +15,7 @@ const GuidesCollectionsTabSection = ({
     onToggleBookmark,
 }: GuidesCollectionsTabSectionProps) => {
     return (
-        <section className="h-max min-h-[45dvh] bg-[linear-gradient(180deg,#f8faf8_0%,#f0f7f4_100%)] pb-10">
+        <section className="h-max min-h-[45dvh] pb-10">
             <div className="container px-4 sm:px-6 md:px-6">
                 {guides.length === 0 ? (
                     <div className="rounded-xl border border-gray-100 bg-white p-8 text-center shadow-sm">

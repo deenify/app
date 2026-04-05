@@ -62,7 +62,7 @@ export default function ListenTabSection({ surahs }: ListenTabSectionProps) {
 
     if (surahs.length === 0) {
         return (
-            <section className="relative border-t border-gray-100 bg-[linear-gradient(180deg,#f8faf8_0%,#f0f7f4_100%)] py-12 sm:py-16">
+            <section className="relative py-12 sm:py-16">
                 <div className="container px-4 sm:px-6">
                     <div className="mx-auto max-w-lg text-center">
                         <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-white/90 text-emerald-700 shadow-[0_1px_3px_rgba(0,0,0,0.06)] ring-1 ring-black/5">
@@ -81,7 +81,7 @@ export default function ListenTabSection({ surahs }: ListenTabSectionProps) {
     }
 
     return (
-        <section className="relative border-t border-gray-100 bg-[linear-gradient(180deg,#f8faf8_0%,#f0f7f4_100%)] py-8 sm:py-10">
+        <section className="relative py-8 sm:py-10">
             <div className="container px-4 sm:px-6">
                 <header className="mb-4 sm:mb-5 flex items-end justify-between gap-3">
                     <div>
