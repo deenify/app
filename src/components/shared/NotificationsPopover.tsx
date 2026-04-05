@@ -155,9 +155,9 @@ export const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                 className={cn(
                     "w-[calc(100vw-32px)] sm:w-[380px] max-w-[380px]",
                     "p-0 border border-gray-200 bg-white",
-                    "max-h-[calc(100vh-120px)]",
+                    "max-h-[calc(100vh-200px)]",
                     "flex flex-col overflow-hidden",
-                    "shadow-lg"
+                    "shadow-xl"
                 )}
             >
                 {/* Header Section - Fixed at top */}
@@ -179,7 +179,7 @@ export const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                                 size="icon"
                                 shouldScale
                                 className="w-6 h-6 rounded-md duration-100 border border-emerald-200 
-                                text-black bg-emerald-50 md:hidden"
+                                text-black bg-emerald-50 md:hidden outline-none ring-0"
                                 onClick={() => setOpen(false)}
                                 aria-label="Close settings"
                             >

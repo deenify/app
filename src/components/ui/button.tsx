@@ -144,7 +144,7 @@ export const Button = <C extends React.ElementType = "button">({
             className={cn(
                 "relative inline-flex items-center justify-center gap-2 rounded-md font-medium outline-none",
                 "cursor-pointer overflow-hidden px-[30px]",
-                "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                "focus-visible:ring-0 focus-visible:ring-none focus-visible:ring-offset-0",
                 "disabled:pointer-events-none disabled:opacity-50",
                 buttonVariants({ variant, size }),
                 className
