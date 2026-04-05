@@ -1,19 +1,22 @@
 "use client"
 
+import Link from "next/link"
 import { Card, CardContent } from "@/components/ui/card"
 import { motion } from "framer-motion"
 import type { HadithTopicType } from "./content"
 import { Hash } from "lucide-react"
+import useHadithReaderSettingsStore from "@/store/hadith"
 
 interface HadithTopicsTabSectionProps {
+    collectionId: string
     topics: HadithTopicType[]
     collectionNameEnglish: string
     collectionNameArabic?: string
 }
 
-const HadithTopicsTabSection = ({
-    topics,
-}: HadithTopicsTabSectionProps) => {
+const HadithTopicsTabSection = ({ collectionId, topics }: HadithTopicsTabSectionProps) => {
+    const setSelectedTopicId = useHadithReaderSettingsStore((s) => s.setSelectedTopicId)
+
     return (
         <section className="relative py-8 sm:py-10">
             <div className="container px-4 sm:px-6 md:px-6">
@@ -45,21 +48,25 @@ const HadithTopicsTabSection = ({
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.2, delay: index * 0.03, ease: "easeOut" }}
                             >
-                                <Card className="h-full border border-gray-100 bg-white shadow-sm 
-                                transition-[border-color,box-shadow] hover:border-emerald-200 hover:shadow-sm">
-                                    <CardContent className="flex flex-col gap-3 p-4">
-                                        <div className="flex items-start gap-3">
-                                            <div className="flex h-10 w-10 shrink-0 items-center justify-center 
-                                            rounded-lg bg-emerald-50 text-emerald-700">
-                                                <Hash className="h-5 w-5" strokeWidth={1.5} />
+                                <Link
+                                    href={`/hadith/${collectionId}`}
+                                    className="block h-full"
+                                    onClick={() => setSelectedTopicId(t.id)}
+                                >
+                                    <Card className="h-full cursor-pointer border border-gray-100 bg-white shadow-sm transition-[border-color,box-shadow] hover:border-emerald-200 hover:shadow-sm">
+                                        <CardContent className="flex flex-col gap-3 p-4">
+                                            <div className="flex items-start gap-3">
+                                                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-emerald-50 text-emerald-700">
+                                                    <Hash className="h-5 w-5" strokeWidth={1.5} />
+                                                </div>
+                                                <div className="min-w-0 flex-1">
+                                                    <h3 className="font-medium text-gray-900">{t.label}</h3>
+                                                    <p className="mt-1 text-xs leading-relaxed text-gray-600">{t.blurb}</p>
+                                                </div>
                                             </div>
-                                            <div className="min-w-0 flex-1">
-                                                <h3 className="font-medium text-gray-900">{t.label}</h3>
-                                                <p className="mt-1 text-xs leading-relaxed text-gray-600">{t.blurb}</p>
-                                            </div>
-                                        </div>
-                                    </CardContent>
-                                </Card>
+                                        </CardContent>
+                                    </Card>
+                                </Link>
                             </motion.div>
                         ))}
                     </div>

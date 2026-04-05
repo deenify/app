@@ -44,7 +44,7 @@ const SettingsList = () => {
             {/* Quick Settings */}
             <div className="mb-5">
                 <h3 className="text-base font-heading font-medium text-gray-900 tracking-tighter">Quick Settings</h3>
-                <p className="text-[10px] sm:text-xs text-gray-500">Customize your app experience</p>
+                <p className="text-xs text-gray-500">Customize your app experience</p>
             </div>
 
             {/* Appearance */}
