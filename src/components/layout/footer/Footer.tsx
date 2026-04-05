@@ -2,8 +2,9 @@
 
 import React from 'react'
 import Link from 'next/link'
-import { Moon, Mail, Phone, MapPin } from 'lucide-react'
+import { Mail, Phone, MapPin } from 'lucide-react'
 import { quickLinks, resources, community, legal } from './content'
+import Logo from '@/components/shared/Logo'
 
 const Footer = () => {
     const currentYear = new Date().getFullYear()
@@ -16,26 +17,13 @@ const Footer = () => {
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-6 sm:mb-8">
                         {/* About Section */}
                         <div className="space-y-3 sm:space-y-4 min-w-0 max-w-[350px]">
-                            <div className="flex items-center space-x-3">
-                                <div className="flex-shrink-0">
-                                    <a
-                                        href="/"
-                                        aria-label="Go to home page"
-                                        className="w-11 h-11 bg-emerald-600 rounded-xl flex items-center justify-center"
-                                    >
-                                        <Moon className="h-6 w-6 text-white" />
-                                    </a>
-                                </div>
-                                <div className="min-w-0">
-                                    <a
-                                        href="/"
-                                        aria-label="Go to home page"
-                                    >
-                                        <h3 className="text-gray-900 font-medium text-sm sm:text-base">Deenify</h3>
-                                        <p className="text-xs text-gray-500">Islamic Companion</p>
-                                    </a>
-                                </div>
-                            </div>
+                            <Logo
+                                title='Deenify'
+                                subtitle='Islamic Companion'
+                                href='/'
+                                isContentAncored={true}
+                            />
+
                             <p className="text-gray-600 text-xs sm:text-sm leading-relaxed">
                                 Your comprehensive Islamic lifestyle companion. Strengthen your faith with prayer times, Quran reading, authentic Hadith, and more.
                             </p>

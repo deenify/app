@@ -4,8 +4,8 @@ import Link from 'next/link'
 import React from 'react'
 import { sidebarSections } from '../side-bar/content'
 import { cn } from '@/lib/utils/clsx'
-import { Moon } from 'lucide-react'
 import { usePathname } from 'next/navigation'
+import Logo from '@/components/shared/Logo'
 
 type DrawerTabsType = "menu" | "language" | "settings"
 
@@ -20,18 +20,13 @@ const MenuList = ({ onDrawerTabChange }: MenuListProps) => {
         <div className="sm:p-4 py-4 px-3">
             {/* Logo Section */}
             <div className="flex items-center gap-3 mb-6 pb-4 border-b border-layout-separator">
-                <a href="/" aria-label="Go to home page">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-emerald-600 sm:rounded-xl flex 
-                    items-center justify-center flex-shrink-0 rounded-lg">
-                        <Moon className="h-6 w-6 text-white" />
-                    </div>
-                </a>
-                <div>
-                    <a href="/" aria-label="Go to home page">
-                        <h2 className="text-emerald-900 font-medium text-base">Deenify</h2>
-                        <p className="text-xs text-gray-500">Islamic Companion</p>
-                    </a>
-                </div>
+                <Logo
+                    title='Deenify'
+                    subtitle='Islamic Companion'
+                    href='/'
+                    isContentAncored={true}
+                    className='w-full h-full'
+                />
             </div>
 
             {/* Navigation Sections */}

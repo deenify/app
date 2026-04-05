@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react"
-import { Menu, BookOpen, FileText, Clock, Compass, Users, Moon } from "lucide-react"
+import { BookOpen, FileText, Clock, Compass, Users } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input, type SearchItem } from "@/components/ui/input"
 import { LanguageSelector } from "@/components/shared/LanguageSelector"
@@ -13,6 +13,7 @@ import {
 import { cn } from "@/lib/utils/clsx"
 import { useRouter } from "next/navigation"
 import MenuIcon from "@/assets/svg/MenuIcon"
+import Logo from "@/components/shared/Logo"
 
 export interface HeaderProps {
     userPreferences?: UserPreferences
@@ -95,27 +96,22 @@ const Header: React.FC<HeaderProps> = ({
         <header className={cn("bg-white border-b border-layout-separator h-[73px] flex items-center md:px-6 px-4", className)}>
             <div className="flex items-center justify-between w-full gap-2 sm:gap-4">
                 {/* Left Section - Logo (Mobile) & Greeting */}
-                <div className="flex items-center pr-2 sm:pr-4 min-w-0 flex-1">
+                <div className="min-w-0 flex-1">
                     {/* Logo - Mobile Only */}
-                    <div className="lg:hidden flex-shrink-0 mr-3">
-                        <a
-                            href="/"
-                            aria-label="Go to home page"
-                        >
-                            <div className="w-10 h-10 bg-emerald-600 rounded-xl flex items-center justify-center">
-                                <Moon className="h-5 w-5 text-white" />
-                            </div>
-                        </a>
-                    </div>
-
-                    <div className="min-w-0">
-                        <h1 className="text-gray-900 text-sm sm:text-base lg:text-lg font-medium sm:truncate break-words leading-[1.16]">
-                            {getGreeting(userPreferences?.name)}
-                        </h1>
-                        <p className="text-xs sm:text-sm text-gray-500 truncate hidden sm:block">
-                            Assalamu Alaikum wa Rahmatullahi wa Barakatuh
-                        </p>
-                    </div>
+                    <Logo
+                        href='/'
+                        title={getGreeting(userPreferences?.name)}
+                        subtitle="Assalamu Alaikum wa Rahmatullahi wa Barakatuh"
+                        isContentAncored={false}
+                        className="min-w-0 mr-3 w-full"
+                        classNames={{
+                            iconWrapper: "lg:hidden",
+                            contentWrapper: "min-w-0 whitespace-normal overflow-visible",
+                            titleWrapper: "block min-w-0 w-full max-w-full",
+                            title: "text-gray-900 text-sm sm:text-base lg:text-lg font-medium break-words leading-[1.16]",
+                            subtitle: "text-xs sm:text-sm text-gray-500 line-clamp-1 hidden sm:block truncate",
+                        }}
+                    />
                 </div>
 
                 {/* Right Section - Search, Language, Notifications, Profile, Menu (Mobile) */}
