@@ -7,14 +7,9 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Switch } from "@/components/ui/switch"
 import { RangeSlider } from "@/components/ui/range-slider"
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 import { cn } from "@/lib/utils/clsx"
 import { useBreakpoint } from "@/hooks/useBreakpoint"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import useQuranReaderSettingsStore from "@/store/quran"
 
 interface QuranSettingSidebarProps {
@@ -76,6 +71,7 @@ const QuranSettingSidebar: React.FC<QuranSettingSidebarProps> = ({ open, onClose
     const translationLangFiltered = translationLanguages.filter((l) =>
         l.label.toLowerCase().includes(translationLangSearch.trim().toLowerCase()),
     )
+
 
     return (
         <aside
@@ -232,12 +228,6 @@ const QuranSettingSidebar: React.FC<QuranSettingSidebarProps> = ({ open, onClose
                                             </div>
                                             <p
                                                 className="mt-2 font-arabic text-gray-900 break-words text-right"
-                                                // style={{
-                                                //     /** Matches VerseCard: rendered Arabic size uses max(18, store - 4). */
-                                                //     fontSize: `${Math.max(18, arabicFontSize - 4)}px`,
-                                                //     lineHeight: 2.1,
-                                                //     direction: "rtl",
-                                                // }}
                                                 style={{
                                                     fontSize: `${useArabicFontFamily ? arabicFontSize : arabicFontSize + 4}px`,
                                                     lineHeight: useArabicFontFamily ? 2.1 : 1.5,
@@ -389,80 +379,68 @@ const QuranSettingSidebar: React.FC<QuranSettingSidebarProps> = ({ open, onClose
                                     Language &amp; translation
                                 </p>
                                 <div className="flex flex-col gap-2">
-                                    <DropdownMenu
+                                    <Popover
                                         open={translationLangMenuOpen}
-                                        onOpenChange={(nextOpen) => {
-                                            setTranslationLangMenuOpen(nextOpen)
-                                            if (!nextOpen) setTranslationLangSearch("")
+                                        onOpenChange={(next) => {
+                                            setTranslationLangMenuOpen(next)
+                                            if (!next) setTranslationLangSearch("")
                                         }}
                                     >
-                                        <DropdownMenuTrigger
-                                            className="outline-none focus-visible:outline-none 
-                                                focus-visible:ring-0 focus:ring-0 focus-visible:ring-offset-0 ring-0 shadow-none"
-                                        >
+                                        <PopoverTrigger>
                                             <Button
                                                 asChild
                                                 variant="outline-purple"
                                                 size="md"
-                                                className="w-full h-10 justify-between gap-3 rounded-lg px-3 outline-none focus-visible:outline-none 
-                                                focus-visible:ring-0 focus:ring-0 focus-visible:ring-offset-0 ring-0 shadow-none border-purple-300 bg-purple-50"
+                                                className="w-full h-10 justify-between gap-3 rounded-lg px-3 border-purple-300 bg-purple-50"
                                             >
                                                 <span className="text-sm text-gray-800 truncate font-medium">
                                                     {translationSelectedLabel}
                                                 </span>
                                                 <ChevronDown className="h-4 w-4 text-purple-700" />
                                             </Button>
-                                        </DropdownMenuTrigger>
-                                        <DropdownMenuContent
-                                            className="w-[var(--radix-dropdown-menu-trigger-width)] max-w-[calc(100vw-2rem)] p-2 bg-white/95 border border-purple-200/80 shadow-lg rounded-md"
+                                        </PopoverTrigger>
+
+                                        <PopoverContent
                                             align="start"
+                                            className="w-[var(--radix-popover-trigger-width)] max-w-[calc(100vw-2rem)] p-2 bg-white/95 
+                                            border border-purple-200/80 shadow-lg rounded-md"
                                         >
                                             <div className="px-1 pb-2">
                                                 <input
+                                                    type="text"
                                                     value={translationLangSearch}
                                                     onChange={(e) => setTranslationLangSearch(e.target.value)}
                                                     placeholder="Search languages..."
-                                                    className="w-full h-9 rounded-md border border-purple-200 bg-white px-3 text-sm 
-                                                    text-gray-800 outline-none placeholder:text-gray-400 focus:border-purple-300 focus:ring-2 
-                                                    focus:ring-purple-100 transition-colors"
+                                                    className="w-full h-9 rounded-md border border-purple-200 bg-white px-3 text-base 
+                                                    placeholder:text-sm text-gray-800 outline-none placeholder:text-gray-400 
+                                                    focus:border-purple-300 focus:ring-2 focus:ring-purple-100 transition-colors"
                                                 />
                                             </div>
 
                                             <div className="max-h-[220px] overflow-y-auto scrollbar-thin px-1 pb-1">
                                                 {translationLangFiltered.map((lang) => (
-                                                    <DropdownMenuItem
+                                                    <button
                                                         key={lang.value}
-                                                        onSelect={() => {
+                                                        onClick={() => {
                                                             setTranslationLanguage(lang.value)
                                                             setTranslationLangMenuOpen(false)
                                                             setTranslationLangSearch("")
                                                         }}
                                                         className={cn(
-                                                            "cursor-pointer rounded-sm mx-0 px-3 py-2 border transition-colors flex items-center justify-between gap-3",
-                                                            "focus:outline-none mt-1",
+                                                            "w-full cursor-pointer rounded-sm px-3 py-2 border transition-colors flex items-center justify-between gap-3 mt-1",
                                                             translationLanguage === lang.value
-                                                                ? "bg-purple-50 border-purple-200 text-purple-900 hover:bg-purple-50 hover:border-purple-300 focus:bg-purple-50 focus:border-purple-200 focus:text-purple-900 data-[highlighted]:bg-purple-50 data-[highlighted]:border-purple-200"
-                                                                : "border-transparent text-gray-900 hover:border-purple-200 hover:bg-purple-50 focus:bg-purple-50/70 focus:border-purple-200 focus:text-gray-900 data-[highlighted]:bg-purple-50/70 data-[highlighted]:border-purple-200"
+                                                                ? "bg-purple-50 border-purple-200 text-purple-900"
+                                                                : "border-transparent text-gray-900 hover:border-purple-200 hover:bg-purple-50"
                                                         )}
                                                     >
-                                                        <span
-                                                            className={cn(
-                                                                "text-sm font-medium truncate",
-                                                                translationLanguage === lang.value
-                                                                    ? "text-purple-900"
-                                                                    : "text-gray-900"
-                                                            )}
-                                                        >
+                                                        <span className="text-sm font-medium truncate">
                                                             {lang.label}
                                                         </span>
 
                                                         {translationLanguage === lang.value && (
-                                                            <Check
-                                                                className="h-4 w-4 shrink-0 text-purple-600"
-                                                                strokeWidth={2}
-                                                            />
+                                                            <Check className="h-4 w-4 text-purple-600" />
                                                         )}
-                                                    </DropdownMenuItem>
+                                                    </button>
                                                 ))}
 
                                                 {translationLangFiltered.length === 0 && (
@@ -471,8 +449,9 @@ const QuranSettingSidebar: React.FC<QuranSettingSidebarProps> = ({ open, onClose
                                                     </div>
                                                 )}
                                             </div>
-                                        </DropdownMenuContent>
-                                    </DropdownMenu>
+                                        </PopoverContent>
+                                    </Popover>
+
                                     <p className="text-[11px] text-gray-500 italic">
                                         99+ translations will be available; this controls how the text is displayed here.
                                     </p>
