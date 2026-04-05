@@ -1,11 +1,12 @@
 "use client"
 
-import { useRouter } from "next/navigation"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Headphones, Play } from "lucide-react"
 import { MockReciters, SurahRecitersMap, type QuranSurahType, type ReciterType } from "./content"
 import { motion } from "framer-motion"
 import { useIncrementalReveal } from "@/hooks/useIncrementalReveal"
+import Link from "next/link"
+import ReciterStack from "./ReciterStack"
+
 
 interface ListenTabSectionProps {
     surahs: QuranSurahType[]
@@ -16,47 +17,9 @@ function getRecitersForSurah(surahNumber: number): ReciterType[] {
     return ids.map((id) => MockReciters.find((r) => r.id === id)!).filter(Boolean)
 }
 
-function ReciterStack({ reciters }: { reciters: ReciterType[] }) {
-    if (reciters.length === 0) return null
-    const [first, second, rest] = [reciters[0], reciters[1], reciters.slice(2)]
-    const restCount = rest.length
-
-    return (
-        <div className="flex items-center gap-2 min-w-0">
-            <div className="flex -space-x-2">
-                {[first, second].filter(Boolean).map((r) => (
-                    <Avatar
-                        key={r.id}
-                        className="h-7 w-7 border-2 border-white ring-1 ring-gray-100"
-                    >
-                        <AvatarFallback className="bg-emerald-100 text-emerald-800 text-[10px] font-medium">
-                            {r.shortName.split(" ").map((s) => s[0]).join("")}
-                        </AvatarFallback>
-                    </Avatar>
-                ))}
-                {restCount > 0 && (
-                    <Avatar className="h-7 w-7 border-2 border-white ring-1 ring-gray-100">
-                        <AvatarFallback className="bg-gray-100 text-gray-600 text-[10px] font-medium">
-                            +{restCount}
-                        </AvatarFallback>
-                    </Avatar>
-                )}
-            </div>
-            <span className="truncate text-xs font-medium text-gray-600">
-                {restCount > 0
-                    ? `${first.name} and ${restCount} other${restCount === 1 ? "" : "s"}`
-                    : reciters.length === 2
-                        ? `${first.shortName} & ${second!.shortName}`
-                        : first.name}
-            </span>
-        </div>
-    )
-}
-
-
 
 export default function ListenTabSection({ surahs }: ListenTabSectionProps) {
-    const router = useRouter()
+
     const { visibleCount, sentinelRef, newFromIndex } = useIncrementalReveal(surahs.length)
     const visibleSurahs = surahs.slice(0, visibleCount)
 
@@ -113,45 +76,51 @@ export default function ListenTabSection({ surahs }: ListenTabSectionProps) {
                                     const isNew = index >= newFromIndex
 
                                     return (
-                                        <motion.button
+                                        <Link
+                                            href={`/quran/${surah.number}`}
                                             key={surah.number}
-                                            type="button"
-                                            onClick={() => router.push(`/quran/${surah.number}`)}
-                                            initial={{ opacity: 0, y: 8, scale: 0.99 }}
-                                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                                            transition={{
-                                                duration: 0.2,
-                                                delay: isNew ? batchIndex * 0.02 : 0,
-                                                ease: "easeOut"
-                                            }}
-                                            className="group flex flex-col gap-3 rounded-xl border border-gray-100 bg-white p-4 text-left shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-[box-shadow,border-color] hover:border-emerald-300 hover:shadow-md"
                                         >
-                                            <div className="flex items-center gap-3">
-                                                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-emerald-50 text-sm font-bold tabular-nums text-emerald-800">
-                                                    {surah.number}
-                                                </span>
-                                                <div className="min-w-0 flex-1">
-                                                    <h3 className="truncate font-semibold text-gray-900">
-                                                        {surah.nameEnglish}
-                                                    </h3>
-                                                    <p
-                                                        className="truncate text-base font-arabic font-medium text-emerald-800"
-                                                        dir="rtl"
-                                                    >
-                                                        {surah.nameArabic}
-                                                    </p>
-                                                    <p className="mt-0.5 text-xs text-gray-500">
-                                                        {surah.verses} verses
-                                                    </p>
+                                            <motion.div
+                                                key={surah.number}
+                                                // onClick={() => router.push(`/quran/${surah.number}`)}
+                                                initial={{ opacity: 0, y: 8, scale: 0.99 }}
+                                                animate={{ opacity: 1, y: 0, scale: 1 }}
+                                                transition={{
+                                                    duration: 0.2,
+                                                    delay: isNew ? batchIndex * 0.02 : 0,
+                                                    ease: "easeOut"
+                                                }}
+                                                className="group flex flex-col gap-3 rounded-xl border border-gray-100 bg-white p-4 text-left 
+                                            shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-[box-shadow,border-color] hover:border-emerald-300 
+                                            hover:shadow-md"
+                                            >
+                                                <div className="flex items-center gap-3">
+                                                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-emerald-50 text-sm font-bold tabular-nums text-emerald-800">
+                                                        {surah.number}
+                                                    </span>
+                                                    <div className="min-w-0 flex-1">
+                                                        <h3 className="truncate font-semibold text-gray-900">
+                                                            {surah.nameEnglish}
+                                                        </h3>
+                                                        <p
+                                                            className="truncate text-base font-arabic font-medium text-emerald-800"
+                                                            dir="rtl"
+                                                        >
+                                                            {surah.nameArabic}
+                                                        </p>
+                                                        <p className="mt-0.5 text-xs text-gray-500">
+                                                            {surah.verses} verses
+                                                        </p>
+                                                    </div>
+                                                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 transition-colors group-hover:bg-emerald-200">
+                                                        <Play className="h-4 w-4 ml-0.5" strokeWidth={2.5} />
+                                                    </span>
                                                 </div>
-                                                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 transition-colors group-hover:bg-emerald-200">
-                                                    <Play className="h-4 w-4 ml-0.5" strokeWidth={2.5} />
-                                                </span>
-                                            </div>
-                                            <div className="border-t border-gray-50 pt-2">
-                                                <ReciterStack reciters={reciters} />
-                                            </div>
-                                        </motion.button>
+                                                <div className="border-t border-gray-50 pt-2">
+                                                    <ReciterStack reciters={reciters} />
+                                                </div>
+                                            </motion.div>
+                                        </Link>
                                     )
                                 })}
 

@@ -1,20 +1,19 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
 import { Badge } from "@/components/ui/badge"
 import { Bookmark } from "lucide-react"
 import { motion } from "framer-motion"
 import type { BookmarkItemType } from "./content"
 import { useIncrementalReveal } from "@/hooks/useIncrementalReveal"
 import BookmarkButton from "@/components/shared/buttons/BookmarkButton"
+import Link from "next/link"
 
 interface BookmarksTabSectionProps {
     bookmarks: BookmarkItemType[]
 }
 
 export default function BookmarksTabSection({ bookmarks }: BookmarksTabSectionProps) {
-    const router = useRouter()
     const [items, setItems] = useState<BookmarkItemType[]>(bookmarks)
     const { visibleCount, sentinelRef, newFromIndex } = useIncrementalReveal(items.length)
     const visibleItems = items.slice(0, visibleCount)
@@ -68,72 +67,77 @@ export default function BookmarksTabSection({ bookmarks }: BookmarksTabSectionPr
                                 const isNew = index >= newFromIndex
 
                                 return (
-                                    <motion.button
+                                    <Link
+                                        href={`/quran/${item.surahNumber}`}
                                         key={`${item.surahNumber}-${item.verseNumber}-${index}`}
-                                        type="button"
-                                        onClick={() => router.push(`/quran/${item.surahNumber}`)}
-                                        initial={{ opacity: 0, y: 8, scale: 0.99 }}
-                                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                                        transition={{
-                                            duration: 0.2,
-                                            delay: isNew ? batchIndex * 0.02 : 0,
-                                            ease: "easeOut"
-                                        }}
-                                        className="group flex flex-col rounded-xl border border-gray-100 bg-white p-4 text-left
-                                        shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-[border-color,box-shadow] hover:border-emerald-300 
-                                        hover:shadow-md justify-between gap-2"
+                                        className="flex flex-1"
                                     >
-                                        <div className="h-max">
-                                            <div className="flex items-center justify-between gap-2">
-                                                <div className="flex flex-wrap items-center gap-2">
-                                                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg 
+                                        <motion.button
+                                            key={`${item.surahNumber}-${item.verseNumber}-${index}`}
+                                            type="button"
+                                            initial={{ opacity: 0, y: 8, scale: 0.99 }}
+                                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                                            transition={{
+                                                duration: 0.2,
+                                                delay: isNew ? batchIndex * 0.02 : 0,
+                                                ease: "easeOut"
+                                            }}
+                                            className="group flex flex-col rounded-xl border border-gray-100 bg-white p-4 text-left
+                                        shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-[border-color,box-shadow] hover:border-emerald-300 
+                                        hover:shadow-md justify-between gap-2 w-full"
+                                        >
+                                            <div className="h-max">
+                                                <div className="flex items-center justify-between gap-2">
+                                                    <div className="flex flex-wrap items-center gap-2">
+                                                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg 
                                                     bg-emerald-50 text-sm font-bold tabular-nums text-emerald-800">
-                                                        {item.surahNumber}
-                                                    </span>
-                                                    <h3 className="font-semibold text-gray-900 truncate">
-                                                        {item.surahNameEnglish}
-                                                    </h3>
-                                                    <Badge variant="emerald">
-                                                        Verse {item.verseNumber}
-                                                    </Badge>
-                                                </div>
+                                                            {item.surahNumber}
+                                                        </span>
+                                                        <h3 className="font-semibold text-gray-900 truncate">
+                                                            {item.surahNameEnglish}
+                                                        </h3>
+                                                        <Badge variant="emerald">
+                                                            Verse {item.verseNumber}
+                                                        </Badge>
+                                                    </div>
 
-                                                <BookmarkButton
-                                                    isBookmarked={true}
-                                                    buttonProps={{
-                                                        onClick: (e: React.MouseEvent<HTMLButtonElement>) => {
-                                                            e.preventDefault()
-                                                            e.stopPropagation()
-                                                            setItems((prev) =>
-                                                                prev.filter(
-                                                                    (b, idx) =>
-                                                                        !(
-                                                                            b.surahNumber === item.surahNumber &&
-                                                                            b.verseNumber === item.verseNumber &&
-                                                                            idx === index
-                                                                        )
+                                                    <BookmarkButton
+                                                        isBookmarked={true}
+                                                        buttonProps={{
+                                                            onClick: (e: React.MouseEvent<HTMLButtonElement>) => {
+                                                                e.preventDefault()
+                                                                e.stopPropagation()
+                                                                setItems((prev) =>
+                                                                    prev.filter(
+                                                                        (b, idx) =>
+                                                                            !(
+                                                                                b.surahNumber === item.surahNumber &&
+                                                                                b.verseNumber === item.verseNumber &&
+                                                                                idx === index
+                                                                            )
+                                                                    )
                                                                 )
-                                                            )
-                                                        },
-                                                        className: "ml-auto",
-                                                        "aria-label": "Remove bookmark",
-                                                    }}
-                                                />
+                                                            },
+                                                            className: "ml-auto",
+                                                            "aria-label": "Remove bookmark",
+                                                        }}
+                                                    />
+                                                </div>
+                                                <p className="mt-2.5 line-clamp-2 text-sm leading-relaxed text-gray-700">
+                                                    {item.translation}
+                                                </p>
                                             </div>
-                                            <p className="mt-2.5 line-clamp-2 text-sm leading-relaxed text-gray-700">
-                                                {item.translation}
-                                            </p>
-                                        </div>
 
-                                        <div className="mt-2 flex items-center justify-between gap-2">
-                                            <p className="text-xs font-medium text-gray-700 tracking-wide uppercase">
-                                                {new Date(item.savedAt).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}
-                                            </p>
-                                            <p className="text-[11px] font-medium text-emerald-700/90 opacity-0 transition-opacity group-hover:opacity-100">
-                                                Open in Quran →
-                                            </p>
-                                        </div>
-                                    </motion.button>
+                                            <div className="mt-2 flex items-center justify-between gap-2">
+                                                <p className="text-xs font-medium text-gray-700 tracking-wide uppercase">
+                                                    {new Date(item.savedAt).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}
+                                                </p>
+                                                <p className="text-[11px] font-medium text-emerald-700/90 opacity-0 transition-opacity group-hover:opacity-100">
+                                                    Open in Quran →
+                                                </p>
+                                            </div>
+                                        </motion.button>
+                                    </Link>
                                 )
                             })}
 

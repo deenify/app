@@ -9,6 +9,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { motion } from "framer-motion"
 import { cn } from "@/lib/utils/clsx"
 import type { HadithCollectionType } from "./content"
+import Link from "next/link"
 
 interface HadithCollectionsTabSectionProps {
     collections: HadithCollectionType[]
@@ -62,56 +63,58 @@ const HadithCollectionsTabSection = ({ collections }: HadithCollectionsTabSectio
                                     animate={{ opacity: 1, y: 0, scale: 1 }}
                                     transition={{ duration: 0.2, delay: index * 0.02, ease: "easeOut" }}
                                 >
-                                    <Card
-                                        className="group cursor-pointer overflow-hidden border border-gray-100 bg-white shadow-sm transition-[border-color,box-shadow] hover:border-emerald-300 hover:shadow-sm"
-                                        onClick={() => router.push(`/hadith/${c.id}`)}
-                                    >
-                                        <CardContent className="flex items-start gap-3 p-4 sm:gap-4">
-                                            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-700 transition-colors group-hover:bg-emerald-100 sm:h-14 sm:w-14">
-                                                <ScrollText className="h-6 w-6 sm:h-7 sm:w-7" strokeWidth={1.5} />
-                                            </div>
-                                            <div className="min-w-0 flex-1">
-                                                <h3 className="text-left font-semibold text-gray-900">{c.nameEnglish}</h3>
-                                                <p className="mt-1 text-left text-base font-medium leading-snug text-emerald-800 font-arabic">
-                                                    {c.nameArabic}
-                                                </p>
-                                                <p className="mt-1 truncate text-left text-sm text-gray-600">{c.compiler}</p>
+                                    <Link href={`/hadith/${c.id}`}>
+                                        <Card
+                                            className="group overflow-hidden border border-gray-100 bg-white shadow-sm 
+                                            transition-[border-color,box-shadow] hover:border-emerald-300 hover:shadow-sm"
+                                        >
+                                            <CardContent className="flex items-start gap-3 p-4 sm:gap-4">
+                                                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-700 transition-colors group-hover:bg-emerald-100 sm:h-14 sm:w-14">
+                                                    <ScrollText className="h-6 w-6 sm:h-7 sm:w-7" strokeWidth={1.5} />
+                                                </div>
+                                                <div className="min-w-0 flex-1">
+                                                    <h3 className="text-left font-semibold text-gray-900">{c.nameEnglish}</h3>
+                                                    <p className="mt-1 text-left text-base font-medium leading-snug text-emerald-800 font-arabic">
+                                                        {c.nameArabic}
+                                                    </p>
+                                                    <p className="mt-1 truncate text-left text-sm text-gray-600">{c.compiler}</p>
 
-                                                <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
-                                                    <Badge variant="outline">{c.hadithCount.toLocaleString()} hadiths</Badge>
-                                                    <div className="ml-auto flex shrink-0 items-center gap-1.5">
-                                                        <span className="text-xs font-medium tabular-nums text-gray-500">
-                                                            {c.likesLabel}
-                                                        </span>
-                                                        <Button
-                                                            type="button"
-                                                            variant="ghost"
-                                                            size="icon"
-                                                            shouldScale
-                                                            aria-label={liked ? "Unlike this collection" : "Like this collection"}
-                                                            aria-pressed={liked}
-                                                            onClick={(e) => toggleLike(e, c.id)}
-                                                            className={cn(
-                                                                "flex h-7 w-7 shrink-0 items-center justify-center rounded-full transition-colors",
-                                                                "hover:bg-emerald-50 active:bg-emerald-100",
-                                                                liked
-                                                                    ? "text-rose-600 hover:text-rose-700"
-                                                                    : "text-gray-400 group-hover:text-emerald-500 hover:text-rose-500"
-                                                            )}
-                                                        >
-                                                            <Heart
+                                                    <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
+                                                        <Badge variant="outline">{c.hadithCount.toLocaleString()} hadiths</Badge>
+                                                        <div className="ml-auto flex shrink-0 items-center gap-1.5">
+                                                            <span className="text-xs font-medium tabular-nums text-gray-500">
+                                                                {c.likesLabel}
+                                                            </span>
+                                                            <Button
+                                                                type="button"
+                                                                variant="ghost"
+                                                                size="icon"
+                                                                shouldScale
+                                                                aria-label={liked ? "Unlike this collection" : "Like this collection"}
+                                                                aria-pressed={liked}
+                                                                onClick={(e) => toggleLike(e, c.id)}
                                                                 className={cn(
-                                                                    "h-4 w-4",
-                                                                    liked && "fill-current text-rose-600"
+                                                                    "flex h-7 w-7 shrink-0 items-center justify-center rounded-full transition-colors",
+                                                                    "hover:bg-emerald-50 active:bg-emerald-100",
+                                                                    liked
+                                                                        ? "text-rose-600 hover:text-rose-700"
+                                                                        : "text-gray-400 group-hover:text-emerald-500 hover:text-rose-500"
                                                                 )}
-                                                                strokeWidth={1.5}
-                                                            />
-                                                        </Button>
+                                                            >
+                                                                <Heart
+                                                                    className={cn(
+                                                                        "h-4 w-4",
+                                                                        liked && "fill-current text-rose-600"
+                                                                    )}
+                                                                    strokeWidth={1.5}
+                                                                />
+                                                            </Button>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </CardContent>
-                                    </Card>
+                                            </CardContent>
+                                        </Card>
+                                    </Link>
                                 </motion.div>
                             )
                         })}
