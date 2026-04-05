@@ -1,5 +1,13 @@
 /** Mock data for Hadith explore — structure mirrors real collections for future API wiring. */
 
+
+export type HadithTopicType = {
+    id: string
+    label: string
+    hadithCount: number
+    sourceBooks: string[]
+    blurb: string
+}
 export type HadithCollectionType = {
     id: string
     nameEnglish: string
@@ -8,8 +16,68 @@ export type HadithCollectionType = {
     compiler: string
     /** Display-only engagement label (e.g. from API later) */
     likesLabel: string
+    topics?: HadithTopicType[]
 }
 
+
+export const HadithTopicsMock: HadithTopicType[] = [
+    {
+        id: "sahih-bukhari-faith",
+        label: "Faith & belief",
+        hadithCount: 445,
+        sourceBooks: ["Bukhari"],
+        blurb: "Aqeedah, sincerity, and pillars of Islam.",
+    },
+    {
+        id: "sahih-bukhari-prayer",
+        label: "Prayer & purification",
+        hadithCount: 920,
+        sourceBooks: ["Bukhari"],
+        blurb: "Salah, wudu, mosques, and congregation.",
+    },
+    {
+        id: "sahih-bukhari-fasting",
+        label: "Fasting",
+        hadithCount: 298,
+        sourceBooks: ["Bukhari"],
+        blurb: "Ramadan, voluntary fasts, and rulings.",
+    },
+    {
+        id: "sahih-bukhari-zakat",
+        label: "Zakat & charity",
+        hadithCount: 251,
+        sourceBooks: ["Bukhari"],
+        blurb: "Due wealth, sadaqah, and stewardship.",
+    },
+    {
+        id: "sahih-bukhari-hajj",
+        label: "Hajj & Umrah",
+        hadithCount: 312,
+        sourceBooks: ["Bukhari"],
+        blurb: "Rites, ihram, and sacred months.",
+    },
+    {
+        id: "sahih-bukhari-transactions",
+        label: "Transactions & ethics",
+        hadithCount: 588,
+        sourceBooks: ["Bukhari"],
+        blurb: "Trade, contracts, honesty, and neighbours.",
+    },
+    {
+        id: "sahih-bukhari-family",
+        label: "Family & manners",
+        hadithCount: 502,
+        sourceBooks: ["Bukhari"],
+        blurb: "Marriage, children, adab, and kinship.",
+    },
+    {
+        id: "sahih-bukhari-dua",
+        label: "Supplication",
+        hadithCount: 176,
+        sourceBooks: ["Bukhari"],
+        blurb: "Morning & evening, Qunoot, and remembrance.",
+    },
+]
 export const HadithCollections: HadithCollectionType[] = [
     {
         id: "sahih-bukhari",
@@ -18,6 +86,7 @@ export const HadithCollections: HadithCollectionType[] = [
         hadithCount: 7563,
         compiler: "Imam al-Bukhari",
         likesLabel: "18k",
+        topics: HadithTopicsMock,
     },
     {
         id: "sahih-muslim",
@@ -26,6 +95,7 @@ export const HadithCollections: HadithCollectionType[] = [
         hadithCount: 7563,
         compiler: "Imam Muslim",
         likesLabel: "15k",
+        topics: HadithTopicsMock,
     },
     {
         id: "sunan-abu-dawud",
@@ -34,6 +104,7 @@ export const HadithCollections: HadithCollectionType[] = [
         hadithCount: 5274,
         compiler: "Abu Dawud al-Sijistani",
         likesLabel: "9.2k",
+        topics: HadithTopicsMock,
     },
     {
         id: "sunan-tirmidhi",
@@ -42,6 +113,7 @@ export const HadithCollections: HadithCollectionType[] = [
         hadithCount: 3956,
         compiler: "Imam at-Tirmidhi",
         likesLabel: "13k",
+        topics: HadithTopicsMock,
     },
     {
         id: "sunan-nasai",
@@ -50,6 +122,7 @@ export const HadithCollections: HadithCollectionType[] = [
         hadithCount: 5762,
         compiler: "Imam an-Nasa'i",
         likesLabel: "11k",
+        topics: HadithTopicsMock,
     },
     {
         id: "sunan-ibn-majah",
@@ -58,94 +131,21 @@ export const HadithCollections: HadithCollectionType[] = [
         hadithCount: 4341,
         compiler: "Ibn Majah",
         likesLabel: "7.8k",
+        topics: HadithTopicsMock,
     },
 ]
 
-export type HadithTopicType = {
-    id: string
-    label: string
-    hadithCount: number
-    /** Short collection names for chip row (which books feature this theme most) */
-    sourceBooks: string[]
-    /** One-line context for the card */
-    blurb: string
-}
-
-export const HadithTopics: HadithTopicType[] = [
-    {
-        id: "faith",
-        label: "Faith & belief",
-        hadithCount: 420,
-        sourceBooks: ["Bukhari", "Muslim", "Tirmidhi", "Nasai"],
-        blurb: "Aqeedah, sincerity, and pillars of Islam.",
-    },
-    {
-        id: "prayer",
-        label: "Prayer & purification",
-        hadithCount: 890,
-        sourceBooks: ["Bukhari", "Muslim", "Abu Dawud", "Nasai"],
-        blurb: "Salah, wudu, mosques, and congregation.",
-    },
-    {
-        id: "fasting",
-        label: "Fasting",
-        hadithCount: 310,
-        sourceBooks: ["Bukhari", "Muslim", "Tirmidhi", "Ibn Majah"],
-        blurb: "Ramadan, voluntary fasts, and rulings.",
-    },
-    {
-        id: "zakat",
-        label: "Zakat & charity",
-        hadithCount: 240,
-        sourceBooks: ["Bukhari", "Muslim", "Abu Dawud", "Nasai"],
-        blurb: "Due wealth, sadaqah, and stewardship.",
-    },
-    {
-        id: "hajj",
-        label: "Hajj & Umrah",
-        hadithCount: 280,
-        sourceBooks: ["Bukhari", "Muslim", "Nasai", "Ibn Majah"],
-        blurb: "Rites, ihram, and sacred months.",
-    },
-    {
-        id: "transactions",
-        label: "Transactions & ethics",
-        hadithCount: 560,
-        sourceBooks: ["Bukhari", "Muslim", "Abu Dawud", "Tirmidhi"],
-        blurb: "Trade, contracts, honesty, and neighbours.",
-    },
-    {
-        id: "family",
-        label: "Family & manners",
-        hadithCount: 480,
-        sourceBooks: ["Bukhari", "Muslim", "Tirmidhi", "Nasai"],
-        blurb: "Marriage, children, adab, and kinship.",
-    },
-    {
-        id: "dua",
-        label: "Supplication",
-        hadithCount: 190,
-        sourceBooks: ["Tirmidhi", "Abu Dawud", "Nasai", "Ibn Majah"],
-        blurb: "Morning & evening, Qunoot, and remembrance.",
-    },
-]
 
 export type HadithSavedItemType = {
     id: string
     collectionId: string
     collectionName: string
     collectionNameArabic: string
-    /** Chapter / kitab title in English */
     titleEnglish: string
-    /** Chapter / kitab title in Arabic */
     titleArabic: string
-    /** Kitab index in the collection */
     bookNumber: number
-    /** Bab / chapter index within the book */
     chapterNumber: number
-    /** Hadith number in the printed book (collection-wide numbering) */
     hadithInBook: number
-    /** Hadith order within this chapter / bab */
     hadithInChapter: number
     snippet: string
     snippetArabic: string

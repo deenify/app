@@ -5,6 +5,7 @@ import {
     ArrowDownAZ,
     ArrowUpAZ,
     ArrowUpDown,
+    BookOpen,
     CalendarClock,
     CalendarDays,
     CalendarRange,
@@ -18,7 +19,6 @@ import Tabs, { type TabItem } from "@/components/shared/Tabs"
 import FilterDropdown, { type FilterOption } from "@/components/shared/FilterDropdown"
 import {
     HadithCollections,
-    HadithTopics,
     MockHadithSaved,
     TOTAL_HADITH_COUNT_DISPLAY,
     type HadithCollectionType,
@@ -56,11 +56,12 @@ const collectionSortOptions: FilterOption[] = [
     { value: "count", label: "Most hadiths first", icon: ListOrdered },
 ]
 
-const topicSortOptions: FilterOption[] = [
-    { value: "az", label: "A–Z", icon: ArrowDownAZ },
-    { value: "za", label: "Z–A", icon: ArrowUpAZ },
-    { value: "count", label: "Most narrations first", icon: ListOrdered },
-]
+const topicBookFilterOptions: FilterOption[] = HadithCollections.map((c) => ({
+    value: c.id,
+    label: c.nameEnglish,
+    icon: BookOpen,
+    metaLabel: c.hadithCount.toLocaleString(),
+}))
 
 const savedDateOptions: FilterOption[] = [
     { value: "all", label: "All time", icon: CalendarDays },
@@ -89,7 +90,8 @@ function sortTopics(list: HadithTopicType[], mode: SortMode): HadithTopicType[] 
 const HadithExploreSection = () => {
     const [searchQuery, setSearchQuery] = useState("")
     const [collectionSort, setCollectionSort] = useState<SortMode>("az")
-    const [topicSort, setTopicSort] = useState<SortMode>("az")
+    /** Topics tab: which collection’s thematic index is shown (default Sahih Muslim). */
+    const [topicsCollectionId, setTopicsCollectionId] = useState<string>("sahih-bukhari")
     const [savedDateFilter, setSavedDateFilter] = useState<HadithDateFilter>("all")
     const [activeTab, setActiveTab] = useState<HadithTabId>("collections")
 
@@ -107,11 +109,17 @@ const HadithExploreSection = () => {
     }, [collectionSort, searchQuery])
 
     const processedTopics = useMemo(() => {
-        let list = sortTopics(HadithTopics, topicSort)
+        const book = HadithCollections.find((c) => c.id === topicsCollectionId)
+        let list = sortTopics(book?.topics ?? [], "az")
         if (!searchQuery.trim()) return list
         const q = searchQuery.toLowerCase().trim()
-        return list.filter((t) => t.label.toLowerCase().includes(q) || t.id.includes(q))
-    }, [topicSort, searchQuery])
+        return list.filter(
+            (t) =>
+                t.label.toLowerCase().includes(q) ||
+                t.id.includes(q) ||
+                t.blurb.toLowerCase().includes(q)
+        )
+    }, [topicsCollectionId, searchQuery])
 
     const processedSaved = useMemo(() => {
         let list = MockHadithSaved.filter((h) => isSavedInRange(h.savedAt, savedDateFilter))
@@ -135,23 +143,34 @@ const HadithExploreSection = () => {
         activeTab === "collections"
             ? collectionSortOptions
             : activeTab === "topics"
-                ? topicSortOptions
+                ? topicBookFilterOptions
                 : savedDateOptions
 
     const dropdownValue =
-        activeTab === "collections" ? collectionSort : activeTab === "topics" ? topicSort : savedDateFilter
+        activeTab === "collections"
+            ? collectionSort
+            : activeTab === "topics"
+                ? topicsCollectionId
+                : savedDateFilter
 
     const setDropdownValue = (v: string | number) => {
         if (activeTab === "collections") setCollectionSort(v as SortMode)
-        else if (activeTab === "topics") setTopicSort(v as SortMode)
+        else if (activeTab === "topics") setTopicsCollectionId(String(v))
         else setSavedDateFilter(v as HadithDateFilter)
     }
+
+    const topicsCollectionMeta = useMemo(
+        () => HadithCollections.find((c) => c.id === topicsCollectionId),
+        [topicsCollectionId]
+    )
 
     const searchPlaceholder =
         activeTab === "collections"
             ? "Search collections, compiler, or Arabic name…"
             : activeTab === "topics"
-                ? "Search topics…"
+                ? topicsCollectionMeta
+                    ? `Search topics in ${topicsCollectionMeta.nameEnglish}…`
+                    : "Search topics…"
                 : "Search saved hadith…"
 
     return (
@@ -210,12 +229,13 @@ const HadithExploreSection = () => {
                                     options={dropdownOptions}
                                     value={dropdownValue}
                                     onChange={setDropdownValue}
+                                    placeholder={activeTab === "topics" ? "Hadith book" : undefined}
                                     theme="amber"
                                     triggerIcon={
                                         activeTab === "collections"
                                             ? ArrowUpDown
                                             : activeTab === "topics"
-                                                ? ArrowUpDown
+                                                ? BookOpen
                                                 : History
                                     }
                                 />
@@ -240,7 +260,14 @@ const HadithExploreSection = () => {
 
             <div className="bg-[linear-gradient(180deg,#f8faf8_0%,#f0f7f4_100%)]">
                 {activeTab === "collections" && <HadithCollectionsTabSection collections={processedCollections} />}
-                {activeTab === "topics" && <HadithTopicsTabSection topics={processedTopics} />}
+                {activeTab === "topics" && (
+                    <HadithTopicsTabSection
+                        key={topicsCollectionId}
+                        topics={processedTopics}
+                        collectionNameEnglish={topicsCollectionMeta?.nameEnglish ?? "Hadith book"}
+                        collectionNameArabic={topicsCollectionMeta?.nameArabic}
+                    />
+                )}
                 {activeTab === "saved" && <HadithSavedTabSection items={processedSaved} />}
             </div>
         </div>

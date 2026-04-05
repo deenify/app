@@ -203,7 +203,12 @@ const Tabs = ({
                                             )}
                                         />
                                     )}
-                                    <span className={cn('inline w-max text-center text-sm z-3 relative', classNames?.labelClassName)}> {tab.label}</span>
+                                    <span className={cn(
+                                        'inline w-max text-center text-sm z-3 relative',
+                                        classNames?.labelClassName)}
+                                    >
+                                        {tab.label}
+                                    </span>
                                 </button>
                             )
                         }
