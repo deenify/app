@@ -5,6 +5,7 @@ export type HadithConfigurationsType = {
         step: number
         defaultSize: number
         presets: Record<"S" | "M" | "L" | "XL", number>
+        preview: string
     }
     english: {
         min: number
@@ -12,6 +13,7 @@ export type HadithConfigurationsType = {
         step: number
         defaultSize: number
         presets: Record<"S" | "M" | "L" | "XL", number>
+        preview: string
     }
 }
 
