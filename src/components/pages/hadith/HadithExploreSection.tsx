@@ -263,6 +263,7 @@ const HadithExploreSection = () => {
                 {activeTab === "topics" && (
                     <HadithTopicsTabSection
                         key={topicsCollectionId}
+                        collectionId={topicsCollectionId}
                         topics={processedTopics}
                         collectionNameEnglish={topicsCollectionMeta?.nameEnglish ?? "Hadith book"}
                         collectionNameArabic={topicsCollectionMeta?.nameArabic}

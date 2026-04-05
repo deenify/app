@@ -27,6 +27,7 @@ const defaultState: HadithSettingInitialStateType = {
             presets: { S: 15, M: 18, L: 20, XL: 22 },
         },
     },
+    selectedTopicId: null,
 }
 
 const useHadithReaderSettingsStore = create<HadithSettingStateType>()(
@@ -41,6 +42,7 @@ const useHadithReaderSettingsStore = create<HadithSettingStateType>()(
             setShowTopicChips: (value) => set({ showTopicChips: value }),
             setShowInBookReference: (value) => set({ showInBookReference: value }),
             setUseArabicFontFamily: (value) => set({ useArabicFontFamily: value }),
+            setSelectedTopicId: (id) => set({ selectedTopicId: id }),
         }),
         {
             name: "hadith-reader-settings",

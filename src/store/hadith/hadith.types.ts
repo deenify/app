@@ -25,6 +25,7 @@ export type HadithSettingInitialStateType = {
     showInBookReference: boolean
     useArabicFontFamily: boolean
     configurations: HadithConfigurationsType
+    selectedTopicId: string | null
 }
 
 export type HadithSettingStateType = HadithSettingInitialStateType & {
@@ -36,4 +37,5 @@ export type HadithSettingStateType = HadithSettingInitialStateType & {
     setShowTopicChips: (value: boolean) => void
     setShowInBookReference: (value: boolean) => void
     setUseArabicFontFamily: (value: boolean) => void
+    setSelectedTopicId: (id: string | null) => void
 }

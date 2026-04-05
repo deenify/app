@@ -1,30 +1,109 @@
 "use client"
 
-import { useMemo, useState } from "react"
-import { useRouter } from "next/navigation"
+import { useEffect, useMemo, useState } from "react"
 import { motion } from "framer-motion"
-import { ScrollText, Settings } from "lucide-react"
+import { Hash, ListFilter, ScrollText, Settings } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import FilterDropdown, { type FilterOption } from "@/components/shared/FilterDropdown"
 import { cn } from "@/lib/utils/clsx"
 import HadithCard from "./HadithCard"
 import HadithSettingSidebar from "./HadithSettingSidebar"
-import { HadithCollections, getMockHadithsForCollection } from "./content"
+import {
+    HadithCollections,
+    getMockHadithsForCollection,
+    type HadithTopicType,
+    type MockHadithNarrationType,
+} from "./content"
 import BackButton from "@/components/shared/buttons/BackButton"
+import useHadithReaderSettingsStore from "@/store/hadith"
 
 interface HadithCollectionPageProps {
     collectionId: string
 }
 
+function hadithMatchesSearch(h: MockHadithNarrationType, q: string): boolean {
+    const s = q.trim().toLowerCase()
+    if (!s) return true
+    return (
+        h.english.toLowerCase().includes(s) ||
+        h.arabic.includes(s) ||
+        h.narrator.toLowerCase().includes(s) ||
+        h.topics.some((t) => t.toLowerCase().includes(s))
+    )
+}
+
+function hadithMatchesTopicRow(h: MockHadithNarrationType, topic: HadithTopicType): boolean {
+    const label = topic.label.toLowerCase()
+    const words = label
+        .replace(/&/g, " ")
+        .split(/[^a-z]+/i)
+        .map((w) => w.toLowerCase())
+        .filter((w) => w.length > 2)
+    const blob = h.topics.map((t) => t.toLowerCase()).join(" ")
+    if (words.some((w) => blob.includes(w))) return true
+    return h.topics.some((tag) => label.includes(tag.toLowerCase()))
+}
+
 export default function HadithDetailPage({ collectionId }: HadithCollectionPageProps) {
-    const router = useRouter()
     const [showSettings, setShowSettings] = useState(false)
+    const [searchQuery, setSearchQuery] = useState("")
+
+    const selectedTopicId = useHadithReaderSettingsStore((s) => s.selectedTopicId)
+    const setSelectedTopicId = useHadithReaderSettingsStore((s) => s.setSelectedTopicId)
 
     const collection = useMemo(
         () => HadithCollections.find((c) => c.id === collectionId),
         [collectionId]
     )
     const mockHadiths = useMemo(() => getMockHadithsForCollection(collectionId), [collectionId])
+
+    useEffect(() => {
+        const rows = collection?.topics
+        if (!rows?.length) {
+            setSelectedTopicId(null)
+            return
+        }
+        if (selectedTopicId && !rows.some((t) => t.id === selectedTopicId)) {
+            setSelectedTopicId(null)
+        }
+    }, [collection, collectionId, selectedTopicId, setSelectedTopicId])
+
+    const selectedTopic = useMemo(() => {
+        if (!selectedTopicId || !collection?.topics?.length) return null
+        return collection.topics.find((t) => t.id === selectedTopicId) ?? null
+    }, [collection, selectedTopicId])
+
+    const filteredHadiths = useMemo(() => {
+        return mockHadiths.filter((h) => {
+            if (!hadithMatchesSearch(h, searchQuery)) return false
+            if (!selectedTopic) return true
+            return hadithMatchesTopicRow(h, selectedTopic)
+        })
+    }, [mockHadiths, searchQuery, selectedTopic])
+
+    const topicFilterOptions: FilterOption[] = useMemo(() => {
+        const rows = collection?.topics
+        const base: FilterOption[] = [{ value: "all", label: "All topics", icon: ListFilter }]
+        if (!rows?.length) return base
+        return [
+            ...base,
+            ...rows.map((t) => ({
+                value: t.id,
+                label: t.label,
+                icon: Hash,
+                metaLabel: String(t.hadithCount),
+            })),
+        ]
+    }, [collection])
+
+    const topicDropdownValue = selectedTopicId ?? "all"
+
+    const onTopicFilterChange = (v: string | number) => {
+        const id = String(v)
+        setSelectedTopicId(id === "all" ? null : id)
+    }
 
     if (!collection) {
         return (
@@ -104,44 +183,72 @@ export default function HadithDetailPage({ collectionId }: HadithCollectionPageP
 
             <section
                 className={cn(
-                    "relative w-full border-t border-layout-separator",
+                    "relative w-full flex-1 border-t border-layout-separator",
                     "bg-gradient-to-br from-emerald-50 via-white to-teal-50"
                 )}
             >
-                {/* <motion.div
-                    className="pointer-events-none absolute -top-8 left-1/2 h-48 w-48 -translate-x-1/2 rounded-full bg-emerald-200 blur-3xl sm:left-[18%] sm:translate-x-0"
-                    animate={{ opacity: [0.35, 0.5, 0.35] }}
-                    transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-                /> */}
                 <motion.div
                     className="pointer-events-none absolute bottom-0 right-0 h-40 w-40 rounded-full bg-teal-100 blur-3xl"
                     aria-hidden
                 />
 
-                <div className="relative h-[calc(100vh-200px)] flex">
-                    {/* hadiths-listings  */}
-                    <main className="container h-full py-4 sm:py-6 overflow-hidden">
-                        <div className="mx-auto flex h-full max-w-4xl flex-col scrollbar-thin overflow-y-auto pr-1 sm:pr-2">
-                            <div className="flex flex-col gap-5 py-2 sm:gap-6 h-max">
-                                {mockHadiths.map((h, i) => (
-                                    <HadithCard
-                                        key={h.id}
-                                        hadith={h}
-                                        collectionNameEnglish={collection.nameEnglish}
-                                        initial={{ opacity: 0, y: 14 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ duration: 0.35, delay: i * 0.05, ease: "easeOut" }}
+                <div className="relative flex h-[calc(100vh-200px)]">
+                    <main className="h-full min-w-0 flex-1 overflow-hidden">
+                        <div className="container h-full py-4 sm:py-6">
+                            <div className="mx-auto flex h-full min-h-0 max-w-4xl flex-col">
+
+                                <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3 pb-5">
+                                    <Input
+                                        search
+                                        type="input"
+                                        placeholder="Search text, narrator, or tags…"
+                                        value={searchQuery}
+                                        onChange={(e) => setSearchQuery(e.target.value)}
+                                        containerClassName="min-w-0 flex-1"
+                                        className="h-10 rounded-md border-gray-200 bg-white text-sm placeholder:text-gray-400
+                                         focus:bg-white sm:h-11"
                                     />
-                                ))}
+                                    <div className="w-full shrink-0 sm:max-w-[min(100%,240px)]">
+                                        <FilterDropdown
+                                            options={topicFilterOptions}
+                                            value={topicDropdownValue}
+                                            onChange={onTopicFilterChange}
+                                            theme="amber"
+                                            placeholder="Topic"
+                                            triggerIcon={Hash}
+                                            contentClassName="scrollbar-thin"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="min-h-0 flex-1 overflow-y-auto py-2 pr-1 scrollbar-thin sm:pr-2">
+                                    <div className="flex flex-col gap-5 sm:gap-6">
+                                        {filteredHadiths.length === 0 ? (
+                                            <p className="rounded-xl border border-dashed border-gray-200 bg-white/80 px-4 py-8 text-center text-sm text-gray-600">
+                                                No narrations match this topic or search. Try &ldquo;All topics&rdquo; or
+                                                clear the search box.
+                                            </p>
+                                        ) : (
+                                            filteredHadiths.map((h, i) => (
+                                                <HadithCard
+                                                    key={h.id}
+                                                    hadith={h}
+                                                    collectionNameEnglish={collection.nameEnglish}
+                                                    initial={{ opacity: 0, y: 14 }}
+                                                    animate={{ opacity: 1, y: 0 }}
+                                                    transition={{ duration: 0.35, delay: i * 0.05, ease: "easeOut" }}
+                                                />
+                                            ))
+                                        )}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </main>
 
-                    {/* settings-sidebar  */}
                     <HadithSettingSidebar open={showSettings} onClose={() => setShowSettings(false)} />
                 </div>
 
-                {/* settings-sidebar toggler  */}
                 {!showSettings ? (
                     <div className="fixed right-4 top-28 z-10 sm:right-6 sm:top-32">
                         <Button
@@ -150,7 +257,7 @@ export default function HadithDetailPage({ collectionId }: HadithCollectionPageP
                             onClick={() => setShowSettings(true)}
                             className={cn(
                                 "h-11 w-11 rounded-full border border-amber-300 bg-amber-400 px-0 shadow-lg",
-                                "text-amber-50 hover:bg-amber-500 hover:text-white hover:border-amber-400",
+                                "text-amber-50 hover:border-amber-400 hover:bg-amber-500 hover:text-white",
                                 "sm:h-12 sm:w-12"
                             )}
                             aria-label="Open reader settings"

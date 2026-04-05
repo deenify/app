@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { useRouter } from "next/navigation"
 import { Heart, ScrollText } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -10,13 +9,14 @@ import { motion } from "framer-motion"
 import { cn } from "@/lib/utils/clsx"
 import type { HadithCollectionType } from "./content"
 import Link from "next/link"
+import useHadithReaderSettingsStore from "@/store/hadith"
 
 interface HadithCollectionsTabSectionProps {
     collections: HadithCollectionType[]
 }
 
 const HadithCollectionsTabSection = ({ collections }: HadithCollectionsTabSectionProps) => {
-    const router = useRouter()
+    const setSelectedTopicId = useHadithReaderSettingsStore((s) => s.setSelectedTopicId)
     const [likedIds, setLikedIds] = useState<Set<string>>(new Set())
 
     const toggleLike = (e: React.MouseEvent, id: string) => {
@@ -63,7 +63,10 @@ const HadithCollectionsTabSection = ({ collections }: HadithCollectionsTabSectio
                                     animate={{ opacity: 1, y: 0, scale: 1 }}
                                     transition={{ duration: 0.2, delay: index * 0.02, ease: "easeOut" }}
                                 >
-                                    <Link href={`/hadith/${c.id}`}>
+                                    <Link
+                                        href={`/hadith/${c.id}`}
+                                        onClick={() => setSelectedTopicId(null)}
+                                    >
                                         <Card
                                             className="group overflow-hidden border border-gray-100 bg-white shadow-sm 
                                             transition-[border-color,box-shadow] hover:border-emerald-300 hover:shadow-sm"
