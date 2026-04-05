@@ -21,7 +21,7 @@ const HadithSavedTabSection = ({ items: itemsProp }: HadithSavedTabSectionProps)
     }, [itemsProp])
 
     return (
-        <section className="relative min-h-[320px] border-t border-gray-100 bg-[linear-gradient(180deg,#f8faf8_0%,#f0f7f4_100%)] py-8 sm:py-10">
+        <section className="relative min-h-[320px] py-8 sm:py-10">
             <div className="container px-4 sm:px-6">
                 {/* Header section  */}
                 <header className="mb-4 sm:mb-5 flex items-end justify-between gap-3">

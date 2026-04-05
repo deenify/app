@@ -17,10 +17,10 @@ const difficultyTone = {
 type GuideDetailHeaderProps = {
     guide: GuideType
     sectionsCount: number
-    onBack: () => void
+    href: string
 }
 
-const GuideDetailHeader = ({ guide, sectionsCount, onBack }: GuideDetailHeaderProps) => {
+const GuideDetailHeader = ({ guide, sectionsCount, href }: GuideDetailHeaderProps) => {
     return (
         <header className="space-y-4 border-b border-layout-separator pb-6 sm:pb-7">
             <BackButton
@@ -28,7 +28,7 @@ const GuideDetailHeader = ({ guide, sectionsCount, onBack }: GuideDetailHeaderPr
                 buttonProps={{
                     variant: "ghost-emerald",
                     shouldScale: false,
-                    onClick: onBack,
+                    href: href,
                     size: "default",
                 }}
                 label="Back to Guides"

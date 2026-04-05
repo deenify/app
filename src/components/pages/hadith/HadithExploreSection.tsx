@@ -156,7 +156,7 @@ const HadithExploreSection = () => {
 
     return (
         <div className="bg-gray-50">
-            <section className="border-b border-gray-100 bg-white">
+            <section className="bg-white">
                 <div className="container space-y-6 px-4 py-6 sm:space-y-6 sm:px-6 sm:py-8 md:px-6 md:py-10">
                     <header className="space-y-3 sm:space-y-3">
                         <Badge variant="emerald" className="text-xs font-medium">
@@ -238,9 +238,11 @@ const HadithExploreSection = () => {
                 </div>
             </section>
 
-            {activeTab === "collections" && <HadithCollectionsTabSection collections={processedCollections} />}
-            {activeTab === "topics" && <HadithTopicsTabSection topics={processedTopics} />}
-            {activeTab === "saved" && <HadithSavedTabSection items={processedSaved} />}
+            <div className="bg-[linear-gradient(180deg,#f8faf8_0%,#f0f7f4_100%)]">
+                {activeTab === "collections" && <HadithCollectionsTabSection collections={processedCollections} />}
+                {activeTab === "topics" && <HadithTopicsTabSection topics={processedTopics} />}
+                {activeTab === "saved" && <HadithSavedTabSection items={processedSaved} />}
+            </div>
         </div>
     )
 }

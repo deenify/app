@@ -50,10 +50,10 @@ const GuideDetailPage = ({ guideId }: GuideDetailPageProps) => {
         return (
             <div className="container px-4 py-16 text-center sm:px-6">
                 <p className="text-gray-600">Guide not found.</p>
-                <Button variant="ghost-emerald" className="mt-4" onClick={() => router.push("/guides")}>
+                <Button variant="ghost-emerald" className="mt-4" href="/guides">
                     Back to Guides
                 </Button>
-            </div>
+            </div >
         )
     }
 
@@ -65,7 +65,7 @@ const GuideDetailPage = ({ guideId }: GuideDetailPageProps) => {
                         <GuideDetailHeader
                             guide={guide}
                             sectionsCount={sections.length}
-                            onBack={() => router.push("/guides")}
+                            href="/guides"
                         />
                     </div>
                 </div>

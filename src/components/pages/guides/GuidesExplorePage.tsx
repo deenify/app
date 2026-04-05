@@ -98,97 +98,99 @@ const GuidesExplorePage = () => {
                 </div>
             </section>
 
-            <section className={cn("relative w-full border-t border-layout-separator", "bg-gray-50")}>
-                <div className="container py-6 sm:py-8">
-                    <div className="mx-auto max-w-6xl space-y-4 sm:space-y-5">
-                        <section className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
-                            <Input
-                                search
-                                type="input"
-                                placeholder={
-                                    activeTab === "bookmarks"
-                                        ? "Search your saved guides..."
-                                        : "Search guides..."
-                                }
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                containerClassName="min-w-0 flex-1"
-                                className="h-10 rounded-lg border-gray-200 bg-white text-sm placeholder:text-gray-400 focus:bg-white sm:h-11"
-                            />
-                            <div className="flex flex-1 items-center justify-between gap-2 xs:gap-4 sm:max-w-[260px] sm:shrink-0">
-                                <FilterDropdown
-                                    options={categoryOptions}
-                                    value={category}
-                                    onChange={(v) => setCategory(String(v))}
-                                    placeholder="All topics"
-                                    triggerIcon={Filter}
-                                    theme="purple"
-                                    contentClassName="scrollbar-thin"
+            <main className="bg-[linear-gradient(180deg,#f8faf8_0%,#f0f7f4_100%)]">
+                <section className={cn("relative w-full border-t border-layout-separator bg-transparent")}>
+                    <div className="container py-6 sm:py-8">
+                        <div className="mx-auto max-w-6xl space-y-4 sm:space-y-5">
+                            <section className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+                                <Input
+                                    search
+                                    type="input"
+                                    placeholder={
+                                        activeTab === "bookmarks"
+                                            ? "Search your saved guides..."
+                                            : "Search guides..."
+                                    }
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    containerClassName="min-w-0 flex-1"
+                                    className="h-10 rounded-lg border-gray-200 bg-white text-sm placeholder:text-gray-400 focus:bg-white sm:h-11"
                                 />
-                                <div
-                                    className="inline-flex h-9 w-[100px] shrink-0 items-center justify-center rounded-md border border-emerald-200 
+                                <div className="flex flex-1 items-center justify-between gap-2 xs:gap-4 sm:max-w-[260px] sm:shrink-0">
+                                    <FilterDropdown
+                                        options={categoryOptions}
+                                        value={category}
+                                        onChange={(v) => setCategory(String(v))}
+                                        placeholder="All topics"
+                                        triggerIcon={Filter}
+                                        theme="purple"
+                                        contentClassName="scrollbar-thin"
+                                    />
+                                    <div
+                                        className="inline-flex h-9 w-[100px] shrink-0 items-center justify-center rounded-md border border-emerald-200 
                                     bg-emerald-50 px-3 text-xs font-medium text-gray-700 shadow-sm xs:w-[120px] sm:hidden"
-                                >
-                                    <span className="tabular-nums font-semibold text-gray-900">100+</span>
-                                    <span className="ml-1">guides</span>
+                                    >
+                                        <span className="tabular-nums font-semibold text-gray-900">100+</span>
+                                        <span className="ml-1">guides</span>
+                                    </div>
                                 </div>
-                            </div>
-                        </section>
+                            </section>
 
-                        <section className="flex items-center justify-between pt-6">
-                            <Tabs
-                                allTabs={guideTabs}
-                                activeTab={activeTab}
-                                onTabChange={(tabId) => setActiveTab(tabId as GuideExploreTabId)}
-                                variant="pills"
-                                showIndicator
-                                align="left"
-                                stretchTabs={false}
-                                className="pt-0"
-                                contentContainerClassName="hidden"
-                                tabsContainerClassName="flex h-max justify-center border-none"
-                                tabClassName="px-5 xs:px-7 sm:px-8 md:px-10 lg:px-12"
-                                classNames={{
-                                    pillsIndicator: "border border-layout-separator bg-white",
-                                    tabsWrapper: "border border-layout-separator",
-                                    labelClassName: "text-xs xs:text-sm",
-                                }}
-                            />
+                            <section className="flex items-center justify-between pt-6">
+                                <Tabs
+                                    allTabs={guideTabs}
+                                    activeTab={activeTab}
+                                    onTabChange={(tabId) => setActiveTab(tabId as GuideExploreTabId)}
+                                    variant="pills"
+                                    showIndicator
+                                    align="left"
+                                    stretchTabs={false}
+                                    className="pt-0"
+                                    contentContainerClassName="hidden"
+                                    tabsContainerClassName="flex h-max justify-center border-none"
+                                    tabClassName="px-5 xs:px-7 sm:px-8 md:px-10 lg:px-12"
+                                    classNames={{
+                                        pillsIndicator: "border border-layout-separator bg-white",
+                                        tabsWrapper: "border border-layout-separator",
+                                        labelClassName: "text-xs xs:text-sm",
+                                    }}
+                                />
 
-                            <div className="hidden items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50/80 px-3 py-1 
+                                <div className="hidden items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50/80 px-3 py-1 
                             text-[11px] font-medium text-emerald-800 shadow-[0_1px_2px_rgba(16,185,129,0.18)] sm:inline-flex sm:text-xs">
-                                <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                                {activeTab === "collections" ? (
-                                    <>
-                                        <span className="tabular-nums">{catalogCountLabel}</span>
-                                        <span>Guides</span>
-                                    </>
-                                ) : (
-                                    <>
-                                        <span className="tabular-nums">{bookmarkedGuideIds.size}</span>
-                                        <span>saved</span>
-                                    </>
-                                )}
-                            </div>
-                        </section>
+                                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                                    {activeTab === "collections" ? (
+                                        <>
+                                            <span className="tabular-nums">{catalogCountLabel}</span>
+                                            <span>Guides</span>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <span className="tabular-nums">{bookmarkedGuideIds.size}</span>
+                                            <span>saved</span>
+                                        </>
+                                    )}
+                                </div>
+                            </section>
+                        </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            {activeTab === "collections" && (
-                <GuidesCollectionsTabSection
-                    guides={filteredGuides}
-                    bookmarkedIds={bookmarkedGuideIds}
-                    onToggleBookmark={toggleBookmark}
-                />
-            )}
-            {activeTab === "bookmarks" && (
-                <GuidesBookmarksTabSection
-                    guides={bookmarkGuides}
-                    bookmarkedIds={bookmarkedGuideIds}
-                    onToggleBookmark={toggleBookmark}
-                />
-            )}
+                {activeTab === "collections" && (
+                    <GuidesCollectionsTabSection
+                        guides={filteredGuides}
+                        bookmarkedIds={bookmarkedGuideIds}
+                        onToggleBookmark={toggleBookmark}
+                    />
+                )}
+                {activeTab === "bookmarks" && (
+                    <GuidesBookmarksTabSection
+                        guides={bookmarkGuides}
+                        bookmarkedIds={bookmarkedGuideIds}
+                        onToggleBookmark={toggleBookmark}
+                    />
+                )}
+            </main>
         </div>
     )
 }

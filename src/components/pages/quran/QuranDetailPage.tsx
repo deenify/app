@@ -77,7 +77,7 @@ export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetai
                             buttonProps={{
                                 variant: "ghost-emerald",
                                 shouldScale: false,
-                                onClick: () => router.push("/quran"),
+                                href: "/quran",
                                 size: "default",
                             }}
                             label="Back to Surahs"
