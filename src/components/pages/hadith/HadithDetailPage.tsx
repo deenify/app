@@ -250,7 +250,7 @@ export default function HadithDetailPage({ collectionId }: HadithCollectionPageP
                 </div>
 
                 {!showSettings ? (
-                    <div className="fixed right-4 top-28 sm:right-6 sm:top-32 z-[100]">
+                    <div className="fixed right-4 top-28 sm:right-6 sm:top-32 z-10">
                         <Button
                             type="button"
                             shouldScale

@@ -225,7 +225,7 @@ export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetai
 
                 {/* Settings Floating Button */}
                 {!showSettings && (
-                    <div className="fixed right-4 sm:right-6 top-28 sm:top-32 z-[100]">
+                    <div className="fixed right-4 sm:right-6 top-28 sm:top-32 z-10">
                         <Button
                             shouldScale={true}
                             onClick={() => setShowSettings(true)}
