@@ -183,8 +183,8 @@ const HadithCard = ({
                             {showArabic ? (
                                 <p
                                     className={cn(
-                                        "pt-1 text-right font-medium leading-[1.95] text-gray-900",
-                                        useArabicFontFamily && "font-arabic"
+                                        "pt-1 text-right text-gray-900 leading-relaxed",
+                                        useArabicFontFamily ? "font-arabic" : "font-body"
                                     )}
                                     style={{
                                         fontSize: `${useArabicFontFamily ? arabicFontSize : arabicFontSize + 4}px`,
@@ -200,7 +200,7 @@ const HadithCard = ({
                             {/* 5. English */}
                             {showEnglish ? (
                                 <p
-                                    className="leading-relaxed text-gray-800"
+                                    className="text-gray-800 leading-relaxed"
                                     style={{ fontSize: englishFontSize }}
                                 >
                                     {hadith.english}

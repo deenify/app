@@ -3,7 +3,7 @@
 import * as React from "react"
 import { cn } from "@/lib/utils/clsx"
 
-export type RangeSliderColor = "emerald" | "blue" | "purple"
+export type RangeSliderColor = "emerald" | "blue" | "purple" | "amber"
 
 const colorClasses: Record<RangeSliderColor, string> = {
     emerald:
@@ -12,6 +12,8 @@ const colorClasses: Record<RangeSliderColor, string> = {
         "[&::-webkit-slider-runnable-track]:bg-blue-200 [&::-webkit-slider-thumb]:bg-blue-500 [&::-moz-range-track]:bg-blue-200 [&::-moz-range-thumb]:bg-blue-500",
     purple:
         "[&::-webkit-slider-runnable-track]:bg-purple-200 [&::-webkit-slider-thumb]:bg-purple-500 [&::-moz-range-track]:bg-purple-200 [&::-moz-range-thumb]:bg-purple-500",
+    amber:
+        "[&::-webkit-slider-runnable-track]:bg-amber-200 [&::-webkit-slider-thumb]:bg-amber-500 [&::-moz-range-track]:bg-amber-200 [&::-moz-range-thumb]:bg-amber-500",
 }
 
 export interface RangeSliderProps

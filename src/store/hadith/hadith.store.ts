@@ -3,7 +3,7 @@ import { createJSONStorage, persist } from "zustand/middleware"
 import type { HadithSettingInitialStateType, HadithSettingStateType } from "./hadith.types"
 
 const defaultState: HadithSettingInitialStateType = {
-    arabicFontSize: 22,
+    arabicFontSize: 20,
     englishFontSize: 18,
     showArabic: true,
     showEnglish: true,
@@ -13,19 +13,21 @@ const defaultState: HadithSettingInitialStateType = {
     useArabicFontFamily: true,
     configurations: {
         arabic: {
-            min: 17,
-            max: 32,
+            min: 18,
+            max: 34,
             step: 1,
-            defaultSize: 22,
-            presets: { S: 18, M: 22, L: 26, XL: 30 },
+            defaultSize: 24,
+            presets: { S: 20, M: 24, L: 28, XL: 32, },
+            preview: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
         },
         english: {
             min: 14,
-            max: 22,
+            max: 24,
             step: 1,
             defaultSize: 18,
-            presets: { S: 15, M: 18, L: 20, XL: 22 },
-        },
+            presets: { S: 16, M: 18, L: 20, XL: 22, },
+            preview: "In the name of Allah, the Most Gracious, the Most Merciful.",
+        }
     },
     selectedTopicId: null,
 }

@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge"
 import { Switch } from "@/components/ui/switch"
 import { cn } from "@/lib/utils/clsx"
 import { useBreakpoint } from "@/hooks/useBreakpoint"
+import { RangeSlider } from "@/components/ui/range-slider"
 import useHadithReaderSettingsStore from "@/store/hadith"
 
 interface HadithSettingSidebarProps {
@@ -17,6 +18,7 @@ interface HadithSettingSidebarProps {
 
 const HadithSettingSidebar: FC<HadithSettingSidebarProps> = ({ open, onClose }) => {
     const isXlDown = useBreakpoint("xl", "down")
+    const isSidebarOverlay = isXlDown
 
     const {
         configurations,
@@ -78,7 +80,7 @@ const HadithSettingSidebar: FC<HadithSettingSidebarProps> = ({ open, onClose }) 
                             </div>
                             <Button
                                 type="button"
-                                variant="ghost-emerald"
+                                variant="ghost-amber"
                                 size="icon"
                                 shouldScale={false}
                                 className="h-7 w-7 rounded-md border border-amber-100 bg-amber-50 text-amber-900 duration-100 hover:border-amber-200 hover:bg-amber-100 lg:border-transparent lg:bg-transparent"
@@ -97,11 +99,14 @@ const HadithSettingSidebar: FC<HadithSettingSidebarProps> = ({ open, onClose }) 
                             <div className="flex items-center gap-2.5">
                                 <div className="h-4 w-1 rounded-full bg-amber-500" />
                                 <h4 className="text-xs font-semibold uppercase tracking-[0.12em] text-gray-900">
-                                    Arabic matn
+                                    Arabic text
                                 </h4>
                             </div>
-                            <Badge variant="outline" className="border-amber-200 bg-amber-50 text-xs font-medium text-amber-950">
-                                {arabicFontSize}px
+                            <Badge
+                                variant="outline"
+                                className="border-amber-200 bg-amber-50 text-xs font-medium text-amber-950"
+                            >
+                                {arabicFontSize ?? configurations.arabic.defaultSize}px
                             </Badge>
                         </div>
 
@@ -109,8 +114,8 @@ const HadithSettingSidebar: FC<HadithSettingSidebarProps> = ({ open, onClose }) 
                             <Card className="border-amber-200 bg-white">
                                 <CardContent className="flex items-center justify-between gap-2 px-3 py-3 sm:gap-3 sm:px-4">
                                     <div className="min-w-0">
-                                        <p className="text-sm text-gray-800">Show Arabic</p>
-                                        <p className="text-xs text-gray-500">Display the Prophetic wording (matn).</p>
+                                        <p className="text-sm text-gray-800">Display Arabic</p>
+                                        <p className="text-xs text-gray-500">Arabic matn in the reader.</p>
                                     </div>
                                     <Switch
                                         size="md"
@@ -124,8 +129,8 @@ const HadithSettingSidebar: FC<HadithSettingSidebarProps> = ({ open, onClose }) 
 
                             <div className="flex items-center justify-between gap-4">
                                 <div className="min-w-0">
-                                    <p className="truncate text-[12px] font-medium text-gray-800">Arabic typeface</p>
-                                    <p className="text-[10px] leading-tight text-gray-500">Traditional Quranic-style font</p>
+                                    <p className="truncate text-[12px] font-medium text-gray-800">Arabic font</p>
+                                    <p className="text-[10px] leading-tight text-gray-500">Quranic family</p>
                                 </div>
                                 <Switch
                                     size="sm"
@@ -138,7 +143,7 @@ const HadithSettingSidebar: FC<HadithSettingSidebarProps> = ({ open, onClose }) 
 
                             <div className="flex flex-col gap-3">
                                 <p className="text-[11px] font-medium uppercase tracking-[0.12em] text-gray-600">
-                                    Size
+                                    Font size preset
                                 </p>
                                 <div className="grid grid-cols-4 gap-1 rounded-lg border border-amber-200 bg-white p-1 text-[11px]">
                                     {Object.entries(configurations.arabic.presets).map(([key, value]) => {
@@ -164,22 +169,58 @@ const HadithSettingSidebar: FC<HadithSettingSidebarProps> = ({ open, onClose }) 
                                 </div>
                             </div>
 
-                            {isXlDown && showArabic && (
-                                <p
-                                    style={{
-                                        fontSize: `${useArabicFontFamily ? arabicFontSize : arabicFontSize + 4}px`,
-                                        lineHeight: useArabicFontFamily ? 2.1 : 1.5,
-                                        direction: "rtl",
-                                    }}
-                                    className={cn(
-                                        "rounded-md border border-amber-100 bg-amber-50 px-3 py-2 text-right text-[15px] leading-relaxed text-gray-900",
-                                        useArabicFontFamily && "font-arabic"
-                                    )}
-                                    dir="rtl"
-                                >
-                                    إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ
+                            <div className="flex flex-col gap-3">
+                                <p className="text-[11px] font-medium uppercase tracking-[0.12em] text-gray-600">
+                                    Fine adjustment
                                 </p>
-                            )}
+                                <div className="pb-4 pt-1">
+                                    <RangeSlider
+                                        min={configurations.arabic.min}
+                                        max={configurations.arabic.max}
+                                        step={configurations.arabic.step}
+                                        value={arabicFontSize}
+                                        onChange={(e) => setArabicFontSize(Number(e.target.value))}
+                                        color="amber"
+                                        disabled={!showArabic}
+                                    />
+                                    <div className="mt-3 flex items-center justify-between text-xs text-gray-500">
+                                        <span className="font-medium text-amber-700">
+                                            {configurations.arabic.min}px
+                                        </span>
+                                        <span className="text-gray-400">Slide to adjust</span>
+                                        <span className="font-medium text-amber-700">
+                                            {configurations.arabic.max}px
+                                        </span>
+                                    </div>
+                                    {isSidebarOverlay && showArabic && (
+                                        <div className="mt-3 rounded-lg border border-amber-100 bg-amber-50 px-2 py-2 sm:px-3">
+                                            <div className="flex items-center gap-2 pt-1">
+                                                <div
+                                                    className="ml-1 h-2 w-2 -translate-y-[.8px] rounded-full bg-amber-500"
+                                                    aria-hidden
+                                                />
+                                                <p className="shrink-0 pb-0.5 text-[10px] font-medium uppercase leading-none tracking-[0.1em] text-amber-900">
+                                                    Live preview
+                                                </p>
+                                            </div>
+                                            <p
+                                                className={cn(
+                                                    "mt-2 break-words text-right text-gray-900",
+                                                    useArabicFontFamily ? "font-arabic" : "font-body"
+                                                )}
+                                                style={{
+                                                    fontSize: `${useArabicFontFamily ? arabicFontSize : arabicFontSize + 4}px`,
+                                                    lineHeight: useArabicFontFamily ? 2.1 : 1.5,
+                                                    direction: "rtl",
+                                                }}
+                                                dir="rtl"
+                                            >
+                                                {configurations.arabic.preview}
+                                            </p>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
                         </div>
                     </section>
 
@@ -191,8 +232,11 @@ const HadithSettingSidebar: FC<HadithSettingSidebarProps> = ({ open, onClose }) 
                                     Translation
                                 </h4>
                             </div>
-                            <Badge variant="outline" className="border-amber-200 bg-amber-50 text-xs font-medium text-amber-950">
-                                {englishFontSize}px
+                            <Badge
+                                variant="outline"
+                                className="border-amber-200 bg-amber-50 text-xs font-medium text-amber-950"
+                            >
+                                {englishFontSize ?? configurations.english.defaultSize}px
                             </Badge>
                         </div>
 
@@ -200,7 +244,7 @@ const HadithSettingSidebar: FC<HadithSettingSidebarProps> = ({ open, onClose }) 
                             <Card className="border-amber-200 bg-white">
                                 <CardContent className="flex items-center justify-between gap-2 px-3 py-3 sm:gap-3 sm:px-4">
                                     <div className="min-w-0">
-                                        <p className="text-sm text-gray-800">Show English</p>
+                                        <p className="text-sm text-gray-800">Display translation</p>
                                         <p className="text-xs text-gray-500">Meaning in your study language.</p>
                                     </div>
                                     <Switch
@@ -215,7 +259,7 @@ const HadithSettingSidebar: FC<HadithSettingSidebarProps> = ({ open, onClose }) 
 
                             <div className="flex flex-col gap-3">
                                 <p className="text-[11px] font-medium uppercase tracking-[0.12em] text-gray-600">
-                                    Size
+                                    Font size preset
                                 </p>
                                 <div className="grid grid-cols-4 gap-1 rounded-lg border border-amber-200 bg-white p-1 text-[11px]">
                                     {Object.entries(configurations.english.presets).map(([key, value]) => {
@@ -241,11 +285,50 @@ const HadithSettingSidebar: FC<HadithSettingSidebarProps> = ({ open, onClose }) 
                                 </div>
                             </div>
 
-                            {isXlDown && showEnglish && (
-                                <p className="rounded-md border border-amber-100 bg-amber-50 px-3 py-2 text-[13px] leading-relaxed text-gray-800">
-                                    Actions are judged by intentions, and every person will earn what they intended.
+                            <div className="flex flex-col gap-3">
+                                <p className="text-[11px] font-medium uppercase tracking-[0.12em] text-gray-600">
+                                    Fine adjustment
                                 </p>
-                            )}
+                                <div className="pb-4 pt-1">
+                                    <RangeSlider
+                                        min={configurations.english.min}
+                                        max={configurations.english.max}
+                                        step={configurations.english.step}
+                                        value={englishFontSize}
+                                        onChange={(e) => setEnglishFontSize(Number(e.target.value))}
+                                        color="amber"
+                                        disabled={!showEnglish}
+                                    />
+                                    <div className="mt-3 flex items-center justify-between text-[11px] text-gray-500">
+                                        <span className="font-medium text-amber-700">
+                                            {configurations.english.min}px
+                                        </span>
+                                        <span className="text-gray-400">Slide to adjust</span>
+                                        <span className="font-medium text-amber-700">
+                                            {configurations.english.max}px
+                                        </span>
+                                    </div>
+                                    {isSidebarOverlay && showEnglish && (
+                                        <div className="mt-3 rounded-lg border border-amber-100 bg-amber-50 px-2 py-2 sm:px-3">
+                                            <div className="flex items-center gap-2 pt-1">
+                                                <div
+                                                    className="ml-1 h-2 w-2 -translate-y-[.8px] rounded-full bg-amber-500"
+                                                    aria-hidden
+                                                />
+                                                <p className="shrink-0 pb-0.5 text-[10px] font-medium uppercase leading-none tracking-[0.1em] text-amber-900">
+                                                    Live preview
+                                                </p>
+                                            </div>
+                                            <p
+                                                className="mt-2 break-words leading-relaxed text-gray-800"
+                                                style={{ fontSize: `${englishFontSize}px` }}
+                                            >
+                                                {configurations.english.preview}
+                                            </p>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
                         </div>
                     </section>
 
@@ -307,7 +390,7 @@ const HadithSettingSidebar: FC<HadithSettingSidebarProps> = ({ open, onClose }) 
                 </div>
 
                 {/* Footer hint */}
-                <div className="border-t border-emerald-100 bg-white/95 px-5 py-3 text-sm text-gray-500">
+                <div className="border-t border-amber-100 bg-white/95 px-5 py-3 text-sm text-gray-500">
                     Changes here affect only this device and will be remembered for your next reading session.
                 </div>
             </div>
