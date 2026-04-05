@@ -7,18 +7,20 @@ import { Hash } from "lucide-react"
 
 interface HadithTopicsTabSectionProps {
     topics: HadithTopicType[]
+    collectionNameEnglish: string
+    collectionNameArabic?: string
 }
 
-// const chipVariants = ["outline", "emerald", "blue", "purple"] as const
-
-const HadithTopicsTabSection = ({ topics }: HadithTopicsTabSectionProps) => {
+const HadithTopicsTabSection = ({
+    topics,
+}: HadithTopicsTabSectionProps) => {
     return (
         <section className="relative py-8 sm:py-10">
             <div className="container px-4 sm:px-6 md:px-6">
                 {/* Header section  */}
                 <header className="mb-4 sm:mb-5 flex items-end justify-between gap-3">
-                    <div>
-                        <p className="text-[11px] font-medium uppercase tracking-[0.18em]">
+                    <div className="min-w-0">
+                        <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-gray-500">
                             Topics
                         </p>
                         <h2 className="mt-1 text-lg font-medium tracking-tight text-gray-900 sm:text-xl">

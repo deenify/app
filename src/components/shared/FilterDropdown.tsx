@@ -145,11 +145,9 @@ const FilterDropdown = ({
                                 ) : null}
                                 <span className="truncate text-sm font-medium">{opt.label}</span>
                                 {opt.metaLabel ? (
-                                    <span className="ml-1 rounded-full border border-gray-200 bg-gray-50 text-[10px] 
-                                    font-medium tabular-nums text-gray-600 w-5 h-5 flex items-center justify-center truncate">
-                                        {
-                                            opt.metaLabel
-                                        }
+                                    <span className="ml-1 rounded-full border border-gray-200 bg-gray-50 text-[10px] leading-none py-1
+                                    font-medium tabular-nums text-gray-600 flex items-center justify-center w-max h-max px-1.5 truncate">
+                                        {opt.metaLabel}
                                     </span>
                                 ) : null}
                             </p>
