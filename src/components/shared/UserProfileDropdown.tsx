@@ -85,8 +85,8 @@ export const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({
                 className={cn(
                     "w-[calc(100vw-32px)] sm:w-[380px] max-w-[380px]",
                     "border border-gray-200 p-0",
-                    "max-h-[calc(100vh-100px)] overflow-y-auto scrollbar-thin",
-                    "shadow-lg"
+                    "max-h-[calc(100vh-200px)] overflow-y-auto scrollbar-thin",
+                    "shadow-xl"
                 )}
             >
                 {/* Header Section */}
@@ -108,7 +108,7 @@ export const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({
                                     size="icon"
                                     shouldScale
                                     className="w-6 h-6 rounded-md duration-100 border border-emerald-200 
-                                    text-black bg-emerald-50 md:hidden"
+                                    text-black bg-emerald-50 md:hidden outline-none ring-0"
                                     onClick={() => setOpen(false)}
                                     aria-label="Close settings"
                                 >
@@ -145,7 +145,7 @@ export const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({
                 </div>
 
                 {/* Menu Items */}
-                <div className="px-2 py-2">
+                <div className="px-2 py-2 overy">
                     {profileMenuItems.map((section, idx) => (
                         <div key={idx} className="mb-3 last:mb-0">
                             <div className="px-2 py-1.5 mb-1">
