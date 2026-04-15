@@ -83,7 +83,7 @@ const Sidebar = (
                             ? "translate-x-0"
                             : "-translate-x-[calc(100%+20px)]"
                         : sidebarExpanded
-                            ? "2xl:w-[280px] w-[215px]"
+                            ? "2xl:w-[280px] w-[250px]"
                             : "w-[76px]",
                 )}>
 

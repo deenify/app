@@ -125,7 +125,7 @@ const GuidesExplorePage = () => {
                                         placeholder="All topics"
                                         triggerIcon={Filter}
                                         theme="purple"
-                                        contentClassName="scrollbar-thin"
+                                        classNames={{ content: "scrollbar-thin" }}
                                     />
                                     <div
                                         className="inline-flex h-9 w-[100px] shrink-0 items-center justify-center rounded-md border border-emerald-200 

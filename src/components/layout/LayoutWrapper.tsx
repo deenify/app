@@ -40,7 +40,7 @@ const LayoutWrapper = ({ children }: LayoutWrapperProptype) => {
                         ? "pl-0"
                         : !isLocked
                             ? "pl-[76px]"
-                            : "2xl:pl-[280px] pl-[215px]",
+                            : "2xl:pl-[280px] pl-[250px]",
                 )}
             >
                 {/* Header  top-bar */}
