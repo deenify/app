@@ -216,7 +216,7 @@ export default function HadithDetailPage({ collectionId }: HadithCollectionPageP
                                             theme="amber"
                                             placeholder="Topic"
                                             triggerIcon={Hash}
-                                            contentClassName="scrollbar-thin"
+                                            classNames={{ content: "scrollbar-thin" }}
                                         />
                                     </div>
                                 </div>

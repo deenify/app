@@ -26,6 +26,11 @@ interface FilterDropdownProps {
     triggerIcon?: LucideIcon
     theme?: "emerald" | "amber" | "blue" | "purple" | "slate"
     contentClassName?: string
+    classNames?: {
+        trigger?: string;
+        triggerButton?: string;
+        content?: string;
+    }
 }
 
 const THEME_CLASS = {
@@ -63,7 +68,7 @@ const FilterDropdown = ({
     placeholder = "Filter",
     triggerIcon: TriggerIconFallback,
     theme = "emerald",
-    contentClassName,
+    classNames,
 }: FilterDropdownProps) => {
     const [open, setOpen] = useState(false)
     const selected = options.find((o) => o.value === value)
@@ -86,7 +91,8 @@ const FilterDropdown = ({
                         "rounded-md border border-gray-200 bg-white px-3 py-2",
                         "text-sm font-medium text-gray-700 transition-[color,box-shadow,border-color]",
                         "outline-none hover:bg-gray-50",
-                        "focus-visible:border-emerald-300 focus-visible:ring-2 focus-visible:ring-emerald-100"
+                        "focus-visible:border-emerald-300 focus-visible:ring-2 focus-visible:ring-emerald-100",
+                        classNames?.triggerButton
                     )}
                     aria-expanded={open}
                 >
@@ -111,9 +117,9 @@ const FilterDropdown = ({
                 align="end"
                 sideOffset={6}
                 className={cn(
-                    "w-[var(--radix-dropdown-menu-trigger-width)] min-w-[var(--radix-dropdown-menu-trigger-width)]",
+                    "w-[var(--radix-dropdown-menu-trigger-width)] min-w-[var(--radix-dropdown-menu-trigger-width)] scrollbar-thin",
                     "max-h-80 overflow-y-auto border border-gray-200 bg-white p-1 text-sm shadow-md select-none",
-                    contentClassName
+                    classNames?.content
                 )}
             >
                 {options.map((opt) => {
