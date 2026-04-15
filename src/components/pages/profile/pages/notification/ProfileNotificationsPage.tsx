@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, type ReactNode } from "react"
+import { motion } from "framer-motion"
 import { Bell, Mail, Smartphone } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -67,7 +68,12 @@ const ProfileNotificationsPage = () => {
 
     return (
         <div className="space-y-6">
-            <Card className="border-layout-separator">
+            <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.35, ease: "easeOut" }}
+            >
+                <Card className="border-layout-separator">
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-base font-medium">
                         <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-amber-50 
@@ -133,7 +139,8 @@ const ProfileNotificationsPage = () => {
                         </Button>
                     </div>
                 </CardContent>
-            </Card>
+                </Card>
+            </motion.div>
         </div>
     )
 }

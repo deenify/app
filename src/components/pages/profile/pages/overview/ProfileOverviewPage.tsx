@@ -10,8 +10,7 @@ import {
 } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { cn } from "@/lib/utils/clsx"
-import { navigationShortCuts, profileSidebarContent } from "../../content"
-
+import { navigationShortCuts } from "../../content"
 
 
 const activity = [
@@ -19,6 +18,7 @@ const activity = [
     { title: "Completed Dhuhr", detail: "Prayer · 5 hours ago", icon: Flame, tone: "border-emerald-200 bg-emerald-50/50" },
     { title: "Morning adhkar streak", detail: "Dhikr · Yesterday", icon: Bell, tone: "border-purple-200 bg-purple-50/40" },
 ] as const
+
 
 const ProfileOverviewPage = () => {
 
@@ -72,52 +72,66 @@ const ProfileOverviewPage = () => {
             </div>
 
             <div className="grid gap-6 lg:grid-cols-2">
-                <Card className="border-layout-separator">
-                    <CardHeader>
-                        <CardTitle className="text-base font-medium">Recent activity</CardTitle>
-                        <CardDescription>Illustrative entries until your feed is connected.</CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-2">
-                        {activity.map((item) => {
-                            const Icon = item.icon
-                            return (
-                                <div
-                                    key={item.title}
-                                    className={cn(
-                                        "flex gap-3 rounded-md border px-3 py-3 sm:px-4",
-                                        item.tone
-                                    )}
-                                >
-                                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-white/80 
+                <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.35, ease: "easeOut", delay: 0.1 }}
+                >
+                    <Card className="border-layout-separator">
+                        <CardHeader>
+                            <CardTitle className="text-base font-medium">Recent activity</CardTitle>
+                            <CardDescription>Illustrative entries until your feed is connected.</CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-2">
+                            {activity.map((item) => {
+                                const Icon = item.icon
+                                return (
+                                    <div
+                                        key={item.title}
+                                        className={cn(
+                                            "flex gap-3 rounded-md border px-3 py-3 sm:px-4",
+                                            item.tone
+                                        )}
+                                    >
+                                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-white/80 
                                     text-gray-700 ring-1 ring-gray-200">
-                                        <Icon className="h-4 w-4" strokeWidth={2} />
+                                            <Icon className="h-4 w-4" strokeWidth={2} />
+                                        </div>
+                                        <div className="min-w-0">
+                                            <p className="text-sm font-medium text-gray-900">{item.title}</p>
+                                            <p className="text-xs text-gray-600">{item.detail}</p>
+                                        </div>
                                     </div>
-                                    <div className="min-w-0">
-                                        <p className="text-sm font-medium text-gray-900">{item.title}</p>
-                                        <p className="text-xs text-gray-600">{item.detail}</p>
-                                    </div>
-                                </div>
-                            )
-                        })}
-                    </CardContent>
-                </Card>
+                                )
+                            })}
+                        </CardContent>
+                    </Card>
+                </motion.div>
 
-                <Card className="border-emerald-200 bg-gradient-to-br from-emerald-600 to-teal-700 text-white shadow-sm">
-                    <CardHeader>
-                        <CardTitle className="text-base font-medium text-white">Keep the intention pure</CardTitle>
-                        <CardDescription className="text-emerald-50">
-                            Small, consistent steps build lasting habits.
-                        </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                        <p className="text-sm leading-relaxed text-emerald-50/95">
-                            &ldquo;And whoever does righteous deeds, whether male or female, while being a believer —
-                            those will enter Paradise and will not be wronged, [even as much as] the speck on a date
-                            seed.&rdquo;{" "}
-                            <span className="font-medium text-white">Quran 4:124</span>
-                        </p>
-                    </CardContent>
-                </Card>
+                <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.35, ease: "easeOut", delay: 0.3 }}
+                    className="h-full"
+                >
+
+                    <Card className="border-emerald-200 bg-gradient-to-br from-emerald-600 to-teal-700 text-white shadow-sm h-full">
+                        <CardHeader>
+                            <CardTitle className="text-base font-medium text-white">Keep the intention pure</CardTitle>
+                            <CardDescription className="text-emerald-50">
+                                Small, consistent steps build lasting habits.
+                            </CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <p className="text-sm leading-relaxed text-emerald-50/95">
+                                &ldquo;And whoever does righteous deeds, whether male or female, while being a believer —
+                                those will enter Paradise and will not be wronged, [even as much as] the speck on a date
+                                seed.&rdquo;{" "}
+                                <span className="font-medium text-white">Quran 4:124</span>
+                            </p>
+                        </CardContent>
+                    </Card>
+                </motion.div>
             </div>
         </div>
     )

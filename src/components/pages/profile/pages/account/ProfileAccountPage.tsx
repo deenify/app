@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { motion } from "framer-motion"
 import { User } from "lucide-react"
 import FilterDropdown from "@/components/shared/FilterDropdown"
 import { Button } from "@/components/ui/button"
@@ -32,7 +33,12 @@ const ProfileAccountPage = () => {
 
     return (
         <div className="space-y-6">
-            <Card className="border-layout-separator">
+            <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.35, ease: "easeOut" }}
+            >
+                <Card className="border-layout-separator">
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-base font-medium">
                         <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-50 text-blue-700 ring-1 ring-blue-100">
@@ -98,7 +104,8 @@ const ProfileAccountPage = () => {
                         </Button>
                     </div>
                 </CardContent>
-            </Card>
+                </Card>
+            </motion.div>
         </div>
     )
 }
