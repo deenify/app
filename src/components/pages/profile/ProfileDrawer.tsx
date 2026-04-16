@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react'
+import React, { ReactElement, ReactNode } from 'react'
 import {
     Drawer, DrawerContent, DrawerDescription,
     DrawerThumb, DrawerTitle, DrawerTrigger
@@ -10,24 +10,48 @@ import { PanelRightOpen, ChevronRight } from "lucide-react"
 import { profileSidebarContent } from "./content"
 import { cn } from "@/lib/utils/clsx"
 import { useRouter } from 'next/navigation'
+import { Card } from '@/components/ui/card'
 
 type ProfileDrawerProps = {
     mobileNavOpen: boolean;
     setMobileNavOpen: (v: boolean) => void;
-    CurrentPageHref: string;
+    ActivePageContent: any
 }
 
-const ProfileDrawer = ({ mobileNavOpen, setMobileNavOpen, CurrentPageHref }: ProfileDrawerProps) => {
+const ProfileDrawer = ({
+    mobileNavOpen,
+    setMobileNavOpen,
+    ActivePageContent
+}: ProfileDrawerProps) => {
+
     const router = useRouter()
+    const ActivePageIcon = ActivePageContent.icon
 
     return (
         <Drawer open={mobileNavOpen} onOpenChange={setMobileNavOpen}>
-            <DrawerTrigger asChild>
-                <Button type="button" variant="outline-emerald" size="sm" shouldScale>
-                    <PanelRightOpen className="h-4 w-4" strokeWidth={2} />
-                    Browse
-                </Button>
-            </DrawerTrigger>
+            <Card className="mt-5 border-emerald-200/80 bg-gradient-to-r from-emerald-50 via-transparent to-teal-50/60 p-3 shadow-sm 2xl:hidden">
+                <div className="flex items-center justify-between gap-3">
+                    <div className="min-w-0">
+                        <p className="text-[11px] font-semibold uppercase tracking-wide text-emerald-800">Current Browsing</p>
+                        <div className="mt-1 flex items-center gap-2">
+                            <span className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-emerald-200 bg-white text-emerald-700">
+                                <ActivePageIcon className="h-4 w-4" strokeWidth={2} />
+                            </span>
+                            <p className="truncate text-sm font-medium text-gray-900">
+                                {ActivePageIcon.label}
+                            </p>
+                        </div>
+                    </div>
+
+                    <DrawerTrigger asChild>
+                        <Button type="button" variant="outline-emerald" size="sm" shouldScale>
+                            <PanelRightOpen className="h-4 w-4" strokeWidth={2} />
+                            Browse
+                        </Button>
+                    </DrawerTrigger>
+                </div>
+            </Card>
+
             <DrawerContent className="rounded-t-2xl">
                 <DrawerThumb thumbSize="sm" />
                 <div className="mx-auto w-full max-w-2xl px-4 pb-6">
@@ -38,14 +62,14 @@ const ProfileDrawer = ({ mobileNavOpen, setMobileNavOpen, CurrentPageHref }: Pro
 
                     <div className="mt-4 space-y-2">
                         {profileSidebarContent.map(({ href, label, icon: Icon }) => {
-                            const active = href === CurrentPageHref
+                            const active = href === ActivePageContent.href
                             return (
                                 <button
                                     key={href}
                                     type="button"
                                     onClick={() => {
                                         setMobileNavOpen(false)
-                                        if (href !== CurrentPageHref) router.push(href)
+                                        if (href !== ActivePageContent.hrefzzzzzzzzzzzzzzzzzzz) router.push(href)
                                     }}
                                     className={cn(
                                         "flex w-full items-center justify-between rounded-lg border px-3 py-3 text-left transition-colors",
