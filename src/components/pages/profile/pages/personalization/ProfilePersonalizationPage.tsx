@@ -5,8 +5,8 @@ import { motion } from "framer-motion"
 import { Globe, Monitor, Moon, Palette, Sun } from "lucide-react"
 import FilterDropdown from "@/components/shared/FilterDropdown"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { cn } from "@/lib/utils/clsx"
+import SwitchWrapper from "../../generic/SwitchWrapper"
 
 const languages = [
     { code: "en", name: "English", flag: "🇺🇸" },
@@ -60,17 +60,28 @@ const ProfilePersonalizationPage = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.35, ease: "easeOut" }}
             >
-                <Card className="border-layout-separator">
-                <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-base font-medium">
-                        <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-50 text-emerald-800 ring-1 ring-emerald-100">
-                            <Palette className="h-4 w-4" strokeWidth={2} />
-                        </span>
-                        Experience
-                    </CardTitle>
-                    <CardDescription>Visible preferences only; no backend calls yet.</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-8">
+                <SwitchWrapper
+                    variant="emerald"
+                    classNames={{ buttonsWrapper: "justify-end pt-5" }}
+                    cardHeader={{
+                        title: "Experience",
+                        description: "Visible preferences only; no backend calls yet.",
+                        icon: Palette,
+                    }}
+                    buttonSection={{
+                        visible: true,
+                        primaryButton: {
+                            label: saving ? "Saving…" : "Save personalization",
+                            onClick: handleSave,
+                            buttonProps: { disabled: saving, variant: "default" },
+                        },
+                        secondaryButton: {
+                            label: "Revert",
+                            onClick: () => {},
+                            buttonProps: { variant: "secondary" },
+                        },
+                    }}
+                >
                     <div className="space-y-3">
                         <p className="text-sm font-medium text-gray-900">Language</p>
                         <div className="w-full sm:max-w-[280px]">
@@ -144,17 +155,7 @@ const ProfilePersonalizationPage = () => {
                             ))}
                         </div>
                     </div>
-
-                    <div className="flex flex-wrap justify-end gap-2 border-t border-gray-100 pt-5">
-                        <Button type="button" variant="secondary" shouldScale>
-                            Revert
-                        </Button>
-                        <Button type="button" shouldScale disabled={saving} onClick={handleSave}>
-                            {saving ? "Saving…" : "Save personalization"}
-                        </Button>
-                    </div>
-                </CardContent>
-                </Card>
+                </SwitchWrapper>
             </motion.div>
         </div>
     )

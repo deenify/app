@@ -81,17 +81,17 @@ const FilterDropdown = ({
         <DropdownMenu open={open} onOpenChange={setOpen}>
             <DropdownMenuTrigger
                 asChild
-                className="h-full w-full min-w-0 outline-none focus:outline-none 
+                className="w-full min-w-0 outline-none focus:outline-none 
                 focus-visible:outline-none select-none"
             >
-                <button
-                    type="button"
+                <span
                     className={cn(
-                        "flex h-10 sm:h-11 w-full min-w-0 items-center justify-between gap-2",
-                        "rounded-md border border-gray-200 bg-white px-3 py-2",
+                        "flex w-full min-w-0 items-center justify-between gap-2",
+                        "rounded-md border border-gray-200 bg-white px-3",
                         "text-sm font-medium text-gray-700 transition-[color,box-shadow,border-color]",
                         "outline-none hover:bg-gray-50",
                         "focus-visible:border-emerald-300 focus-visible:ring-2 focus-visible:ring-emerald-100",
+                        "h-10",
                         classNames?.triggerButton
                     )}
                     aria-expanded={open}
@@ -111,7 +111,7 @@ const FilterDropdown = ({
                             open ? "rotate-180" : ""
                         )}
                     />
-                </button>
+                </span>
             </DropdownMenuTrigger>
             <DropdownMenuContent
                 align="end"
