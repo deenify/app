@@ -2,13 +2,11 @@
 
 import { useState, type ReactNode } from "react"
 import { usePathname } from "next/navigation"
-import { Card } from "@/components/ui/card"
 import ProfileHeader from "./ProfileHeader"
 import ProfileSidebar from "./ProfileSidebar"
 import ProfilePageHeader from "./ProfilePageHeader"
 import { profileSidebarContent } from "./content"
 import ProfileDrawer from "./ProfileDrawer"
-import { cn } from "@/lib/utils/clsx"
 
 interface ProfileLayoutShellProps {
     readonly children: ReactNode

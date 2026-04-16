@@ -55,17 +55,17 @@ const ProfilePageHeader = () => {
                     {meta.title}
                 </h2>
 
-                <p className="max-w-2xl text-sm text-gray-600 sm:text-base line-clamp-2 min-h-12">
+                <p className="max-w-2xl text-sm sm:text-base text-gray-600 line-clamp-3 min-h-[60px] xs:line-clamp-2 xs:min-h-[40px]">
                     {meta.description}
                 </p>
-            </header>
+            </header >
         )
     }
 
     return (
         <motion.header
             key={meta.path}
-            className="space-y-2 border-b border-gray-100 pb-6 sm:pb-7"
+            className="space-y-2 border-b border-gray-100 py-4"
             variants={container}
             initial="hidden"
             animate="show"
@@ -90,7 +90,7 @@ const ProfilePageHeader = () => {
             </motion.h2>
 
             <motion.p
-                className="max-w-2xl text-sm text-gray-600 sm:text-base line-clamp-2 min-h-12"
+                className="max-w-2xl text-sm text-gray-600 sm:text-base line-clamp-3 min-h-[60px] xs:line-clamp-2 xs:min-h-[40px]"
                 variants={item}
             >
                 {meta.description}
