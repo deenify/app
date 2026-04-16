@@ -9,7 +9,7 @@ type SwitchItemProps = {
     variant: "red" | "purple" | "gray" | "amber" | "blue" | "pink" | "emerald"
     title: string
     description: string
-    icon: LucideIcon
+    icon?: LucideIcon
     checked: boolean
     onCheckedChange: (checked: boolean) => void
     classNames?: {
@@ -55,24 +55,26 @@ const SwitchItem = ({
 
                 <div className="flex gap-3">
                     {/* Icon + Wrapper */}
-                    <div
-                        className={cn(
-                            "flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-white ring-1",
-                            variant === "red" && "text-red-700 ring-red-100",
-                            variant === "purple" && "text-purple-700 ring-purple-100",
-                            variant === "gray" && "text-gray-700 ring-gray-100",
-                            variant === "amber" && "text-amber-700 ring-amber-100",
-                            variant === "blue" && "text-blue-700 ring-blue-100",
-                            variant === "pink" && "text-pink-700 ring-pink-100",
-                            variant === "emerald" && "text-emerald-700 ring-emerald-100",
-                            classNames?.iconWrapper
-                        )}
-                    >
-                        <Icon
-                            className={cn("h-4 w-4", classNames?.icon)}
-                            strokeWidth={2}
-                        />
-                    </div>
+                    {Icon ? (
+                        <div
+                            className={cn(
+                                "flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-white ring-1",
+                                variant === "red" && "text-red-700 ring-red-100",
+                                variant === "purple" && "text-purple-700 ring-purple-100",
+                                variant === "gray" && "text-gray-700 ring-gray-100",
+                                variant === "amber" && "text-amber-700 ring-amber-100",
+                                variant === "blue" && "text-blue-700 ring-blue-100",
+                                variant === "pink" && "text-pink-700 ring-pink-100",
+                                variant === "emerald" && "text-emerald-700 ring-emerald-100",
+                                classNames?.iconWrapper
+                            )}
+                        >
+                            <Icon
+                                className={cn("h-4 w-4", classNames?.icon)}
+                                strokeWidth={2}
+                            />
+                        </div>
+                    ) : null}
 
                     {/* Title + Description  */}
                     <div className="min-w-0 space-y-1">
