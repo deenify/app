@@ -1,21 +1,23 @@
 "use client"
 
-import React, { ReactElement, ReactNode } from 'react'
+import React from 'react'
 import {
     Drawer, DrawerContent, DrawerDescription,
     DrawerThumb, DrawerTitle, DrawerTrigger
 } from "@/components/ui/drawer"
-import { Button } from "@/components/ui/button"
-import { PanelRightOpen, ChevronRight } from "lucide-react"
+import { ChevronRight } from "lucide-react"
 import { profileSidebarContent } from "./content"
 import { cn } from "@/lib/utils/clsx"
 import { useRouter } from 'next/navigation'
-import { Card } from '@/components/ui/card'
+import type { profileSidebarContentType } from './content'
+import MenuIcon from "@/assets/svg/MenuIcon"
+import { Button } from '@/components/ui/button'
+import { motion } from 'framer-motion'
 
 type ProfileDrawerProps = {
     mobileNavOpen: boolean;
     setMobileNavOpen: (v: boolean) => void;
-    ActivePageContent: any
+    ActivePageContent: profileSidebarContentType
 }
 
 const ProfileDrawer = ({
@@ -29,28 +31,50 @@ const ProfileDrawer = ({
 
     return (
         <Drawer open={mobileNavOpen} onOpenChange={setMobileNavOpen}>
-            <Card className="mt-5 border-emerald-200/80 bg-gradient-to-r from-emerald-50 via-transparent to-teal-50/60 p-3 shadow-sm 2xl:hidden">
-                <div className="flex items-center justify-between gap-3">
-                    <div className="min-w-0">
-                        <p className="text-[11px] font-semibold uppercase tracking-wide text-emerald-800">Current Browsing</p>
-                        <div className="mt-1 flex items-center gap-2">
-                            <span className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-emerald-200 bg-white text-emerald-700">
-                                <ActivePageIcon className="h-4 w-4" strokeWidth={2} />
-                            </span>
-                            <p className="truncate text-sm font-medium text-gray-900">
-                                {ActivePageIcon.label}
-                            </p>
-                        </div>
-                    </div>
-
-                    <DrawerTrigger asChild>
-                        <Button type="button" variant="outline-emerald" size="sm" shouldScale>
-                            <PanelRightOpen className="h-4 w-4" strokeWidth={2} />
-                            Browse
+            <div className="mt-5 flex items-center justify-between 2xl:hidden">
+                <motion.div
+                    className="min-w-0 flex items-center gap-2 text-gray-900"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+                    key={ActivePageContent.label}
+                >
+                    <ActivePageIcon
+                        className="shrink-0 text-emerald-700"
+                        strokeWidth={2}
+                        size={20}
+                    />
+                    <p className="truncate text-sm font-medium">{ActivePageContent.label}</p>
+                </motion.div>
+                <DrawerTrigger>
+                    <motion.div
+                        initial={{ opacity: 0, }}
+                        animate={{ opacity: 1, }}
+                        transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                        <Button
+                            asChild
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => setMobileNavOpen(true)}
+                            shouldScale
+                            className={cn(
+                                "lg:hidden flex-shrink-0",
+                                "h-10 w-10 p-0",
+                                "hover:bg-gray-100/80 active:bg-gray-200/60",
+                                "text-gray-600 hover:text-gray-900",
+                                "rounded-lg",
+                                "transition-colors duration-150",
+                                "!focus-visible:ring-0 !focus-visible:ring-offset-0 focus-visible:outline-none",
+                                "focus:outline-none !ring-0 !ring-offset-0",
+                                "active:ring-0 active:ring-offset-0"
+                            )}
+                        >
+                            <MenuIcon />
                         </Button>
-                    </DrawerTrigger>
-                </div>
-            </Card>
+                    </motion.div>
+                </DrawerTrigger>
+            </div>
 
             <DrawerContent className="rounded-t-2xl">
                 <DrawerThumb thumbSize="sm" />
@@ -69,7 +93,7 @@ const ProfileDrawer = ({
                                     type="button"
                                     onClick={() => {
                                         setMobileNavOpen(false)
-                                        if (href !== ActivePageContent.hrefzzzzzzzzzzzzzzzzzzz) router.push(href)
+                                        if (href !== ActivePageContent.href) router.push(href)
                                     }}
                                     className={cn(
                                         "flex w-full items-center justify-between rounded-lg border px-3 py-3 text-left transition-colors",
