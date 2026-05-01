@@ -15,7 +15,7 @@ import VerseCard from "./VerseCard"
 import QuranSettingSidebar from "./QuranSettingSidebar"
 import useQuranReaderSettingsStore from "@/store/quran"
 import { cn } from "@/lib/utils/clsx"
-import BackButton from "@/components/shared/buttons/BackButton"
+import BackButton from "@/components/shared/BackButton"
 
 
 type DetailTabId = "read" | "translation"

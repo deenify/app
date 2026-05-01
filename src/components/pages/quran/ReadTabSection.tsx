@@ -7,7 +7,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { QuranSurahType, surahNameMeaning } from "./content"
 import { motion } from "framer-motion"
 import { useIncrementalReveal } from "@/hooks/useIncrementalReveal"
-import BookmarkButton from "@/components/shared/buttons/BookmarkButton"
+import BookmarkButton from "@/components/shared/BookmarkButton"
 import Link from "next/link"
 
 interface ReadTabSectionProps {

@@ -16,7 +16,7 @@ import {
     type HadithTopicType,
     type MockHadithNarrationType,
 } from "./content"
-import BackButton from "@/components/shared/buttons/BackButton"
+import BackButton from "@/components/shared/BackButton"
 import useHadithReaderSettingsStore from "@/store/hadith"
 
 interface HadithCollectionPageProps {

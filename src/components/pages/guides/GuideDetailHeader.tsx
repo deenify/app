@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils/clsx"
 import type { GuideType } from "./content"
-import BackButton from "@/components/shared/buttons/BackButton"
+import BackButton from "@/components/shared/BackButton"
 
 const difficultyTone = {
     beginner: "border-emerald-200 bg-emerald-50 text-emerald-700",
