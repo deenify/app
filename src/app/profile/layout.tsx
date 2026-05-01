@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import type { ReactNode } from "react"
-import ProfileLayoutShell from "@/components/pages/profile/ProfileLayoutShell"
+import ProfileLayoutShell from "@/components/pages/profile/layout/ProfileLayoutShell"
 
 export const metadata: Metadata = {
     title: "Profile",

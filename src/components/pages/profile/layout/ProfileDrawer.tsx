@@ -6,13 +6,12 @@ import {
     DrawerThumb, DrawerTitle, DrawerTrigger
 } from "@/components/ui/drawer"
 import { ChevronRight } from "lucide-react"
-import { profileSidebarContent } from "./content"
 import { cn } from "@/lib/utils/clsx"
 import { useRouter } from 'next/navigation'
-import type { profileSidebarContentType } from './content'
 import MenuIcon from "@/assets/svg/MenuIcon"
 import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
+import { profileSidebarContent, profileSidebarContentType } from '../content'
 
 type ProfileDrawerProps = {
     mobileNavOpen: boolean;

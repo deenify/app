@@ -1,7 +1,5 @@
-// app/(pages)/guides/[...slug]/page.tsx
-
 import { notFound } from "next/navigation"
-import GuideDetailPage from "../../../../components/pages/guides/GuideDetailPage"
+import HadithDetailPage from "@/components/pages/dashboard/hadith/HadithDetailPage"
 
 interface PageProps {
     params: { slug?: string[] }
@@ -9,12 +7,11 @@ interface PageProps {
 
 export default function Page({ params }: PageProps) {
     const slug = params?.slug ?? []
-    const guideId = slug[0]
+    const collectionId = slug[0]
 
-    if (!guideId) {
+    if (!collectionId) {
         return notFound()
     }
 
-    return <GuideDetailPage guideId={guideId} />
+    return <HadithDetailPage collectionId={collectionId} />
 }
-

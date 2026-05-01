@@ -5,14 +5,16 @@ import {
     Calendar, Compass, Hand, User,
     BookHeart, GraduationCap,
     Scroll, Users, Star, Target,
-    Heart, Flame, HelpCircle, Gift
+    Heart, Flame, HelpCircle, Gift,
+    LayoutDashboard
 } from 'lucide-react';
 
 export const sidebarSections = [
     {
         title: 'Main',
         items: [
-            { href: '/', label: 'Dashboard', icon: Home },
+            { href: '/', label: 'Home', icon: Home },
+            { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
             { href: '/prayer', label: 'Prayer Times', icon: Clock },
             { href: '/quran', label: 'Quran', icon: BookOpen },
             { href: '/hadith', label: 'Hadith', icon: FileText },
@@ -41,10 +43,10 @@ export const sidebarSections = [
             { href: '/donate', label: 'Donate', icon: Gift },
         ],
     },
-    {
-        title: 'Account',
-        items: [
-            { href: '/profile', label: 'Profile', icon: User },
-        ],
-    },
+    // {
+    //     title: 'Account',
+    //     items: [
+    //         { href: '/profile', label: 'Profile', icon: User },
+    //     ],
+    // },
 ];

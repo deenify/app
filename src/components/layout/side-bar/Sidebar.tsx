@@ -31,41 +31,16 @@ const Sidebar = (
     // Show scrollbar after expansion transition
     useEffect(() => {
         if (sidebarExpanded) {
-            const timer = setTimeout(() => {
-                setShowScrollbar(true);
-            }, 180); // Match transition duration
+            const timer = setTimeout(() => setShowScrollbar(true), 180);
             return () => clearTimeout(timer);
         } else {
             setShowScrollbar(false);
         }
     }, [sidebarExpanded]);
 
-    useEffect(() => {
-        if (isMobile) {
-            setSidebarExpanded(false);
-        }
-        else {
-            setSidebarExpanded(true);
-            setIsLocked(true);
-        }
-    }, [isMobile, setSidebarExpanded, setIsLocked]);
-
 
     return (
         <>
-            {/* Mobile-Backdrop when sidebar expanded */}
-            {isMobile && (
-                <div
-                    className={cn(
-                        "fixed inset-0 z-50 transition-opacity duration-300 ease-in-out bg-black/30 backdrop-blur-[2px]",
-                        sidebarExpanded
-                            ? "opacity-100 pointer-events-auto"
-                            : "opacity-0 pointer-events-none"
-                    )}
-                    onClick={() => setSidebarExpanded(false)}
-                />
-            )}
-
             <aside
                 onMouseEnter={() => {
                     if (!isLocked && !isMobile) setSidebarExpanded(true);
@@ -76,7 +51,7 @@ const Sidebar = (
                 className={cn(
                     "bg-white border-r border-layout-separator flex flex-col fixed left-0 top-0 h-full min-h-dvh z-[51]",
                     isMobile
-                        ? "w-[280px] transition-transform duration-300 ease-in-out will-change-transform"
+                        ? "w-[280px] transition-transform duration-300 ease-in-out will-change-transform hidden"
                         : "transition-[width] duration-300 ease-in-out will-change-[width]",
                     isMobile
                         ? sidebarExpanded

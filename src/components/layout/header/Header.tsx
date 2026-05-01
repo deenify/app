@@ -1,7 +1,6 @@
 "use client"
 
 import React from "react"
-import { BookOpen, FileText, Clock, Compass, Users } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input, type SearchItem } from "@/components/ui/input"
 import { LanguageSelector } from "@/components/shared/LanguageSelector"
@@ -14,69 +13,17 @@ import { cn } from "@/lib/utils/clsx"
 import { useRouter } from "next/navigation"
 import MenuIcon from "@/assets/svg/MenuIcon"
 import Logo from "@/components/shared/Logo"
+import { DEFAULT_SEARCH_ITEMS } from "./content"
 
-export interface HeaderProps {
+
+interface HeaderProps {
     userPreferences?: UserPreferences
     onToggleSidebar?: () => void
     searchItems?: SearchItem[]
     className?: string
 }
 
-const DEFAULT_SEARCH_ITEMS: SearchItem[] = [
-    // Surahs
-    { type: "Surah", name: "Al-Fatihah", icon: BookOpen, page: "/quran" },
-    { type: "Surah", name: "Al-Baqarah", icon: BookOpen, page: "/quran" },
-    { type: "Surah", name: "Al-Imran", icon: BookOpen, page: "/quran" },
-    { type: "Surah", name: "An-Nisa", icon: BookOpen, page: "/quran" },
-    { type: "Surah", name: "Al-Maidah", icon: BookOpen, page: "/quran" },
-    { type: "Surah", name: "Yasin", icon: BookOpen, page: "/quran" },
-    { type: "Surah", name: "Al-Mulk", icon: BookOpen, page: "/quran" },
-    { type: "Surah", name: "Al-Kahf", icon: BookOpen, page: "/quran" },
-    // Hadith Collections
-    { type: "Hadith", name: "Sahih Bukhari", icon: FileText, page: "/hadith" },
-    { type: "Hadith", name: "Sahih Muslim", icon: FileText, page: "/hadith" },
-    {
-        type: "Hadith",
-        name: "Sunan Abu Dawood",
-        icon: FileText,
-        page: "/hadith",
-    },
-    {
-        type: "Hadith",
-        name: "Jami at-Tirmidhi",
-        icon: FileText,
-        page: "/hadith",
-    },
-    // Features
-    { type: "Feature", name: "Prayer Times", icon: Clock, page: "/prayer" },
-    { type: "Feature", name: "Qibla Finder", icon: Compass, page: "/qibla" },
-    { type: "Feature", name: "Dhikr Counter", icon: Users, page: "/dhikr" },
-    {
-        type: "Feature",
-        name: "Islamic Calendar",
-        icon: Clock,
-        page: "/calendar",
-    },
-    {
-        type: "Feature",
-        name: "Supplications",
-        icon: BookOpen,
-        page: "/supplications",
-    },
-    {
-        type: "Feature",
-        name: "Guides & Learning",
-        icon: BookOpen,
-        page: "/guides",
-    },
-]
 
-const getGreeting = (username?: string) => {
-    const hour = new Date().getHours()
-    const greeting =
-        hour < 12 ? "Good Morning" : hour < 18 ? "Good Afternoon" : "Good Evening"
-    return username ? `${greeting}, ${username}` : greeting
-}
 
 const Header: React.FC<HeaderProps> = ({
     userPreferences,
@@ -84,13 +31,28 @@ const Header: React.FC<HeaderProps> = ({
     searchItems = DEFAULT_SEARCH_ITEMS,
     className,
 }) => {
-
     const router = useRouter()
+
+
+    // Search selection Helper 
     const handleSearchSelect = (item: SearchItem) => {
         if (item.page) {
             router.push(item.page)
         }
     }
+
+    // Greeting Helper
+    const getGreeting = (username?: string) => {
+        const hour = new Date().getHours()
+        const greeting = hour < 12
+            ? "Good Morning"
+            : hour < 18
+                ? "Good Afternoon"
+                : "Good Evening"
+
+        return username ? `${greeting}, ${username}` : greeting
+    }
+
 
     return (
         <header className={cn("bg-white border-b border-layout-separator h-[73px] flex items-center md:px-6 px-4", className)}>

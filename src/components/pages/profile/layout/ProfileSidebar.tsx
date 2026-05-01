@@ -4,7 +4,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { cn } from "@/lib/utils/clsx"
-import { profileSidebarContent } from "./content"
+import { profileSidebarContent } from "../content"
 import { motion, useReducedMotion } from "framer-motion"
 
 const easing = [0.22, 1, 0.36, 1] as const
