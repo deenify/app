@@ -1,6 +1,6 @@
 // app/(pages)/quran/page.tsx 
 
-import QuranExploreSection from "../../../components/pages/quran/QuranExploreSection"
+import QuranExploreSection from "../../../components/pages/dashboard/quran/QuranExploreSection"
 
 const QuranPage = () => {
     return (

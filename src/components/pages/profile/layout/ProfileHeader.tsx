@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { cn } from "@/lib/utils/clsx"
-import { profileHeaderContent } from "./content"
+import { profileHeaderContent } from "../content"
 
 const statTone = ["text-emerald-700", "text-blue-700", "text-purple-700"] as const
 

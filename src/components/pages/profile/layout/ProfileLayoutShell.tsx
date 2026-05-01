@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation"
 import ProfileHeader from "./ProfileHeader"
 import ProfileSidebar from "./ProfileSidebar"
 import ProfilePageHeader from "./ProfilePageHeader"
-import { profileSidebarContent } from "./content"
+import { profileSidebarContent } from "../content"
 import ProfileDrawer from "./ProfileDrawer"
 
 interface ProfileLayoutShellProps {

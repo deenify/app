@@ -6,7 +6,7 @@ import { Bookmark } from "lucide-react"
 import { motion } from "framer-motion"
 import type { BookmarkItemType } from "./content"
 import { useIncrementalReveal } from "@/hooks/useIncrementalReveal"
-import BookmarkButton from "@/components/shared/buttons/BookmarkButton"
+import BookmarkButton from "@/components/shared/BookmarkButton"
 import Link from "next/link"
 
 interface BookmarksTabSectionProps {

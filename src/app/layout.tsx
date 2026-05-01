@@ -1,10 +1,12 @@
+import "@/assets/globals.css";
+import "@/env/index"
+
 import type { Metadata } from "next";
 import { cn } from "@/lib/utils/clsx";
 import { ReactNode } from "react";
 import { notoSans, notoSansArabic, redHatText } from "@/assets/fonts";
 import { defaultMeta } from "@/assets/meta";
 import LayoutWrapper from "@/components/layout/LayoutWrapper";
-import "@/assets/globals.css";
 
 export const metadata: Metadata = defaultMeta;
 export const viewport = {

@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils/clsx"
 import type { GuideDifficulty, GuideType } from "./content"
 import Link from "next/link"
-import BookmarkButton from "@/components/shared/buttons/BookmarkButton"
+import BookmarkButton from "@/components/shared/BookmarkButton"
 
 const difficultyBadge = (difficulty: GuideDifficulty) => {
     if (difficulty === "beginner") return "bg-emerald-50 border-emerald-200 text-emerald-700"

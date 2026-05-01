@@ -1,4 +1,4 @@
-import HadithExploreSection from "@/components/pages/hadith/HadithExploreSection"
+import HadithExploreSection from "@/components/pages/dashboard/hadith/HadithExploreSection"
 
 const HadithPage = () => {
     return (

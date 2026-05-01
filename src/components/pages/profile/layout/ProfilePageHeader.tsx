@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation"
 import { motion, useReducedMotion } from "framer-motion"
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils/clsx"
-import { getProfilePagesHeader, profileHeaderContent } from "./content"
+import { getProfilePagesHeader, profileHeaderContent } from "../content"
 
 const ProfilePageHeader = () => {
     const pathname = usePathname()

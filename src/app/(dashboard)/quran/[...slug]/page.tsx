@@ -1,7 +1,7 @@
 // app/(pages)/quran/[...slug]/page.tsx 
 
 import { notFound } from "next/navigation"
-import QuranDetailPage from "../../../../components/pages/quran/QuranDetailPage"
+import QuranDetailPage from "../../../../components/pages/dashboard/quran/QuranDetailPage"
 
 interface PageProps {
     params: { slug?: string[] }

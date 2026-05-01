@@ -6,7 +6,7 @@ import { motion } from "framer-motion"
 import { Bookmark } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import type { HadithSavedItemType } from "./content"
-import BookmarkButton from "@/components/shared/buttons/BookmarkButton"
+import BookmarkButton from "@/components/shared/BookmarkButton"
 import Link from "next/link"
 
 interface HadithSavedTabSectionProps {
