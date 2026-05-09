@@ -10,14 +10,14 @@ import {
     TESTIMONIALS,
     WhyChooseUsStats,
     WhyChooseUsFeatures
-} from "@/components/pages/home/content"
-import FeatureSection from "@/components/pages/home/FeatureSection"
-import HeroSection from "@/components/pages/home/HeroSection"
-import YourProgressSection from "@/components/pages/home/YourProgressSection"
-import LearnGrowSection from "@/components/pages/home/LearnGrowSection"
-import TestimonialSection from "@/components/pages/home/TestimonialSection"
-import WhyChooseUsSection from "@/components/pages/home/WhyChooseUsSection"
-import CallToActionSection from "@/components/pages/home/CallToActionSection"
+} from "@/components/pages/platform/home/content"
+import FeatureSection from "@/components/pages/platform/home/FeatureSection"
+import HeroSection from "@/components/pages/platform/home/HeroSection"
+import YourProgressSection from "@/components/pages/platform/home/YourProgressSection"
+import LearnGrowSection from "@/components/pages/platform/home/LearnGrowSection"
+import TestimonialSection from "@/components/pages/platform/home/TestimonialSection"
+import WhyChooseUsSection from "@/components/pages/platform/home/WhyChooseUsSection"
+import CallToActionSection from "@/components/pages/platform/home/CallToActionSection"
 
 const HomePage = () => {
     return (

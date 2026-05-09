@@ -14,6 +14,7 @@ export type SearchItem = {
 }
 
 interface InputProps extends React.ComponentProps<"input"> {
+    required?: boolean
     search?: boolean
     filteredItems?: SearchItem[]
     onItemSelect?: (item: SearchItem) => void
@@ -24,6 +25,7 @@ interface InputProps extends React.ComponentProps<"input"> {
 function Input({
     className,
     type = "text",
+    required = false,
     search = false,
     filteredItems = [],
     onItemSelect,
@@ -65,6 +67,8 @@ function Input({
             <input
                 type={type}
                 data-slot="input"
+                required={required}
+                aria-required={required}
                 className={cn(
                     // 🔹 Base style
                     "flex h-10 w-full min-w-0 rounded-md border border-gray-300 bg-gray-50/50 px-3 py-2 text-base leading-none text-black/80 font-system font-normal placeholder:truncate",

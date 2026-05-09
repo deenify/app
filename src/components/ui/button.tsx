@@ -43,7 +43,7 @@ const buttonVariants = tv({
             md: "h-10 px-5 text-sm",
             lg: "h-12 px-6 text-base",
             icon: "h-10 w-10 p-0 text-base",
-            max: "w-max h-max"
+            max: "w-max h-max p-0"
         },
     },
     defaultVariants: {
@@ -144,19 +144,19 @@ export const Button = <C extends React.ElementType = "button">({
     return (
         <Component
             href={href}
+            style={{
+                transform: shouldScale && isPressed ? "scale(0.94)" : "scale(1)",
+                ...props.style,
+            }}
             className={cn(
                 "relative inline-flex items-center justify-center gap-2 rounded-md font-medium outline-none",
                 "cursor-pointer overflow-hidden px-[30px]",
                 "focus-visible:ring-0 focus-visible:ring-none focus-visible:ring-offset-0",
-                "disabled:pointer-events-none disabled:opacity-50",
+                "disabled:pointer-events-none disabled:opacity-70",
+                "ease-out duration-200",
                 buttonVariants({ variant, size }),
                 className
             )}
-            style={{
-                transform: shouldScale && isPressed ? "scale(0.94)" : "scale(1)",
-                transition: "transform 180ms cubic-bezier(0.22, 1, 0.36, 1)",
-                ...props.style,
-            }}
             onMouseDown={handleMouseDown}
             onMouseUp={handleMouseUp}
             onMouseLeave={handleMouseLeave}

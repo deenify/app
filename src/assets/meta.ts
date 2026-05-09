@@ -12,8 +12,11 @@ export const defaultMeta: Metadata = {
         template: `%s | ${siteTitle}`,
     },
     description,
-    keywords: ["Quran", "Hadith", "Adhan", "Islamic App", "Hijri", "Muslim"],
-    themeColor: "#0f172a",
+    keywords: [
+        "Deenify", "Quran", "Hadith", "Guides", "Learning", "Islam", "Islamic",
+        "Islamic Education", "Islamic Learning", "Islamic Education", "Islamic Learning",
+        "Quran", "Hadith", "Adhan", "Islamic App", "Hijri", "Muslim", "signin or signup -s Deenify"
+    ],
     metadataBase: new URL(siteUrl),
     openGraph: {
         title: siteTitle,
