@@ -2,7 +2,7 @@
 import {
     Home, Clock,
     BookOpen, FileText,
-    Calendar, Compass, Hand, User,
+    Calendar, Compass, Hand,
     BookHeart, GraduationCap,
     Scroll, Users, Star, Target,
     Heart, Flame, HelpCircle, Gift,
@@ -43,10 +43,22 @@ export const sidebarSections = [
             { href: '/donate', label: 'Donate', icon: Gift },
         ],
     },
-    // {
-    //     title: 'Account',
-    //     items: [
-    //         { href: '/profile', label: 'Profile', icon: User },
-    //     ],
-    // },
 ];
+
+
+// Layout config 
+export const LayoutConfiguration = {
+    sidebar: {
+        exclude: ["/auth", "/login", "/register", "/forgot-password", "/reset-password"],
+    },
+    header: {
+        exclude: ["/auth", "/login", "/register", "/forgot-password", "/reset-password"],
+    },
+    bottomBar: {
+        exclude: ["/auth", "/login", "/register", "/forgot-password", "/reset-password"],
+    },
+    footer: {
+        exclude: ["/auth", "/login", "/register", "/forgot-password", "/reset-password"],
+    },
+}
+
