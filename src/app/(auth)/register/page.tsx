@@ -1,21 +1,23 @@
-// app/register/page.tsx 
+// app/register/page.tsx  
 
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
 import { REGISTER_HIGHLIGHTS } from "@/components/pages/auth/content"
+import RegisterForm from "@/components/pages/auth/register/RegisterForm";
 
 
 const Page = () => {
     return (
         <section className="relative flex w-full flex-1 flex-col items-center justify-center py-10">
+            {/* Animations  */}
             <div className="pointer-events-none absolute inset-0 overflow-hidden">
                 <div className="absolute -left-8 top-4 h-48 w-48 rounded-full bg-emerald-100/80 blur-3xl xs:left-4 xs:h-56 xs:w-56 sm:left-10 sm:top-8 sm:h-72 sm:w-72" />
                 <div className="absolute -right-16 top-1/4 h-64 w-64 rounded-full bg-teal-100/80 blur-3xl xs:-right-8 sm:right-0 sm:top-1/3 sm:h-96 sm:w-96" />
                 <div className="absolute inset-0 bg-gradient-to-br from-emerald-50/60 via-white to-teal-50/70" />
             </div>
 
+            {/* Content  */}
             <div className="container">
                 <main className="relative mx-auto w-full max-w-xl lg:max-w-5xl">
                     <Card className="flex w-full flex-col gap-5 overflow-hidden rounded-lg border-emerald-100 bg-white/90 shadow-sm 
@@ -56,94 +58,14 @@ const Page = () => {
                             <h2 className="pb-2 font-semibold tracking-tight text-gray-900 text-[26px] sm:text-3xl">
                                 Create Account
                             </h2>
-                            <p className="hidden max-w-md text-pretty text-sm leading-normal text-gray-600 sm:block sm:max-w-lg sm:text-[15px]">
+                            <p className="max-w-md text-pretty text-sm leading-normal text-gray-600 sm:max-w-lg sm:text-[15px] hidden sm:block">
                                 Join Deenify to sync Quran reading, Hadith study, and learning—with personalized tracking across your devices.
                             </p>
-                            <p className="block max-w-md text-pretty text-sm leading-normal text-gray-600 sm:hidden sm:max-w-lg sm:text-[15px]">
+                            <p className="max-w-md text-pretty text-sm leading-normal text-gray-600 sm:max-w-lg sm:text-[15px] block sm:hidden">
                                 Sync Quran, Hadith, and learning with personalized progress on every device.
                             </p>
 
-                            <form className="mt-6 space-y-4 sm:mt-7">
-                                <Input
-                                    id="register-name"
-                                    label="Full name"
-                                    labelVariant="auth"
-                                    name="name"
-                                    type="text"
-                                    autoComplete="name"
-                                    placeholder="Your name"
-                                    required
-                                />
-                                <Input
-                                    id="register-email"
-                                    label="Email"
-                                    labelVariant="auth"
-                                    name="email"
-                                    type="email"
-                                    autoComplete="email"
-                                    placeholder="you@example.com"
-                                    required
-                                />
-                                <Input
-                                    id="register-password"
-                                    label="Password"
-                                    labelVariant="auth"
-                                    name="password"
-                                    type="password"
-                                    autoComplete="new-password"
-                                    placeholder="••••••••"
-                                    required
-                                    minLength={8}
-                                />
-                                <Input
-                                    id="register-password-confirm"
-                                    label="Confirm password"
-                                    labelVariant="auth"
-                                    name="password"
-                                    type="password"
-                                    autoComplete="new-password"
-                                    placeholder="••••••••"
-                                    required
-                                    minLength={8}
-                                />
-
-                                <label className="flex cursor-pointer items-start gap-3 pt-1">
-                                    <input
-                                        id="register-terms"
-                                        name="terms"
-                                        type="checkbox"
-                                        required
-                                        className="mt-0.5 h-4 w-4 shrink-0 rounded border-gray-300 text-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-0"
-                                    />
-                                    <span className="text-sm leading-snug text-gray-600">
-                                        I agree to the{" "}
-                                        <Button
-                                            href="/terms"
-                                            variant="link"
-                                            size="max"
-                                            className="inline h-auto min-h-0 px-0 py-0 align-baseline text-sm font-semibold text-emerald-700"
-                                        >
-                                            Terms
-                                        </Button>{" "}
-                                        and{" "}
-                                        <Button
-                                            href="/privacy"
-                                            variant="link"
-                                            size="max"
-                                            className="inline h-auto min-h-0 px-0 py-0 align-baseline text-sm font-semibold text-emerald-700"
-                                        >
-                                            Privacy Policy
-                                        </Button>
-                                        .
-                                    </span>
-                                </label>
-
-                                <div className="pt-2">
-                                    <Button type="submit" className="w-full" size="lg">
-                                        Create account
-                                    </Button>
-                                </div>
-                            </form>
+                            <RegisterForm className="mt-6 sm:mt-7" />
 
                             <p className="px-1 pt-4 text-center text-sm leading-snug text-gray-600 sm:px-0">
                                 Already have an account?{" "}

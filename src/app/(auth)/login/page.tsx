@@ -3,8 +3,8 @@
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
 import { SIGNIN_HIGHLIGHTS } from "@/components/pages/auth/content"
+import LoginForm from "@/components/pages/auth/login/LoginForm"
 
 const Page = () => {
     return (
@@ -71,47 +71,7 @@ const Page = () => {
                                 Continue Quran, Hadith, and learning with synced personalized progress.
                             </p>
 
-                            <form className="mt-6 space-y-4 sm:mt-7">
-                                <Input
-                                    id="login-email"
-                                    label="Email"
-                                    name="email"
-                                    type="email"
-                                    autoComplete="email"
-                                    placeholder="you@example.com"
-                                    labelVariant="auth"
-                                    required
-                                />
-                                <Input
-                                    id="login-password"
-                                    label="Password"
-                                    name="password"
-                                    type="password"
-                                    autoComplete="current-password"
-                                    placeholder="••••••••"
-                                    labelVariant="auth"
-                                    required
-                                />
-                                <div className="flex justify-end pt-0.5">
-                                    <Button
-                                        href="/forgot-password"
-                                        variant="ghost"
-                                        size="max"
-                                        className="text-xs font-normal text-gray-500 hover:bg-transparent hover:text-emerald-700"
-                                    >
-                                        Forgot password?
-                                    </Button>
-                                </div>
-                                <div className="pt-2">
-                                    <Button
-                                        type="submit"
-                                        className="w-full"
-                                        size="lg"
-                                    >
-                                        Sign in
-                                    </Button>
-                                </div>
-                            </form>
+                            <LoginForm className="mt-6 space-y-4 sm:mt-7" />
 
                             <p className="px-1 pt-4 text-center text-sm leading-snug text-gray-600 sm:px-0">
                                 Don&apos;t have an account?{" "}
