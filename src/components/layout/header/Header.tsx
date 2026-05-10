@@ -107,6 +107,7 @@ const Header: React.FC<HeaderProps> = ({
                         onSignOut={() => {
                             // Handle sign out
                             console.log("Sign out clicked")
+                            router.push("/login")
                         }}
                     />
 
