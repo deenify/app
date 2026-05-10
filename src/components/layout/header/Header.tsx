@@ -83,7 +83,8 @@ const Header: React.FC<HeaderProps> = ({
                         placeholder="e.g., Quran, Hadith, ..."
                         filteredItems={searchItems}
                         onItemSelect={handleSearchSelect}
-                        className="w-64 h-10 text-base hidden lg:block"
+                        className="hidden lg:block"
+                        classNames={{ input: "w-64 h-10 text-base" }}
                     />
 
                     <div className="hidden lg:flex">
