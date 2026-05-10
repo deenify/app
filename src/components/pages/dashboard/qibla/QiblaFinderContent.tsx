@@ -31,11 +31,10 @@ export default function QiblaFinderContent() {
     return (
         <div className="bg-white">
             <section className="border-b border-layout-separator">
-                <div className="container px-4 pb-8 pt-6 sm:px-6 sm:pb-9 sm:pt-8 md:pt-10">
+                <header className="container px-4 pb-8 pt-6 sm:px-6 sm:pb-9 sm:pt-8 md:pt-10">
                     <motion.div
                         initial={{ opacity: 0, y: -8 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.45 }}
                         className="mb-4 flex items-center gap-2.5"
                     >
                         <div className="flex items-center justify-center rounded-lg bg-emerald-50 p-2.5 text-emerald-700">
@@ -49,7 +48,7 @@ export default function QiblaFinderContent() {
                     <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.05 }}
+                        transition={{ delay: 0.05 }}
                         className="max-w-3xl space-y-3"
                     >
                         <h1 className="max-w-[520px] text-4xl font-medium tracking-tight text-gray-900">
@@ -68,7 +67,7 @@ export default function QiblaFinderContent() {
                             </Badge>
                         </div>
                     </motion.div>
-                </div>
+                </header>
             </section>
 
             <section className="relative overflow-hidden">
