@@ -178,8 +178,7 @@ const QuranExploreSection = () => {
                                 placeholder={searchPlaceholder}
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                containerClassName="flex-1 min-w-0"
-                                className="min-h-[42px] h-10 sm:h-11 rounded-lg border-gray-200 bg-gray-50/80 text-base 
+                                className="min-h-[42px] h-10 sm:h-11 min-w-0 flex-1 rounded-lg border-gray-200 bg-gray-50/80 text-base 
                                 placeholder:text-gray-400 focus:bg-white"
                             />
                             <div className="w-full sm:w-[260px] sm:shrink-0">

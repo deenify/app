@@ -1,8 +1,4 @@
-﻿# promt >
-
----------------------------------------------------------------------------------------------------------------------------
-
-$exclude = @("node_modules", ".next", ".git", "cache")
+﻿$exclude = @("node_modules", ".next", ".git", "cache")
 $script:output = @()
 
 function Build-Tree($path, $indent = "") {
@@ -23,10 +19,8 @@ Build-Tree .
 $script:output | Out-File -Encoding UTF8 structure.txt
 
 
-----------------------------------------------------------------------------------------------------------------------------
 
-
-# structure >
+------------------------------------------------------------------------------------------------------------------
 
 
 ├── public
@@ -47,9 +41,13 @@ $script:output | Out-File -Encoding UTF8 structure.txt
 │   │   ├── (auth)
 │   │   │   ├── forgot-password
 │   │   │   ├── login
+│   │   │   │   ├── page.tsx
 │   │   │   ├── register
+│   │   │   │   ├── page.tsx
 │   │   │   ├── reset-password
+│   │   │   ├── layout.tsx
 │   │   ├── (dashboard)
+│   │   │   ├── dashboard
 │   │   │   ├── guides
 │   │   │   │   ├── [...slug]
 │   │   │   │   ├── page.tsx
@@ -60,8 +58,17 @@ $script:output | Out-File -Encoding UTF8 structure.txt
 │   │   │   │   ├── [...slug]
 │   │   │   │   ├── page.tsx
 │   │   ├── (platform)
-│   │   ├── login
-│   │   │   ├── page.tsx
+│   │   │   ├── accessibillity
+│   │   │   ├── blogs
+│   │   │   ├── community
+│   │   │   ├── contact-us
+│   │   │   ├── developer-api
+│   │   │   ├── disclaimer
+│   │   │   ├── frequently-asked-questions
+│   │   │   ├── licenses
+│   │   │   ├── privacy-policy
+│   │   │   ├── support
+│   │   │   ├── terms-and-conditions
 │   │   ├── onboarding
 │   │   ├── profile
 │   │   │   ├── account
@@ -108,6 +115,8 @@ $script:output | Out-File -Encoding UTF8 structure.txt
 │   │   │   ├── LayoutWrapper.tsx
 │   │   ├── pages
 │   │   │   ├── auth
+│   │   │   │   ├── AuthLayoutShell.tsx
+│   │   │   │   ├── content.ts
 │   │   │   ├── dashboard
 │   │   │   │   ├── guides
 │   │   │   │   │   ├── content.ts
@@ -139,17 +148,21 @@ $script:output | Out-File -Encoding UTF8 structure.txt
 │   │   │   │   │   ├── ReadTabSection.tsx
 │   │   │   │   │   ├── ReciterStack.tsx
 │   │   │   │   │   ├── VerseCard.tsx
-│   │   │   ├── home
-│   │   │   │   ├── CallToActionSection.tsx
-│   │   │   │   ├── content.ts
-│   │   │   │   ├── FeatureSection.tsx
-│   │   │   │   ├── HeroSection.tsx
-│   │   │   │   ├── LearnGrowSection.tsx
-│   │   │   │   ├── TestimonialSection.tsx
-│   │   │   │   ├── WhyChooseUsSection.tsx
-│   │   │   │   ├── YourProgressSection.tsx
 │   │   │   ├── onboarding
 │   │   │   ├── platform
+│   │   │   │   ├── about-us
+│   │   │   │   ├── contact-us
+│   │   │   │   ├── developer-api
+│   │   │   │   ├── home
+│   │   │   │   │   ├── CallToActionSection.tsx
+│   │   │   │   │   ├── content.ts
+│   │   │   │   │   ├── FeatureSection.tsx
+│   │   │   │   │   ├── HeroSection.tsx
+│   │   │   │   │   ├── LearnGrowSection.tsx
+│   │   │   │   │   ├── TestimonialSection.tsx
+│   │   │   │   │   ├── WhyChooseUsSection.tsx
+│   │   │   │   │   ├── YourProgressSection.tsx
+│   │   │   │   ├── support
 │   │   │   ├── profile
 │   │   │   │   ├── generic
 │   │   │   │   │   ├── SwitchItem.tsx
@@ -197,6 +210,7 @@ $script:output | Out-File -Encoding UTF8 structure.txt
 │   │   │   ├── popover.tsx
 │   │   │   ├── progress.tsx
 │   │   │   ├── range-slider.tsx
+│   │   │   ├── separator.tsx
 │   │   │   ├── switch.tsx
 │   ├── constant
 │   │   ├── quranic-conatant.ts
@@ -211,13 +225,6 @@ $script:output | Out-File -Encoding UTF8 structure.txt
 │   │   ├── notification
 │   │   │   ├── notify.ts
 │   │   │   ├── permissions.ts
-│   │   ├── services
-│   │   │   ├── adhan.ts
-│   │   │   ├── articles.ts
-│   │   │   ├── dua.ts
-│   │   │   ├── hadith.ts
-│   │   │   ├── prayer.ts
-│   │   │   ├── quran.ts
 │   │   ├── utils
 │   │   │   ├── clsx.ts
 │   │   │   ├── formatDate.ts

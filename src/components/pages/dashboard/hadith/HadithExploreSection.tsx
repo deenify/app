@@ -221,9 +221,8 @@ const HadithExploreSection = () => {
                                 placeholder={searchPlaceholder}
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                containerClassName="min-w-0 flex-1"
                                 className="h-10 min-h-[42px] rounded-lg border-gray-200 bg-gray-50 text-base placeholder:text-gray-400
-                                 focus:bg-white sm:h-11"
+                                 focus:bg-white sm:h-11 min-w-0 flex-1"
                             />
                             <div className="w-full sm:w-[260px] sm:shrink-0">
                                 <FilterDropdown
