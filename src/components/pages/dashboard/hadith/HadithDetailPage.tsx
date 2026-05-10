@@ -204,10 +204,12 @@ export default function HadithDetailPage({ collectionId }: HadithCollectionPageP
                                         placeholder="Search text, narrator, or tags…"
                                         value={searchQuery}
                                         onChange={(e) => setSearchQuery(e.target.value)}
-                                        className="h-10 rounded-md border-gray-200 bg-white text-base placeholder:text-gray-400
-                                         focus:bg-white sm:h-11 min-w-0 flex-1"
+                                        classNames={{
+                                            input: `h-10 rounded-md border-gray-200 bg-white text-base placeholder:text-gray-400
+                                            focus:bg-white min-w-0 flex-1`
+                                        }}
                                     />
-                                    <div className="w-full shrink-0 sm:max-w-[min(100%,240px)]">
+                                    <div className="w-full sm:max-w-[min(100%,240px)] h-10">
                                         <FilterDropdown
                                             options={topicFilterOptions}
                                             value={topicDropdownValue}
