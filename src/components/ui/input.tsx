@@ -70,14 +70,14 @@ function Input({
     }
 
     return (
-        <div className={cn("", className)}>
+        <div className={cn("flex-1 min-w-0", className)}>
 
             {/* Input Label  */}
             {label.length > 0 && (
                 <label
                     htmlFor={props.id}
                     className={cn(
-                        "w-max pb-2 flex gao-1",
+                        "w-max pb-2 flex gap-1",
                         // Variants 
                         labelVariant === "default" && "text-sm font-medium text-gray-700",
                         labelVariant === "profile" && "text-sm font-medium text-gray-700",

@@ -113,8 +113,9 @@ const GuidesExplorePage = () => {
                                     }
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
-                                    className="h-10 rounded-lg border-gray-200 bg-white text-base 
-                                    placeholder:text-gray-400 focus:bg-white sm:h-11 min-w-0 flex-1"
+                                    classNames={{
+                                        input: "h-10 rounded-md border-gray-200 bg-white text-base placeholder:text-gray-400 focus:bg-white min-w-0 flex-1"
+                                    }}
                                 />
                                 <div className="flex flex-1 items-center justify-between gap-2 xs:gap-4 sm:max-w-[260px] sm:shrink-0">
                                     <FilterDropdown

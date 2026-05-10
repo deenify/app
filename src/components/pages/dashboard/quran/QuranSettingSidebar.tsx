@@ -391,9 +391,9 @@ const QuranSettingSidebar: React.FC<QuranSettingSidebarProps> = ({ open, onClose
                                                 asChild
                                                 variant="outline-purple"
                                                 size="md"
-                                                className="w-full h-10 justify-between gap-3 rounded-lg px-3 border-purple-300 bg-purple-50"
+                                                className="w-full h-10 justify-between gap-3 rounded-md px-3 border-purple-300 bg-purple-50"
                                             >
-                                                <span className="text-sm text-gray-800 truncate font-medium">
+                                                <span className="text-sm font-heading text-gray-800 truncate font-medium">
                                                     {translationSelectedLabel}
                                                 </span>
                                                 <ChevronDown className="h-4 w-4 text-purple-700" />
