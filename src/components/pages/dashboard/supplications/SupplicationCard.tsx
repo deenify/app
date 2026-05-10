@@ -37,12 +37,15 @@ export default function SupplicationCard({
             transition={{ duration: 0.28, delay: index * 0.04, ease: "easeOut" }}
             className={cn(
                 "flex h-full flex-col rounded-2xl border border-gray-100 bg-white p-5 shadow-sm",
-                "transition-[border-color,box-shadow] hover:border-emerald-200 hover:shadow-md"
+                "transition-[border-color,box-shadow] hover:border-red-200 hover:shadow-md cursor-pointer"
             )}
         >
-            <div className="mb-4 flex items-start justify-between gap-3">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-rose-50 text-rose-700 ring-1 ring-rose-100">
-                    <BookHeart className="h-5 w-5" strokeWidth={1.6} />
+            <div className="flex justify-between items-start gap-4">
+                <div className="flex items-start justify-between gap-3">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-rose-50 text-rose-700 
+                ring-1 ring-rose-100">
+                        <BookHeart className="h-5 w-5" strokeWidth={1.6} />
+                    </div>
                 </div>
                 <BookmarkButton
                     isBookmarked={isBookmarked}
@@ -53,14 +56,19 @@ export default function SupplicationCard({
                 />
             </div>
 
-            <h3 className="text-base font-semibold text-gray-900">{item.title}</h3>
-            <p className="mt-2 text-sm leading-relaxed text-gray-600">{item.excerpt}</p>
+            <div className="pt-4">
+                <h3 className="text-lg font-semibold text-gray-900 truncate">{item.title}</h3>
+                <p className="text-sm leading-relaxed text-gray-600 line-clamp-2">{item.excerpt}</p>
+            </div>
 
-            <div className="mt-4 rounded-xl border border-gray-100 bg-gray-50/80 p-4">
-                <p className="font-arabic text-right text-lg leading-relaxed text-gray-900" dir="rtl">
+            <div className="mt-4 rounded-md border border-gray-100 bg-gray-50/80 p-4">
+                <p
+                    className="font-arabic text-right text-lg leading-relaxed text-gray-900 line-clamp-2"
+                    dir="rtl"
+                >
                     {item.arabic}
                 </p>
-                <p className="mt-3 text-sm italic leading-relaxed text-gray-700">{item.translation}</p>
+                <p className="mt-3 text-sm italic leading-relaxed text-gray-700 line-clamp-2">{item.translation}</p>
             </div>
 
             <div className="mt-auto flex flex-wrap items-center justify-between gap-2 pt-5">
@@ -74,7 +82,7 @@ export default function SupplicationCard({
             </div>
 
             {item.reference && (
-                <p className="mt-3 border-t border-gray-100 pt-3 text-[11px] text-gray-500">{item.reference}</p>
+                <p className="mt-3 border-t border-gray-100 pt-3 text-xs text-gray-500">{item.reference}</p>
             )}
         </motion.article>
     )

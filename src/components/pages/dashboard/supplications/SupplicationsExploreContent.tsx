@@ -71,8 +71,6 @@ export default function SupplicationsExploreContent() {
         })
     }
 
-    const list = activeTab === "library" ? filtered : savedItems
-
     return (
         <div className="bg-gray-50">
             <section className="border-b border-gray-100 bg-white">
@@ -121,7 +119,9 @@ export default function SupplicationsExploreContent() {
                                     }
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
-                                    className="h-10 min-w-0 flex-1 rounded-lg border-gray-200 bg-white text-base placeholder:text-gray-400 focus:bg-white sm:h-11"
+                                    classNames={{
+                                        input: "h-10 min-w-0 flex-1 rounded-md border-gray-200 bg-white text-base placeholder:text-gray-400 focus:bg-white",
+                                    }}
                                 />
                                 <div className="flex flex-1 items-center justify-between gap-2 xs:gap-4 sm:max-w-[280px] sm:shrink-0">
                                     <FilterDropdown
@@ -163,7 +163,7 @@ export default function SupplicationsExploreContent() {
                                 />
 
                                 <div className="hidden items-center gap-1.5 rounded-full border border-rose-200 bg-rose-50/90 px-3 py-1 text-[11px] font-medium text-rose-900 shadow-sm sm:inline-flex sm:text-xs">
-                                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-rose-500" />
+                                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-rose-600" />
                                     {activeTab === "library" ? (
                                         <>
                                             <span className="tabular-nums">{filtered.length}</span>
@@ -181,11 +181,19 @@ export default function SupplicationsExploreContent() {
                     </div>
                 </section>
 
-                <SupplicationsCollectionsSection
-                    items={list}
-                    bookmarkedIds={bookmarkedIds}
-                    onToggleBookmark={toggleBookmark}
-                />
+                {activeTab === "library" &&
+                    <SupplicationsCollectionsSection
+                        items={filtered}
+                        bookmarkedIds={bookmarkedIds}
+                        onToggleBookmark={toggleBookmark}
+                    />}
+                {activeTab === "saved" && (
+                    <SupplicationsCollectionsSection
+                        items={savedItems}
+                        bookmarkedIds={bookmarkedIds}
+                        onToggleBookmark={toggleBookmark}
+                    />
+                )}
             </main>
         </div>
     )

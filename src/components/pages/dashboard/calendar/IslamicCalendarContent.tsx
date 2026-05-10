@@ -51,7 +51,7 @@ export default function IslamicCalendarContent() {
     return (
         <div className="bg-white">
             <section className="border-b border-layout-separator">
-                <div className="container px-4 pb-8 pt-6 sm:px-6 sm:pb-9 sm:pt-8 md:pt-10">
+                <div className="container pb-8 pt-6 sm:pb-9 sm:pt-8 md:pt-10">
                     <motion.div
                         initial={{ opacity: 0, y: -8 }}
                         animate={{ opacity: 1, y: 0 }}
