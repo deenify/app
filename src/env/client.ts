@@ -1,12 +1,20 @@
 // src/env/client.ts
 import { z } from "zod";
 
+
+// Schema 
 const clientEnvSchema = z.object({
-  NEXT_PUBLIC_API_BASE: z.string().url(),
+    // ApiBase: z.string().url(),
 });
 
+
+
+// Environmental Variables 
 export const clientEnv = clientEnvSchema.parse({
-  NEXT_PUBLIC_API_BASE: process.env.NEXT_PUBLIC_API_BASE,
+    // ApiBase: process.env.NEXT_PUBLIC_API_BASE,
 });
 
+
+
+// Type 
 export type ClientEnv = z.infer<typeof clientEnvSchema>;
