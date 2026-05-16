@@ -219,6 +219,7 @@ function RichBody({
     )
 }
 
+
 function ChipRow({ label, value, scale }: { label: string; value: string; scale: number }) {
     return (
         <span className="block min-w-0">
