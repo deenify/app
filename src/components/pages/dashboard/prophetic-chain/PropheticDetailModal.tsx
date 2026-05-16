@@ -34,7 +34,7 @@ export default function PropheticDetailModal({
             }
             className={cn(
                 "max-w-[42rem]",
-                "max-h-[85dvh] sm:max-h-[min(92dvh,720px)]"
+                "max-h-[75dvh] sm:max-h-[min(92dvh,720px)]"
             )}
             classNames={{
                 body: "p-0 pb-3",
@@ -56,7 +56,7 @@ export default function PropheticDetailModal({
                         >
                             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.8),transparent_70%)]" />
                             <span className="relative text-2xl font-semibold text-emerald-700 sm:text-3xl">
-                                {selected?.data?.nameEnglish?.charAt(0)}
+                                {selected?.label?.charAt(0)}
                             </span>
                         </div>
 

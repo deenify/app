@@ -131,12 +131,7 @@ export function layoutLineageGraph<T extends Record<string, unknown> = Record<st
         })
     })
 
-    /** Sibling axis: horizontal spread uses width; vertical spread uses height */
-    const siblingStride =
-        direction === "horizontal" ? nodeHeight + rowGap : nodeWidth + rowGap
-    /** Succession axis: horizontal depth uses width; vertical depth uses height */
-    const depthStride =
-        direction === "horizontal" ? nodeWidth + columnGap : nodeHeight + columnGap
+    const rowStride = nodeHeight + rowGap
 
     const positioned: PositionedNode<T>[] = graph.nodes.map((node) => {
         if (node.position) {
@@ -146,21 +141,21 @@ export function layoutLineageGraph<T extends Record<string, unknown> = Record<st
         const depth = depths.get(node.id) ?? 0
         const layer = byDepth.get(depth) ?? [node.id]
         const index = layer.indexOf(node.id)
-        const centerOffset = ((layer.length - 1) * siblingStride) / 2
-        const siblingOffset = index * siblingStride - centerOffset
+        const centerOffset = ((layer.length - 1) * rowStride) / 2
+        const rowOffset = index * rowStride - centerOffset
 
         if (direction === "horizontal") {
             return {
                 ...node,
-                x: depth * depthStride,
-                y: siblingOffset,
+                x: depth * (nodeWidth + columnGap),
+                y: rowOffset,
             }
         }
 
         return {
             ...node,
-            x: siblingOffset,
-            y: depth * depthStride,
+            x: rowOffset,
+            y: depth * (nodeHeight + columnGap),
         }
     })
 

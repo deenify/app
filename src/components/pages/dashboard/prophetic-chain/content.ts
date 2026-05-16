@@ -1,55 +1,17 @@
-import type {
-    ChartLayoutDirection,
-    ChartViewportConfig,
-    LineageChartGraph,
-} from "@/components/shared/lineage-chart"
+import type { ChartViewportConfig, LineageChartGraph } from "@/components/shared/lineage-chart"
 import { PROPHETIC_EDGES, PROPHETIC_NODES, type PropheticNodeData } from "./prophetic-data"
 
-const PROPHETIC_NODE_SIZE = {
-    nodeWidth: 220,
-    nodeHeight: 100,
-} as const
-
-/**
- * Gaps per layout direction — columnGap = succession axis; rowGap = sibling branches.
- * Edit these independently when horizontal vs vertical spacing feels off.
- */
-export const PROPHETIC_CHAIN_LAYOUT_BY_DIRECTION: Record<
-    ChartLayoutDirection,
-    {
-        nodeWidth: number
-        nodeHeight: number
-        columnGap: number
-        rowGap: number
-    }
-> = {
-    horizontal: {
-        ...PROPHETIC_NODE_SIZE,
-        columnGap: 120,
-        rowGap: 50,
-    },
-    vertical: {
-        ...PROPHETIC_NODE_SIZE,
-        columnGap: 88,
-        rowGap: 72,
-    },
-}
-
-/** Default graph — horizontal layout; direction toggled in UI swaps gaps via `getPropheticChainLayout`. */
+/** Horizontal schema layout — columns = succession depth, rows = branches. */
 export const PROPHETIC_CHAIN_GRAPH: LineageChartGraph<PropheticNodeData> = {
     layout: {
         direction: "horizontal",
-        ...PROPHETIC_CHAIN_LAYOUT_BY_DIRECTION.horizontal,
+        nodeWidth: 220,
+        nodeHeight: 100,
+        columnGap: 120,
+        rowGap: 50,
     },
     nodes: PROPHETIC_NODES,
     edges: PROPHETIC_EDGES,
-}
-
-export function getPropheticChainLayout(direction: ChartLayoutDirection) {
-    return {
-        direction,
-        ...PROPHETIC_CHAIN_LAYOUT_BY_DIRECTION[direction],
-    }
 }
 
 /**
@@ -58,6 +20,11 @@ export function getPropheticChainLayout(direction: ChartLayoutDirection) {
  * Node ids (from prophetic-data.ts): adam, idris, nuh, hud, salih, ibrahim, lut, ismail,
  * ishaq, yaqub, yusuf, ayub, shuayb, musa, harun, dawud, sulayman, ilyas, yasa, yunus,
  * zakariyya, yahya, isa, muhammad
+ *
+ * Examples:
+ * - Center Ibrāhīm at 1× zoom: `{ mode: "node", focusNodeId: "ibrahim", scale: 1 }`
+ * - Fit entire chain: `{ mode: "fit", fitMultiplier: 1.1, minScale: 0.65 }`
+ * - Start on seal of prophets, zoomed in: `{ mode: "node", focusNodeId: "muhammad", scale: 1.15 }`
  */
 export const PROPHETIC_CHAIN_INITIAL_VIEW: ChartViewportConfig = {
     mode: "node",
