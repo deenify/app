@@ -14,6 +14,7 @@ import {
     type LineageEdgeRouting,
 } from "@/components/shared/lineage-chart"
 import {
+    getPropheticChainLayout,
     PROPHETIC_CHAIN_EDITORIAL,
     PROPHETIC_CHAIN_GRAPH,
     PROPHETIC_CHAIN_INITIAL_VIEW,
@@ -35,10 +36,7 @@ export default function PropheticChainContent() {
     const graph = useMemo(
         () => ({
             ...PROPHETIC_CHAIN_GRAPH,
-            layout: {
-                ...PROPHETIC_CHAIN_GRAPH.layout,
-                direction,
-            },
+            layout: getPropheticChainLayout(direction),
         }),
         [direction]
     )

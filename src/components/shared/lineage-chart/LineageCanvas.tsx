@@ -164,7 +164,7 @@ function LineageCanvasInner<T extends Record<string, unknown> = Record<string, u
         <div className={cn("relative min-h-0 flex-1", className)}>
             <div
                 className={cn(
-                    "relative h-full min-h-[480px] overflow-hidden rounded-xl border border-gray-200 bg-[#f4f9f7] shadow-inner",
+                    "relative h-full min-h-[480px] overflow-hidden rounded-md border border-gray-200 bg-[#f4f9f7] shadow-inner",
                     canvasClassName
                 )}
             >
