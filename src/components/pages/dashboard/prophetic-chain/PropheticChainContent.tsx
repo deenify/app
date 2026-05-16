@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import {
     ChartSidebarControls,
     LineageCanvas,
+    LineageChartNode,
     PAN_STEP,
     type ChartLayoutDirection,
     type LineageCanvasHandle,
@@ -18,9 +19,9 @@ import {
     PROPHETIC_CHAIN_INITIAL_VIEW,
 } from "./content"
 import { PropheticChartNode } from "./PropheticChartNode"
-import { PropheticDetailModal } from "./PropheticDetailModal"
 import type { PropheticNodeData } from "./prophetic-data"
 import { PROPHETIC_NODES } from "./prophetic-data"
+import PropheticDetailModal from "./PropheticDetailModal"
 
 export default function PropheticChainContent() {
     const canvasRef = useRef<LineageCanvasHandle>(null)
@@ -134,11 +135,14 @@ export default function PropheticChainContent() {
                 </p>
             </section>
 
+
+            {/* Prephet Details  */}
             <PropheticDetailModal
-                node={selected}
-                open={Boolean(selectedId && selected)}
-                onClose={() => setSelectedId(null)}
+                selected={selected as LineageChartNode<PropheticNodeData>}
+                isOpen={Boolean(selectedId && selected)}
+                onOpenChange={(open: boolean) => setSelectedId(open ? selectedId : null)}
             />
         </div>
     )
 }
+
