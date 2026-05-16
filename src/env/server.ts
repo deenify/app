@@ -1,20 +1,22 @@
 // src/env/server.ts
 import { z } from "zod";
 
-
-// Schema 
 const serverEnvSchema = z.object({
-    // MongoUri: z.string().url(),
+  MONGODB_QURAN_URI: z.string().url(),
+  MONGODB_HADITH_CHAPTERWISE_ABM_URI: z.string().url(),
+  MONGODB_HADITH_CHAPTERWISE_ITN_URI: z.string().url(),
+  MONGODB_HADITH_BOOKWISE_URI: z.string().url(),
+  MONGODB_SUPPLICATION_URI: z.string().url(),
 });
 
-
-
-// Environmental Variables 
 export const serverEnv = serverEnvSchema.parse({
-    // MongoUri: process.env.MONGO_DB_URI,
+  MONGODB_QURAN_URI: process.env.MONGODB_QURAN_URI,
+  MONGODB_HADITH_CHAPTERWISE_ABM_URI:
+    process.env.MONGODB_HADITH_CHAPTERWISE_ABM_URI,
+  MONGODB_HADITH_CHAPTERWISE_ITN_URI:
+    process.env.MONGODB_HADITH_CHAPTERWISE_ITN_URI,
+  MONGODB_HADITH_BOOKWISE_URI: process.env.MONGODB_HADITH_BOOKWISE_URI,
+  MONGODB_SUPPLICATION_URI: process.env.MONGODB_SUPPLICATION_URI,
 });
 
-
-
-// Type 
 export type ServerEnv = z.infer<typeof serverEnvSchema>;
