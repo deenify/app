@@ -1,4 +1,4 @@
-# 🧾 Project Rules (Deenify)
+# 🧾 Project Rules (Islam Companion)
 
 ## 🔤 Naming
 
