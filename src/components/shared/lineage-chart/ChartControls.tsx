@@ -43,7 +43,8 @@ export function ChartSidebarControls({
                 </p>
             </div>
 
-            <div className="rounded-lg border border-gray-200 bg-gray-50/80 p-3 text-xs leading-relaxed text-gray-600">
+            <div className="rounded-lg border border-gray-200 bg-gray-50/80 p-3 text-xs 
+            hidden md:block leading-relaxed text-gray-600">
                 <p className="flex items-center gap-2 font-medium text-gray-800">
                     <Move className="h-3.5 w-3.5 shrink-0" />
                     Navigation
