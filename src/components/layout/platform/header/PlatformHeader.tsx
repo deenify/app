@@ -16,7 +16,7 @@ import Logo from "@/components/shared/Logo"
 import { DEFAULT_SEARCH_ITEMS } from "./content"
 
 
-interface HeaderProps {
+interface PlatformHeaderProps {
     userPreferences?: UserPreferences
     onToggleSidebar?: () => void
     searchItems?: SearchItem[]
@@ -25,7 +25,7 @@ interface HeaderProps {
 
 
 
-const Header: React.FC<HeaderProps> = ({
+const PlatformHeader: React.FC<PlatformHeaderProps> = ({
     userPreferences,
     onToggleSidebar,
     searchItems = DEFAULT_SEARCH_ITEMS,
@@ -137,4 +137,4 @@ const Header: React.FC<HeaderProps> = ({
     )
 }
 
-export default Header
+export default PlatformHeader

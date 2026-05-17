@@ -13,20 +13,24 @@ interface ProfileLayoutShellProps {
 }
 
 const ProfileLayoutShell = ({ children }: ProfileLayoutShellProps) => {
+
     const pathname = usePathname()
     const [mobileNavOpen, setMobileNavOpen] = useState(false)
 
     const ActivePagePath =
         profileSidebarContent.find(({ href }) =>
-            href === "/profile" ? pathname === "/profile" : pathname === href || pathname.startsWith(`${href}/`)
+            href === "/profile"
+                ? pathname === "/profile"
+                : pathname === href || pathname.startsWith(`${href}/`)
         )?.href ?? "/profile"
 
     const ActivePageContent = profileSidebarContent.find((item) =>
         item.href === ActivePagePath)
         ?? profileSidebarContent[0]
 
+
     return (
-        <div className="min-h-full bg-gray-50">
+        <div className="bg-gray-50">
             <section className="border-b border-gray-100 bg-white">
                 <div className="container px-4 sm:px-6 md:px-6">
                     <div className="mx-auto max-w-6xl py-6 sm:py-8 md:py-10">

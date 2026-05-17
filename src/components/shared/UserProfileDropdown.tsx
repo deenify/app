@@ -15,7 +15,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { cn } from "@/lib/utils/clsx"
-import { profileMenuItems } from "../layout/header/content"
+import { profileMenuItems } from "../layout/dashboard/header/content"
 import Link from "next/link"
 
 export type UserStats = {

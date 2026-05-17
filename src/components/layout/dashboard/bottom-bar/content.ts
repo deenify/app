@@ -1,3 +1,5 @@
+// dashboard/bottom-bar/Content.ts 
+
 import type { TabItem } from "@/components/shared/Tabs"
 import { type SearchItem } from "@/components/ui/input"
 import {

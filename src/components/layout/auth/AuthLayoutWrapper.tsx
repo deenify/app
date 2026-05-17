@@ -2,16 +2,17 @@
 
 import React from 'react'
 import { ReactNode } from 'react'
+import AuthHeader from './header/AuthHeader'
 
-interface LayoutWrapperProptype {
+interface AuthLayoutWrapperProps {
     readonly children: ReactNode
 }
 
 
-const LayoutWrapper = ({ children }: LayoutWrapperProptype) => {
-
+const AuthLayoutWrapper = ({ children }: AuthLayoutWrapperProps) => {
     return (
-        <div className='w-dvh h-dvh overflow-hidden flex'>
+        <div className='w-full h-dvh overflow-hidden flex flex-col'>
+            <AuthHeader />
             <div className='flex flex-col flex-1 overflow-y-auto scrollbar-content'>
                 {children}
             </div>
@@ -19,4 +20,4 @@ const LayoutWrapper = ({ children }: LayoutWrapperProptype) => {
     )
 }
 
-export default LayoutWrapper
+export default AuthLayoutWrapper

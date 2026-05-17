@@ -17,7 +17,9 @@ export const viewport = {
     userScalable: false,
 };
 
-interface RootLayoutProptype { readonly children: ReactNode }
+interface RootLayoutProptype {
+    readonly children: ReactNode
+}
 
 export default function RootLayout({ children }: RootLayoutProptype) {
     return (
