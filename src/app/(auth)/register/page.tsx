@@ -5,7 +5,12 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { REGISTER_HIGHLIGHTS } from "@/components/pages/auth/content"
 import RegisterForm from "@/components/pages/auth/register/RegisterForm";
+import { Metadata } from "next";
 
+export const metadata: Metadata = {
+    title: { absolute: "Deenify - Create your account" },
+    description: `Create a free account to track Quran, Hadith, and personal growth in one calm place.`,
+}
 
 const Page = () => {
     return (

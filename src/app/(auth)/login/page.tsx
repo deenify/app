@@ -5,6 +5,12 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { SIGNIN_HIGHLIGHTS } from "@/components/pages/auth/content"
 import LoginForm from "@/components/pages/auth/login/LoginForm"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+    title: { absolute: "Deenify - Sign in to your account" },
+    description: `Sign in to your Deenify account to continue your Quran, Hadith, guides and learning journey.`,
+}
 
 const Page = () => {
     return (

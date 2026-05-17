@@ -1,20 +1,39 @@
-// app/(pages)/guides/[...slug]/page.tsx
-
+import { Metadata } from "next"
 import { notFound } from "next/navigation"
-import GuideDetailPage from "../../../../components/pages/dashboard/guides/GuideDetailPage"
+import GuideDetailPage from "@/components/pages/dashboard/guides/GuideDetailPage"
 
 interface PageProps {
-    params: { slug?: string[] }
+    params: {
+        slug?: string[]
+    }
 }
 
-export default function Page({ params }: PageProps) {
-    const slug = params?.slug ?? []
-    const guideId = slug[0]
+const formatTitle = (slug: string) =>
+    slug
+        .split("-")
+        .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+        .join(" ")
+
+export async function generateMetadata({
+    params,
+}: PageProps): Promise<Metadata> {
+    const guideId = params?.slug?.[0]
 
     if (!guideId) {
-        return notFound()
+        return { title: { absolute: "Deenify - Guides" } }
     }
+
+    const english = formatTitle(guideId)
+    return {
+        title: { absolute: `${english} - Guides` },
+        description: `Learn ${english} in structured Islamic guidance format.`,
+    }
+}
+
+
+export default function Page({ params }: PageProps) {
+    const guideId = params?.slug?.[0]
+    if (!guideId) return notFound()
 
     return <GuideDetailPage guideId={guideId} />
 }
-
