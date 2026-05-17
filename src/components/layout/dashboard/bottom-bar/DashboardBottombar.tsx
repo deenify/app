@@ -12,19 +12,22 @@ import MenuList from "./MenuList"
 import LanguageList from "./LanguageList"
 import SettingsList from "./SettingsList"
 
+
 type DrawerTabsType = "menu" | "language" | "settings"
-interface BottomBarProps {
+
+interface DashboardBottombarProps {
     isVisible: boolean
     activeDrawerTab?: DrawerTabsType | null
     onDrawerTabChange?: (tab: DrawerTabsType | null) => void
 }
 
 
-const BottomBar = ({
+const DashboardBottombar = ({
     isVisible,
     activeDrawerTab: externalActiveTab,
     onDrawerTabChange
-}: BottomBarProps) => {
+}: DashboardBottombarProps) => {
+
     const [selectedLanguage, setSelectedLanguage] = useState("en")
     const [searchOpen, setSearchOpen] = useState(false)
     const pathname = usePathname()
@@ -44,8 +47,8 @@ const BottomBar = ({
 
     return (
         <>
-            {/* Actions Bottom Bar */}
-            <nav className="lg:hidden  bottom-0 left-0 right-0 z-[60] border-t border-layout-separator bg-white shadow-lg">
+            {/* Bottom-Bar Actions */}
+            <nav className="lg:hidden  z-[60] border-t border-layout-separator bg-white shadow-lg">
                 <div className="grid grid-cols-4 h-16">
                     <Link
                         href="/"
@@ -121,7 +124,7 @@ const BottomBar = ({
             </nav>
 
 
-            {/* Drawer Bottom-Bar */}
+            {/* Bottom-Bar Drawer*/}
             <Drawer
                 open={isDrawerOpen}
                 onOpenChange={handleDrawerClose}
@@ -155,4 +158,4 @@ const BottomBar = ({
     )
 }
 
-export default BottomBar
+export default DashboardBottombar

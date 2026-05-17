@@ -6,7 +6,7 @@ import { Mail, Phone, MapPin } from 'lucide-react'
 import { quickLinks, resources, community, legal } from './content'
 import Logo from '@/components/shared/Logo'
 
-const Footer = () => {
+const PlatformFooter = () => {
     const currentYear = new Date().getFullYear()
 
     return (
@@ -128,4 +128,4 @@ const Footer = () => {
     )
 }
 
-export default Footer
+export default PlatformFooter

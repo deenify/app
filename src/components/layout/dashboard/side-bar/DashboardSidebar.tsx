@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils/clsx';
 import { sidebarSections } from './content';
 import Logo from '@/components/shared/Logo';
 
-interface SidebarPropTypes {
+interface DashboardSidebarProps {
     isLocked: boolean;
     sidebarExpanded: boolean,
     setSidebarExpanded: (v: boolean) => void
@@ -16,14 +16,14 @@ interface SidebarPropTypes {
     isMobile: boolean;
 }
 
-const Sidebar = (
+const DashboardSidebar = (
     {
         sidebarExpanded,
         setSidebarExpanded,
         isLocked,
         setIsLocked,
         isMobile,
-    }: SidebarPropTypes
+    }: DashboardSidebarProps
 ) => {
     const pathname = usePathname();
     const [showScrollbar, setShowScrollbar] = useState(false);
@@ -201,4 +201,4 @@ const Sidebar = (
     )
 }
 
-export default Sidebar;
+export default DashboardSidebar;

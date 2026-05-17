@@ -1,18 +1,22 @@
-import { ReactNode } from "react";
-import AuthLayoutShell from "@/components/pages/auth/AuthLayoutShell";
-import { Metadata } from "next";
 
-interface AuthLayoutProptype { readonly children: ReactNode }
+import { ReactNode } from "react";
+import { Metadata } from "next";
+import AuthLayoutWrapper from "@/components/layout/auth/AuthLayoutWrapper";
+
+interface AuthLayoutProps {
+    readonly children: ReactNode
+}
 
 export const metadata: Metadata = {
     title: "Deenify - Sign in or Sign up",
     description: "Sign in to your Deenify account or create a new one to continue your Quran, Hadith, guides and learning journey.",
 }
 
-export default function AuthLayout({ children }: AuthLayoutProptype) {
+
+export default function AuthLayout({ children }: AuthLayoutProps) {
     return (
-        <AuthLayoutShell>
+        <AuthLayoutWrapper>
             {children}
-        </AuthLayoutShell>
+        </AuthLayoutWrapper>
     );
 }

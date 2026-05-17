@@ -1,5 +1,4 @@
-// footer/Content.ts 
-
+// platform/footer/Content.ts 
 
 export const quickLinks = [
     { label: 'Prayer Times', page: '/prayer' },
