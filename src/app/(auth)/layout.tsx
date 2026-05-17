@@ -8,8 +8,9 @@ interface AuthLayoutProps {
 }
 
 export const metadata: Metadata = {
-    title: "Deenify - Sign in or Sign up",
-    description: "Sign in to your Deenify account or create a new one to continue your Quran, Hadith, guides and learning journey.",
+    title: { absolute: "Deenify - Sign in or Sign up" },
+    description: `Sign in to your Deenify account or create a new one to continue your Quran, 
+    Hadith, guides and learning journey.`,
 }
 
 
