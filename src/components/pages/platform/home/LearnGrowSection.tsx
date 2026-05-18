@@ -1,13 +1,15 @@
-'use client';
+"use client";
 
 import React from 'react'
 import { cn } from '@/lib/utils/clsx'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
 import { useRouter } from 'next/navigation'
-import { LearnGrowPageType } from './content'
+import * as content from './content'
+import type { LearnGrowPageType } from './content'
 
-const LearnGrowSection = ({ LearnGrowPages }: { LearnGrowPages: LearnGrowPageType[] }) => {
+const LearnGrowSection = () => {
+    const LearnGrowPages = content.LearnGrowPages as LearnGrowPageType[]
     const router = useRouter()
 
     return (

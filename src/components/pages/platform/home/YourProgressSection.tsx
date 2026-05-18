@@ -14,26 +14,19 @@ import { YAxis } from 'recharts'
 import { Tooltip } from 'recharts'
 import { Progress } from '@/components/ui/progress'
 import {
-    YourProgressActivityDistributionType, YourProgressTrackingPointStatType,
-    YourProgressWeeklyActivityType, YourProgressTodayGoalType
+    YourProgressTrackingPointStats,
+    YourProgressTodayGoals,
+    YourProgressActivityDistribution,
+    YourProgressWeeklyActivity
 } from './content'
 
 
-interface YourProgressSectionProps {
-    TrackingPointStats: YourProgressTrackingPointStatType[]
-    WeeklyActivity: YourProgressWeeklyActivityType[]
-    ActivityDistribution: YourProgressActivityDistributionType[]
-    TodayGoals: YourProgressTodayGoalType[]
-}
+const YourProgressSection = () => {
+    const TrackingPointStats = YourProgressTrackingPointStats
+    const WeeklyActivity = YourProgressWeeklyActivity
+    const ActivityDistribution = YourProgressActivityDistribution
+    const TodayGoals = YourProgressTodayGoals
 
-const YourProgressSection = (
-    {
-        TrackingPointStats,
-        WeeklyActivity,
-        ActivityDistribution,
-        TodayGoals
-    }: YourProgressSectionProps
-) => {
     return (
         <section className="py-20 bg-white">
             <div className="container space-y-8">

@@ -4,9 +4,12 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Quote } from 'lucide-react'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Star } from 'lucide-react'
-import { TestimonialType } from './content'
+import * as content from './content'
+import type { TestimonialType } from './content'
 
-const TestimonialSection = ({ TESTIMONIALS }: { TESTIMONIALS: TestimonialType[] }) => {
+const TestimonialSection = () => {
+    const TESTIMONIALS = content.TESTIMONIALS as TestimonialType[]
+
     return (
         <section className="bg-gradient-to-br from-emerald-50 to-teal-50 py-20">
             <div className="container">

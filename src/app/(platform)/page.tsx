@@ -1,13 +1,7 @@
-"use client";
+// app/page.tsx
 
 import {
     FeaturesSectionFeatures, HeroCommunityStats,
-    YourProgressTrackingPointStats,
-    YourProgressWeeklyActivity,
-    YourProgressActivityDistribution,
-    YourProgressTodayGoals,
-    LearnGrowPages,
-    TESTIMONIALS,
     WhyChooseUsStats,
     WhyChooseUsFeatures
 } from "@/components/pages/platform/home/content"
@@ -18,20 +12,22 @@ import LearnGrowSection from "@/components/pages/platform/home/LearnGrowSection"
 import TestimonialSection from "@/components/pages/platform/home/TestimonialSection"
 import WhyChooseUsSection from "@/components/pages/platform/home/WhyChooseUsSection"
 import CallToActionSection from "@/components/pages/platform/home/CallToActionSection"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+    title: { absolute: "Deenify" },
+    description: `Welcome to Deenify - Your daily Islamic lifestyle app — 
+    Quran, Hadith, Adhan, Qibla, and more.`,
+}
 
 const HomePage = () => {
     return (
         <div>
             <HeroSection COMMUNITY_STATS={HeroCommunityStats} />
             <FeatureSection FEATURES={FeaturesSectionFeatures} />
-            <YourProgressSection
-                TrackingPointStats={YourProgressTrackingPointStats}
-                WeeklyActivity={YourProgressWeeklyActivity}
-                ActivityDistribution={YourProgressActivityDistribution}
-                TodayGoals={YourProgressTodayGoals}
-            />
-            <LearnGrowSection LearnGrowPages={LearnGrowPages} />
-            <TestimonialSection TESTIMONIALS={TESTIMONIALS} />
+            <YourProgressSection />
+            <LearnGrowSection />
+            <TestimonialSection />
             <WhyChooseUsSection
                 FEATURES={WhyChooseUsFeatures}
                 STATS={WhyChooseUsStats}

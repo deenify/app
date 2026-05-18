@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 const siteTitle = "Deenify";
+const subTitle = "Daily Islamic Lifestyle App";
 const siteUrl = "https://deenify.com";
 const description = `Your daily Islamic lifestyle app — Quran, Hadith, Adhan, Qibla, and more. 
 Quran, Prayer Times, Qibla Direction, and more — all in one Deenify Islamic app.`;
@@ -9,7 +10,7 @@ const ogImage = `${siteUrl}/og.png`;
 export const defaultMeta: Metadata = {
     title: {
         default: siteTitle,
-        template: `%s | ${siteTitle}`,
+        template: `%s - ${subTitle}`,
     },
     description,
     keywords: [

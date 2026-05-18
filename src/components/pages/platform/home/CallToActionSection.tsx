@@ -1,3 +1,5 @@
+"use client"
+
 import React from 'react'
 import { motion } from 'framer-motion'
 import { Moon } from 'lucide-react'
@@ -6,6 +8,7 @@ import { useRouter } from 'next/navigation'
 
 const CallToActionSection = () => {
     const router = useRouter()
+
     return (
         <section className="bg-white py-20">
             <div className="container">
