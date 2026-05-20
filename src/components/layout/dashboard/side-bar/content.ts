@@ -1,7 +1,7 @@
 // dashboard/side-bar/Content.ts 
 
 import {
-    Home, Clock,
+    Clock,
     BookOpen, FileText,
     Calendar, Compass, Hand,
     BookHeart, GraduationCap,
@@ -14,7 +14,6 @@ export const sidebarSections = [
     {
         title: 'Main',
         items: [
-            { href: '/', label: 'Home', icon: Home },
             { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
             { href: '/prayer', label: 'Prayer Times', icon: Clock },
             { href: '/quran', label: 'Quran', icon: BookOpen },
@@ -45,21 +44,4 @@ export const sidebarSections = [
         ],
     },
 ];
-
-
-// Layout config 
-export const LayoutConfiguration = {
-    sidebar: {
-        exclude: ["/auth", "/login", "/register", "/forgot-password", "/reset-password"],
-    },
-    header: {
-        exclude: ["/auth", "/login", "/register", "/forgot-password", "/reset-password"],
-    },
-    bottomBar: {
-        exclude: ["/auth", "/login", "/register", "/forgot-password", "/reset-password"],
-    },
-    footer: {
-        exclude: ["/auth", "/login", "/register", "/forgot-password", "/reset-password"],
-    },
-}
 

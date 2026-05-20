@@ -110,7 +110,7 @@ export default function IslamicCalendarContent() {
                 </div>
             </section>
 
-            <section className="relative">
+            <section className="relative overflow-hidden">
                 <motion.div
                     aria-hidden
                     className="pointer-events-none absolute left-[-60px] top-24 h-52 w-52 rounded-full bg-purple-200/35 blur-3xl"

@@ -79,7 +79,7 @@ export default function DhikrCounterContent() {
                 </div>
             </section>
 
-            <section className="relative">
+            <section className="relative overflow-hidden">
                 <motion.div
                     aria-hidden
                     className="pointer-events-none absolute left-[-60px] top-16 h-52 w-52 rounded-full bg-teal-200/35 blur-3xl"

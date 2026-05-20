@@ -82,7 +82,7 @@ export default function PrayerTimesContent() {
     return (
         <div className="bg-white">
             <section className="border-b border-layout-separator">
-                <div className="container px-4 pb-8 pt-6 sm:px-6 sm:pb-9 sm:pt-8 md:pt-10">
+                <div className="container pb-8 pt-6 sm:pt-8 md:pt-10">
                     <motion.div
                         initial={{ opacity: 0, y: -8 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -142,7 +142,7 @@ export default function PrayerTimesContent() {
                 </div>
             </section>
 
-            <section className="relative">
+            <section className="relative overflow-hidden">
                 <motion.div
                     aria-hidden
                     className="pointer-events-none absolute left-[-48px] top-12 h-48 w-48 rounded-full bg-emerald-200/35 blur-3xl"

@@ -71,7 +71,7 @@ const GuideDetailPage = ({ guideId }: GuideDetailPageProps) => {
                 </div>
             </section>
 
-            <section className="relative w-full">
+            <section className="relative w-full overflow-hidden">
                 <motion.div
                     aria-hidden
                     className="pointer-events-none absolute -top-10 left-[-24px] h-40 w-40 rounded-full bg-amber-50 blur-3xl"

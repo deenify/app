@@ -21,7 +21,7 @@ const DashboardLayoutWrapper = ({ children }: DashboardLayoutWrapperProps) => {
 
 
     return (
-        <div className='w-dvh h-dvh overflow-hidden flex'>
+        <div className='flex-1 h-dvh overflow-hidden flex'>
             <DashboardSidebar
                 isMobile={isMobile}
                 isLocked={isLocked}
@@ -47,7 +47,7 @@ const DashboardLayoutWrapper = ({ children }: DashboardLayoutWrapperProps) => {
                         }}
                     />
 
-                    <div className='w-full h-max flex-1 overflow-y-auto scrollbar-content flex flex-col justify-between'>
+                    <div className='flex-1 overflow-y-auto scrollbar-content flex flex-col justify-between'>
                         {children}
                         <PlatformFooter />
                     </div>
