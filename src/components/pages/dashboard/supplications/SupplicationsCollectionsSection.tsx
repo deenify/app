@@ -1,5 +1,7 @@
 "use client"
 
+import { Pagination } from "@/components/ui/pagination"
+import { usePaginatedList } from "@/lib/utils/usePaginatedList"
 import SupplicationCard from "./SupplicationCard"
 import type { SupplicationItem } from "./content"
 
@@ -14,9 +16,15 @@ export default function SupplicationsCollectionsSection({
     bookmarkedIds,
     onToggleBookmark,
 }: Props) {
+    const { paginatedItems, page, setPage, totalPages } = usePaginatedList(
+        items,
+        6,
+        (item) => item.id
+    )
+
     return (
         <section className="min-h-[45dvh] pb-12">
-            <div className="container px-4 sm:px-6 md:px-6">
+            <div className="container space-y-6 px-4 sm:px-6 md:px-6">
                 {items.length === 0 ? (
                     <div className="rounded-2xl border border-gray-100 bg-white p-10 text-center shadow-sm">
                         <p className="text-sm font-semibold text-gray-900">Nothing matches yet</p>
@@ -24,7 +32,7 @@ export default function SupplicationsCollectionsSection({
                     </div>
                 ) : (
                     <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-                        {items.map((item, index) => (
+                        {paginatedItems.map((item, index) => (
                             <SupplicationCard
                                 key={item.id}
                                 item={item}
@@ -34,6 +42,14 @@ export default function SupplicationsCollectionsSection({
                             />
                         ))}
                     </div>
+                )}
+                {items.length > 0 && (
+                    <Pagination
+                        page={page}
+                        totalPages={totalPages}
+                        onPageChange={setPage}
+                        align="right"
+                    />
                 )}
             </div>
         </section>

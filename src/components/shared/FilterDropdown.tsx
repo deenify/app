@@ -25,6 +25,7 @@ interface FilterDropdownProps {
     placeholder?: string
     triggerIcon?: LucideIcon
     theme?: "emerald" | "amber" | "blue" | "purple" | "slate"
+    className?: string
     contentClassName?: string
     classNames?: {
         trigger?: string;
@@ -68,6 +69,7 @@ const FilterDropdown = ({
     placeholder = "Filter",
     triggerIcon: TriggerIconFallback,
     theme = "emerald",
+    className,
     classNames,
 }: FilterDropdownProps) => {
     const [open, setOpen] = useState(false)
@@ -81,8 +83,11 @@ const FilterDropdown = ({
         <DropdownMenu open={open} onOpenChange={setOpen}>
             <DropdownMenuTrigger
                 asChild
-                className="w-full min-w-0 outline-none focus:outline-none 
-                focus-visible:outline-none select-none"
+                className={cn(
+                    "block w-full min-w-0 max-w-full outline-none focus:outline-none focus-visible:outline-none select-none",
+                    className,
+                    classNames?.trigger
+                )}
             >
                 <span
                     className={cn(

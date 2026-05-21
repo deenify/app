@@ -26,7 +26,6 @@ const guideVideoMap: Record<string, string> = {
 }
 
 const GuideDetailPage = ({ guideId }: GuideDetailPageProps) => {
-    const router = useRouter()
     const guide = useMemo(() => getGuideById(guideId), [guideId])
     const sections = useMemo(() => getGuideSectionsMock(guideId), [guideId])
     const videoUrl = guideVideoMap[guideId] ?? "https://www.youtube.com/embed/jn0f6f1R4tQ"

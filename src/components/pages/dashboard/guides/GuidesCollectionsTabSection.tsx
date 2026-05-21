@@ -1,5 +1,7 @@
 "use client"
 
+import { Pagination } from "@/components/ui/pagination"
+import { usePaginatedList } from "@/lib/utils/usePaginatedList"
 import GuidesCard from "./GuidesCard"
 import type { GuideType } from "./content"
 
@@ -14,9 +16,15 @@ const GuidesCollectionsTabSection = ({
     bookmarkedIds,
     onToggleBookmark,
 }: GuidesCollectionsTabSectionProps) => {
+    const { paginatedItems, page, setPage, totalPages } = usePaginatedList(
+        guides,
+        9,
+        (g) => g.id
+    )
+
     return (
         <section className="h-max min-h-[45dvh] pb-10">
-            <div className="container px-4 sm:px-6 md:px-6">
+            <div className="container space-y-6 px-4 sm:px-6 md:px-6">
                 {guides.length === 0 ? (
                     <div className="rounded-xl border border-gray-100 bg-white p-8 text-center shadow-sm">
                         <p className="text-sm font-medium text-gray-900">No guides found</p>
@@ -24,7 +32,7 @@ const GuidesCollectionsTabSection = ({
                     </div>
                 ) : (
                     <main className="grid gap-3 sm:grid-cols-2 sm:gap-4 xl:grid-cols-3">
-                        {guides.map((g, index) => (
+                        {paginatedItems.map((g, index) => (
                             <GuidesCard
                                 key={g.id}
                                 guide={g}
@@ -34,6 +42,14 @@ const GuidesCollectionsTabSection = ({
                             />
                         ))}
                     </main>
+                )}
+                {guides.length > 0 && (
+                    <Pagination
+                        page={page}
+                        totalPages={totalPages}
+                        onPageChange={setPage}
+                        align="right"
+                    />
                 )}
             </div>
         </section>

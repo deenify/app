@@ -2,10 +2,9 @@
 
 import { useMemo, useState } from "react"
 import { motion } from "framer-motion"
-import { BookOpen, Bookmark, Filter, GraduationCap } from "lucide-react"
+import { BookOpen, Bookmark, GraduationCap } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
-import { Input } from "@/components/ui/input"
-import FilterDropdown from "@/components/shared/FilterDropdown"
+import { LearnExploreToolbar } from "@/components/shared/learn/LearnExploreToolbar"
 import Tabs from "@/components/shared/Tabs"
 import { cn } from "@/lib/utils/clsx"
 import { GuideCategories, GuidesMock } from "./content"
@@ -27,18 +26,10 @@ const GuidesExplorePage = () => {
         () => new Set(["wudu", "salah", "ramadan"])
     )
 
-    const categoryOptions = useMemo(
-        () =>
-            GuideCategories.map((c) => ({
-                value: c.id,
-                label: c.label,
-                metaLabel:
-                    c.id === "all"
-                        ? String(GuidesMock.length + 20)
-                        : String(GuidesMock.filter((g) => g.category === c.id).length),
-            })),
-        []
-    )
+    const getCategoryCount = (categoryId: string) =>
+        categoryId === "all"
+            ? GuidesMock.length + 20
+            : GuidesMock.filter((g) => g.category === categoryId).length
 
     const filteredGuides = useMemo(() => {
         const q = searchQuery.trim().toLowerCase()
@@ -101,41 +92,25 @@ const GuidesExplorePage = () => {
             <main className="bg-[linear-gradient(180deg,#f8faf8_0%,#f0f7f4_100%)]">
                 <section className={cn("relative w-full border-t border-layout-separator bg-transparent")}>
                     <div className="container py-6 sm:py-8">
-                        <div className="mx-auto max-w-6xl space-y-4 sm:space-y-5">
-                            <section className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
-                                <Input
-                                    search
-                                    type="input"
-                                    placeholder={
-                                        activeTab === "bookmarks"
-                                            ? "Search your saved guides..."
-                                            : "Search guides..."
-                                    }
-                                    value={searchQuery}
-                                    onChange={(e) => setSearchQuery(e.target.value)}
-                                    classNames={{
-                                        input: "h-10 rounded-md border-gray-200 bg-white text-base placeholder:text-gray-400 focus:bg-white min-w-0 flex-1"
-                                    }}
-                                />
-                                <div className="flex flex-1 items-center justify-between gap-2 xs:gap-4 sm:max-w-[260px] sm:shrink-0">
-                                    <FilterDropdown
-                                        options={categoryOptions}
-                                        value={category}
-                                        onChange={(v) => setCategory(String(v))}
-                                        placeholder="All topics"
-                                        triggerIcon={Filter}
-                                        theme="purple"
-                                        classNames={{ content: "scrollbar-thin" }}
-                                    />
-                                    <div
-                                        className="inline-flex h-9 w-[100px] shrink-0 items-center justify-center rounded-md border border-emerald-200 
-                                    bg-emerald-50 px-3 text-xs font-medium text-gray-700 shadow-sm xs:w-[120px] sm:hidden"
-                                    >
-                                        <span className="tabular-nums font-semibold text-gray-900">100+</span>
-                                        <span className="ml-1">guides</span>
-                                    </div>
-                                </div>
-                            </section>
+                        <div className="mx-auto min-w-0 max-w-6xl space-y-4 sm:space-y-5">
+                            <LearnExploreToolbar
+                                searchQuery={searchQuery}
+                                onSearchChange={setSearchQuery}
+                                category={category}
+                                onCategoryChange={setCategory}
+                                categories={GuideCategories.map((c) => ({ id: c.id, label: c.label }))}
+                                itemCount={filteredGuides.length}
+                                countLabel="guides"
+                                placeholder={
+                                    activeTab === "bookmarks"
+                                        ? "Search your saved guides..."
+                                        : "Search guides..."
+                                }
+                                filterPlaceholder="All topics"
+                                filterTheme="purple"
+                                getCategoryCount={getCategoryCount}
+                                countToneClass="border-emerald-200 bg-emerald-50/80 text-emerald-800"
+                            />
 
                             <section className="flex items-center justify-between pt-6">
                                 <Tabs

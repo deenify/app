@@ -2,10 +2,9 @@
 
 import { useMemo, useState } from "react"
 import { motion } from "framer-motion"
-import { Bookmark, BookHeart, Filter } from "lucide-react"
+import { Bookmark, BookHeart } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
-import { Input } from "@/components/ui/input"
-import FilterDropdown from "@/components/shared/FilterDropdown"
+import { LearnExploreToolbar } from "@/components/shared/learn/LearnExploreToolbar"
 import Tabs from "@/components/shared/Tabs"
 import { cn } from "@/lib/utils/clsx"
 import {
@@ -30,18 +29,10 @@ export default function SupplicationsExploreContent() {
         () => new Set(["sayyid-istighfar", "distress-yunus"])
     )
 
-    const categoryOptions = useMemo(
-        () =>
-            SUPPLICATION_CATEGORIES.map((c) => ({
-                value: c.id,
-                label: c.label,
-                metaLabel:
-                    c.id === "all"
-                        ? String(SUPPLICATIONS_MOCK.length)
-                        : String(SUPPLICATIONS_MOCK.filter((s) => s.category === c.id).length),
-            })),
-        []
-    )
+    const getCategoryCount = (categoryId: string) =>
+        categoryId === "all"
+            ? SUPPLICATIONS_MOCK.length
+            : SUPPLICATIONS_MOCK.filter((s) => s.category === categoryId).length
 
     const filtered = useMemo(() => {
         const q = searchQuery.trim().toLowerCase()
@@ -107,40 +98,28 @@ export default function SupplicationsExploreContent() {
             <main className="bg-[linear-gradient(180deg,#fff7fb_0%,#f0fdf9_100%)]">
                 <section className={cn("relative w-full border-t border-layout-separator bg-transparent")}>
                     <div className="container py-6 sm:py-8">
-                        <div className="mx-auto max-w-6xl space-y-4 sm:space-y-5">
-                            <section className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
-                                <Input
-                                    search
-                                    type="input"
-                                    placeholder={
-                                        activeTab === "saved"
-                                            ? "Search saved supplications..."
-                                            : "Search Arabic, titles, themes..."
-                                    }
-                                    value={searchQuery}
-                                    onChange={(e) => setSearchQuery(e.target.value)}
-                                    classNames={{
-                                        input: "h-10 min-w-0 flex-1 rounded-md border-gray-200 bg-white text-base placeholder:text-gray-400 focus:bg-white",
-                                    }}
-                                />
-                                <div className="flex flex-1 items-center justify-between gap-2 xs:gap-4 sm:max-w-[280px] sm:shrink-0">
-                                    <FilterDropdown
-                                        options={categoryOptions}
-                                        value={category}
-                                        onChange={(v) => setCategory(v as SupplicationCategoryId)}
-                                        placeholder="Topic"
-                                        triggerIcon={Filter}
-                                        theme="purple"
-                                        classNames={{ content: "scrollbar-thin" }}
-                                    />
-                                    <div className="inline-flex h-9 shrink-0 items-center justify-center rounded-md border border-rose-200 bg-rose-50 px-3 text-xs font-medium text-gray-700 shadow-sm xs:w-[110px] sm:hidden">
-                                        <span className="tabular-nums font-semibold text-gray-900">
-                                            {SUPPLICATIONS_MOCK.length}
-                                        </span>
-                                        <span className="ml-1">entries</span>
-                                    </div>
-                                </div>
-                            </section>
+                        <div className="mx-auto min-w-0 max-w-6xl space-y-4 sm:space-y-5">
+                            <LearnExploreToolbar
+                                searchQuery={searchQuery}
+                                onSearchChange={setSearchQuery}
+                                category={category}
+                                onCategoryChange={(v) => setCategory(v as SupplicationCategoryId)}
+                                categories={SUPPLICATION_CATEGORIES.map((c) => ({
+                                    id: c.id,
+                                    label: c.label,
+                                }))}
+                                itemCount={activeTab === "saved" ? savedItems.length : filtered.length}
+                                countLabel="entries"
+                                placeholder={
+                                    activeTab === "saved"
+                                        ? "Search saved supplications..."
+                                        : "Search Arabic, titles, themes..."
+                                }
+                                filterPlaceholder="Topic"
+                                filterTheme="purple"
+                                getCategoryCount={getCategoryCount}
+                                countToneClass="border-rose-200 bg-rose-50/80 text-rose-900"
+                            />
 
                             <section className="flex items-center justify-between pt-6">
                                 <Tabs

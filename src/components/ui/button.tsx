@@ -181,3 +181,5 @@ export const Button = <C extends React.ElementType = "button">({
         </Component>
     );
 };
+
+export { buttonVariants };
