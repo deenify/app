@@ -1,4 +1,5 @@
-﻿$exclude = @("node_modules", ".next", ".git", "cache")
+﻿
+$exclude = @("node_modules", ".next", ".git", "cache")
 $script:output = @()
 
 function Build-Tree($path, $indent = "") {
@@ -18,9 +19,7 @@ Build-Tree .
 
 $script:output | Out-File -Encoding UTF8 structure.txt
 
-
-
-------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------
 
 
 ├── public
@@ -39,55 +38,77 @@ $script:output | Out-File -Encoding UTF8 structure.txt
 ├── src
 │   ├── app
 │   │   ├── (auth)
-│   │   │   ├── forgot-password
 │   │   │   ├── login
 │   │   │   │   ├── page.tsx
 │   │   │   ├── register
 │   │   │   │   ├── page.tsx
-│   │   │   ├── reset-password
 │   │   │   ├── layout.tsx
 │   │   ├── (dashboard)
+│   │   │   ├── calendar
+│   │   │   │   ├── page.tsx
 │   │   │   ├── dashboard
+│   │   │   │   ├── page.tsx
+│   │   │   ├── dhikr
+│   │   │   │   ├── page.tsx
+│   │   │   ├── donate
+│   │   │   │   ├── payment
+│   │   │   │   │   ├── page.tsx
+│   │   │   │   ├── page.tsx
 │   │   │   ├── guides
 │   │   │   │   ├── [...slug]
 │   │   │   │   ├── page.tsx
 │   │   │   ├── hadith
 │   │   │   │   ├── [...slug]
 │   │   │   │   ├── page.tsx
+│   │   │   ├── history
+│   │   │   │   ├── [...slug]
+│   │   │   │   ├── page.tsx
+│   │   │   ├── miracles
+│   │   │   │   ├── [...slug]
+│   │   │   │   ├── page.tsx
+│   │   │   ├── pillars
+│   │   │   │   ├── page.tsx
+│   │   │   ├── prayer
+│   │   │   │   ├── page.tsx
+│   │   │   ├── profile
+│   │   │   │   ├── account
+│   │   │   │   │   ├── page.tsx
+│   │   │   │   ├── notifications
+│   │   │   │   │   ├── page.tsx
+│   │   │   │   ├── personalization
+│   │   │   │   │   ├── page.tsx
+│   │   │   │   ├── privacy
+│   │   │   │   │   ├── page.tsx
+│   │   │   │   ├── security
+│   │   │   │   │   ├── page.tsx
+│   │   │   │   ├── settings
+│   │   │   │   │   ├── page.tsx
+│   │   │   │   ├── layout.tsx
+│   │   │   │   ├── page.tsx
+│   │   │   ├── prophets
+│   │   │   │   ├── page.tsx
+│   │   │   ├── qibla
+│   │   │   │   ├── page.tsx
 │   │   │   ├── quran
 │   │   │   │   ├── [...slug]
 │   │   │   │   ├── page.tsx
-│   │   ├── (platform)
-│   │   │   ├── accessibillity
-│   │   │   ├── blogs
-│   │   │   ├── community
-│   │   │   ├── contact-us
-│   │   │   ├── developer-api
-│   │   │   ├── disclaimer
-│   │   │   ├── frequently-asked-questions
-│   │   │   ├── licenses
-│   │   │   ├── privacy-policy
+│   │   │   ├── revert
+│   │   │   │   ├── page.tsx
+│   │   │   ├── stories
+│   │   │   │   ├── page.tsx
+│   │   │   ├── supplications
+│   │   │   │   ├── page.tsx
 │   │   │   ├── support
+│   │   │   │   ├── page.tsx
+│   │   │   ├── layout.tsx
+│   │   ├── (platform)
+│   │   │   ├── legal-policy
+│   │   │   ├── privacy-policy
 │   │   │   ├── terms-and-conditions
-│   │   ├── onboarding
-│   │   ├── profile
-│   │   │   ├── account
-│   │   │   │   ├── page.tsx
-│   │   │   ├── notifications
-│   │   │   │   ├── page.tsx
-│   │   │   ├── personalization
-│   │   │   │   ├── page.tsx
-│   │   │   ├── privacy
-│   │   │   │   ├── page.tsx
-│   │   │   ├── security
-│   │   │   │   ├── page.tsx
-│   │   │   ├── settings
-│   │   │   │   ├── page.tsx
 │   │   │   ├── layout.tsx
 │   │   │   ├── page.tsx
 │   │   ├── layout.tsx
 │   │   ├── not-found.tsx
-│   │   ├── page.tsx
 │   ├── assets
 │   │   ├── svg
 │   │   │   ├── MenuIcon.tsx
@@ -96,28 +117,51 @@ $script:output | Out-File -Encoding UTF8 structure.txt
 │   │   ├── meta.ts
 │   ├── components
 │   │   ├── layout
-│   │   │   ├── bottom-bar
-│   │   │   │   ├── BottomBar.tsx
-│   │   │   │   ├── content.ts
-│   │   │   │   ├── index.ts
-│   │   │   │   ├── LanguageList.tsx
-│   │   │   │   ├── MenuList.tsx
-│   │   │   │   ├── SettingsList.tsx
-│   │   │   ├── footer
-│   │   │   │   ├── content.ts
-│   │   │   │   ├── Footer.tsx
-│   │   │   ├── header
-│   │   │   │   ├── content.ts
-│   │   │   │   ├── Header.tsx
-│   │   │   ├── side-bar
-│   │   │   │   ├── content.ts
-│   │   │   │   ├── Sidebar.tsx
+│   │   │   ├── auth
+│   │   │   │   ├── header
+│   │   │   │   │   ├── AuthHeader.tsx
+│   │   │   │   ├── AuthLayoutWrapper.tsx
+│   │   │   ├── dashboard
+│   │   │   │   ├── bottom-bar
+│   │   │   │   │   ├── content.ts
+│   │   │   │   │   ├── DashboardBottombar.tsx
+│   │   │   │   │   ├── index.ts
+│   │   │   │   │   ├── LanguageList.tsx
+│   │   │   │   │   ├── MenuList.tsx
+│   │   │   │   │   ├── SettingsList.tsx
+│   │   │   │   ├── header
+│   │   │   │   │   ├── content.ts
+│   │   │   │   │   ├── DashboardHeader.tsx
+│   │   │   │   ├── side-bar
+│   │   │   │   │   ├── content.ts
+│   │   │   │   │   ├── DashboardSidebar.tsx
+│   │   │   │   ├── DashboardLayoutWrapper.tsx
+│   │   │   ├── platform
+│   │   │   │   ├── footer
+│   │   │   │   │   ├── content.ts
+│   │   │   │   │   ├── PlatformFooter.tsx
+│   │   │   │   ├── header
+│   │   │   │   │   ├── content.ts
+│   │   │   │   │   ├── PlatformHeader.tsx
+│   │   │   │   ├── PlatformLayoutWrapper.tsx
 │   │   │   ├── LayoutWrapper.tsx
 │   │   ├── pages
 │   │   │   ├── auth
-│   │   │   │   ├── AuthLayoutShell.tsx
+│   │   │   │   ├── login
+│   │   │   │   │   ├── LoginForm.tsx
+│   │   │   │   ├── register
+│   │   │   │   │   ├── RegisterForm.tsx
 │   │   │   │   ├── content.ts
 │   │   │   ├── dashboard
+│   │   │   │   ├── calendar
+│   │   │   │   │   ├── IslamicCalendarContent.tsx
+│   │   │   │   ├── dhikr
+│   │   │   │   │   ├── content.ts
+│   │   │   │   │   ├── DhikrCounterContent.tsx
+│   │   │   │   ├── donate
+│   │   │   │   │   ├── content.ts
+│   │   │   │   │   ├── DonateContent.tsx
+│   │   │   │   │   ├── DonatePaymentContent.tsx
 │   │   │   │   ├── guides
 │   │   │   │   │   ├── content.ts
 │   │   │   │   │   ├── GuideDetailContent.tsx
@@ -137,6 +181,42 @@ $script:output | Out-File -Encoding UTF8 structure.txt
 │   │   │   │   │   ├── HadithSavedTabSection.tsx
 │   │   │   │   │   ├── HadithSettingSidebar.tsx
 │   │   │   │   │   ├── HadithTopicsTabSection.tsx
+│   │   │   │   ├── history
+│   │   │   │   │   ├── content.ts
+│   │   │   │   │   ├── HistoryCard.tsx
+│   │   │   │   │   ├── HistoryDetailPage.tsx
+│   │   │   │   │   ├── HistoryExploreContent.tsx
+│   │   │   │   ├── miracles
+│   │   │   │   │   ├── content.ts
+│   │   │   │   │   ├── MiracleCard.tsx
+│   │   │   │   │   ├── MiracleDetailPage.tsx
+│   │   │   │   │   ├── MiraclesExploreContent.tsx
+│   │   │   │   ├── overview
+│   │   │   │   │   ├── content.ts
+│   │   │   │   │   ├── DashboardConsistencyChart.tsx
+│   │   │   │   │   ├── DashboardContent.tsx
+│   │   │   │   │   ├── DashboardDailyProgress.tsx
+│   │   │   │   │   ├── DashboardHeader.tsx
+│   │   │   │   │   ├── DashboardInspirationCard.tsx
+│   │   │   │   │   ├── DashboardPrayerSchedule.tsx
+│   │   │   │   │   ├── DashboardRecentActivity.tsx
+│   │   │   │   │   ├── DashboardStats.tsx
+│   │   │   │   ├── pillars
+│   │   │   │   │   ├── content.ts
+│   │   │   │   │   ├── PillarsContent.tsx
+│   │   │   │   ├── prayer
+│   │   │   │   │   ├── PrayerTimesContent.tsx
+│   │   │   │   ├── prophetic-chain
+│   │   │   │   │   ├── cardDensity.ts
+│   │   │   │   │   ├── content.ts
+│   │   │   │   │   ├── prophetic-data.ts
+│   │   │   │   │   ├── PropheticChainContent.tsx
+│   │   │   │   │   ├── PropheticChartNode.tsx
+│   │   │   │   │   ├── PropheticDetailModal.tsx
+│   │   │   │   │   ├── scripture.ts
+│   │   │   │   │   ├── SelectedNodePanel.tsx
+│   │   │   │   ├── qibla
+│   │   │   │   │   ├── QiblaFinderContent.tsx
 │   │   │   │   ├── quran
 │   │   │   │   │   ├── BookmarksTabSection.tsx
 │   │   │   │   │   ├── content.ts
@@ -148,11 +228,25 @@ $script:output | Out-File -Encoding UTF8 structure.txt
 │   │   │   │   │   ├── ReadTabSection.tsx
 │   │   │   │   │   ├── ReciterStack.tsx
 │   │   │   │   │   ├── VerseCard.tsx
-│   │   │   ├── onboarding
+│   │   │   │   ├── revert
+│   │   │   │   │   ├── content.ts
+│   │   │   │   │   ├── RevertContent.tsx
+│   │   │   │   ├── stories
+│   │   │   │   │   ├── content.ts
+│   │   │   │   │   ├── StoriesExploreContent.tsx
+│   │   │   │   │   ├── StoryCard.tsx
+│   │   │   │   │   ├── StoryDetailModal.tsx
+│   │   │   │   ├── supplications
+│   │   │   │   │   ├── content.ts
+│   │   │   │   │   ├── SupplicationCard.tsx
+│   │   │   │   │   ├── SupplicationsCollectionsSection.tsx
+│   │   │   │   │   ├── SupplicationsExploreContent.tsx
+│   │   │   │   ├── support
+│   │   │   │   │   ├── content.ts
+│   │   │   │   │   ├── SupportChatWidget.tsx
+│   │   │   │   │   ├── SupportContent.tsx
+│   │   │   │   ├── content.ts
 │   │   │   ├── platform
-│   │   │   │   ├── about-us
-│   │   │   │   ├── contact-us
-│   │   │   │   ├── developer-api
 │   │   │   │   ├── home
 │   │   │   │   │   ├── CallToActionSection.tsx
 │   │   │   │   │   ├── content.ts
@@ -162,7 +256,9 @@ $script:output | Out-File -Encoding UTF8 structure.txt
 │   │   │   │   │   ├── TestimonialSection.tsx
 │   │   │   │   │   ├── WhyChooseUsSection.tsx
 │   │   │   │   │   ├── YourProgressSection.tsx
-│   │   │   │   ├── support
+│   │   │   │   ├── legal-policy
+│   │   │   │   ├── privacy-policy
+│   │   │   │   ├── terms-and-conditions
 │   │   │   ├── profile
 │   │   │   │   ├── generic
 │   │   │   │   │   ├── SwitchItem.tsx
@@ -191,11 +287,31 @@ $script:output | Out-File -Encoding UTF8 structure.txt
 │   │   │   │   │   │   ├── ProfileSettingsPage.tsx
 │   │   │   │   ├── content.ts
 │   │   ├── shared
+│   │   │   ├── charts
+│   │   │   │   ├── DashboardAreaChart.tsx
+│   │   │   ├── learn
+│   │   │   │   ├── DetailReadingBlocks.tsx
+│   │   │   │   ├── LearnExploreHero.tsx
+│   │   │   │   ├── LearnExplorePage.tsx
+│   │   │   │   ├── LearnExploreToolbar.tsx
+│   │   │   │   ├── types.ts
+│   │   │   ├── lineage-chart
+│   │   │   │   ├── buildEdgePath.ts
+│   │   │   │   ├── ChartCanvasToolbars.tsx
+│   │   │   │   ├── ChartControls.tsx
+│   │   │   │   ├── ChartNode.tsx
+│   │   │   │   ├── index.ts
+│   │   │   │   ├── layoutGraph.ts
+│   │   │   │   ├── LineageCanvas.tsx
+│   │   │   │   ├── types.ts
+│   │   │   │   ├── useChartViewport.ts
 │   │   │   ├── BackButton.tsx
 │   │   │   ├── BookmarkButton.tsx
 │   │   │   ├── FilterDropdown.tsx
+│   │   │   ├── LabelCheckbox.tsx
 │   │   │   ├── LanguageSelector.tsx
 │   │   │   ├── Logo.tsx
+│   │   │   ├── Modal.tsx
 │   │   │   ├── NotificationsPopover.tsx
 │   │   │   ├── Tabs.tsx
 │   │   │   ├── UserProfileDropdown.tsx
@@ -204,9 +320,12 @@ $script:output | Out-File -Encoding UTF8 structure.txt
 │   │   │   ├── badge.tsx
 │   │   │   ├── button.tsx
 │   │   │   ├── card.tsx
+│   │   │   ├── checkbox.tsx
+│   │   │   ├── dialog.tsx
 │   │   │   ├── drawer.tsx
 │   │   │   ├── dropdown-menu.tsx
 │   │   │   ├── input.tsx
+│   │   │   ├── pagination.tsx
 │   │   │   ├── popover.tsx
 │   │   │   ├── progress.tsx
 │   │   │   ├── range-slider.tsx
@@ -226,9 +345,13 @@ $script:output | Out-File -Encoding UTF8 structure.txt
 │   │   │   ├── notify.ts
 │   │   │   ├── permissions.ts
 │   │   ├── utils
+│   │   │   ├── card-motion.ts
 │   │   │   ├── clsx.ts
 │   │   │   ├── formatDate.ts
 │   │   │   ├── isNullish.ts
+│   │   │   ├── pagination-range.ts
+│   │   │   ├── share.ts
+│   │   │   ├── usePaginatedList.ts
 │   ├── store
 │   │   ├── hadith
 │   │   │   ├── hadith.store.ts
@@ -241,7 +364,6 @@ $script:output | Out-File -Encoding UTF8 structure.txt
 │   ├── middleware.ts
 │   ├── types.d.ts
 ├── .env.example
-├── .env.local
 ├── .gitignore
 ├── components.json
 ├── config.ts
@@ -255,3 +377,5 @@ $script:output | Out-File -Encoding UTF8 structure.txt
 ├── structure.txt
 ├── tailwind.config.ts
 ├── tsconfig.json
+├── tsconfig.tsbuildinfo
+├── workflow.txt
