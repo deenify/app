@@ -4,17 +4,12 @@ import { z } from "zod";
 
 // Schema 
 const clientEnvSchema = z.object({
-    // ApiBase: z.string().url(),
+    APP_PORT: z.string().min(4).default("1426"),
 });
 
-
-
-// Environmental Variables 
 export const clientEnv = clientEnvSchema.parse({
-    // ApiBase: process.env.NEXT_PUBLIC_API_BASE,
+    APP_PORT: process.env.NEXT_PUBLIC_APP_PORT,
 });
 
 
-
-// Type 
 export type ClientEnv = z.infer<typeof clientEnvSchema>;
