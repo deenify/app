@@ -42,7 +42,4 @@ next-env.d.ts
 
 # other
 txt
-text
-txt.txt
-text.txt
-other
+*.txt
