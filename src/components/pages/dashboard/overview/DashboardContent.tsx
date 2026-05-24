@@ -32,7 +32,7 @@ export default function DashboardContent() {
 
                 <DashboardStats items={DASHBOARD_STATS} />
 
-                <div className="grid gap-6 lg:grid-cols-3">
+                <div className="grid gap-6 lg:grid-cols-3 h-max">
                     <DashboardConsistencyChart
                         title="Consistency analytics"
                         description="Activity across spiritual categories"

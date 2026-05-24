@@ -11,6 +11,7 @@ export type DashboardStatItem = {
     hint: string
     icon: LucideIcon
     tone: DashboardStatTone
+    href: string
 }
 
 export type DashboardActivityRow = {
@@ -41,6 +42,7 @@ export const DASHBOARD_STATS: DashboardStatItem[] = [
         hint: "from last week",
         icon: Clock,
         tone: "emerald",
+        href: "/prayer",
     },
     {
         label: "Qurʾān progress",
@@ -49,6 +51,7 @@ export const DASHBOARD_STATS: DashboardStatItem[] = [
         hint: "read today",
         icon: BookOpen,
         tone: "blue",
+        href: "/quran",
     },
     {
         label: "Dhikr daily",
@@ -57,6 +60,7 @@ export const DASHBOARD_STATS: DashboardStatItem[] = [
         hint: "of daily goal",
         icon: Sparkles,
         tone: "amber",
+        href: "/dhikr",
     },
     {
         label: "Community rank",
@@ -65,6 +69,7 @@ export const DASHBOARD_STATS: DashboardStatItem[] = [
         hint: "tier this month",
         icon: TrendingUp,
         tone: "purple",
+        href: "/community",
     },
 ]
 

@@ -98,7 +98,12 @@ export function Pagination({
     return (
         <nav
             aria-label="Pagination"
-            className={cn("flex w-full items-center gap-1 sm:gap-1.5", alignClass, className)}
+            className={cn(
+                "flex w-full items-center gap-1 sm:gap-1.5",
+                "select-none user-select-none",
+                alignClass,
+                className
+            )}
         >
             <button
                 disabled={page <= 1}

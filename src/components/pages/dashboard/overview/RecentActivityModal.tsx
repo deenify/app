@@ -23,6 +23,7 @@ import {
 import { AnimatePresence, motion } from "framer-motion"
 import { cn } from "@/lib/utils/clsx"
 import type { DashboardActivityRow } from "./content"
+import AnimateUp from "@/components/shared/motion/AnimateUp"
 
 type RecentActivityModalProps = {
     isOpen: boolean
@@ -267,36 +268,33 @@ export function RecentActivityModal({ isOpen, onOpenChange, initialItems }: Rece
                                 </motion.div>
                             )
                         }) : (
-                            <motion.div
-                                key="empty-state"
-                                layout
-                                initial={{ opacity: 0, y: -10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -10 }}
-                                className="flex flex-col items-center justify-center flex-1 text-center py-10"
-                            >
-                                <div className="h-20 w-20 bg-gray-50 rounded-3xl flex items-center justify-center mb-6 rotate-12 transition-transform hover:rotate-0">
-                                    <RotateCcw className="h-10 w-10 text-gray-200" />
-                                </div>
-                                <h3 className="text-lg font-semibold text-gray-900 tracking-tight">
-                                    No activities found
-                                </h3>
-                                <p className="text-sm text-gray-500 mt-2 max-w-[240px]">
-                                    Your history is clean or the current filters are too specific.
-                                </p>
-                                <Button
-                                    variant="outline-emerald"
-                                    className="mt-6 px-5 border-emerald-200 rounded-full"
-                                    size="sm"
-                                    onClick={() => {
-                                        setCategoryFilter("All")
-                                        setTimeFilter("All")
-                                        setItems(generateItems(initialItems))
-                                    }}
+                            <div className="flex items-center justify-center flex-1 text-center py-10">
+                                <AnimateUp
+                                    className="flex flex-col items-center justify-center flex-1 text-center py-10"
                                 >
-                                    Reset all filters
-                                </Button>
-                            </motion.div>
+                                    <div className="h-20 w-20 bg-gray-50 rounded-3xl flex items-center justify-center mb-6 rotate-12 transition-transform hover:rotate-0">
+                                        <RotateCcw className="h-10 w-10 text-gray-200" />
+                                    </div>
+                                    <h3 className="text-lg font-semibold text-gray-900 tracking-tight">
+                                        No activities found
+                                    </h3>
+                                    <p className="text-sm text-gray-500 mt-2 max-w-[240px]">
+                                        Your history is clean or the current filters are too specific.
+                                    </p>
+                                    <Button
+                                        variant="outline-emerald"
+                                        className="mt-6 px-5 border-emerald-200 rounded-full"
+                                        size="sm"
+                                        onClick={() => {
+                                            setCategoryFilter("All")
+                                            setTimeFilter("All")
+                                            setItems(generateItems(initialItems))
+                                        }}
+                                    >
+                                        Reset all filters
+                                    </Button>
+                                </AnimateUp>
+                            </div>
                         )}
                     </AnimatePresence>
                 </div>
