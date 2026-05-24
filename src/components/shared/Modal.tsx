@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "framer-motion"
 import { X } from "lucide-react"
 import { cn } from "@/lib/utils/clsx"
 import { Button } from "../ui/button"
+import AnimateUp from "./motion/AnimateUp"
 
 type ModalProps = {
     isOpen: boolean
@@ -45,8 +46,8 @@ export function Modal({
                         <Dialog.Overlay asChild>
                             <motion.div
                                 initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                exit={{ opacity: 0 }}
+                                animate={{ opacity: 1, pointerEvents: "auto" }}
+                                exit={{ opacity: 0, pointerEvents: "none" }}
                                 transition={{ duration: 0.28 }}
                                 className={cn(
                                     "fixed inset-0 z-[9998] bg-black/50 backdrop-blur-sm",
@@ -56,82 +57,80 @@ export function Modal({
                         </Dialog.Overlay>
 
                         <Dialog.Content asChild>
-                            <motion.div
-                                initial={{ opacity: 0, scale: 1, y: 16 }}
-                                animate={{ opacity: 1, scale: 1, y: 0 }}
-                                exit={{ opacity: 0, scale: 1, y: 16 }}
-                                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                                className={cn(
-                                    "fixed inset-0 z-[9999] m-auto",
-                                    "flex flex-col overflow-hidden",
-                                    "rounded-md border border-layout-separator",
-                                    "bg-background shadow-2xl outline-none",
-                                    "w-[min(calc(100vw-2rem),700px)] max-h-[90dvh]",
-                                    className,
-                                )}
-                            >
-                                {(title || showClose) && (
-                                    <header
-                                        className={cn(
-                                            "flex shrink-0 items-center justify-between border-b border-layout-separator px-4 py-3",
-                                            classNames?.header
-                                        )}
-                                    >
-                                        <Dialog.Title
-                                            className={cn(
-                                                "text-base font-medium tracking-tight",
-                                                classNames?.title
-                                            )}
-                                        >
-                                            {title}
-                                        </Dialog.Title>
-
-                                        {showClose && (
-                                            <Dialog.Close>
-                                                <Button
-                                                    asChild
-                                                    variant="secondary"
-                                                    size="icon"
-                                                    shouldScale
-                                                    className="w-6 h-6 rounded-[5px] group"
-                                                    onClick={() => onOpenChange(false)}
-                                                    aria-label="Close modal"
-                                                >
-                                                    <div className="flex items-center justify-center bg-teal-50 p-2.5 text-teal-700
-                                                    group-hover:bg-emerald-100 ease duration-200">
-                                                        <X size={16} strokeWidth={2} />
-                                                    </div>
-                                                </Button>
-                                            </Dialog.Close>
-                                        )}
-                                    </header>
-                                )}
-
-                                <section
+                            <div onClick={(e) => e.stopPropagation()}>
+                                <AnimateUp
                                     className={cn(
-                                        "flex-1 overflow-hidden flex flex-col relative",
-                                        classNames?.body
+                                        "fixed inset-0 z-[9999] m-auto",
+                                        "flex flex-col overflow-hidden",
+                                        "rounded-md border border-layout-separator",
+                                        "bg-background shadow-2xl outline-none",
+                                        "w-[min(calc(100vw-2rem),700px)] max-h-[90dvh]",
+                                        className,
                                     )}
                                 >
-                                    <main className={cn(
-                                        "overflow-y-auto scrollbar-thin flex-1 py-2 px-4 relative",
-                                        classNames?.content
-                                    )}>
-                                        {children}
-                                    </main>
+                                    {(title || showClose) && (
+                                        <header
+                                            className={cn(
+                                                "flex shrink-0 items-center justify-between border-b border-layout-separator px-4 py-3",
+                                                classNames?.header
+                                            )}
+                                        >
+                                            <Dialog.Title
+                                                className={cn(
+                                                    "text-base font-medium tracking-tight",
+                                                    classNames?.title
+                                                )}
+                                            >
+                                                {title}
+                                            </Dialog.Title>
 
-                                    {footer && (
-                                        <footer className={cn(
-                                            footerVariant === "float"
-                                                ? "bg-transparent absolute bottom-0 left-0 right-0 p-4"
-                                                : "bg-white p-4",
-                                            classNames?.footer
-                                        )}>
-                                            {footer}
-                                        </footer>
+                                            {showClose && (
+                                                <Dialog.Close>
+                                                    <Button
+                                                        asChild
+                                                        variant="secondary"
+                                                        size="icon"
+                                                        shouldScale
+                                                        className="w-6 h-6 rounded-[5px] group"
+                                                        onClick={() => onOpenChange(false)}
+                                                        aria-label="Close modal"
+                                                    >
+                                                        <div className="flex items-center justify-center bg-teal-50 p-2.5 text-teal-700
+                                                    group-hover:bg-emerald-100 ease duration-200">
+                                                            <X size={16} strokeWidth={2} />
+                                                        </div>
+                                                    </Button>
+                                                </Dialog.Close>
+                                            )}
+                                        </header>
                                     )}
-                                </section>
-                            </motion.div>
+
+                                    <section
+                                        className={cn(
+                                            "flex-1 overflow-hidden flex flex-col relative",
+                                            classNames?.body
+                                        )}
+                                    >
+                                        <main className={cn(
+                                            "overflow-y-auto scrollbar-thin flex-1 py-2 px-4 relative",
+                                            classNames?.content
+                                        )}>
+                                            {children}
+                                        </main>
+
+                                        {footer && (
+                                            <footer className={cn(
+                                                footerVariant === "float"
+                                                    ? "bg-transparent absolute bottom-0 left-0 right-0 p-4"
+                                                    : "bg-white p-4",
+                                                classNames?.footer
+                                            )}>
+                                                {footer}
+                                            </footer>
+                                        )}
+                                    </section>
+                                </AnimateUp>
+                            </div>
                         </Dialog.Content>
                     </Dialog.Portal>
                 </Dialog.Root>
