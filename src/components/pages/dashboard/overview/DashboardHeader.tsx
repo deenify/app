@@ -1,9 +1,11 @@
 "use client"
 
+import { useState } from "react"
 import { motion } from "framer-motion"
 import { LayoutDashboard, Sparkles } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { DailyChallengeModal } from "./DailyChallengeModal"
 
 type DashboardHeaderProps = {
     badge: string
@@ -12,22 +14,25 @@ type DashboardHeaderProps = {
 }
 
 export function DashboardHeader({ badge, title, lead }: DashboardHeaderProps) {
+    const [isChallengeModalOpen, setIsChallengeModalOpen] = useState(false)
+
     return (
         <section className="border-b border-layout-separator">
             <div className="flex flex-col gap-5 pb-6 pt-1 sm:flex-row sm:items-end sm:justify-between sm:pb-7">
                 <div className="min-w-0">
                     <motion.div
-                        initial={{ opacity: 0, y: -6 }}
+                        initial={{ opacity: 0, y: -8 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="mb-3 flex items-center gap-2.5"
+                        className="mb-4 flex items-center gap-2.5"
                     >
                         <div className="flex items-center justify-center rounded-lg bg-emerald-50 p-2.5 text-emerald-700">
-                            <LayoutDashboard className="h-4 w-4" strokeWidth={2} />
+                            <LayoutDashboard className="h-4.5 w-4.5" strokeWidth={2} />
                         </div>
                         <Badge variant="emerald" className="text-xs font-medium">
                             {badge}
                         </Badge>
                     </motion.div>
+
                     <motion.h1
                         initial={{ opacity: 0, y: 8 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -67,12 +72,24 @@ export function DashboardHeader({ badge, title, lead }: DashboardHeaderProps) {
                         </div>
                         <span className="text-xs font-medium text-gray-500">Friends active</span>
                     </div>
-                    <Button type="button" size="sm" shouldScale className="w-full gap-2 sm:w-auto">
+                    <Button
+                        type="button"
+                        size="md"
+                        shouldScale
+                        className="w-full gap-2 sm:w-auto"
+                        onClick={() => setIsChallengeModalOpen(true)}
+                    >
                         <Sparkles className="h-4 w-4" />
                         Daily challenge
                     </Button>
                 </motion.div>
             </div>
+
+            <DailyChallengeModal
+                isOpen={isChallengeModalOpen}
+                onOpenChange={setIsChallengeModalOpen}
+                title="Daily Quest"
+            />
         </section>
     )
 }

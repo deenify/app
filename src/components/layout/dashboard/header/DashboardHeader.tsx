@@ -54,7 +54,10 @@ const DashboardHeader: React.FC<DashboardHeaderProps> = ({
 
 
     return (
-        <header className={cn("bg-white border-b border-layout-separator h-[73px] flex items-center md:px-6 px-4", className)}>
+        <header className={cn(
+            "bg-white border-b border-layout-separator h-[73px] flex items-center md:px-6 px-4",
+            className
+        )}>
             <div className="flex items-center justify-between w-full gap-2 sm:gap-4">
                 {/* Left Section - Logo (Mobile) & Greeting */}
                 <div className="min-w-0 flex-1">

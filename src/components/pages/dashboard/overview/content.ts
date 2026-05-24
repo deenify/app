@@ -115,6 +115,97 @@ export const DASHBOARD_DAILY_GOALS: DashboardGoalItem[] = [
     { label: "Sadaqah", value: 20, icon: TrendingUp, tone: "purple" },
 ]
 
+export type ChallengeType = "reading" | "action" | "exploration"
+
+export type ChallengeItem = {
+    id: string
+    type: ChallengeType
+    title: string
+    description: string
+    points: number
+    status: "available" | "completed" | "locked"
+    difficulty: "Easy" | "Medium" | "Hard"
+    metadata?: {
+        chapter?: string
+        verseHint?: string
+        correctReference?: string
+        link?: string
+    }
+}
+
+export const DAILY_CHALLENGES: ChallengeItem[] = [
+    {
+        id: "ch-1",
+        type: "reading",
+        title: "Qurʾān Journey",
+        description: "Read Surah Al-Kahf (Chapter 18). It is a source of light between two Fridays.",
+        points: 50,
+        status: "available",
+        difficulty: "Easy",
+        metadata: {
+            chapter: "18",
+            link: "/quran/18"
+        }
+    },
+    {
+        id: "ch-2",
+        type: "exploration",
+        title: "Verse Explorer",
+        description: "Identify the Surah: 'Indeed, with hardship [will be] ease.'",
+        points: 100,
+        status: "available",
+        difficulty: "Medium",
+        metadata: {
+            verseHint: "94:5",
+            correctReference: "Ash-Sharh"
+        }
+    },
+    {
+        id: "ch-3",
+        type: "action",
+        title: "Night Vigil",
+        description: "Complete 2 Rakat of Tahajjud prayer before Fajr.",
+        points: 150,
+        status: "available",
+        difficulty: "Hard"
+    },
+    {
+        id: "ch-4",
+        type: "action",
+        title: "Morning Adhkar",
+        description: "Recite your morning supplications for protection and peace.",
+        points: 40,
+        status: "available",
+        difficulty: "Easy"
+    },
+    {
+        id: "ch-5",
+        type: "exploration",
+        title: "Prophetic Wisdom",
+        description: "Which Surah is often called 'The Heart of the Quran'?",
+        points: 120,
+        status: "available",
+        difficulty: "Medium",
+        metadata: {
+            verseHint: "Search Hadith",
+            correctReference: "Ya-Sin"
+        }
+    },
+    {
+        id: "ch-6",
+        type: "reading",
+        title: "Knowledge Seeker",
+        description: "Read the story of Prophet Ibrahim (AS) in Surah Maryam.",
+        points: 200,
+        status: "locked",
+        difficulty: "Hard",
+        metadata: {
+            chapter: "19",
+            link: "/quran/19"
+        }
+    }
+]
+
 export const DASHBOARD_INSPIRATION = {
     badge: "Hadith of the day",
     quote: "The best among you are those who learn the Qurʾān and teach it.",

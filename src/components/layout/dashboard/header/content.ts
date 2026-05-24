@@ -23,15 +23,15 @@ export const profileMenuItems: MenuSection[] = [
         sectionItems: [
             { label: "My Profile", icon: User, href: "/profile" },
             { label: "Settings & Preferences", icon: Settings, href: "/profile/settings" },
-            { label: "Prayer History", icon: Clock, href: "/prayer-history" },
-            { label: "My Dhikr Progress", icon: TrendingUp, href: "/dhikr-progress" },
-            { label: "Reading Progress", icon: BookOpen, href: "/reading-progress" },
+            { label: "Prayer History", icon: Clock, href: "/prayer" },
+            { label: "My Dhikr Progress", icon: TrendingUp, href: "/dhikr" },
+            { label: "Reading Progress", icon: BookOpen, href: "/quran" },
         ]
     },
     {
         label: "Help & Support",
         sectionItems: [
-            { label: "Support Center", icon: HelpCircle, href: "/support-center" },
+            { label: "Support Center", icon: HelpCircle, href: "/support" },
             { label: "Donate", icon: Gift, href: "/donate" },
         ]
     }

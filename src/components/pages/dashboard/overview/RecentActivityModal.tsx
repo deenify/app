@@ -202,19 +202,14 @@ export function RecentActivityModal({ isOpen, onOpenChange, initialItems }: Rece
             {/* List Content */}
             <div id="activity-modal-list" className="px-4 py-4 overflow-y-auto scrollbar-thin flex-1">
                 <div className="flex flex-col gap-1 min-h-full">
-                    <AnimatePresence mode="popLayout" initial={false}>
+                    <AnimatePresence >
                         {paginatedItems.length > 0 ? paginatedItems.map((item) => {
                             const style = CATEGORY_STYLES[item.category] || CATEGORY_STYLES.Default
                             const Icon = style.icon
 
                             return (
                                 <motion.div
-                                    key={item.id}
-                                    layout
-                                    initial={{ opacity: 0, scale: 0.98 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    exit={{ opacity: 0, x: -20 }}
-                                    transition={{ duration: 0.1 }}
+                                    transition={{ duration: 0.3 }}
                                     className="group relative flex items-start sm:gap-4 gap-2 sm:p-4 p-2 py-3 rounded-lg
                                      border border-layout-separator bg-white hover:border-emerald-200 
                                      duration-300 hover:bg-emerald-50/30"
