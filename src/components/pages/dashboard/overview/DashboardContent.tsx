@@ -42,7 +42,6 @@ export default function DashboardContent() {
                     <DashboardPrayerSchedule
                         prayers={PRAYER_WINDOWS}
                         highlightId={DASHBOARD_PRAYER_HIGHLIGHT}
-                        completedIds={DASHBOARD_PRAYER_COMPLETED}
                     />
                 </div>
 

@@ -23,15 +23,16 @@ export type PrayerWindow = {
     transliteration: string
     time: string
     phase: "dawn" | "noon" | "afternoon" | "dusk" | "night"
+    completed: boolean
 }
 
 /** Demo schedule — swap for API / calculation engine */
 export const PRAYER_WINDOWS: PrayerWindow[] = [
-    { id: "Fajr", name: "Fajr", arabic: "الفجر", transliteration: "Fajr", time: "05:45 AM", phase: "dawn" },
-    { id: "Dhuhr", name: "Dhuhr", arabic: "الظهر", transliteration: "Ẓuhr", time: "01:15 PM", phase: "noon" },
-    { id: "Asr", name: "Asr", arabic: "العصر", transliteration: "ʿAṣr", time: "04:30 PM", phase: "afternoon" },
-    { id: "Maghrib", name: "Maghrib", arabic: "المغرب", transliteration: "Maghrib", time: "06:45 PM", phase: "dusk" },
-    { id: "Isha", name: "Isha", arabic: "العشاء", transliteration: "ʿIshāʾ", time: "08:15 PM", phase: "night" },
+    { id: "Fajr", name: "Fajr", arabic: "الفجر", transliteration: "Fajr", time: "05:45 AM", phase: "dawn", completed: true },
+    { id: "Dhuhr", name: "Dhuhr", arabic: "الظهر", transliteration: "Ẓuhr", time: "01:15 PM", phase: "noon", completed: true },
+    { id: "Asr", name: "Asr", arabic: "العصر", transliteration: "ʿAṣr", time: "04:30 PM", phase: "afternoon", completed: false },
+    { id: "Maghrib", name: "Maghrib", arabic: "المغرب", transliteration: "Maghrib", time: "06:45 PM", phase: "dusk", completed: false },
+    { id: "Isha", name: "Isha", arabic: "العشاء", transliteration: "ʿIshāʾ", time: "08:15 PM", phase: "night", completed: false },
 ]
 
 export const PRAYER_EDITORIAL = {

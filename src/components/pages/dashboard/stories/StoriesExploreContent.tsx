@@ -5,7 +5,7 @@ import { Heart } from "lucide-react"
 import { Pagination } from "@/components/ui/pagination"
 import { LearnExploreHero } from "@/components/shared/learn/LearnExploreHero"
 import { LearnExploreToolbar } from "@/components/shared/learn/LearnExploreToolbar"
-import { usePaginatedList } from "@/lib/utils/usePaginatedList"
+import { usePagination } from "@/hooks/usePagination"
 import { STORIES_CATEGORIES, STORIES_EDITORIAL, STORIES_TOPICS } from "./content"
 import StoryCard from "./StoryCard"
 import StoryDetailModal from "./StoryDetailModal"
@@ -29,10 +29,9 @@ export default function StoriesExploreContent() {
         })
     }, [category, searchQuery])
 
-    const { page, setPage, totalPages, paginatedItems } = usePaginatedList(
+    const { page, setPage, totalPages, paginatedItems } = usePagination(
         filtered,
-        6,
-        (s) => s.id
+        6
     )
 
     const getCategoryCount = (categoryId: string) =>

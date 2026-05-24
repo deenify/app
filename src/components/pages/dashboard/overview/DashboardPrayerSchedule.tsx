@@ -5,11 +5,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils/clsx"
 import type { PrayerWindow } from "@/components/pages/dashboard/content"
+import { useState } from "react"
 
 type DashboardPrayerScheduleProps = {
     prayers: PrayerWindow[]
     highlightId: string
-    completedIds: readonly string[]
     nextLabel?: string
 }
 
@@ -24,16 +24,23 @@ const PRAYER_ICONS: Record<string, typeof Sun> = {
 export function DashboardPrayerSchedule({
     prayers,
     highlightId,
-    completedIds,
     nextLabel = "Next: Asr in 2h 15m",
 }: DashboardPrayerScheduleProps) {
+    const [completedPrayers, setCompletedPrayers] = useState<PrayerWindow[]>(prayers)
+
+    const handleMarkPrayerAsDone = (prayerId: string) => {
+        setCompletedPrayers(completedPrayers.map((prayer) =>
+            prayer.id === prayerId ? { ...prayer, completed: !prayer.completed } : prayer
+        ) as PrayerWindow[])
+    }
+
     return (
         <Card className="overflow-hidden border border-gray-200 shadow-sm">
             <CardHeader className="border-b border-gray-100 bg-gray-50/50 p-4">
                 <div className="flex items-start justify-between gap-2">
                     <div className="space-y-1">
                         <CardTitle className="text-base font-medium sm:text-lg">Today&apos;s schedule</CardTitle>
-                        <CardDescription className="flex items-center gap-1 text-[11px]">
+                        <CardDescription className="flex items-center gap-1 text-sm">
                             <Clock className="h-3 w-3" />
                             {nextLabel}
                         </CardDescription>
@@ -45,15 +52,17 @@ export function DashboardPrayerSchedule({
             </CardHeader>
             <CardContent className="p-0">
                 <ul className="divide-y divide-gray-100">
-                    {prayers.map((prayer) => {
+                    {completedPrayers.map((prayer) => {
                         const isHighlight = prayer.id === highlightId
-                        const isDone = completedIds.includes(prayer.id)
+                        const isDone = prayer.completed
                         const Icon = PRAYER_ICONS[prayer.id] ?? Sun
 
                         return (
                             <li
                                 key={prayer.id}
-                                className="flex items-center justify-between gap-3 px-4 py-3.5 transition-colors hover:bg-gray-50 sm:px-5 sm:py-4"
+                                className="flex items-center justify-between gap-3 px-4 py-3.5 
+                                transition-colors hover:bg-gray-50 sm:px-5 sm:py-4 cursor-pointer"
+                                onClick={() => handleMarkPrayerAsDone(prayer.id)}
                             >
                                 <div className="flex min-w-0 items-center gap-3">
                                     <div
@@ -81,7 +90,10 @@ export function DashboardPrayerSchedule({
                                     </div>
                                 </div>
                                 {isDone ? (
-                                    <CheckCircle2 className="h-5 w-5 shrink-0 text-emerald-600" aria-label="Completed" />
+                                    <CheckCircle2
+                                        className="h-5 w-5 shrink-0 text-emerald-600"
+                                        aria-label="Completed"
+                                    />
                                 ) : (
                                     <span
                                         className="h-5 w-5 shrink-0 rounded-full border-2 border-gray-200"

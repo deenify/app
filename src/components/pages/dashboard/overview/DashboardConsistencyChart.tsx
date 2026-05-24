@@ -26,11 +26,8 @@ export function DashboardConsistencyChart({
                     <CardDescription>{description}</CardDescription>
                 </div>
                 <div className="flex gap-2">
-                    <Badge variant="outline" className="cursor-pointer text-[10px]">
+                    <Badge variant="outline" className="text-[10px]">
                         7 days
-                    </Badge>
-                    <Badge variant="outline" className="cursor-pointer text-[10px] text-gray-400">
-                        30 days
                     </Badge>
                 </div>
             </CardHeader>

@@ -5,7 +5,7 @@ import { Scroll } from "lucide-react"
 import { Pagination } from "@/components/ui/pagination"
 import { LearnExploreHero } from "@/components/shared/learn/LearnExploreHero"
 import { LearnExploreToolbar } from "@/components/shared/learn/LearnExploreToolbar"
-import { usePaginatedList } from "@/lib/utils/usePaginatedList"
+import { usePagination } from "@/hooks/usePagination"
 import HistoryCard from "./HistoryCard"
 import { HISTORY_CATEGORIES, HISTORY_EDITORIAL, HISTORY_TOPICS } from "./content"
 
@@ -26,7 +26,7 @@ export default function HistoryExploreContent() {
         })
     }, [category, searchQuery])
 
-    const { page, setPage, totalPages, paginatedItems } = usePaginatedList(filtered, 6, (t) => t.id)
+    const { page, setPage, totalPages, paginatedItems } = usePagination(filtered, 6)
 
     const getCategoryCount = (categoryId: string) =>
         categoryId === "all"
