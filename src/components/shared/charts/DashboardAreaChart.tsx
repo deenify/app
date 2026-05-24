@@ -61,10 +61,13 @@ export function DashboardAreaChart({
                         axisLine={false}
                         tickLine={false}
                         tick={{ fontSize: 11, fill: "#94a3b8", fontWeight: 500 }}
-                        width={28}
+                        width={37}
                     />
                     <Tooltip
-                        content={(props) => <ChartTooltip {...props} series={series} />}
+                        content={(props) =>
+                            <ChartTooltip {...props} series={series} />
+                        }
+                        wrapperClassName="pointer-events-none"
                         cursor={{ stroke: "#d1d5db", strokeWidth: 1, strokeDasharray: "4 4" }}
                     />
                     {series.map((s) => (
@@ -87,6 +90,7 @@ export function DashboardAreaChart({
     )
 }
 
+
 type ChartTooltipProps = TooltipProps<ValueType, NameType> & {
     series: DashboardChartSeries[]
 }
@@ -99,47 +103,44 @@ function ChartTooltip({ active, payload, label, series }: ChartTooltipProps) {
     return (
         <div
             className={cn(
-                "min-w-[168px] overflow-hidden rounded-md border border-gray-200",
-                "bg-white/95 shadow-lg backdrop-blur-sm"
+                "min-w-[130px] rounded-md px-2.5 py-2 pointer-events-none",
+                "backdrop-blur-[6px] bg-white/40 select-none user-select-none",
+                "border border-layout-separator shadow-sm"
             )}
         >
-            <div className="border-b border-layout-separator bg-emerald-50 px-3 py-2">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-                    Day
-                </p>
-                <p className="text-sm font-medium text-foreground">{label}</p>
+            <div className="pb-1 text-xs font-medium tracking-wide text-gray-400">
+                {label}
             </div>
 
-            <ul className="space-y-0 divide-y divide-gray-50 px-1 py-1">
+            <div className="space-y-1">
                 {payload.map((item) => {
                     const key = String(item.dataKey ?? item.name)
-                    const color =
-                        item.color ??
-                        colorByKey.get(key) ??
-                        (typeof item.payload === "object" && item.payload && "fill" in item.payload
-                            ? String(item.payload.fill)
-                            : "#059669")
+                    const color = item.color ?? colorByKey.get(key) ?? "#94a3b8"
 
                     return (
-                        <li
+                        <div
                             key={key}
-                            className="flex items-center justify-between gap-4 rounded-md px-2 py-2"
+                            className="flex items-center justify-between gap-2"
                         >
-                            <span className="flex min-w-0 items-center gap-2">
+                            <div className="flex items-center gap-2 min-w-0">
                                 <span
-                                    className="h-2 w-2 shrink-0 rounded-full ring-2 ring-white"
+                                    className="h-1.5 w-1.5 rounded-full shrink-0"
                                     style={{ backgroundColor: color }}
-                                    aria-hidden
                                 />
-                                <span className="truncate text-xs text-gray-600">{item.name}</span>
+                                <span className="truncate text-[11px] text-gray-600">
+                                    {item.name}
+                                </span>
+                            </div>
+
+                            <span className="text-[11px] font-medium text-gray-900 tabular-nums">
+                                {typeof item.value === "number"
+                                    ? item.value.toLocaleString()
+                                    : item.value}
                             </span>
-                            <span className="shrink-0 text-xs font-semibold tabular-nums text-gray-900">
-                                {(item.value as number).toLocaleString()}
-                            </span>
-                        </li>
+                        </div>
                     )
                 })}
-            </ul>
+            </div>
         </div>
     )
 }

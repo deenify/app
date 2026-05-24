@@ -1,7 +1,7 @@
 "use client"
 
 import { Pagination } from "@/components/ui/pagination"
-import { usePaginatedList } from "@/lib/utils/usePaginatedList"
+import { usePagination } from "@/hooks/usePagination"
 import GuidesCard from "./GuidesCard"
 import type { GuideType } from "./content"
 
@@ -16,10 +16,9 @@ const GuidesCollectionsTabSection = ({
     bookmarkedIds,
     onToggleBookmark,
 }: GuidesCollectionsTabSectionProps) => {
-    const { paginatedItems, page, setPage, totalPages } = usePaginatedList(
+    const { paginatedItems, page, setPage, totalPages } = usePagination(
         guides,
-        9,
-        (g) => g.id
+        9
     )
 
     return (

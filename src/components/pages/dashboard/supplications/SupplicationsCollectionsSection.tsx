@@ -1,7 +1,7 @@
 "use client"
 
 import { Pagination } from "@/components/ui/pagination"
-import { usePaginatedList } from "@/lib/utils/usePaginatedList"
+import { usePagination } from "@/hooks/usePagination"
 import SupplicationCard from "./SupplicationCard"
 import type { SupplicationItem } from "./content"
 
@@ -16,10 +16,9 @@ export default function SupplicationsCollectionsSection({
     bookmarkedIds,
     onToggleBookmark,
 }: Props) {
-    const { paginatedItems, page, setPage, totalPages } = usePaginatedList(
+    const { paginatedItems, page, setPage, totalPages } = usePagination(
         items,
-        6,
-        (item) => item.id
+        6
     )
 
     return (
