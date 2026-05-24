@@ -3,7 +3,6 @@
 import * as React from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { cn } from "@/lib/utils/clsx"
-
 export type PaginationProps = {
     page: number
     totalPages: number
@@ -11,10 +10,12 @@ export type PaginationProps = {
     className?: string
     align?: "left" | "center" | "right"
     isMobile?: boolean
+    scrollContainerId?: string
+    scrollDelay?: number
 }
 
 /**
- * Custom Ellipsis component with clickable jump logic.
+ *  Ellipsis component with clickable action.
  */
 function EllipsisDots({ onClick }: { onClick: () => void }) {
     return (
@@ -27,6 +28,7 @@ function EllipsisDots({ onClick }: { onClick: () => void }) {
             )}
             aria-label="Jump pages"
         >
+            <span className="h-1 w-1 rounded-full bg-gray-400" />
             <span className="h-1 w-1 rounded-full bg-gray-400" />
             <span className="h-1 w-1 rounded-full bg-gray-400" />
         </button>
@@ -44,11 +46,22 @@ export function Pagination({
     className,
     align = "right",
     isMobile = false,
+    scrollContainerId,
+    scrollDelay = 0
 }: PaginationProps) {
     if (totalPages <= 1) return null
 
     const handlePageChange = (p: number) => {
-        if (p >= 1 && p <= totalPages && p !== page) onPageChange(p)
+        if (p < 1 || p > totalPages || p === page) return
+
+        onPageChange(p)
+
+        if (scrollContainerId) {
+            setTimeout(() => {
+                const element = document.getElementById(scrollContainerId)
+                element?.scrollTo({ top: 0, behavior: "smooth" })
+            }, scrollDelay)
+        }
     }
 
     // Stable pagination logic: calculates which page numbers/dots to show

@@ -147,6 +147,7 @@ export function RecentActivityModal({ isOpen, onOpenChange, initialItems }: Rece
                     totalPages={totalPages}
                     onPageChange={setPage}
                     align="center"
+                    scrollContainerId="activity-modal-list"
                 />
             ) : null}
             className="w-[min(calc(100vw-2rem),600px)] h-[85vh]"
@@ -198,7 +199,7 @@ export function RecentActivityModal({ isOpen, onOpenChange, initialItems }: Rece
             </div>
 
             {/* List Content */}
-            <div className="px-4 py-4 overflow-y-auto scrollbar-thin flex-1">
+            <div id="activity-modal-list" className="px-4 py-4 overflow-y-auto scrollbar-thin flex-1">
                 <div className="flex flex-col gap-1 min-h-full">
                     <AnimatePresence mode="popLayout" initial={false}>
                         {paginatedItems.length > 0 ? paginatedItems.map((item) => {
@@ -272,7 +273,7 @@ export function RecentActivityModal({ isOpen, onOpenChange, initialItems }: Rece
                                 initial={{ opacity: 0, y: -10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -10 }}
-                                className="flex flex-col items-center justify-center flex-1 text-center"
+                                className="flex flex-col items-center justify-center flex-1 text-center py-10"
                             >
                                 <div className="h-20 w-20 bg-gray-50 rounded-3xl flex items-center justify-center mb-6 rotate-12 transition-transform hover:rotate-0">
                                     <RotateCcw className="h-10 w-10 text-gray-200" />
