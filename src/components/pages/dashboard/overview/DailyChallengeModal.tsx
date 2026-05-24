@@ -180,76 +180,53 @@ export function DailyChallengeModal({
                         transition={{ duration: 0.25 }}
                         className="absolute inset-0 z-[1000] flex items-center justify-center backdrop-blur-[2px] px-4"
                     >
-                        {/* 🌫 Confetti Background */}
+                        {/* Confetti Background */}
                         <motion.div
                             initial={{ opacity: 0, scale: 1.05 }}
                             animate={{ opacity: 0.3, scale: 1 }}
                             exit={{ opacity: 0, pointerEvents: "none" }}
-                            transition={{
-                                duration: 2,
-                                ease: [0.22, 1, 0.36, 1]
-                            }}
+                            transition={{ duration: 2, ease: [0.22, 1, 0.36, 1] }}
                             className="absolute inset-0 flex items-center justify-center pointer-events-none"
                         >
                             <Image
-                                src="/images/generic/confetti-serpentine-explosion-burst-background.png"
-                                alt="confetti"
                                 fill
                                 priority
+                                alt="confetti"
+                                src="/images/generic/confetti-serpentine-explosion-burst-background.png"
                                 className="sm:object-contain object-cover w-full h-auto"
                             />
                         </motion.div>
 
-                        {/* ✨ Success Card */}
+                        {/* Success Card */}
                         <motion.div
-                            initial={{
-                                scale: 0.85,
-                                opacity: 0,
-                                y: 24
-                            }}
-                            animate={{
-                                scale: 1,
-                                opacity: 1,
-                                y: 0
-                            }}
-                            exit={{
-                                scale: 1.05,
-                                opacity: 0,
-                                pointerEvents: "none",
-                                y: 10
-                            }}
-                            transition={{
-                                duration: 0.6,
-                                ease: [0.16, 1, 0.3, 1]
-                            }}
+                            initial={{ scale: 0.85, opacity: 0, y: 24 }}
+                            animate={{ scale: 1, opacity: 1, y: 0 }}
+                            exit={{ scale: 1.05, opacity: 0, pointerEvents: "none", y: 10 }}
+                            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                             className="
-                    relative bg-gray-50 backdrop-blur-md rounded-xl
-                    py-5 sm:py-8
-                    px-12 sm:px-20
-                    shadow-[1px_1px_20px_4px_rgba(0,0,0,0.12)]
-                    flex flex-col items-center border border-emerald-400
-                    w-fit max-w-[90vw]
-                "
+                                 relative bg-white backdrop-blur-md rounded-xl
+                                 py-5 sm:py-8
+                                 px-12 sm:px-20
+                                 shadow-[1px_1px_20px_4px_rgba(0,0,0,0.12)]
+                                 flex flex-col items-center border border-emerald-400
+                                 w-fit max-w-[90vw]
+                             "
                         >
                             <div className="relative mb-4 sm:mb-6">
                                 <motion.div
                                     animate={{ rotate: 360 }}
-                                    transition={{
-                                        duration: 12,
-                                        repeat: Infinity,
-                                        ease: "linear"
-                                    }}
+                                    transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
                                     className="absolute -inset-4 text-emerald-200"
                                 >
                                     <Sparkles className="w-12 h-12 sm:w-[80px] sm:h-[80px]" strokeWidth={1} />
                                 </motion.div>
 
                                 <div className="
-                        h-12 w-12 sm:h-16 sm:w-16
-                        bg-emerald-500 rounded-2xl
-                        flex items-center justify-center
-                        text-white shadow-lg shadow-emerald-200 rotate-12
-                    ">
+                                      h-12 w-12 sm:h-16 sm:w-16
+                                      bg-emerald-500 rounded-2xl
+                                      flex items-center justify-center
+                                    text-white shadow-lg shadow-emerald-200 rotate-12
+                                  ">
                                     <CheckCircle2 className="w-6 h-6 sm:w-8 sm:h-8" />
                                 </div>
                             </div>

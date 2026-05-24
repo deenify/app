@@ -2,8 +2,8 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { DashboardAreaChart } from "@/components/shared/charts/DashboardAreaChart"
-import type { DashboardChartSeries } from "@/components/shared/charts/DashboardAreaChart"
+import { DashboardAreaChart } from "@/components/shared/charts/graphical-charts/DashboardAreaChart"
+import type { DashboardChartSeries } from "@/components/shared/charts/graphical-charts/DashboardAreaChart"
 import AnimateUp from "@/components/shared/motion/AnimateUp"
 
 type DashboardConsistencyChartProps = {

@@ -2,7 +2,7 @@ import type {
     ChartLayoutDirection,
     ChartViewportConfig,
     LineageChartGraph,
-} from "@/components/shared/lineage-chart"
+} from "@/components/shared/charts/lineage-chart"
 import { PROPHETIC_EDGES, PROPHETIC_NODES, type PropheticNodeData } from "./prophetic-data"
 
 const PROPHETIC_NODE_SIZE = {

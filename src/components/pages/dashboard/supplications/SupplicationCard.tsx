@@ -3,7 +3,7 @@
 import { motion } from "framer-motion"
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils/clsx"
-import BookmarkButton from "@/components/shared/BookmarkButton"
+import BookmarkButton from "@/components/shared/buttons/BookmarkButton"
 import type { SupplicationItem } from "./content"
 import { BookHeart } from "lucide-react"
 

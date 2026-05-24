@@ -7,7 +7,7 @@ import { Copy, Heart, MessageCircle, Share2, User } from "lucide-react"
 import { motion, type TargetAndTransition, type Transition } from "framer-motion"
 import useHadithReaderSettingsStore from "@/store/hadith"
 import type { HadithAuthenticityGrade, MockHadithNarrationType } from "./content"
-import BookmarkButton from "@/components/shared/BookmarkButton"
+import BookmarkButton from "@/components/shared/buttons/BookmarkButton"
 
 interface HadithCardProps {
     hadith: MockHadithNarrationType

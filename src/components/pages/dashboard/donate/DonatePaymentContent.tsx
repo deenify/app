@@ -6,7 +6,7 @@ import { CreditCard, Lock, ShieldCheck, Wallet } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import BackButton from "@/components/shared/BackButton"
+import BackButton from "@/components/shared/buttons/BackButton"
 import { cn } from "@/lib/utils/clsx"
 import { DONATE_TIERS, getDonateTierById } from "./content"
 

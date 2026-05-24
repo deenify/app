@@ -4,7 +4,7 @@ import { BookOpen, Clock, MapPin, ScrollText, User } from "lucide-react"
 import { Modal } from "@/components/shared/Modal"
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils/clsx"
-import type { LineageChartNode } from "@/components/shared/lineage-chart"
+import type { LineageChartNode } from "@/components/shared/charts/lineage-chart"
 import type { PropheticNodeData } from "./prophetic-data"
 import { getProphetScripture } from "./scripture"
 

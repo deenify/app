@@ -1,7 +1,7 @@
 "use client"
 
 import { cn } from "@/lib/utils/clsx"
-import type { LineageChartNode } from "@/components/shared/lineage-chart"
+import type { LineageChartNode } from "@/components/shared/charts/lineage-chart"
 import type { PropheticNodeData } from "./prophetic-data"
 
 type SelectedNodePanelProps = {

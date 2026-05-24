@@ -1,4 +1,4 @@
-import type { LineageChartEdge, LineageChartNode } from "@/components/shared/lineage-chart"
+import type { LineageChartEdge, LineageChartNode } from "@/components/shared/charts/lineage-chart"
 
 export type PropheticNodeData = {
     honorific: string

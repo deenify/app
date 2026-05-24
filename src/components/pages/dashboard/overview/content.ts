@@ -1,6 +1,6 @@
 import type { LucideIcon } from "lucide-react"
 import { BookOpen, Clock, Sparkles, TrendingUp } from "lucide-react"
-import type { DashboardChartSeries } from "@/components/shared/charts/DashboardAreaChart"
+import type { DashboardChartSeries } from "@/components/shared/charts/graphical-charts/DashboardAreaChart"
 
 export type DashboardStatTone = "emerald" | "blue" | "amber" | "purple"
 

@@ -4,7 +4,7 @@ import { useMemo } from "react"
 import { Clock3, Landmark } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import BackButton from "@/components/shared/BackButton"
+import BackButton from "@/components/shared/buttons/BackButton"
 import {
     getTopicOverview,
     KeyTakeaways,

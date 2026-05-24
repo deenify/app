@@ -12,7 +12,7 @@ import {
     type ChartLayoutDirection,
     type LineageCanvasHandle,
     type LineageEdgeRouting,
-} from "@/components/shared/lineage-chart"
+} from "@/components/shared/charts/lineage-chart"
 import {
     getPropheticChainLayout,
     PROPHETIC_CHAIN_EDITORIAL,
