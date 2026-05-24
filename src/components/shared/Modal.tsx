@@ -6,6 +6,7 @@ import { X } from "lucide-react"
 import { cn } from "@/lib/utils/clsx"
 import { Button } from "../ui/button"
 import AnimateUp from "./motion/AnimateUp"
+import CloseButton from "./buttons/CloseButton"
 
 type ModalProps = {
     isOpen: boolean
@@ -86,20 +87,7 @@ export function Modal({
 
                                             {showClose && (
                                                 <Dialog.Close>
-                                                    <Button
-                                                        asChild
-                                                        variant="secondary"
-                                                        size="icon"
-                                                        shouldScale
-                                                        className="w-6 h-6 rounded-[5px] group"
-                                                        onClick={() => onOpenChange(false)}
-                                                        aria-label="Close modal"
-                                                    >
-                                                        <div className="flex items-center justify-center bg-teal-50 p-2.5 text-teal-700
-                                                    group-hover:bg-emerald-100 ease duration-200">
-                                                            <X size={16} strokeWidth={2} />
-                                                        </div>
-                                                    </Button>
+                                                    <CloseButton onOpenChange={onOpenChange} />
                                                 </Dialog.Close>
                                             )}
                                         </header>

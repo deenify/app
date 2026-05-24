@@ -1,9 +1,11 @@
 "use client"
 
-import { Sparkles } from "lucide-react"
+import { CheckCircle2, Sparkles } from "lucide-react"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { useState } from "react"
+import { cn } from "@/lib/utils/clsx"
 
 type DashboardInspirationCardProps = {
     badge: string
@@ -12,6 +14,12 @@ type DashboardInspirationCardProps = {
 }
 
 export function DashboardInspirationCard({ badge, quote, source }: DashboardInspirationCardProps) {
+    const [isRead, setIsRead] = useState(false)
+
+    const handleMarkAsRead = () => {
+        setIsRead(!isRead)
+    }
+
     return (
         <Card className="relative overflow-hidden border-none bg-emerald-600 text-white shadow-lg shadow-emerald-100 p-0">
             <Sparkles
@@ -35,11 +43,21 @@ export function DashboardInspirationCard({ badge, quote, source }: DashboardInsp
                     <Button
                         type="button"
                         size="sm"
-                        variant="secondary"
+                        variant={isRead ? "default" : "secondary"}
                         shouldScale
-                        className="w-full bg-white text-emerald-700 hover:bg-emerald-50 sm:w-auto"
+                        className={cn(
+                            "w-full sm:w-auto",
+                            isRead && "bg-emerald-700 text-white pointer-events-none"
+                        )}
+                        onClick={handleMarkAsRead}
                     >
-                        Share
+                        {isRead
+                            ? <span className="flex items-center gap-2">
+                                <span>Read 15s ago</span>
+                                <CheckCircle2 size={16} className="text-white" />
+                            </span>
+                            : "Mark Read (+15xp)"
+                        }
                     </Button>
                 </div>
             </CardContent>
