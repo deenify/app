@@ -1,9 +1,10 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { BookOpen, Bookmark, GraduationCap } from "lucide-react"
+import { BookOpen, Bookmark, Filter, GraduationCap } from "lucide-react"
+import { Input } from "@/components/ui/input"
+import FilterDropdown from "@/components/shared/FilterDropdown"
 import SectionHeader from "@/components/shared/SectionHeader"
-import { LearnExploreToolbar } from "@/components/shared/learn/LearnExploreToolbar"
 import Tabs from "@/components/shared/Tabs"
 import { cn } from "@/lib/utils/clsx"
 import { GuideCategories, GuidesMock } from "./content"
@@ -55,6 +56,19 @@ const GuidesExplorePage = () => {
 
     const catalogCountLabel = `${GuidesMock.length - 1}+`
 
+    const guideCategoryOptions = useMemo(
+        () =>
+            GuideCategories.map((c) => ({
+                value: c.id,
+                label: c.label,
+                metaLabel: String(getCategoryCount(c.id)),
+            })),
+        [category]
+    )
+
+    const searchPlaceholder =
+        activeTab === "bookmarks" ? "Search your saved guides..." : "Search guides..."
+
     return (
         <div className="bg-gray-50">
             <SectionHeader
@@ -73,24 +87,45 @@ const GuidesExplorePage = () => {
                 <section className={cn("relative w-full border-t border-layout-separator bg-transparent")}>
                     <div className="container py-6 sm:py-8">
                         <div className="mx-auto min-w-0 max-w-6xl space-y-4 sm:space-y-5">
-                            <LearnExploreToolbar
-                                searchQuery={searchQuery}
-                                onSearchChange={setSearchQuery}
-                                category={category}
-                                onCategoryChange={setCategory}
-                                categories={GuideCategories.map((c) => ({ id: c.id, label: c.label }))}
-                                itemCount={filteredGuides.length}
-                                countLabel="guides"
-                                placeholder={
-                                    activeTab === "bookmarks"
-                                        ? "Search your saved guides..."
-                                        : "Search guides..."
-                                }
-                                filterPlaceholder="All topics"
-                                filterTheme="purple"
-                                getCategoryCount={getCategoryCount}
-                                countToneClass="border-emerald-200 bg-emerald-50/80 text-emerald-800"
-                            />
+                            <section className="flex w-full min-w-0 flex-col gap-3 sm:flex-row sm:items-center sm:gap-3">
+                                <Input
+                                    search
+                                    type="input"
+                                    placeholder={searchPlaceholder}
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    className="w-full min-w-0 sm:min-w-0 sm:flex-1"
+                                    classNames={{
+                                        inputWrapper: "w-full min-w-0",
+                                        input: "h-10 w-full min-w-0 rounded-md border-gray-200 bg-white text-base placeholder:text-gray-400 focus:bg-white",
+                                    }}
+                                />
+                                <div className="flex w-full min-w-0 items-center gap-2 sm:max-w-[260px] sm:shrink-0 md:max-w-[280px]">
+                                    <div className="min-w-0 flex-1 sm:w-full">
+                                        <FilterDropdown
+                                            options={guideCategoryOptions}
+                                            value={category}
+                                            onChange={(v) => setCategory(String(v))}
+                                            placeholder="All topics"
+                                            triggerIcon={Filter}
+                                            theme="purple"
+                                            className="w-full"
+                                            classNames={{
+                                                triggerButton: "w-full max-w-full",
+                                                content: "scrollbar-thin",
+                                            }}
+                                        />
+                                    </div>
+                                    <div className="inline-flex h-9 shrink-0 items-center justify-center rounded-md border border-emerald-200 bg-emerald-50/80 px-2.5 text-xs font-medium text-emerald-800 shadow-sm sm:hidden">
+                                        <span className="tabular-nums font-semibold">{filteredGuides.length}</span>
+                                        <span className="ml-1 truncate">guides</span>
+                                    </div>
+                                </div>
+                                <div className="hidden h-9 shrink-0 items-center justify-center rounded-md border border-emerald-200 bg-emerald-50/80 px-3 text-xs font-medium text-emerald-800 shadow-sm sm:inline-flex">
+                                    <span className="tabular-nums font-semibold">{filteredGuides.length}</span>
+                                    <span className="ml-1">guides</span>
+                                </div>
+                            </section>
 
                             <section className="flex items-center justify-between pt-6">
                                 <Tabs

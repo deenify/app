@@ -1,4 +1,11 @@
-import type { LearnCategory, LearnEditorial, LearnSection } from "@/components/shared/learn/types"
+export type MiracleSection = {
+    number: number
+    title: string
+    content: string
+    keyPoints: string[]
+}
+
+export type MiracleCategory = { id: string; label: string }
 
 export type MiracleTopic = {
     id: string
@@ -9,16 +16,16 @@ export type MiracleTopic = {
     thumbnail: string
     videoUrl?: string
     quranRef?: string
-    sections: LearnSection[]
+    sections: MiracleSection[]
 }
 
-export const MIRACLES_EDITORIAL: LearnEditorial = {
+export const MIRACLES_EDITORIAL = {
     badge: "Islamic miracles",
     title: "Signs that strengthen faith",
     lead: "Miracles from the Quran, the prophets, and creation — explained simply, without hype.",
 }
 
-export const MIRACLES_CATEGORIES: LearnCategory[] = [
+export const MIRACLES_CATEGORIES: MiracleCategory[] = [
     { id: "all", label: "All" },
     { id: "quran", label: "Quran" },
     { id: "prophets", label: "Prophets" },
@@ -30,7 +37,7 @@ const section = (
     title: string,
     content: string,
     keyPoints: string[]
-): LearnSection => ({ number, title, content, keyPoints })
+): MiracleSection => ({ number, title, content, keyPoints })
 
 export const MIRACLES_TOPICS: MiracleTopic[] = [
     {

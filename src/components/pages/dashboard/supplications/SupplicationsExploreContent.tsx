@@ -1,9 +1,10 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { Bookmark, BookHeart } from "lucide-react"
+import { Bookmark, BookHeart, Filter } from "lucide-react"
+import { Input } from "@/components/ui/input"
+import FilterDropdown from "@/components/shared/FilterDropdown"
 import SectionHeader from "@/components/shared/SectionHeader"
-import { LearnExploreToolbar } from "@/components/shared/learn/LearnExploreToolbar"
 import Tabs from "@/components/shared/Tabs"
 import { cn } from "@/lib/utils/clsx"
 import {
@@ -61,6 +62,22 @@ export default function SupplicationsExploreContent() {
         })
     }
 
+    const supplicationCategoryOptions = useMemo(
+        () =>
+            SUPPLICATION_CATEGORIES.map((c) => ({
+                value: c.id,
+                label: c.label,
+                metaLabel: String(getCategoryCount(c.id)),
+            })),
+        [category]
+    )
+
+    const itemCount = activeTab === "saved" ? savedItems.length : filtered.length
+    const searchPlaceholder =
+        activeTab === "saved"
+            ? "Search saved supplications..."
+            : "Search Arabic, titles, themes..."
+
     return (
         <div className="bg-gray-50">
             <SectionHeader
@@ -79,27 +96,45 @@ export default function SupplicationsExploreContent() {
                 <section className={cn("relative w-full border-t border-layout-separator bg-transparent")}>
                     <div className="container py-6 sm:py-8">
                         <div className="mx-auto min-w-0 max-w-6xl space-y-4 sm:space-y-5">
-                            <LearnExploreToolbar
-                                searchQuery={searchQuery}
-                                onSearchChange={setSearchQuery}
-                                category={category}
-                                onCategoryChange={(v) => setCategory(v as SupplicationCategoryId)}
-                                categories={SUPPLICATION_CATEGORIES.map((c) => ({
-                                    id: c.id,
-                                    label: c.label,
-                                }))}
-                                itemCount={activeTab === "saved" ? savedItems.length : filtered.length}
-                                countLabel="entries"
-                                placeholder={
-                                    activeTab === "saved"
-                                        ? "Search saved supplications..."
-                                        : "Search Arabic, titles, themes..."
-                                }
-                                filterPlaceholder="Topic"
-                                filterTheme="purple"
-                                getCategoryCount={getCategoryCount}
-                                countToneClass="border-rose-200 bg-rose-50/80 text-rose-900"
-                            />
+                            <section className="flex w-full min-w-0 flex-col gap-3 sm:flex-row sm:items-center sm:gap-3">
+                                <Input
+                                    search
+                                    type="input"
+                                    placeholder={searchPlaceholder}
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    className="w-full min-w-0 sm:min-w-0 sm:flex-1"
+                                    classNames={{
+                                        inputWrapper: "w-full min-w-0",
+                                        input: "h-10 w-full min-w-0 rounded-md border-gray-200 bg-white text-base placeholder:text-gray-400 focus:bg-white",
+                                    }}
+                                />
+                                <div className="flex w-full min-w-0 items-center gap-2 sm:max-w-[260px] sm:shrink-0 md:max-w-[280px]">
+                                    <div className="min-w-0 flex-1 sm:w-full">
+                                        <FilterDropdown
+                                            options={supplicationCategoryOptions}
+                                            value={category}
+                                            onChange={(v) => setCategory(v as SupplicationCategoryId)}
+                                            placeholder="Topic"
+                                            triggerIcon={Filter}
+                                            theme="purple"
+                                            className="w-full"
+                                            classNames={{
+                                                triggerButton: "w-full max-w-full",
+                                                content: "scrollbar-thin",
+                                            }}
+                                        />
+                                    </div>
+                                    <div className="inline-flex h-9 shrink-0 items-center justify-center rounded-md border border-rose-200 bg-rose-50/80 px-2.5 text-xs font-medium text-rose-900 shadow-sm sm:hidden">
+                                        <span className="tabular-nums font-semibold">{itemCount}</span>
+                                        <span className="ml-1 truncate">entries</span>
+                                    </div>
+                                </div>
+                                <div className="hidden h-9 shrink-0 items-center justify-center rounded-md border border-rose-200 bg-rose-50/80 px-3 text-xs font-medium text-rose-900 shadow-sm sm:inline-flex">
+                                    <span className="tabular-nums font-semibold">{itemCount}</span>
+                                    <span className="ml-1">entries</span>
+                                </div>
+                            </section>
 
                             <section className="flex items-center justify-between pt-6">
                                 <Tabs

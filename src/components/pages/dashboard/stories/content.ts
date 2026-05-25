@@ -1,4 +1,4 @@
-import type { LearnCategory, LearnEditorial } from "@/components/shared/learn/types"
+export type StoryCategory = { id: string; label: string }
 
 export type StoryTopic = {
     id: string
@@ -15,13 +15,13 @@ export type StoryTopic = {
     theme: "emerald" | "amber" | "sky" | "rose" | "violet"
 }
 
-export const STORIES_EDITORIAL: LearnEditorial = {
+export const STORIES_EDITORIAL = {
     badge: "Prophetic stories",
     title: "Lessons from the prophets",
     lead: "Real stories from the Quran and Sunnah that teach patience, trust, and good character.",
 }
 
-export const STORIES_CATEGORIES: LearnCategory[] = [
+export const STORIES_CATEGORIES: StoryCategory[] = [
     { id: "all", label: "All" },
     { id: "patience", label: "Patience" },
     { id: "trust", label: "Trust in Allah" },

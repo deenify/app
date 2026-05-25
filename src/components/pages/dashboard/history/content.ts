@@ -1,4 +1,11 @@
-import type { LearnCategory, LearnEditorial, LearnSection } from "@/components/shared/learn/types"
+export type HistorySection = {
+    number: number
+    title: string
+    content: string
+    keyPoints: string[]
+}
+
+export type HistoryCategory = { id: string; label: string }
 
 export type HistoryTopic = {
     id: string
@@ -9,16 +16,16 @@ export type HistoryTopic = {
     era: string
     thumbnail?: string
     videoUrl?: string
-    sections: LearnSection[]
+    sections: HistorySection[]
 }
 
-export const HISTORY_EDITORIAL: LearnEditorial = {
+export const HISTORY_EDITORIAL = {
     badge: "Islamic history",
     title: "Key moments in our past",
     lead: "Short reads on people, places, and events that shaped the Muslim world — written in plain language.",
 }
 
-export const HISTORY_CATEGORIES: LearnCategory[] = [
+export const HISTORY_CATEGORIES: HistoryCategory[] = [
     { id: "all", label: "All" },
     { id: "early", label: "Early Islam" },
     { id: "empires", label: "Empires" },
@@ -31,7 +38,7 @@ const section = (
     title: string,
     content: string,
     keyPoints: string[]
-): LearnSection => ({ number, title, content, keyPoints })
+): HistorySection => ({ number, title, content, keyPoints })
 
 export const HISTORY_TOPICS: HistoryTopic[] = [
     {
