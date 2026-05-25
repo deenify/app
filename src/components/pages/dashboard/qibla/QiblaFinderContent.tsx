@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion"
 import { Badge } from "@/components/ui/badge"
+import SectionHeader from "@/components/shared/SectionHeader"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import {
@@ -30,45 +31,24 @@ export default function QiblaFinderContent() {
 
     return (
         <div className="bg-white">
-            <section className="border-b border-layout-separator">
-                <header className="container px-4 pb-8 pt-6 sm:px-6 sm:pb-9 sm:pt-8 md:pt-10">
-                    <motion.div
-                        initial={{ opacity: 0, y: -8 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="mb-4 flex items-center gap-2.5"
-                    >
-                        <div className="flex items-center justify-center rounded-lg bg-emerald-50 p-2.5 text-emerald-700">
-                            <Compass className="h-4.5 w-4.5" strokeWidth={2} />
-                        </div>
-                        <Badge variant="emerald" className="text-xs font-medium">
-                            Qibla & direction
-                        </Badge>
-                    </motion.div>
-
-                    <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.05 }}
-                        className="max-w-3xl space-y-3"
-                    >
-                        <h1 className="max-w-[520px] text-4xl font-medium tracking-tight text-gray-900">
-                            Face the House with clarity
-                        </h1>
-                        <p className="text-sm leading-relaxed text-gray-600 sm:text-base">
-                            {QIBLA_EDITORIAL.lead}
-                        </p>
-                        <div className="flex flex-wrap gap-2 pt-2">
-                            <Badge variant="outline" className="border-emerald-200 bg-emerald-50/50 text-sm font-medium text-emerald-800">
-                                <Sparkles className="mr-1 h-3.5 w-3.5" />
-                                Unified axis · Kaʿbah
-                            </Badge>
-                            <Badge variant="outline" className="!border-0 bg-gray-100 text-sm text-gray-700">
-                                Demo bearing · connect GPS later
-                            </Badge>
-                        </div>
-                    </motion.div>
-                </header>
-            </section>
+            <SectionHeader
+                variant="emerald"
+                icon={Compass}
+                label="Qibla & direction"
+                heading="Face the House with clarity"
+                descriptions={[QIBLA_EDITORIAL.lead]}
+                classNames={{ heading: "max-w-[520px]" }}
+            >
+                <div className="flex flex-wrap gap-2 pt-2">
+                    <Badge variant="outline" className="border-emerald-200 bg-emerald-50/50 text-sm font-medium text-emerald-800">
+                        <Sparkles className="mr-1 h-3.5 w-3.5" />
+                        Unified axis · Kaʿbah
+                    </Badge>
+                    <Badge variant="outline" className="!border-0 bg-gray-100 text-sm text-gray-700">
+                        Demo bearing · connect GPS later
+                    </Badge>
+                </div>
+            </SectionHeader>
 
             <section className="relative overflow-hidden">
                 <motion.div

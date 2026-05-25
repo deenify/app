@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react"
 import { Star } from "lucide-react"
 import { Pagination } from "@/components/ui/pagination"
-import { LearnExploreHero } from "@/components/shared/learn/LearnExploreHero"
+import SectionHeader from "@/components/shared/SectionHeader"
 import { LearnExploreToolbar } from "@/components/shared/learn/LearnExploreToolbar"
 import { usePagination } from "@/hooks/usePagination"
 import MiracleCard from "./MiracleCard"
@@ -37,19 +37,16 @@ export default function MiraclesExploreContent() {
         MIRACLES_CATEGORIES.find((c) => c.id === id)?.label ?? id
 
     return (
-        <div className="bg-[#f5f5f7]">
-            <section className="border-b border-gray-100 bg-white">
-                <div className="container px-4 sm:px-6">
-                    <div className="mx-auto py-10 sm:py-12">
-                        <LearnExploreHero
-                            editorial={MIRACLES_EDITORIAL}
-                            icon={Star}
-                            iconClassName="bg-gray-50 text-gray-700 ring-gray-200"
-                            badgeVariant="emerald"
-                        />
-                    </div>
-                </div>
-            </section>
+        <div className="bg-gray-50">
+            <SectionHeader
+                layoutScope="center"
+                className="bg-white"
+                variant="emerald"
+                icon={Star}
+                label={MIRACLES_EDITORIAL.badge}
+                heading={MIRACLES_EDITORIAL.title}
+                descriptions={[MIRACLES_EDITORIAL.lead]}
+            />
 
             <main className="border-t border-layout-separator">
                 <div className="container py-6 sm:py-8">

@@ -17,6 +17,7 @@ import {
 } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
+import SectionHeader from "@/components/shared/SectionHeader"
 import Tabs, { type TabItem } from "@/components/shared/Tabs"
 import FilterDropdown, { type FilterOption } from "@/components/shared/FilterDropdown"
 import {
@@ -178,61 +179,42 @@ const HadithExploreSection = () => {
 
     return (
         <div className="bg-gray-50">
+            <SectionHeader
+                variant="emerald"
+                icon={FileText}
+                label="Hadith & Prophetic tradition"
+                heading={
+                    <>
+                        <span className="inline">
+                            Explore hadiths <br className="sm:hidden" />—{" "}
+                        </span>
+                        <span className="inline-block font-arabic text-3xl font-medium text-emerald-700">
+                            (الحديث)
+                        </span>
+                    </>
+                }
+                descriptions={[
+                    "Authentic narrations from the Prophet ﷺ — organised by major collections and themes so you can study, verify chains, and apply guidance with clarity.",
+                ]}
+                classNames={{ descriptionsWrapper: "space-y-3 sm:space-y-3" }}
+            >
+                <p className="hidden max-w-2xl text-sm leading-relaxed text-gray-500 md:block">
+                    Use search and sort below to browse books. Switch to Topics for thematic access, or Saved for your
+                    bookmarked narrations.
+                </p>
+                <div className="flex flex-wrap items-center gap-2 pt-0.5">
+                    <Badge variant="outline" className="border-gray-200 bg-white px-2.5 py-1 text-xs font-medium text-gray-700">
+                        6 collections
+                    </Badge>
+                    <span aria-hidden className="inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-gray-400" />
+                    <Badge variant="outline" className="border-purple-200 bg-purple-50 px-2.5 py-1 text-xs font-medium text-purple-700">
+                        {TOTAL_HADITH_COUNT_DISPLAY} narrations
+                    </Badge>
+                </div>
+            </SectionHeader>
+
             <section className="bg-white">
-                <div className="container space-y-6 px-4 py-6 sm:space-y-6 sm:px-6 sm:py-8 md:px-6 md:py-10">
-                    <header>
-                        <motion.div
-                            initial={{ opacity: 0, y: -8 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            className="mb-4 flex items-center gap-2.5"
-                        >
-                            <div className="flex items-center justify-center rounded-lg bg-emerald-50 p-2.5 text-emerald-700">
-                                <FileText className="h-4.5 w-4.5" strokeWidth={2} />
-                            </div>
-                            <Badge variant="emerald" className="text-xs font-medium">
-                                Hadith & Prophetic tradition
-                            </Badge>
-                        </motion.div>
-
-                        <motion.div
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.05 }}
-                            className="space-y-3 sm:space-y-3"
-                        >
-                            <h1 className="text-4xl font-medium tracking-tight text-gray-900">
-                                <span className="inline">
-                                    Explore hadiths <br className="sm:hidden" />—{" "}
-                                </span>
-                                <span className="inline-block font-arabic text-3xl font-medium text-emerald-700">(الحديث)</span>
-                            </h1>
-                            <p className="max-w-2xl text-sm leading-relaxed text-gray-600">
-                                Authentic narrations from the Prophet ﷺ — organised by major collections and themes so you can
-                                study, verify chains, and apply guidance with clarity.
-                            </p>
-                            <p className="hidden max-w-2xl text-sm leading-relaxed text-gray-500 md:block">
-                                Use search and sort below to browse books. Switch to Topics for thematic access, or Saved for
-                                your bookmarked narrations.
-                            </p>
-
-                            <main className="flex flex-wrap items-center gap-2 pt-0.5">
-                                <Badge
-                                    variant="outline"
-                                    className="border-gray-200 bg-white px-2.5 py-1 text-xs font-medium text-gray-700"
-                                >
-                                    6 collections
-                                </Badge>
-                                <span aria-hidden className="inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-gray-400" />
-                                <Badge
-                                    variant="outline"
-                                    className="border-purple-200 bg-purple-50 px-2.5 py-1 text-xs font-medium text-purple-700"
-                                >
-                                    {TOTAL_HADITH_COUNT_DISPLAY} narrations
-                                </Badge>
-                            </main>
-                        </motion.div>
-                    </header>
-
+                <div className="container space-y-4 px-4 py-6 sm:px-6 sm:py-8 md:px-6">
                     <main className="space-y-4">
                         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
                             <Input

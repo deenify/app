@@ -1,6 +1,6 @@
 // app/(dashboard)/prophets/page.tsx
 
-import PropheticChainContent from "@/components/pages/dashboard/prophetic-chain/PropheticChainContent"
+import PropheticChainContent from "@/components/pages/dashboard/prophets-lineage/PropheticChainContent"
 import { Metadata } from "next"
 
 export const metadata: Metadata = {

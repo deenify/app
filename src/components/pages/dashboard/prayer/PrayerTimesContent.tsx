@@ -5,6 +5,7 @@ import { motion } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import SectionHeader from "@/components/shared/SectionHeader"
 import { Progress } from "@/components/ui/progress"
 import {
     DEFAULT_LOCATION_LABEL,
@@ -81,66 +82,45 @@ export default function PrayerTimesContent() {
 
     return (
         <div className="bg-white">
-            <section className="border-b border-layout-separator">
-                <div className="container pb-8 pt-6 sm:pt-8 md:pt-10">
-                    <motion.div
-                        initial={{ opacity: 0, y: -8 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="mb-4 flex items-center gap-2.5"
-                    >
-                        <div className="flex items-center justify-center rounded-lg bg-emerald-50 p-2.5 text-emerald-700">
-                            <Clock className="h-4.5 w-4.5" strokeWidth={2} />
-                        </div>
-                        <Badge variant="emerald" className="text-xs font-medium">
-                            Prayer rhythm
-                        </Badge>
-                    </motion.div>
-
-                    <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.05 }}
-                        className="space-y-4"
-                    >
-                        <h1 className="max-w-[560px] text-4xl font-medium tracking-tight text-gray-900">
-                            The day, measured in remembrance
-                        </h1>
-                        <p className="max-w-3xl text-sm leading-relaxed text-gray-600 sm:text-base">
-                            A mature prayer surface isn&apos;t only clocks—it&apos;s context: where you are, what phase
-                            the sun is in, and how salah punctuates thought. Below is a structured experience layer you
-                            can later bind to real calculation APIs.
-                        </p>
-                        <div className="flex flex-wrap gap-2 pt-1">
-                            <Badge variant="outline" className="border-gray-200 bg-gray-50 text-sm text-gray-700">
-                                <MapPin className="mr-1 h-3.5 w-3.5" />
-                                {DEFAULT_LOCATION_LABEL}
-                            </Badge>
-                            <Badge variant="outline" className="border-gray-200 bg-gray-50 text-sm text-gray-700">
-                                <Calendar className="mr-1 h-3.5 w-3.5" />
-                                {new Date().toLocaleDateString("en-US", {
-                                    weekday: "long",
-                                    month: "long",
-                                    day: "numeric",
-                                })}
-                            </Badge>
-                            <Badge variant="outline" className="border-emerald-200 bg-emerald-50 text-sm text-emerald-800">
-                                <Sparkles className="mr-1 h-3.5 w-3.5" />
-                                Demo times
-                            </Badge>
-                        </div>
-                        <div className="flex flex-wrap gap-2 pt-3">
-                            <Button variant="secondary" type="button" shouldScale className="gap-2" size="sm">
-                                <Bell className="h-4 w-4" />
-                                Notifications
-                            </Button>
-                            <Button variant="secondary" type="button" shouldScale className="gap-2" size="sm">
-                                <Settings className="h-4 w-4" />
-                                Calculation settings
-                            </Button>
-                        </div>
-                    </motion.div>
+            <SectionHeader
+                variant="emerald"
+                icon={Clock}
+                label="Prayer rhythm"
+                heading="The day, measured in remembrance"
+                descriptions={[
+                    "A mature prayer surface isn't only clocks—it's context: where you are, what phase the sun is in, and how salah punctuates thought. Below is a structured experience layer you can later bind to real calculation APIs.",
+                ]}
+                classNames={{ heading: "max-w-[560px]" }}
+            >
+                <div className="flex flex-wrap gap-2 pt-1">
+                    <Badge variant="outline" className="border-gray-200 bg-gray-50 text-sm text-gray-700">
+                        <MapPin className="mr-1 h-3.5 w-3.5" />
+                        {DEFAULT_LOCATION_LABEL}
+                    </Badge>
+                    <Badge variant="outline" className="border-gray-200 bg-gray-50 text-sm text-gray-700">
+                        <Calendar className="mr-1 h-3.5 w-3.5" />
+                        {new Date().toLocaleDateString("en-US", {
+                            weekday: "long",
+                            month: "long",
+                            day: "numeric",
+                        })}
+                    </Badge>
+                    <Badge variant="outline" className="border-emerald-200 bg-emerald-50 text-sm text-emerald-800">
+                        <Sparkles className="mr-1 h-3.5 w-3.5" />
+                        Demo times
+                    </Badge>
                 </div>
-            </section>
+                <div className="flex flex-wrap gap-2 pt-3">
+                    <Button variant="secondary" type="button" shouldScale className="gap-2" size="sm">
+                        <Bell className="h-4 w-4" />
+                        Notifications
+                    </Button>
+                    <Button variant="secondary" type="button" shouldScale className="gap-2" size="sm">
+                        <Settings className="h-4 w-4" />
+                        Calculation settings
+                    </Button>
+                </div>
+            </SectionHeader>
 
             <section className="relative overflow-hidden">
                 <motion.div

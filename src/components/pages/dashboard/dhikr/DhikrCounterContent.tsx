@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react"
 import { motion } from "framer-motion"
+import SectionHeader from "@/components/shared/SectionHeader"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -41,43 +42,23 @@ export default function DhikrCounterContent() {
 
     return (
         <div className="bg-white">
-            <section className="border-b border-layout-separator">
-                <div className="container px-4 pb-8 pt-6 sm:px-6 sm:pb-9 sm:pt-8 md:pt-10">
-                    <motion.div
-                        initial={{ opacity: 0, y: -8 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="mb-4 flex items-center gap-2.5"
-                    >
-                        <div className="flex items-center justify-center rounded-lg bg-emerald-50 p-2.5 text-emerald-700">
-                            <Hand className="h-4.5 w-4.5" strokeWidth={2} />
-                        </div>
-                        <Badge variant="emerald" className="text-xs font-medium">
-                            Presence lab
-                        </Badge>
-                    </motion.div>
-
-                    <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.05 }}
-                        className="max-w-3xl space-y-4"
-                    >
-                        <h1 className="text-4xl font-medium tracking-tight text-gray-900">
-                            Dhikr counter · disciplined remembrance
-                        </h1>
-                        <p className="text-sm leading-relaxed text-gray-600 sm:text-base">{DHIKR_EDITORIAL.lens}</p>
-                        <div className="flex flex-wrap gap-2 pt-1">
-                            <Badge variant="outline" className="border-emerald-200 bg-emerald-50 text-sm text-emerald-900">
-                                <Sparkles className="mr-1 h-3.5 w-3.5" />
-                                Local-first session (browser memory later)
-                            </Badge>
-                            <Badge variant="outline" className="!border-0 bg-gray-100 text-sm text-gray-700">
-                                Post-salah lattice compatible
-                            </Badge>
-                        </div>
-                    </motion.div>
+            <SectionHeader
+                variant="emerald"
+                icon={Hand}
+                label="Presence lab"
+                heading="Dhikr counter · disciplined remembrance"
+                descriptions={[DHIKR_EDITORIAL.lens]}
+            >
+                <div className="flex flex-wrap gap-2 pt-1">
+                    <Badge variant="outline" className="border-emerald-200 bg-emerald-50 text-sm text-emerald-900">
+                        <Sparkles className="mr-1 h-3.5 w-3.5" />
+                        Local-first session (browser memory later)
+                    </Badge>
+                    <Badge variant="outline" className="!border-0 bg-gray-100 text-sm text-gray-700">
+                        Post-salah lattice compatible
+                    </Badge>
                 </div>
-            </section>
+            </SectionHeader>
 
             <section className="relative overflow-hidden">
                 <motion.div

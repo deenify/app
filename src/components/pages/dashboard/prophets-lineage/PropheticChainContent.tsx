@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react"
 import { motion } from "framer-motion"
 import { Users } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
+import SectionHeader from "@/components/shared/SectionHeader"
 import {
     ChartSidebarControls,
     LineageCanvas,
@@ -67,39 +67,14 @@ export default function PropheticChainContent() {
 
     return (
         <div className="bg-white">
-            <header className="border-b border-layout-separator">
-                <div className="container px-4 py-6 sm:px-6 md:py-8">
-                    <motion.div
-                        initial={{ opacity: 0, y: -8 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="mb-4 flex items-center gap-2.5"
-                    >
-                        <div className="flex items-center justify-center rounded-lg bg-emerald-50 p-2.5 text-emerald-700">
-                            <Users className="h-4.5 w-4.5" strokeWidth={2} />
-                        </div>
-                        <Badge variant="emerald" className="text-xs font-medium">
-                            {PROPHETIC_CHAIN_EDITORIAL.badge}
-                        </Badge>
-                    </motion.div>
-
-                    <motion.h1
-                        initial={{ opacity: 0, y: 8 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.04 }}
-                        className="max-w-2xl text-3xl font-medium tracking-tight text-gray-900"
-                    >
-                        {PROPHETIC_CHAIN_EDITORIAL.title}
-                    </motion.h1>
-                    <motion.p
-                        initial={{ opacity: 0, y: 8 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.08 }}
-                        className="mt-2 max-w-3xl text-sm leading-relaxed text-gray-600"
-                    >
-                        {PROPHETIC_CHAIN_EDITORIAL.lead}
-                    </motion.p>
-                </div>
-            </header>
+            <SectionHeader
+                layoutScope="center"
+                variant="emerald"
+                icon={Users}
+                label={PROPHETIC_CHAIN_EDITORIAL.badge}
+                heading={PROPHETIC_CHAIN_EDITORIAL.title}
+                descriptions={[PROPHETIC_CHAIN_EDITORIAL.lead]}
+            />
 
             <section className="container py-6 sm:px-6 sm:py-8">
                 <div className="mx-auto grid max-w-[1400px] gap-6 lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-8">

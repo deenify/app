@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "framer-motion"
 import { CheckCircle2, ChevronDown, Filter, Flame } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import FilterDropdown from "@/components/shared/FilterDropdown"
+import SectionHeader from "@/components/shared/SectionHeader"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils/clsx"
@@ -50,22 +51,15 @@ export default function RevertContent() {
 
     return (
         <div className="bg-gray-50">
-            <section className="border-b border-gray-100 bg-white">
-                <div className="container px-4 sm:px-6">
-                    <div className="mx-auto max-w-2xl py-10 text-center sm:py-12">
-                        <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-amber-50 text-amber-800 ring-1 ring-amber-100">
-                            <Flame className="h-8 w-8" strokeWidth={1.5} />
-                        </div>
-                        <Badge variant="amber" className="mb-3 text-xs font-medium">
-                            {REVERT_EDITORIAL.badge}
-                        </Badge>
-                        <h1 className="text-2xl font-medium tracking-tight text-gray-900 sm:text-3xl">
-                            {REVERT_EDITORIAL.title}
-                        </h1>
-                        <p className="mt-3 text-sm text-gray-600 sm:text-base">{REVERT_EDITORIAL.lead}</p>
-                    </div>
-                </div>
-            </section>
+            <SectionHeader
+                layoutScope="center"
+                className="bg-white"
+                variant="amber"
+                icon={Flame}
+                label={REVERT_EDITORIAL.badge}
+                heading={REVERT_EDITORIAL.title}
+                descriptions={[REVERT_EDITORIAL.lead]}
+            />
 
             <section className="border-t border-layout-separator">
                 <div className="container py-8 sm:py-10">

@@ -1,9 +1,8 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { motion } from "framer-motion"
 import { Bookmark, BookHeart } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
+import SectionHeader from "@/components/shared/SectionHeader"
 import { LearnExploreToolbar } from "@/components/shared/learn/LearnExploreToolbar"
 import Tabs from "@/components/shared/Tabs"
 import { cn } from "@/lib/utils/clsx"
@@ -64,36 +63,17 @@ export default function SupplicationsExploreContent() {
 
     return (
         <div className="bg-gray-50">
-            <section className="border-b border-gray-100 bg-white">
-                <div className="container px-4 sm:px-6 md:px-6">
-                    <div className="mx-auto py-10 sm:py-12">
-                        <header className="text-center">
-                            <motion.div
-                                initial={{ opacity: 0, y: -10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.5 }}
-                                className="mb-5 flex justify-center sm:mb-6"
-                            >
-                                <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-rose-50 text-rose-700 ring-1 ring-rose-100 sm:h-[4.5rem] sm:w-[4.5rem]">
-                                    <BookHeart className="h-8 w-8 sm:h-9 sm:w-9" strokeWidth={1.5} />
-                                </div>
-                            </motion.div>
-
-                            <Badge variant="pink" className="mb-3 text-xs font-medium">
-                                Duʿāʾ & heartfelt speech
-                            </Badge>
-
-                            <h1 className="text-balance text-2xl font-medium tracking-tight text-gray-900 sm:text-3xl md:text-[1.85rem] md:leading-snug">
-                                Supplications that shape interior weather
-                            </h1>
-                            <p className="mx-auto mt-3 max-w-2xl text-sm text-gray-600 sm:text-base">
-                                A curated corpus—not exhaustive—organized for retrieval when salah, travel, anxiety, or
-                                gratitude call for words finer than your own. Pair with dhikr lanes for rhythm.
-                            </p>
-                        </header>
-                    </div>
-                </div>
-            </section>
+            <SectionHeader
+                layoutScope="center"
+                className="bg-white"
+                variant="pink"
+                icon={BookHeart}
+                label="Duʿāʾ & heartfelt speech"
+                heading="Supplications that shape interior weather"
+                descriptions={[
+                    "A curated corpus—not exhaustive—organized for retrieval when salah, travel, anxiety, or gratitude call for words finer than your own. Pair with dhikr lanes for rhythm.",
+                ]}
+            />
 
             <main className="bg-[linear-gradient(180deg,#fff7fb_0%,#f0fdf9_100%)]">
                 <section className={cn("relative w-full border-t border-layout-separator bg-transparent")}>

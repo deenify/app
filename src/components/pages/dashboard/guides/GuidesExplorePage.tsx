@@ -1,9 +1,8 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { motion } from "framer-motion"
 import { BookOpen, Bookmark, GraduationCap } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
+import SectionHeader from "@/components/shared/SectionHeader"
 import { LearnExploreToolbar } from "@/components/shared/learn/LearnExploreToolbar"
 import Tabs from "@/components/shared/Tabs"
 import { cn } from "@/lib/utils/clsx"
@@ -58,36 +57,17 @@ const GuidesExplorePage = () => {
 
     return (
         <div className="bg-gray-50">
-            <section className="border-b border-gray-100 bg-white">
-                <div className="container px-4 sm:px-6 md:px-6">
-                    <div className="mx-auto py-10 sm:py-12">
-                        <header className="text-center">
-                            <motion.div
-                                initial={{ opacity: 0, y: -10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.55, ease: "easeOut" }}
-                                className="mb-5 flex justify-center sm:mb-6"
-                            >
-                                <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-700 ring-1 ring-emerald-100 sm:h-[4.5rem] sm:w-[4.5rem]">
-                                    <GraduationCap className="h-8 w-8 sm:h-9 sm:w-9" strokeWidth={1.5} />
-                                </div>
-                            </motion.div>
-
-                            <Badge variant="emerald" className="mb-3 text-xs font-medium">
-                                Guides & learning
-                            </Badge>
-
-                            <h1 className="text-balance text-2xl font-medium tracking-tight text-gray-900 sm:text-3xl md:text-[1.75rem] md:leading-snug">
-                                Study, practice, and grow
-                            </h1>
-                            <p className="mx-auto mt-3 max-w-2xl text-sm text-gray-600 sm:text-base">
-                                Curated learning paths for everyday worship, character, and foundational knowledge —
-                                structured for clarity and consistency.
-                            </p>
-                        </header>
-                    </div>
-                </div>
-            </section>
+            <SectionHeader
+                layoutScope="center"
+                className="bg-white"
+                variant="emerald"
+                icon={GraduationCap}
+                label="Guides & learning"
+                heading="Study, practice, and grow"
+                descriptions={[
+                    "Curated learning paths for everyday worship, character, and foundational knowledge — structured for clarity and consistency.",
+                ]}
+            />
 
             <main className="bg-[linear-gradient(180deg,#f8faf8_0%,#f0f7f4_100%)]">
                 <section className={cn("relative w-full border-t border-layout-separator bg-transparent")}>

@@ -25,6 +25,11 @@ export function DashboardHeader({ badge, title, lead }: DashboardHeaderProps) {
             label={badge}
             heading={title}
             descriptions={[lead]}
+            classNames={{
+                content: "flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between",
+                heading: "max-w-md",
+                children: "shrink-0",
+            }}
         >
             <motion.div
                 initial={{ opacity: 0, y: 8 }}

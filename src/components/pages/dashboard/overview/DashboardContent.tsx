@@ -23,13 +23,13 @@ import {
 export default function DashboardContent() {
     return (
         <div className="bg-white">
-            <div className="container space-y-6 px-4 py-6 sm:space-y-8 sm:px-6 sm:py-8">
-                <DashboardHeader
-                    badge={DASHBOARD_EDITORIAL.badge}
-                    title={DASHBOARD_EDITORIAL.title}
-                    lead={DASHBOARD_EDITORIAL.lead}
-                />
+            <DashboardHeader
+                badge={DASHBOARD_EDITORIAL.badge}
+                title={DASHBOARD_EDITORIAL.title}
+                lead={DASHBOARD_EDITORIAL.lead}
+            />
 
+            <div className="container space-y-6 px-4 py-6 sm:space-y-8 sm:px-6 sm:py-8">
                 <DashboardStats items={DASHBOARD_STATS} />
 
                 <div className="grid gap-6 lg:grid-cols-3 h-max">

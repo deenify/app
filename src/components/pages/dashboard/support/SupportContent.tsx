@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Bot, ChevronDown, HelpCircle, Mail, Sparkles } from "lucide-react"
+import SectionHeader from "@/components/shared/SectionHeader"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -26,22 +27,15 @@ export default function SupportContent() {
 
     return (
         <div className="bg-gray-50">
-            <section className="border-b border-gray-100 bg-white">
-                <div className="container px-4 sm:px-6">
-                    <div className="mx-auto max-w-2xl py-10 text-center sm:py-12">
-                        <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-sky-50 text-sky-800 ring-1 ring-sky-100">
-                            <HelpCircle className="h-8 w-8" strokeWidth={1.5} />
-                        </div>
-                        <Badge variant="emerald" className="mb-3 text-xs font-medium">
-                            {SUPPORT_EDITORIAL.badge}
-                        </Badge>
-                        <h1 className="text-2xl font-medium tracking-tight text-gray-900 sm:text-3xl">
-                            {SUPPORT_EDITORIAL.title}
-                        </h1>
-                        <p className="mt-3 text-sm text-gray-600 sm:text-base">{SUPPORT_EDITORIAL.lead}</p>
-                    </div>
-                </div>
-            </section>
+            <SectionHeader
+                layoutScope="center"
+                className="bg-white"
+                variant="blue"
+                icon={HelpCircle}
+                label={SUPPORT_EDITORIAL.badge}
+                heading={SUPPORT_EDITORIAL.title}
+                descriptions={[SUPPORT_EDITORIAL.lead]}
+            />
 
             <section className="border-t border-layout-separator">
                 <div className="container py-8 sm:py-10">

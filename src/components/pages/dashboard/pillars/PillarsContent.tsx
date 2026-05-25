@@ -4,7 +4,7 @@ import { useMemo, useState } from "react"
 import { Input } from "@/components/ui/input"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronDown, Target } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
+import SectionHeader from "@/components/shared/SectionHeader"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils/clsx"
 import { PILLARS, PILLARS_EDITORIAL } from "./content"
@@ -26,22 +26,15 @@ export default function PillarsContent() {
 
     return (
         <div className="bg-gray-50">
-            <section className="border-b border-gray-100 bg-white">
-                <div className="container px-4 sm:px-6">
-                    <div className="mx-auto max-w-2xl py-10 text-center sm:py-12">
-                        <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-700 ring-1 ring-emerald-100">
-                            <Target className="h-8 w-8" strokeWidth={1.5} />
-                        </div>
-                        <Badge variant="emerald" className="mb-3 text-xs font-medium">
-                            {PILLARS_EDITORIAL.badge}
-                        </Badge>
-                        <h1 className="text-2xl font-medium tracking-tight text-gray-900 sm:text-3xl">
-                            {PILLARS_EDITORIAL.title}
-                        </h1>
-                        <p className="mt-3 text-sm text-gray-600 sm:text-base">{PILLARS_EDITORIAL.lead}</p>
-                    </div>
-                </div>
-            </section>
+            <SectionHeader
+                layoutScope="center"
+                className="bg-white"
+                variant="emerald"
+                icon={Target}
+                label={PILLARS_EDITORIAL.badge}
+                heading={PILLARS_EDITORIAL.title}
+                descriptions={[PILLARS_EDITORIAL.lead]}
+            />
 
             <section className="border-t border-layout-separator bg-[linear-gradient(180deg,#f8faf8_0%,#f0f7f4_100%)]">
                 <div className="container py-8 sm:py-10">

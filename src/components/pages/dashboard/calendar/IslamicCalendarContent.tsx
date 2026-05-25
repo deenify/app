@@ -5,6 +5,7 @@ import { motion } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import SectionHeader from "@/components/shared/SectionHeader"
 import {
     CALENDAR_EDITORIAL,
     DEMO_MONTH_EVENTS,
@@ -50,65 +51,43 @@ export default function IslamicCalendarContent() {
 
     return (
         <div className="bg-white">
-            <section className="border-b border-layout-separator">
-                <div className="container pb-8 pt-6 sm:pb-9 sm:pt-8 md:pt-10">
-                    <motion.div
-                        initial={{ opacity: 0, y: -8 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="mb-4 flex items-center gap-2.5"
-                    >
-                        <div className="flex items-center justify-center rounded-lg bg-purple-50 p-2.5 text-purple-700">
-                            <Calendar className="h-4.5 w-4.5" strokeWidth={2} />
-                        </div>
-                        <Badge variant="purple" className="text-xs font-medium">
-                            Lunar orientation
-                        </Badge>
-                    </motion.div>
-
-                    <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.05 }}
-                        className="space-y-4"
-                    >
-                        <h1 className="max-w-[620px] text-4xl font-medium tracking-tight text-gray-900">
-                            Hijri calendar as a map of sacred time
-                        </h1>
-                        <p className="max-w-3xl text-sm leading-relaxed text-gray-600 sm:text-base">
-                            {CALENDAR_EDITORIAL.lunarLead}
-                        </p>
-                        <div className="flex flex-wrap items-center gap-3 pt-1">
-                            <div className="flex items-center gap-2 rounded-full border border-purple-100 bg-purple-50/60 px-3 py-1.5 text-sm text-purple-950">
-                                <Moon className="h-4 w-4" />
-                                <span>
-                                    Today (demo): {DEMO_TODAY.day} {ISLAMIC_MONTH_NAMES[DEMO_TODAY.monthIndex]} {DEMO_YEAR}{" "}
-                                    AH
-                                </span>
-                            </div>
-                            <span className="hidden h-1.5 w-1.5 rounded-full bg-gray-300 sm:inline-block" />
-                            <div className="flex items-center gap-2 text-sm text-gray-600">
-                                <Calendar className="h-4 w-4 text-gray-400" />
-                                {new Date().toLocaleDateString("en-US", {
-                                    weekday: "long",
-                                    month: "long",
-                                    day: "numeric",
-                                    year: "numeric",
-                                })}
-                            </div>
-                        </div>
-                        <div className="flex flex-wrap gap-2 pt-2">
-                            <Button href="/guides" variant="secondary" shouldScale className="gap-2" size="sm">
-                                <Book className="h-4 w-4" />
-                                Seasonal guides
-                            </Button>
-                            <Button href="/guides" variant="secondary" shouldScale className="gap-2" size="sm">
-                                <Heart className="h-4 w-4" />
-                                Charity & zakāh hub
-                            </Button>
-                        </div>
-                    </motion.div>
+            <SectionHeader
+                variant="purple"
+                icon={Calendar}
+                label="Lunar orientation"
+                heading="Hijri calendar as a map of sacred time"
+                descriptions={[CALENDAR_EDITORIAL.lunarLead]}
+                classNames={{ heading: "max-w-[620px]" }}
+            >
+                <div className="flex flex-wrap items-center gap-3 pt-1">
+                    <div className="flex items-center gap-2 rounded-full border border-purple-100 bg-purple-50/60 px-3 py-1.5 text-sm text-purple-950">
+                        <Moon className="h-4 w-4" />
+                        <span>
+                            Today (demo): {DEMO_TODAY.day} {ISLAMIC_MONTH_NAMES[DEMO_TODAY.monthIndex]} {DEMO_YEAR} AH
+                        </span>
+                    </div>
+                    <span className="hidden h-1.5 w-1.5 rounded-full bg-gray-300 sm:inline-block" />
+                    <div className="flex items-center gap-2 text-sm text-gray-600">
+                        <Calendar className="h-4 w-4 text-gray-400" />
+                        {new Date().toLocaleDateString("en-US", {
+                            weekday: "long",
+                            month: "long",
+                            day: "numeric",
+                            year: "numeric",
+                        })}
+                    </div>
                 </div>
-            </section>
+                <div className="flex flex-wrap gap-2 pt-2">
+                    <Button href="/guides" variant="secondary" shouldScale className="gap-2" size="sm">
+                        <Book className="h-4 w-4" />
+                        Seasonal guides
+                    </Button>
+                    <Button href="/guides" variant="secondary" shouldScale className="gap-2" size="sm">
+                        <Heart className="h-4 w-4" />
+                        Charity & zakāh hub
+                    </Button>
+                </div>
+            </SectionHeader>
 
             <section className="relative overflow-hidden">
                 <motion.div

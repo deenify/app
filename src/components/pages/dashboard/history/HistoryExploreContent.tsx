@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react"
 import { Scroll } from "lucide-react"
 import { Pagination } from "@/components/ui/pagination"
-import { LearnExploreHero } from "@/components/shared/learn/LearnExploreHero"
+import SectionHeader from "@/components/shared/SectionHeader"
 import { LearnExploreToolbar } from "@/components/shared/learn/LearnExploreToolbar"
 import { usePagination } from "@/hooks/usePagination"
 import HistoryCard from "./HistoryCard"
@@ -38,18 +38,15 @@ export default function HistoryExploreContent() {
 
     return (
         <div className="bg-[#f5f5f7]">
-            <section className="border-b border-gray-100 bg-white">
-                <div className="container px-4 sm:px-6">
-                    <div className="mx-auto py-10 sm:py-12">
-                        <LearnExploreHero
-                            editorial={HISTORY_EDITORIAL}
-                            icon={Scroll}
-                            iconClassName="bg-gray-50 text-gray-700 ring-gray-200"
-                            badgeVariant="emerald"
-                        />
-                    </div>
-                </div>
-            </section>
+            <SectionHeader
+                layoutScope="center"
+                className="bg-white"
+                variant="emerald"
+                icon={Scroll}
+                label={HISTORY_EDITORIAL.badge}
+                heading={HISTORY_EDITORIAL.title}
+                descriptions={[HISTORY_EDITORIAL.lead]}
+            />
 
             <main className="border-t border-layout-separator bg-[#f5f5f7]">
                 <div className="container py-6 sm:py-8">
