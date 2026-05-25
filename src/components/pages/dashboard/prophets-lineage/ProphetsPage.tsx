@@ -24,7 +24,7 @@ import type { PropheticNodeData } from "./prophetic-data"
 import { PROPHETIC_NODES } from "./prophetic-data"
 import PropheticDetailModal from "./PropheticDetailModal"
 
-export default function PropheticChainContent() {
+export default function ProphetsPage() {
     const canvasRef = useRef<LineageCanvasHandle>(null)
     const [selectedId, setSelectedId] = useState<string | null>(null)
     const [edgeRouting, setEdgeRouting] = useState<LineageEdgeRouting>("orthogonal")

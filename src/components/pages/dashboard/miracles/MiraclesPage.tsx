@@ -1,52 +1,45 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { Filter, Heart } from "lucide-react"
+import { Filter, Star } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Pagination } from "@/components/ui/pagination"
 import FilterDropdown from "@/components/shared/FilterDropdown"
 import SectionHeader from "@/components/shared/SectionHeader"
 import { usePagination } from "@/hooks/usePagination"
-import { STORIES_CATEGORIES, STORIES_EDITORIAL, STORIES_TOPICS } from "./content"
-import StoryCard from "./StoryCard"
-import StoryDetailModal from "./StoryDetailModal"
+import MiracleCard from "./MiracleCard"
+import { MIRACLES_CATEGORIES, MIRACLES_EDITORIAL, MIRACLES_TOPICS } from "./content"
 
-export default function StoriesExploreContent() {
+export default function MiraclesPage() {
     const [searchQuery, setSearchQuery] = useState("")
     const [category, setCategory] = useState("all")
-    const [selectedId, setSelectedId] = useState<string | null>(null)
 
     const filtered = useMemo(() => {
         const q = searchQuery.trim().toLowerCase()
-        return STORIES_TOPICS.filter((s) => {
-            const catOk = category === "all" || s.category === category
+        return MIRACLES_TOPICS.filter((t) => {
+            const catOk = category === "all" || t.category === category
             const searchOk =
                 !q ||
-                s.title.toLowerCase().includes(q) ||
-                s.excerpt.toLowerCase().includes(q) ||
-                s.prophet.toLowerCase().includes(q) ||
-                s.lesson.toLowerCase().includes(q)
+                t.title.toLowerCase().includes(q) ||
+                t.excerpt.toLowerCase().includes(q) ||
+                (t.quranRef?.toLowerCase().includes(q) ?? false)
             return catOk && searchOk
         })
     }, [category, searchQuery])
 
-    const { page, setPage, totalPages, paginatedItems } = usePagination(
-        filtered,
-        6
-    )
+    const { page, setPage, totalPages, paginatedItems } = usePagination(filtered, 6)
 
     const getCategoryCount = (categoryId: string) =>
         categoryId === "all"
-            ? STORIES_TOPICS.length
-            : STORIES_TOPICS.filter((s) => s.category === categoryId).length
-    const selected = useMemo(
-        () => STORIES_TOPICS.find((s) => s.id === selectedId) ?? null,
-        [selectedId]
-    )
+            ? MIRACLES_TOPICS.length
+            : MIRACLES_TOPICS.filter((t) => t.category === categoryId).length
+
+    const categoryLabel = (id: string) =>
+        MIRACLES_CATEGORIES.find((c) => c.id === id)?.label ?? id
 
     const categoryOptions = useMemo(
         () =>
-            STORIES_CATEGORIES.map((c) => ({
+            MIRACLES_CATEGORIES.map((c) => ({
                 value: c.id,
                 label: c.label,
                 metaLabel: String(getCategoryCount(c.id)),
@@ -59,21 +52,21 @@ export default function StoriesExploreContent() {
             <SectionHeader
                 layoutScope="center"
                 className="bg-white"
-                variant="blue"
-                icon={Heart}
-                label={STORIES_EDITORIAL.badge}
-                heading={STORIES_EDITORIAL.title}
-                descriptions={[STORIES_EDITORIAL.lead]}
+                variant="emerald"
+                icon={Star}
+                label={MIRACLES_EDITORIAL.badge}
+                heading={MIRACLES_EDITORIAL.title}
+                descriptions={[MIRACLES_EDITORIAL.lead]}
             />
 
             <main className="border-t border-layout-separator">
-                <section className="container py-6 sm:py-8">
+                <div className="container py-6 sm:py-8">
                     <div className="mx-auto min-w-0 max-w-6xl space-y-5">
                         <section className="flex w-full min-w-0 flex-col gap-3 sm:flex-row sm:items-center sm:gap-3">
                             <Input
                                 search
                                 type="input"
-                                placeholder="Search stories..."
+                                placeholder="Search miracles..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 className="w-full min-w-0 sm:min-w-0 sm:flex-1"
@@ -88,9 +81,9 @@ export default function StoriesExploreContent() {
                                         options={categoryOptions}
                                         value={category}
                                         onChange={(v) => setCategory(String(v))}
-                                        placeholder="All topics"
+                                        placeholder="Category"
                                         triggerIcon={Filter}
-                                        theme="blue"
+                                        theme="emerald"
                                         className="w-full"
                                         classNames={{
                                             triggerButton: "w-full max-w-full",
@@ -98,28 +91,28 @@ export default function StoriesExploreContent() {
                                         }}
                                     />
                                 </div>
-                                <div className="inline-flex h-9 shrink-0 items-center justify-center rounded-md border border-blue-200 bg-blue-50/80 px-2.5 text-xs font-medium text-blue-900 shadow-sm sm:hidden">
+                                <div className="inline-flex h-9 shrink-0 items-center justify-center rounded-md border border-emerald-200 bg-emerald-50/80 px-2.5 text-xs font-medium text-emerald-800 shadow-sm sm:hidden">
                                     <span className="tabular-nums font-semibold">{filtered.length}</span>
-                                    <span className="ml-1 truncate">stories</span>
+                                    <span className="ml-1 truncate">signs</span>
                                 </div>
                             </div>
-                            <div className="hidden h-9 shrink-0 items-center justify-center rounded-md border border-blue-200 bg-blue-50/80 px-3 text-xs font-medium text-blue-900 shadow-sm sm:inline-flex">
+                            <div className="hidden h-9 shrink-0 items-center justify-center rounded-md border border-emerald-200 bg-emerald-50/80 px-3 text-xs font-medium text-emerald-800 shadow-sm sm:inline-flex">
                                 <span className="tabular-nums font-semibold">{filtered.length}</span>
-                                <span className="ml-1">stories</span>
+                                <span className="ml-1">signs</span>
                             </div>
                         </section>
 
                         {filtered.length === 0 ? (
-                            <p className="py-12 text-center text-sm text-gray-500">No stories found.</p>
+                            <p className="py-12 text-center text-sm text-gray-500">No signs found.</p>
                         ) : (
                             <>
                                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                                    {paginatedItems.map((story, index) => (
-                                        <StoryCard
-                                            key={story.id}
-                                            story={story}
+                                    {paginatedItems.map((topic, index) => (
+                                        <MiracleCard
+                                            key={topic.id}
+                                            topic={topic}
                                             index={index}
-                                            onOpen={() => setSelectedId(story.id)}
+                                            categoryLabel={categoryLabel(topic.category)}
                                         />
                                     ))}
                                 </div>
@@ -132,14 +125,8 @@ export default function StoriesExploreContent() {
                             </>
                         )}
                     </div>
-                </section>
+                </div>
             </main>
-
-            <StoryDetailModal
-                story={selected}
-                isOpen={Boolean(selectedId && selected)}
-                onOpenChange={(open) => setSelectedId(open ? selectedId : null)}
-            />
         </div>
     )
 }

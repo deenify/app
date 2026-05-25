@@ -1,11 +1,11 @@
-import DhikrCounterContent from "@/components/pages/dashboard/dhikr/DhikrCounterContent"
 import { Metadata } from "next"
+import DhikrPage from "@/components/pages/dashboard/dhikr/DhikrPage"
 
 export const metadata: Metadata = {
     title: { absolute: "Deenify - Dhikr Counter" },
-    description: `Track your daily dhikr count and stay on track with your daily prayers.`,
+    description: "Count dhikr with presets and a simple session rhythm.",
 }
 
-export default function DhikrPage() {
-    return <DhikrCounterContent />
+export default function Page() {
+    return <DhikrPage />
 }

@@ -1,12 +1,11 @@
-import SupplicationsExploreContent from "@/components/pages/dashboard/supplications/SupplicationsExploreContent"
 import { Metadata } from "next"
+import SupplicationsPage from "@/components/pages/dashboard/supplications/SupplicationsPage"
 
 export const metadata: Metadata = {
     title: { absolute: "Deenify - Supplications" },
-    description: `Explore the supplications and learn about their meaning and teachings 
-    in a simple and easy to understand way.`,
+    description: "Curated duʿāʾ for salah, travel, gratitude, and difficult moments.",
 }
 
-export default function SupplicationsPage() {
-    return <SupplicationsExploreContent />
+export default function Page() {
+    return <SupplicationsPage />
 }

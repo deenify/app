@@ -1,6 +1,6 @@
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
-import GuideDetailPage from "@/components/pages/dashboard/guides/GuideDetailPage"
+import GuidesDetailPage from "@/components/pages/dashboard/guides/GuidesDetailPage"
 
 interface PageProps {
     params: {
@@ -35,5 +35,5 @@ export default function Page({ params }: PageProps) {
     const guideId = params?.slug?.[0]
     if (!guideId) return notFound()
 
-    return <GuideDetailPage guideId={guideId} />
+    return <GuidesDetailPage guideId={guideId} />
 }

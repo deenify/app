@@ -1,19 +1,12 @@
-// app/(pages)/quran/page.tsx 
-
-import QuranExploreSection from "../../../components/pages/dashboard/quran/QuranExploreSection"
 import { Metadata } from "next"
+import QuranPage from "@/components/pages/dashboard/quran/QuranPage"
 
 export const metadata: Metadata = {
     title: { absolute: "Deenify - Quran" },
-    description: `Explore the Quran and learn about its meaning and teachings in a simple and easy to understand way.`,
+    description:
+        "Explore the Quran and learn about its meaning and teachings in a simple and easy to understand way.",
 }
 
-const QuranPage = () => {
-    return (
-        <div>
-            <QuranExploreSection />
-        </div>
-    )
+export default function Page() {
+    return <QuranPage />
 }
-
-export default QuranPage

@@ -15,7 +15,7 @@ const PAYMENT_METHODS = [
     { id: "wallet", label: "Apple / Google Pay", icon: Wallet },
 ] as const
 
-export default function DonatePaymentContent() {
+export default function DonatePaymentPage() {
     const searchParams = useSearchParams()
     const planId = searchParams.get("plan") ?? "grow"
     const tier = useMemo(() => getDonateTierById(planId) ?? DONATE_TIERS[1], [planId])

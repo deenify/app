@@ -12,6 +12,7 @@ const ICON_BY_VARIANT: Partial<Record<NonNullable<BadgeProps["variant"]>, string
     amber: "bg-amber-50 text-amber-800",
     blue: "bg-blue-50 text-blue-700",
     pink: "bg-rose-50 text-rose-700",
+    red: "bg-red-50 text-red-700",
 }
 
 type SectionHeaderProps = {

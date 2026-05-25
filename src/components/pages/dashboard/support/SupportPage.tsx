@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils/clsx"
 import { SUPPORT_CHANNELS, SUPPORT_EDITORIAL, SUPPORT_FAQS } from "./content"
 import SupportChatWidget from "./SupportChatWidget"
 
-export default function SupportContent() {
+export default function SupportPage() {
     const [openId, setOpenId] = useState<string | null>(SUPPORT_FAQS[0]?.id ?? null)
     const [faqSearch, setFaqSearch] = useState("")
 

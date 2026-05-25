@@ -1,11 +1,11 @@
-import DonateContent from "@/components/pages/dashboard/donate/DonateContent"
 import { Metadata } from "next"
+import DonatePage from "@/components/pages/dashboard/donate/DonatePage"
 
 export const metadata: Metadata = {
     title: { absolute: "Deenify - Donate" },
-    description: "Support Deenify and help keep Islamic learning tools free for everyone.",
+    description: "Support Deenify and help us build better tools for the ummah.",
 }
 
-export default function DonatePage() {
-    return <DonateContent />
+export default function Page() {
+    return <DonatePage />
 }

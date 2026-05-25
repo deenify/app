@@ -9,7 +9,7 @@ import GuideDetailContent from "./GuideDetailContent"
 import GuideDetailSidebar from "./GuideDetailSidebar"
 import { motion } from "framer-motion"
 
-interface GuideDetailPageProps {
+interface GuidesDetailPageProps {
     guideId: string
 }
 
@@ -25,7 +25,7 @@ const guideVideoMap: Record<string, string> = {
     sabr: "https://www.youtube.com/embed/NwHV4V4E8Ps",
 }
 
-const GuideDetailPage = ({ guideId }: GuideDetailPageProps) => {
+export default function GuidesDetailPage({ guideId }: GuidesDetailPageProps) {
     const guide = useMemo(() => getGuideById(guideId), [guideId])
     const sections = useMemo(() => getGuideSectionsMock(guideId), [guideId])
     const videoUrl = guideVideoMap[guideId] ?? "https://www.youtube.com/embed/jn0f6f1R4tQ"
@@ -104,5 +104,4 @@ const GuideDetailPage = ({ guideId }: GuideDetailPageProps) => {
     )
 }
 
-export default GuideDetailPage
 

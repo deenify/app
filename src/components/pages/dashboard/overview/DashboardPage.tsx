@@ -20,7 +20,7 @@ import {
     DASHBOARD_STATS,
 } from "./content"
 
-export default function DashboardContent() {
+export default function DashboardPage() {
     return (
         <div className="bg-white">
             <DashboardHeader

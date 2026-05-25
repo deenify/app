@@ -1,60 +1,52 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { Bookmark, BookHeart, Filter } from "lucide-react"
+import { BookOpen, Bookmark, Filter, GraduationCap } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import FilterDropdown from "@/components/shared/FilterDropdown"
 import SectionHeader from "@/components/shared/SectionHeader"
 import Tabs from "@/components/shared/Tabs"
 import { cn } from "@/lib/utils/clsx"
-import {
-    SUPPLICATION_CATEGORIES,
-    SUPPLICATIONS_MOCK,
-    type SupplicationCategoryId,
-} from "./content"
-import SupplicationsCollectionsSection from "./SupplicationsCollectionsSection"
+import { GuideCategories, GuidesMock } from "./content"
+import GuidesCollectionsTabSection from "./GuidesCollectionsTabSection"
+import GuidesBookmarksTabSection from "./GuidesBookmarksTabSection"
 
-export type SupplicationsTabId = "library" | "saved"
+export type GuideExploreTabId = "collections" | "bookmarks"
 
-const tabs = [
-    { id: "library" as const, label: "Library", icon: BookHeart },
-    { id: "saved" as const, label: "Saved", icon: Bookmark },
+const guideTabs = [
+    { id: "collections" as const, label: "All Guides", icon: BookOpen },
+    { id: "bookmarks" as const, label: "Bookmarks", icon: Bookmark },
 ]
 
-export default function SupplicationsExploreContent() {
+export default function GuidesPage() {
     const [searchQuery, setSearchQuery] = useState("")
-    const [category, setCategory] = useState<SupplicationCategoryId>("all")
-    const [activeTab, setActiveTab] = useState<SupplicationsTabId>("library")
-    const [bookmarkedIds, setBookmarkedIds] = useState<Set<string>>(
-        () => new Set(["sayyid-istighfar", "distress-yunus"])
+    const [category, setCategory] = useState<string>("all")
+    const [activeTab, setActiveTab] = useState<GuideExploreTabId>("collections")
+    const [bookmarkedGuideIds, setBookmarkedGuideIds] = useState<Set<string>>(
+        () => new Set(["wudu", "salah", "ramadan"])
     )
 
     const getCategoryCount = (categoryId: string) =>
         categoryId === "all"
-            ? SUPPLICATIONS_MOCK.length
-            : SUPPLICATIONS_MOCK.filter((s) => s.category === categoryId).length
+            ? GuidesMock.length + 20
+            : GuidesMock.filter((g) => g.category === categoryId).length
 
-    const filtered = useMemo(() => {
+    const filteredGuides = useMemo(() => {
         const q = searchQuery.trim().toLowerCase()
-        return SUPPLICATIONS_MOCK.filter((s) => {
-            const catOk = category === "all" || s.category === category
-            const searchOk =
-                !q ||
-                s.title.toLowerCase().includes(q) ||
-                s.excerpt.toLowerCase().includes(q) ||
-                s.translation.toLowerCase().includes(q) ||
-                s.arabic.includes(q)
-            return catOk && searchOk
+        return GuidesMock.filter((g) => {
+            const matchCategory = category === "all" || g.category === category
+            const matchSearch = !q || g.title.toLowerCase().includes(q) || g.excerpt.toLowerCase().includes(q)
+            return matchCategory && matchSearch
         })
     }, [category, searchQuery])
 
-    const savedItems = useMemo(
-        () => filtered.filter((s) => bookmarkedIds.has(s.id)),
-        [bookmarkedIds, filtered]
+    const bookmarkGuides = useMemo(
+        () => filteredGuides.filter((g) => bookmarkedGuideIds.has(g.id)),
+        [bookmarkedGuideIds, filteredGuides]
     )
 
     const toggleBookmark = (id: string) => {
-        setBookmarkedIds((prev) => {
+        setBookmarkedGuideIds((prev) => {
             const next = new Set(prev)
             if (next.has(id)) next.delete(id)
             else next.add(id)
@@ -62,9 +54,11 @@ export default function SupplicationsExploreContent() {
         })
     }
 
-    const supplicationCategoryOptions = useMemo(
+    const catalogCountLabel = `${GuidesMock.length - 1}+`
+
+    const guideCategoryOptions = useMemo(
         () =>
-            SUPPLICATION_CATEGORIES.map((c) => ({
+            GuideCategories.map((c) => ({
                 value: c.id,
                 label: c.label,
                 metaLabel: String(getCategoryCount(c.id)),
@@ -72,27 +66,24 @@ export default function SupplicationsExploreContent() {
         [category]
     )
 
-    const itemCount = activeTab === "saved" ? savedItems.length : filtered.length
     const searchPlaceholder =
-        activeTab === "saved"
-            ? "Search saved supplications..."
-            : "Search Arabic, titles, themes..."
+        activeTab === "bookmarks" ? "Search your saved guides..." : "Search guides..."
 
     return (
         <div className="bg-gray-50">
             <SectionHeader
                 layoutScope="center"
                 className="bg-white"
-                variant="pink"
-                icon={BookHeart}
-                label="Duʿāʾ & heartfelt speech"
-                heading="Supplications that shape interior weather"
+                variant="emerald"
+                icon={GraduationCap}
+                label="Guides & learning"
+                heading="Study, practice, and grow"
                 descriptions={[
-                    "A curated corpus—not exhaustive—organized for retrieval when salah, travel, anxiety, or gratitude call for words finer than your own. Pair with dhikr lanes for rhythm.",
+                    "Curated learning paths for everyday worship, character, and foundational knowledge — structured for clarity and consistency.",
                 ]}
             />
 
-            <main className="bg-[linear-gradient(180deg,#fff7fb_0%,#f0fdf9_100%)]">
+            <main className="bg-[linear-gradient(180deg,#f8faf8_0%,#f0f7f4_100%)]">
                 <section className={cn("relative w-full border-t border-layout-separator bg-transparent")}>
                     <div className="container py-6 sm:py-8">
                         <div className="mx-auto min-w-0 max-w-6xl space-y-4 sm:space-y-5">
@@ -112,10 +103,10 @@ export default function SupplicationsExploreContent() {
                                 <div className="flex w-full min-w-0 items-center gap-2 sm:max-w-[260px] sm:shrink-0 md:max-w-[280px]">
                                     <div className="min-w-0 flex-1 sm:w-full">
                                         <FilterDropdown
-                                            options={supplicationCategoryOptions}
+                                            options={guideCategoryOptions}
                                             value={category}
-                                            onChange={(v) => setCategory(v as SupplicationCategoryId)}
-                                            placeholder="Topic"
+                                            onChange={(v) => setCategory(String(v))}
+                                            placeholder="All topics"
                                             triggerIcon={Filter}
                                             theme="purple"
                                             className="w-full"
@@ -125,22 +116,22 @@ export default function SupplicationsExploreContent() {
                                             }}
                                         />
                                     </div>
-                                    <div className="inline-flex h-9 shrink-0 items-center justify-center rounded-md border border-rose-200 bg-rose-50/80 px-2.5 text-xs font-medium text-rose-900 shadow-sm sm:hidden">
-                                        <span className="tabular-nums font-semibold">{itemCount}</span>
-                                        <span className="ml-1 truncate">entries</span>
+                                    <div className="inline-flex h-9 shrink-0 items-center justify-center rounded-md border border-emerald-200 bg-emerald-50/80 px-2.5 text-xs font-medium text-emerald-800 shadow-sm sm:hidden">
+                                        <span className="tabular-nums font-semibold">{filteredGuides.length}</span>
+                                        <span className="ml-1 truncate">guides</span>
                                     </div>
                                 </div>
-                                <div className="hidden h-9 shrink-0 items-center justify-center rounded-md border border-rose-200 bg-rose-50/80 px-3 text-xs font-medium text-rose-900 shadow-sm sm:inline-flex">
-                                    <span className="tabular-nums font-semibold">{itemCount}</span>
-                                    <span className="ml-1">entries</span>
+                                <div className="hidden h-9 shrink-0 items-center justify-center rounded-md border border-emerald-200 bg-emerald-50/80 px-3 text-xs font-medium text-emerald-800 shadow-sm sm:inline-flex">
+                                    <span className="tabular-nums font-semibold">{filteredGuides.length}</span>
+                                    <span className="ml-1">guides</span>
                                 </div>
                             </section>
 
                             <section className="flex items-center justify-between pt-6">
                                 <Tabs
-                                    allTabs={tabs}
+                                    allTabs={guideTabs}
                                     activeTab={activeTab}
-                                    onTabChange={(tabId) => setActiveTab(tabId as SupplicationsTabId)}
+                                    onTabChange={(tabId) => setActiveTab(tabId as GuideExploreTabId)}
                                     variant="pills"
                                     showIndicator
                                     align="left"
@@ -156,16 +147,17 @@ export default function SupplicationsExploreContent() {
                                     }}
                                 />
 
-                                <div className="hidden items-center gap-1.5 rounded-full border border-rose-200 bg-rose-50/90 px-3 py-1 text-[11px] font-medium text-rose-900 shadow-sm sm:inline-flex sm:text-xs">
-                                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-rose-600" />
-                                    {activeTab === "library" ? (
+                                <div className="hidden items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50/80 px-3 py-1 
+                            text-[11px] font-medium text-emerald-800 shadow-[0_1px_2px_rgba(16,185,129,0.18)] sm:inline-flex sm:text-xs">
+                                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                                    {activeTab === "collections" ? (
                                         <>
-                                            <span className="tabular-nums">{filtered.length}</span>
-                                            <span>shown</span>
+                                            <span className="tabular-nums">{catalogCountLabel}</span>
+                                            <span>Guides</span>
                                         </>
                                     ) : (
                                         <>
-                                            <span className="tabular-nums">{bookmarkedIds.size}</span>
+                                            <span className="tabular-nums">{bookmarkedGuideIds.size}</span>
                                             <span>saved</span>
                                         </>
                                     )}
@@ -175,16 +167,17 @@ export default function SupplicationsExploreContent() {
                     </div>
                 </section>
 
-                {activeTab === "library" &&
-                    <SupplicationsCollectionsSection
-                        items={filtered}
-                        bookmarkedIds={bookmarkedIds}
+                {activeTab === "collections" && (
+                    <GuidesCollectionsTabSection
+                        guides={filteredGuides}
+                        bookmarkedIds={bookmarkedGuideIds}
                         onToggleBookmark={toggleBookmark}
-                    />}
-                {activeTab === "saved" && (
-                    <SupplicationsCollectionsSection
-                        items={savedItems}
-                        bookmarkedIds={bookmarkedIds}
+                    />
+                )}
+                {activeTab === "bookmarks" && (
+                    <GuidesBookmarksTabSection
+                        guides={bookmarkGuides}
+                        bookmarkedIds={bookmarkedGuideIds}
                         onToggleBookmark={toggleBookmark}
                     />
                 )}
@@ -192,3 +185,4 @@ export default function SupplicationsExploreContent() {
         </div>
     )
 }
+

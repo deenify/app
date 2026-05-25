@@ -1,11 +1,11 @@
-import MiraclesExploreContent from "@/components/pages/dashboard/miracles/MiraclesExploreContent"
 import { Metadata } from "next"
+import MiraclesPage from "@/components/pages/dashboard/miracles/MiraclesPage"
 
 export const metadata: Metadata = {
     title: { absolute: "Deenify - Islamic Miracles" },
     description: "Learn about miracles in the Quran, from the prophets, and in creation.",
 }
 
-export default function MiraclesPage() {
-    return <MiraclesExploreContent />
+export default function Page() {
+    return <MiraclesPage />
 }

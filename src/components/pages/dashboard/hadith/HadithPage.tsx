@@ -91,7 +91,7 @@ function sortTopics(list: HadithTopicType[], mode: SortMode): HadithTopicType[] 
     return copy
 }
 
-const HadithExploreSection = () => {
+export default function HadithPage() {
     const [searchQuery, setSearchQuery] = useState("")
     const [collectionSort, setCollectionSort] = useState<SortMode>("az")
     /** Topics tab: which collection’s thematic index is shown (default Sahih Muslim). */
@@ -178,7 +178,7 @@ const HadithExploreSection = () => {
                 : "Search saved hadith…"
 
     return (
-        <div className="bg-gray-50">
+        <div>
             <SectionHeader
                 variant="emerald"
                 icon={FileText}
@@ -203,11 +203,11 @@ const HadithExploreSection = () => {
                     bookmarked narrations.
                 </p>
                 <div className="flex flex-wrap items-center gap-2 pt-0.5">
-                    <Badge variant="outline" className="border-gray-200 bg-white px-2.5 py-1 text-xs font-medium text-gray-700">
+                    <Badge variant="outline">
                         6 collections
                     </Badge>
                     <span aria-hidden className="inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-gray-400" />
-                    <Badge variant="outline" className="border-purple-200 bg-purple-50 px-2.5 py-1 text-xs font-medium text-purple-700">
+                    <Badge variant="purple">
                         {TOTAL_HADITH_COUNT_DISPLAY} narrations
                     </Badge>
                 </div>
@@ -278,4 +278,3 @@ const HadithExploreSection = () => {
     )
 }
 
-export default HadithExploreSection

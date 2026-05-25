@@ -2,7 +2,7 @@
 
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
-import QuranDetailPage from "../../../../components/pages/dashboard/quran/QuranDetailPage"
+import QuranDetailPage from "@/components/pages/dashboard/quran/QuranDetailPage"
 
 interface PageProps {
     params: {

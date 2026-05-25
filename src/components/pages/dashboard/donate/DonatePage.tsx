@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils/clsx"
 import { DONATE_EDITORIAL, DONATE_NOTE, DONATE_TIERS } from "./content"
 
-export default function DonateContent() {
+export default function DonatePage() {
     const [search, setSearch] = useState("")
 
     const tiers = DONATE_TIERS.filter(

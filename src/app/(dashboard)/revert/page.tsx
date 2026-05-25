@@ -1,11 +1,11 @@
-import RevertContent from "@/components/pages/dashboard/revert/RevertContent"
 import { Metadata } from "next"
+import RevertPage from "@/components/pages/dashboard/revert/RevertPage"
 
 export const metadata: Metadata = {
-    title: { absolute: "Deenify - Becoming Muslim" },
-    description: "A simple roadmap for new Muslims and anyone learning about Islam.",
+    title: { absolute: "Deenify - Revert Guide" },
+    description: "Steps and resources for new Muslims and those exploring Islam.",
 }
 
-export default function RevertPage() {
-    return <RevertContent />
+export default function Page() {
+    return <RevertPage />
 }

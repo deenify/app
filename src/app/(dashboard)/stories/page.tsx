@@ -1,11 +1,11 @@
-import StoriesExploreContent from "@/components/pages/dashboard/stories/StoriesExploreContent"
 import { Metadata } from "next"
+import StoriesPage from "@/components/pages/dashboard/stories/StoriesPage"
 
 export const metadata: Metadata = {
     title: { absolute: "Deenify - Prophetic Stories" },
-    description: "Stories from the prophets that teach patience, trust, and good character.",
+    description: "Stories from the Quran and Sunnah with lessons for everyday life.",
 }
 
-export default function StoriesPage() {
-    return <StoriesExploreContent />
+export default function Page() {
+    return <StoriesPage />
 }

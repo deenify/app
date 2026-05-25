@@ -1,19 +1,12 @@
-// app/(pages)/guides/page.tsx
-
-import GuidesExplorePage from "../../../components/pages/dashboard/guides/GuidesExplorePage"
 import { Metadata } from "next"
+import GuidesPage from "@/components/pages/dashboard/guides/GuidesPage"
 
 export const metadata: Metadata = {
     title: { absolute: "Deenify - Guides" },
-    description: `Explore the guides and learn about their meaning and teachings 
-    in a simple and easy to understand way.`,
+    description:
+        "Explore the guides and learn about their meaning and teachings in a simple and easy to understand way.",
 }
 
-export default function GuidesPage() {
-    return (
-        <div>
-            <GuidesExplorePage />
-        </div>
-    )
+export default function Page() {
+    return <GuidesPage />
 }
-

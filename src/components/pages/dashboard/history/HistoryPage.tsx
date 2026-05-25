@@ -11,7 +11,7 @@ import { usePagination } from "@/hooks/usePagination"
 import HistoryCard from "./HistoryCard"
 import { HISTORY_CATEGORIES, HISTORY_EDITORIAL, HISTORY_TOPICS } from "./content"
 
-export default function HistoryExploreContent() {
+export default function HistoryPage() {
     const [searchQuery, setSearchQuery] = useState("")
     const [category, setCategory] = useState("all")
 

@@ -54,7 +54,7 @@ function seededDayCompletion(dayIndex: number) {
     return ((dayIndex * 7 + 3) % 5) + 1
 }
 
-export default function PrayerTimesContent() {
+export default function PrayerPage() {
     const [completed, setCompleted] = useState<Record<string, boolean>>({
         Fajr: true,
         Dhuhr: true,

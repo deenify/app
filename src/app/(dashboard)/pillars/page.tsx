@@ -1,11 +1,11 @@
-import PillarsContent from "@/components/pages/dashboard/pillars/PillarsContent"
 import { Metadata } from "next"
+import PillarsPage from "@/components/pages/dashboard/pillars/PillarsPage"
 
 export const metadata: Metadata = {
     title: { absolute: "Deenify - Five Pillars" },
-    description: "Understand the five pillars of Islam in plain language.",
+    description: "Learn the five pillars of Islam in plain language.",
 }
 
-export default function PillarsPage() {
-    return <PillarsContent />
+export default function Page() {
+    return <PillarsPage />
 }

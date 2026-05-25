@@ -26,7 +26,7 @@ function cardinalFromDegrees(deg: number) {
     return "NW"
 }
 
-export default function QiblaFinderContent() {
+export default function QiblaPage() {
     const bearing = cardinalFromDegrees(BEARING_DEG)
 
     return (

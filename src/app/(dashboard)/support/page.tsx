@@ -1,11 +1,11 @@
-import SupportContent from "@/components/pages/dashboard/support/SupportContent"
 import { Metadata } from "next"
+import SupportPage from "@/components/pages/dashboard/support/SupportPage"
 
 export const metadata: Metadata = {
-    title: { absolute: "Deenify - Support Center" },
-    description: "Get help with Deenify — FAQs and contact options.",
+    title: { absolute: "Deenify - Support" },
+    description: "Get help, browse FAQs, and contact the Deenify team.",
 }
 
-export default function SupportPage() {
-    return <SupportContent />
+export default function Page() {
+    return <SupportPage />
 }

@@ -64,7 +64,7 @@ const bookmarkDateOptions: FilterOption[] = [
     { value: "year", label: "Last year", icon: CalendarClock },
 ]
 
-const QuranExploreSection = () => {
+export default function QuranPage() {
     const [searchQuery, setSearchQuery] = useState("")
     const [orderMode, setOrderMode] = useState<OrderMode>("quran")
     const [reciterId, setReciterId] = useState<string | number>("all")
@@ -231,5 +231,4 @@ const QuranExploreSection = () => {
     )
 }
 
-export default QuranExploreSection
 

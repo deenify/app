@@ -1,7 +1,5 @@
-// app/(dashboard)/dashboard/page.tsx
+import DashboardPage from "@/components/pages/dashboard/overview/DashboardPage"
 
-import DashboardContent from "@/components/pages/dashboard/overview/DashboardContent"
-
-export default function DashboardPage() {
-    return <DashboardContent />
+export default function Page() {
+    return <DashboardPage />
 }

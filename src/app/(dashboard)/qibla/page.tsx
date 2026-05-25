@@ -1,12 +1,11 @@
-import QiblaFinderContent from "@/components/pages/dashboard/qibla/QiblaFinderContent"
 import { Metadata } from "next"
+import QiblaPage from "@/components/pages/dashboard/qibla/QiblaPage"
 
 export const metadata: Metadata = {
     title: { absolute: "Deenify - Qibla Finder" },
-    description: `Find the direction of the Qibla and learn about its meaning and teachings 
-    in a simple and easy to understand way.`,
+    description: "Find the direction of the Kaʿbah from your location.",
 }
 
-export default function QiblaPage() {
-    return <QiblaFinderContent />
+export default function Page() {
+    return <QiblaPage />
 }

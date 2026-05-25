@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils/clsx"
 import { PILLARS, PILLARS_EDITORIAL } from "./content"
 
-export default function PillarsContent() {
+export default function PillarsPage() {
     const [openId, setOpenId] = useState<string | null>("shahada")
     const [search, setSearch] = useState("")
 

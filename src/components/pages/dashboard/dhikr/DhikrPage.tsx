@@ -17,7 +17,7 @@ import {
     Target,
 } from "lucide-react"
 
-export default function DhikrCounterContent() {
+export default function DhikrPage() {
     const [presetId, setPresetId] = useState(DHIKR_PRESETS[0].id)
     const [count, setCount] = useState(0)
 
@@ -50,7 +50,7 @@ export default function DhikrCounterContent() {
                 descriptions={[DHIKR_EDITORIAL.lens]}
             >
                 <div className="flex flex-wrap gap-2 pt-1">
-                    <Badge variant="outline" className="border-emerald-200 bg-emerald-50 text-sm text-emerald-900">
+                    <Badge variant="emerald">
                         <Sparkles className="mr-1 h-3.5 w-3.5" />
                         Local-first session (browser memory later)
                     </Badge>

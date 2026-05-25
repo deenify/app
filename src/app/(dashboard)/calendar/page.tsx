@@ -1,12 +1,11 @@
-import IslamicCalendarContent from "@/components/pages/dashboard/calendar/IslamicCalendarContent"
 import { Metadata } from "next"
+import CalendarPage from "@/components/pages/dashboard/calendar/CalendarPage"
 
 export const metadata: Metadata = {
     title: { absolute: "Deenify - Islamic Calendar" },
-    description: `Explore the Islamic calendar and learn about its meaning and teachings 
-    in a simple and easy to understand way.`,
+    description: "Hijri calendar with sacred months and upcoming events.",
 }
 
-export default function CalendarPage() {
-    return <IslamicCalendarContent />
+export default function Page() {
+    return <CalendarPage />
 }

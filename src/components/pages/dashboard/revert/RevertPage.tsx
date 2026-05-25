@@ -17,7 +17,7 @@ import {
     type RevertTrackId,
 } from "./content"
 
-export default function RevertContent() {
+export default function RevertPage() {
     const [track, setTrack] = useState<RevertTrackId>("become-muslim")
     const [search, setSearch] = useState("")
     const [openSectionId, setOpenSectionId] = useState<string | null>("creator")

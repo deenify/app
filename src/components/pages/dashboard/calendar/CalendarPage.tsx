@@ -30,7 +30,7 @@ const DEMO_YEAR = 1447
 const DEMO_TODAY = { monthIndex: 9, day: 15 }
 const PAD_START = 2
 
-export default function IslamicCalendarContent() {
+export default function CalendarPage() {
     const [monthIndex, setMonthIndex] = useState(DEMO_TODAY.monthIndex)
     const [selectedDay, setSelectedDay] = useState<number | null>(DEMO_TODAY.day)
 
