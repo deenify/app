@@ -31,6 +31,7 @@ const buttonVariants = tv({
             "link-red": "text-red-600 underline-offset-2 hover:underline bg-transparent shadow-none",
             "link-blue": "text-blue-600 underline-offset-2 hover:underline bg-transparent shadow-none",
             "link-amber": "text-amber-600 underline-offset-2 hover:underline bg-transparent shadow-none",
+            "link-purple": "text-purple-600 underline-offset-2 hover:underline bg-transparent shadow-none",
 
             destructive: "bg-red-600 text-white hover:bg-red-700",
             secondary: "bg-gray-100 text-gray-900 hover:bg-gray-200",
