@@ -12,7 +12,7 @@ const Page = () => {
     const router = useRouter()
 
     return (
-        <section className='w-full min-h-[75dvh] md:py-10 py-8 flex items-center'>
+        <section className='w-full min-h-[100dvh] md:py-10 py-8 flex items-center'>
             <div className='container relative w-full h-max translate-y-[25%]'>
 
                 {/* subtle 404 */}
