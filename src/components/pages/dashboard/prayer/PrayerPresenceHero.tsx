@@ -70,7 +70,8 @@ export default function PrayerPresenceHero({ loggedCount }: { loggedCount: numbe
         <div className="relative overflow-hidden rounded-lg border border-emerald-200/70 bg-[#0c1412] text-white shadow-[0_20px_56px_rgba(6,78,59,0.18)]">
             <motion.div
                 aria-hidden
-                className="pointer-events-none absolute -left-12 top-0 h-56 w-56 rounded-full bg-emerald-500/80 blur-3xl"
+                className="pointer-events-none absolute -left-12 top-0 h-48 w-48 rounded-full bg-emerald-500/80 blur-3xl
+                xs:h-56 xs:w-56"
                 animate={{ opacity: [0.22, 0.42, 0.22], scale: [1, 1.08, 1] }}
                 transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" }}
             />
@@ -80,20 +81,21 @@ export default function PrayerPresenceHero({ loggedCount }: { loggedCount: numbe
                 animate={{ opacity: [0.15, 0.32, 0.15], scale: [1, 1.06, 1] }}
                 transition={{ duration: 14, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
             />
-            <div className="pointer-events-none absolute -right-6 -top-6 h-32 w-32 
-                 rounded-full border border-emerald-400/15"
+            <div
+                className="pointer-events-none absolute -right-6 -top-6 h-28 w-28 xs:h-32 xs:w-32 
+                rounded-full border border-emerald-400/15"
             />
 
-            <div className="relative p-5 sm:p-6">
+            <div className="relative xs:px-5 px-4 py-8 sm:p-6">
                 <div className="flex flex-col gap-6 lg:flex-row lg:justify-between">
-                    <div className="min-w-0 flex-1 flex flex-col justify-between">
+                    <div className="min-w-0 flex-1 flex flex-col justify-between gap-6">
                         <div>
                             <p className="text-xs font-normal text-emerald-300 tracking-wider 
                             flex items-center gap-2"
                             >
                                 {formatHijriDate()}
                             </p>
-                            <p className="text-[40px] font-light tabular-nums font-mono pt-1 uppercase">
+                            <p className="text-3xl xs:text-4xl sm:text-[40px] font-light tabular-nums font-mono pt-1 uppercase">
                                 {nowEn || "—"}
                             </p>
                         </div>
@@ -135,7 +137,7 @@ export default function PrayerPresenceHero({ loggedCount }: { loggedCount: numbe
                     </div>
                 </div>
 
-                <div className="mt-5 grid gap-2 border-t border-white/15 pt-5 sm:grid-cols-2 lg:grid-cols-4">
+                <div className="mt-4 grid gap-2 pt-4 xs:mt-5 xs:grid-cols-2 xs:border-t xs:border-white/15 xs:pt-5 lg:grid-cols-4">
                     {[
                         { label: "Today", value: `${loggedCount}/${totalDaily}`, sub: "farḍ logged" },
                         { label: "Fajr streak", value: String(DEMO_FAJR_STREAK), sub: "mornings" },
@@ -144,7 +146,7 @@ export default function PrayerPresenceHero({ loggedCount }: { loggedCount: numbe
                     ].map((stat) => (
                         <div
                             key={stat.label}
-                            className="rounded-md bg-white/5 px-3 py-2.5 ring-1 ring-white/15 backdrop-blur-sm"
+                            className="rounded-md bg-white/5 px-2.5 py-2.5 ring-1 ring-white/15 backdrop-blur-sm xs:px-3 xs:py-2.5"
                         >
                             <p className="text-xs uppercase tracking-wide text-white/60">{stat.label}</p>
                             <p className="mt-0.5 text-sm font-semibold leading-snug tabular-nums">{stat.value}</p>
