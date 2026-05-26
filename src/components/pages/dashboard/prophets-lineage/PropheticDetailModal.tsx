@@ -37,9 +37,9 @@ export default function PropheticDetailModal({
                 "max-h-[85dvh] sm:max-h-[min(92dvh,720px)]"
             )}
             classNames={{
-                body: "p-0 pb-3",
                 header: "px-3 py-2.5 sm:px-4 sm:py-3",
                 title: "min-w-0 flex-1",
+                content: "p-0 pb-3",
             }}
         >
             <article className="flex flex-col bg-white">

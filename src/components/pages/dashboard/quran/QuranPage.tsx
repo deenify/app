@@ -137,7 +137,7 @@ export default function QuranPage() {
                 : "Search by surah, verse, or translation..."
 
     return (
-        <div className="bg-gray-50/50">
+        <div>
             <SectionHeader
                 variant="purple"
                 icon={BookOpenText}
@@ -157,69 +157,71 @@ export default function QuranPage() {
                 ]}
                 classNames={{ descriptionsWrapper: "space-y-3 sm:space-y-3" }}
             >
-                <p className="max-w-2xl text-sm leading-relaxed text-gray-500 hidden md:block">
-                    Use the search and order options below to find any surah or browse by revelation order. Switch to
-                    the Listen tab to hear the Quran recited.
-                </p>
-                <div className="flex flex-wrap items-center gap-2 pt-0.5">
-                    <Badge variant="outline" className="border-gray-200 bg-white px-2.5 py-1 text-xs font-medium text-gray-700">
-                        114 surahs
-                    </Badge>
-                    <span aria-hidden className="inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-gray-400" />
-                    <Badge variant="outline" className="border-purple-200 bg-purple-50 px-2.5 py-1 text-xs font-medium text-purple-700">
-                        6,236 verses
-                    </Badge>
-                </div>
-            </SectionHeader>
+                <section>
+                    <p className="max-w-2xl text-sm leading-relaxed text-gray-500 hidden md:block">
+                        Use the search and order options below to find any surah or browse by revelation order. Switch to
+                        the Listen tab to hear the Quran recited.
+                    </p>
+                    <div className="flex flex-wrap items-center gap-2 pt-0.5">
+                        <Badge variant="outline" className="border-gray-200 bg-white px-2.5 py-1 text-xs font-medium text-gray-700">
+                            114 surahs
+                        </Badge>
+                        <span aria-hidden className="inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-gray-400" />
+                        <Badge variant="outline" className="border-purple-200 bg-purple-50 px-2.5 py-1 text-xs font-medium text-purple-700">
+                            6,236 verses
+                        </Badge>
+                    </div>
+                </section>
 
-            <section className="border-b border-gray-100 bg-white">
-                <div className="container space-y-4 px-4 py-6 sm:px-6 sm:py-8 md:px-6">
-                    <main className="space-y-4">
-                        {/* Surah-search & order-dropdown */}
-                        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
-                            <Input
-                                search
-                                type="input"
-                                placeholder={searchPlaceholder}
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                classNames={{
-                                    input: "min-w-0 flex-1 h-10 rounded-md border-gray-200 bg-gray-50/80 text-base placeholder:text-gray-400 focus:bg-white"
-                                }}
-                            />
-                            <div className="w-full sm:w-[260px] sm:shrink-0">
-                                <FilterDropdown
-                                    options={dropdownOptions}
-                                    value={dropdownValue}
-                                    onChange={setDropdownValue}
-                                    theme="blue"
-                                    triggerIcon={
-                                        activeTab === "all"
-                                            ? ArrowUpDown
-                                            : activeTab === "listen"
-                                                ? Mic2
-                                                : History
-                                    }
+                <section className="bg-white">
+                    <div className="space-y-4 pt-5 sm:pt-8">
+                        <main className="space-y-4">
+                            {/* Surah-search & order-dropdown */}
+                            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+                                <Input
+                                    search
+                                    type="input"
+                                    placeholder={searchPlaceholder}
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    classNames={{
+                                        input: "min-w-0 flex-1 h-10 rounded-md border-gray-200 bg-gray-50/80 text-base placeholder:text-gray-400 focus:bg-white"
+                                    }}
                                 />
+                                <div className="w-full sm:w-[260px] sm:shrink-0">
+                                    <FilterDropdown
+                                        options={dropdownOptions}
+                                        value={dropdownValue}
+                                        onChange={setDropdownValue}
+                                        theme="blue"
+                                        triggerIcon={
+                                            activeTab === "all"
+                                                ? ArrowUpDown
+                                                : activeTab === "listen"
+                                                    ? Mic2
+                                                    : History
+                                        }
+                                    />
+                                </div>
                             </div>
-                        </div>
 
-                        {/* Read, Listen tabs */}
-                        <Tabs
-                            allTabs={quranTabs}
-                            activeTab={activeTab}
-                            onTabChange={(tabId) => setActiveTab(tabId as QuranTabId)}
-                            variant="underline"
-                            showIndicator
-                            align="left"
-                            stretchTabs={false}
-                            className="pt-0"
-                            tabsContainerClassName="border-b border-gray-200 max-w-full"
-                            contentContainerClassName="hidden"
-                        />
-                    </main>
-                </div>
-            </section>
+                            {/* Read, Listen tabs */}
+                            <Tabs
+                                allTabs={quranTabs}
+                                activeTab={activeTab}
+                                onTabChange={(tabId) => setActiveTab(tabId as QuranTabId)}
+                                variant="underline"
+                                showIndicator
+                                align="left"
+                                stretchTabs={false}
+                                className="pt-0"
+                                tabsContainerClassName="border-b border-gray-200 max-w-full"
+                                contentContainerClassName="hidden"
+                            />
+                        </main>
+                    </div>
+                </section>
+            </SectionHeader>
 
             {/* Read, Listen tabs - content */}
             <main className="bg-[linear-gradient(180deg,#f8faf8_0%,#f0f7f4_100%)]">

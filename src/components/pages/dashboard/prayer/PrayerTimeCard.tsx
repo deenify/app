@@ -37,16 +37,16 @@ export default function PrayerTimeCard({
             onClick={onToggle}
             aria-pressed={logged}
             className={cn(
-                "group relative flex w-full items-stretch gap-0 overflow-hidden rounded-lg",
-                "border text-left transition-all duration-200",
+                "group relative flex w-full items-stretch gap-0 overflow-hidden flex-col sm:flex-row",
+                "border text-left transition-all duration-200 rounded-lg ",
                 "border-gray-300 bg-white shadow-[0_1px_2px_rgba(15,23,42,0.04)]..",
                 "hover:border-emerald-500 hover:shadow-[0_8px_28px_rgba(16,185,129,0.07)]..",
-                isCurrent && "border-emerald-500",
+                isCurrent && "border-emerald-500 bg-emerald-50/30 sm:bg-white",
             )}
         >
             <div
                 className={cn(
-                    "w-1 shrink-0 transition-all duration-200",
+                    "w-full h-1 shrink-0 transition-all duration-200 sm:w-1 sm:h-auto",
                     isCurrent
                         ? "bg-emerald-500"
                         : logged
@@ -55,21 +55,61 @@ export default function PrayerTimeCard({
                 )}
             />
 
-            <div className="flex min-w-0 flex-1 items-center gap-4 px-4 py-4 sm:gap-5 sm:px-5">
-                <div className="shrink-0 px-3">
-                    <p className="text-2xl font-semibold leading-none tracking-tight 
+            <div className="flex min-w-0 flex-1 flex-col items-start gap-3 px-4 py-5 sm:flex-row sm:items-center sm:gap-5 sm:px-5 sm:py-4">
+                {/* Mobile: time + check circle in the same top row */}
+                <div className="flex w-full items-start justify-between gap-4 sm:w-auto sm:flex-none sm:justify-start sm:items-center">
+                    <div className="shrink-0 px-0 sm:px-3">
+                        <p className="text-2xl font-semibold leading-none tracking-tight 
                     text-gray-900 tabular-nums sm:text-[1.75rem]">
-                        {main}
-                    </p>
-                    {period && (
-                        <p className="pt-1 text-xs font-semibold uppercase 
-                        tracking-wider text-gray-400">
-                            {period}
+                            {main}
                         </p>
-                    )}
+                        {period && (
+                            <p className="pt-1 text-xs font-semibold uppercase 
+                        tracking-wider text-gray-400">
+                                {period}
+                            </p>
+                        )}
+                    </div>
+
+                    <div className="flex shrink-0 items-center self-start pr-1 sm:hidden">
+                        <div
+                            className={cn(
+                                "flex w-9 h-9 items-center justify-center rounded-full border-[2.5px] transition-all duration-300",
+                                logged
+                                    ? "border-emerald-600 bg-emerald-600"
+                                    : "border-gray-200 group-hover:border-emerald-500"
+                            )}
+                        >
+                            <motion.svg
+                                viewBox="0 0 25 25"
+                                fill="none"
+                                className="w-6 h-6 overflow-visible"
+                                aria-hidden
+                            >
+                                <motion.path
+                                    d="M6 12.5 L10.25 16.75 L18.25 7"
+                                    fill="none"
+                                    stroke={logged ? "#fff" : "transparent"}
+                                    strokeWidth={2}
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    initial={false}
+                                    animate={{
+                                        pathLength: logged ? 1 : 0,
+                                        opacity: logged ? 1 : 0,
+                                        stroke: logged ? "#fff" : "rgba(255,255,255,0)"
+                                    }}
+                                    transition={{
+                                        duration: 0.3,
+                                        ease: "easeInOut"
+                                    }}
+                                />
+                            </motion.svg>
+                        </div>
+                    </div>
                 </div>
 
-                <div className="min-w-0 flex-1 border-l border-gray-300 pl-4 sm:pl-5">
+                <div className="min-w-0 flex-1 border-l-0 pt-2 sm:border-l sm:border-gray-300 sm:pl-4 sm:pt-0">
                     <div className="flex flex-wrap items-center gap-1.5">
                         {Icon && (
                             <span className={cn(
@@ -132,7 +172,8 @@ export default function PrayerTimeCard({
                     )}
                 </div>
 
-                <div className="flex shrink-0 items-center pr-1 sm:pr-2">
+                {/* Desktop/tablet: keep check circle on the far right */}
+                <div className="hidden shrink-0 items-center self-end pr-1 sm:flex sm:self-auto sm:pr-2">
                     <div
                         className={cn(
                             "flex w-10 h-10 items-center justify-center rounded-full border-[2.5px] transition-all duration-300",

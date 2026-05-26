@@ -6,7 +6,6 @@ import {
     ArrowUpAZ,
     ArrowUpDown,
     BookOpen,
-    BookOpenText,
     CalendarClock,
     CalendarDays,
     CalendarRange,
@@ -30,7 +29,6 @@ import {
 import HadithCollectionsTabSection from "./HadithCollectionsTabSection"
 import HadithTopicsTabSection from "./HadithTopicsTabSection"
 import HadithSavedTabSection from "./HadithSavedTabSection"
-import { motion } from "framer-motion"
 
 type HadithTabId = "collections" | "topics" | "saved"
 export type HadithDateFilter = "all" | "today" | "week" | "month" | "year"
@@ -198,68 +196,70 @@ export default function HadithPage() {
                 ]}
                 classNames={{ descriptionsWrapper: "space-y-3 sm:space-y-3" }}
             >
-                <p className="hidden max-w-2xl text-sm leading-relaxed text-gray-500 md:block">
-                    Use search and sort below to browse books. Switch to Topics for thematic access, or Saved for your
-                    bookmarked narrations.
-                </p>
-                <div className="flex flex-wrap items-center gap-2 pt-0.5">
-                    <Badge variant="outline">
-                        6 collections
-                    </Badge>
-                    <span aria-hidden className="inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-gray-400" />
-                    <Badge variant="purple">
-                        {TOTAL_HADITH_COUNT_DISPLAY} narrations
-                    </Badge>
-                </div>
-            </SectionHeader>
+                <section>
+                    <p className="hidden max-w-2xl text-sm leading-relaxed text-gray-500 md:block">
+                        Use search and sort below to browse books. Switch to Topics for thematic access, or Saved for your
+                        bookmarked narrations.
+                    </p>
+                    <div className="flex flex-wrap items-center gap-2 pt-0.5">
+                        <Badge variant="outline">
+                            6 collections
+                        </Badge>
+                        <span aria-hidden className="inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-gray-400" />
+                        <Badge variant="purple">
+                            {TOTAL_HADITH_COUNT_DISPLAY} narrations
+                        </Badge>
+                    </div>
+                </section>
 
-            <section className="bg-white">
-                <div className="container space-y-4 px-4 py-6 sm:px-6 sm:py-8 md:px-6">
-                    <main className="space-y-4">
-                        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
-                            <Input
-                                search
-                                type="input"
-                                placeholder={searchPlaceholder}
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                classNames={{
-                                    input: "h-10 rounded-md border-gray-200 bg-gray-50 text-base placeholder:text-gray-400 focus:bg-white min-w-0 flex-1"
-                                }}
-                            />
-                            <div className="w-full sm:w-[260px] sm:shrink-0">
-                                <FilterDropdown
-                                    options={dropdownOptions}
-                                    value={dropdownValue}
-                                    onChange={setDropdownValue}
-                                    placeholder={activeTab === "topics" ? "Hadith book" : undefined}
-                                    theme="amber"
-                                    triggerIcon={
-                                        activeTab === "collections"
-                                            ? ArrowUpDown
-                                            : activeTab === "topics"
-                                                ? BookOpen
-                                                : History
-                                    }
+                <section className="bg-white">
+                    <div className="space-y-4 pt-5 sm:pt-8">
+                        <main className="space-y-4">
+                            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+                                <Input
+                                    search
+                                    type="input"
+                                    placeholder={searchPlaceholder}
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    classNames={{
+                                        input: "h-10 rounded-md border-gray-200 bg-gray-50 text-base placeholder:text-gray-400 focus:bg-white min-w-0 flex-1"
+                                    }}
                                 />
+                                <div className="w-full sm:w-[260px] sm:shrink-0">
+                                    <FilterDropdown
+                                        options={dropdownOptions}
+                                        value={dropdownValue}
+                                        onChange={setDropdownValue}
+                                        placeholder={activeTab === "topics" ? "Hadith book" : undefined}
+                                        theme="amber"
+                                        triggerIcon={
+                                            activeTab === "collections"
+                                                ? ArrowUpDown
+                                                : activeTab === "topics"
+                                                    ? BookOpen
+                                                    : History
+                                        }
+                                    />
+                                </div>
                             </div>
-                        </div>
 
-                        <Tabs
-                            allTabs={hadithTabs}
-                            activeTab={activeTab}
-                            onTabChange={(tabId) => setActiveTab(tabId as HadithTabId)}
-                            variant="underline"
-                            showIndicator
-                            align="left"
-                            stretchTabs={false}
-                            className="pt-0"
-                            tabsContainerClassName="max-w-full border-b border-gray-200"
-                            contentContainerClassName="hidden"
-                        />
-                    </main>
-                </div>
-            </section>
+                            <Tabs
+                                allTabs={hadithTabs}
+                                activeTab={activeTab}
+                                onTabChange={(tabId) => setActiveTab(tabId as HadithTabId)}
+                                variant="underline"
+                                showIndicator
+                                align="left"
+                                stretchTabs={false}
+                                className="pt-0"
+                                tabsContainerClassName="max-w-full border-b border-gray-200"
+                                contentContainerClassName="hidden"
+                            />
+                        </main>
+                    </div>
+                </section>
+            </SectionHeader>
 
             <div className="bg-[linear-gradient(180deg,#f8faf8_0%,#f0f7f4_100%)]">
                 {activeTab === "collections" && <HadithCollectionsTabSection collections={processedCollections} />}
