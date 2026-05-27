@@ -15,7 +15,7 @@ export type PaginationProps = {
 }
 
 /**
- *  Ellipsis component with clickable action.
+ *  Ellipsis component with clickable action 2 dots styled good.
  */
 function EllipsisDots({ onClick }: { onClick: () => void }) {
     return (
@@ -28,7 +28,6 @@ function EllipsisDots({ onClick }: { onClick: () => void }) {
             )}
             aria-label="Jump pages"
         >
-            <span className="h-1 w-1 rounded-full bg-gray-400" />
             <span className="h-1 w-1 rounded-full bg-gray-400" />
             <span className="h-1 w-1 rounded-full bg-gray-400" />
         </button>
