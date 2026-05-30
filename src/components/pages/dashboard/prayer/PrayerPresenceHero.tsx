@@ -4,32 +4,25 @@ import { useEffect, useState } from "react"
 import Image from "next/image"
 import { Badge } from "@/components/ui/badge"
 import {
-    CALCULATION_METHOD,
     DEFAULT_LOCATION_LABEL,
     DEMO_COUNTDOWN,
     DEMO_CURRENT_PRAYER_ID,
-    DEMO_FAJR_STREAK,
     DEMO_NEXT_PRAYER_ID,
-    DEMO_QAZA_COUNT,
     PRAYER_SECTIONS,
-    SUNRISE_TIME,
-    type PrayerEntry,
+    presenseHeroStats,
+    SUNRISE_TIME
 } from "./content"
-import { motion, AnimatePresence } from "framer-motion"
 import {
     Bell,
     Calendar,
-    CheckCircle2,
     Clock,
-    FileText,
     MapPin,
-    Moon,
     Sparkles,
     Sunrise,
 } from "lucide-react"
+import PrayerTimelineArc from "@/components/shared/charts/timeline-arc/TimelineArc"
 import { cn } from "@/lib/utils/clsx"
 
-const DAILY_PRAYERS = PRAYER_SECTIONS[0].entries
 
 function formatClock() {
     return new Intl.DateTimeFormat("en-US", {
@@ -62,218 +55,11 @@ function splitTime(time: string) {
     return { main: match[1].trim(), period: match[2].toUpperCase() }
 }
 
-type TimelinePoint = { x: number; y: number }
 
-/** Straight line — mobile (< md). */
-const LINE_MARKERS: TimelinePoint[] = [
-    { x: 30, y: 50 },
-    { x: 115, y: 50 },
-    { x: 200, y: 50 },
-    { x: 285, y: 50 },
-    { x: 370, y: 50 },
-]
-
-/** Curved arc — tablet & desktop (md+). M 30 68 Q 200 4 370 68 */
-const ARC_MARKERS: TimelinePoint[] = [
-    { x: 30, y: 68 },
-    { x: 115, y: 44 },
-    { x: 200, y: 36 },
-    { x: 285, y: 44 },
-    { x: 370, y: 68 },
-]
-
-function TimelineMarkers({
-    prayers,
-    currentId,
-    positions,
-    glowGradientId,
-    labelOffset,
-}: {
-    prayers: PrayerEntry[]
-    currentId: string
-    positions: TimelinePoint[]
-    glowGradientId: string
-    labelOffset: { active: number; idle: number }
-}) {
-    return (
-        <>
-            {prayers.map((prayer, i) => {
-                const pos = positions[i]
-                if (!pos) return null
-                const isCurrent = prayer.id === currentId
-
-                return (
-                    <g key={prayer.id} className="cursor-default">
-                        <motion.circle
-                            initial={false}
-                            animate={{
-                                r: isCurrent ? 4.5 : 2.5,
-                                fill: isCurrent ? "#ffffff" : "rgba(255,255,255,0.35)",
-                            }}
-                            cx={pos.x}
-                            cy={pos.y}
-                            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                        />
-
-                        <AnimatePresence mode="wait">
-                            {isCurrent && (
-                                <g key="current-marker-aura">
-                                    <motion.circle
-                                        cx={pos.x}
-                                        cy={pos.y}
-                                        r={4.5}
-                                        fill="#ffffff"
-                                        initial={{ scale: 1, opacity: 0.4 }}
-                                        animate={{ scale: 4, opacity: 0 }}
-                                        transition={{
-                                            duration: 4,
-                                            repeat: Infinity,
-                                            ease: [0.4, 0, 0.2, 1],
-                                        }}
-                                    />
-                                    <motion.circle
-                                        cx={pos.x}
-                                        cy={pos.y}
-                                        r={20}
-                                        fill={`url(#${glowGradientId})`}
-                                        animate={{ opacity: [0.3, 0.6, 0.3] }}
-                                        transition={{
-                                            duration: 6,
-                                            repeat: Infinity,
-                                            ease: "easeInOut",
-                                        }}
-                                    />
-                                    <motion.circle
-                                        cx={pos.x}
-                                        cy={pos.y}
-                                        r={4.5}
-                                        fill="#ffffff"
-                                        animate={{ scale: [1, 1.25, 1] }}
-                                        transition={{
-                                            duration: 4,
-                                            repeat: Infinity,
-                                            ease: "easeInOut",
-                                        }}
-                                        style={{
-                                            transformOrigin: `${pos.x}px ${pos.y}px`,
-                                        }}
-                                    />
-                                </g>
-                            )}
-                        </AnimatePresence>
-
-                        <text
-                            x={pos.x}
-                            y={pos.y + (labelOffset.idle)}
-                            textAnchor="middle"
-                            fontSize={12}
-                            className={cn(
-                                "select-none transition-colors duration-500",
-                                isCurrent
-                                    ? "fill-white font-medium"
-                                    : "fill-white/60 font-normal"
-                            )}
-                        >
-                            {prayer.name}
-                        </text>
-                    </g>
-                )
-            })}
-        </>
-    )
-}
-
-function TimelineGradientDefs({
-    lineId,
-    glowId,
-}: {
-    lineId: string
-    glowId: string
-}) {
-    return (
-        <defs>
-            <linearGradient id={lineId} x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stopColor="white" stopOpacity="0.05" />
-                <stop offset="50%" stopColor="white" stopOpacity="0.25" />
-                <stop offset="100%" stopColor="white" stopOpacity="0.05" />
-            </linearGradient>
-            <radialGradient id={glowId}>
-                <stop offset="0%" stopColor="white" stopOpacity="0.15" />
-                <stop offset="100%" stopColor="white" stopOpacity="0" />
-            </radialGradient>
-        </defs>
-    )
-}
-
-function PrayerTimelineArc({
-    prayers,
-    currentId,
-}: {
-    prayers: PrayerEntry[]
-    currentId: string
-}) {
-    return (
-        <div className="relative w-full min-w-0 lg:mt-8 py-0 sm:pb-5 md:py-0">
-            {/* Mobile: straight timeline */}
-            <svg
-                viewBox="0 0 400 88"
-                preserveAspectRatio="xMidYMid meet"
-                className="aspect-[400/88] h-auto w-full min-h-[88px] md:hidden"
-                aria-hidden
-            >
-                <TimelineGradientDefs lineId="arc-gradient-line" glowId="inner-glow-line" />
-                <path
-                    d="M 24 50 L 376 50"
-                    fill="none"
-                    stroke="url(#arc-gradient-line)"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                />
-                <TimelineMarkers
-                    prayers={prayers}
-                    currentId={currentId}
-                    positions={LINE_MARKERS}
-                    glowGradientId="inner-glow-line"
-                    labelOffset={{ active: 26, idle: 28 }}
-                />
-            </svg>
-
-            {/* Tablet & desktop: curved arc */}
-            <svg
-                viewBox="0 0 400 112"
-                preserveAspectRatio="xMidYMid meet"
-                className="hidden aspect-[400/112] h-auto w-full min-h-[100px] md:block md:min-h-[100px]"
-                aria-hidden
-            >
-                <TimelineGradientDefs lineId="arc-gradient-curved" glowId="inner-glow-curved" />
-                <path
-                    d="M 30 68 Q 200 4 370 68"
-                    fill="none"
-                    stroke="url(#arc-gradient-curved)"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                />
-                <TimelineMarkers
-                    prayers={prayers}
-                    currentId={currentId}
-                    positions={ARC_MARKERS}
-                    glowGradientId="inner-glow-curved"
-                    labelOffset={{ active: 34, idle: 28 }}
-                />
-            </svg>
-        </div>
-    )
-}
-
-type StatCard = {
-    label: string
-    value: string
-    sub: string
-    icon: typeof CheckCircle2
-}
 
 export default function PrayerPresenceHero({ loggedCount }: { loggedCount: number }) {
     const [now, setNow] = useState("")
+    const DAILY_PRAYERS = PRAYER_SECTIONS[0].entries
 
     useEffect(() => {
         const tick = () => setNow(formatClock())
@@ -283,35 +69,8 @@ export default function PrayerPresenceHero({ loggedCount }: { loggedCount: numbe
     }, [])
 
     const next = DAILY_PRAYERS.find((e) => e.id === DEMO_NEXT_PRAYER_ID)
-    const totalDaily = DAILY_PRAYERS.length
     const nextParts = next ? splitTime(next.time) : { main: "", period: "" }
-
-    const stats: StatCard[] = [
-        {
-            label: "Today",
-            value: `${loggedCount}/${totalDaily}`,
-            sub: "farḍ logged",
-            icon: CheckCircle2,
-        },
-        {
-            label: "Fajr streak",
-            value: String(DEMO_FAJR_STREAK),
-            sub: "mornings",
-            icon: Calendar,
-        },
-        {
-            label: "Qaza",
-            value: String(DEMO_QAZA_COUNT),
-            sub: "to make up",
-            icon: Moon,
-        },
-        {
-            label: "Method",
-            value: CALCULATION_METHOD.split(" ").slice(0, 2).join(" "),
-            sub: "calculation",
-            icon: FileText,
-        },
-    ]
+    const presenseHeroStatContent = presenseHeroStats(loggedCount)
 
     return (
         <div className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-[#1c1c1c] 
@@ -420,7 +179,7 @@ export default function PrayerPresenceHero({ loggedCount }: { loggedCount: numbe
                 </div>
 
                 <div className="grid grid-cols-2 gap-2 pt-4 sm:gap-2.5 sm:pt-5 lg:grid-cols-4 lg:gap-2.5 lg:pt-5">
-                    {stats.map((stat) => {
+                    {presenseHeroStatContent.map((stat) => {
                         const Icon = stat.icon
                         return (
                             <div

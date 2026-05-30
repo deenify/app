@@ -5,8 +5,9 @@ import { Heart, ScrollText } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { motion } from "framer-motion"
 import { cn } from "@/lib/utils/clsx"
+import { useIncrementalReveal } from "@/hooks/useIncrementalReveal"
+import Stagger from "@/components/shared/motion/Stagger"
 import type { HadithCollectionType } from "./content"
 import Link from "next/link"
 import useHadithReaderSettingsStore from "@/store/hadith"
@@ -18,6 +19,11 @@ interface HadithCollectionsTabSectionProps {
 const HadithCollectionsTabSection = ({ collections }: HadithCollectionsTabSectionProps) => {
     const setSelectedTopicId = useHadithReaderSettingsStore((s) => s.setSelectedTopicId)
     const [likedIds, setLikedIds] = useState<Set<string>>(new Set())
+    const { items, sentinelRef, newFromIndex } = useIncrementalReveal({
+        items: collections,
+        batchLength: 18,
+        offsetTop: 480,
+    })
 
     const toggleLike = (e: React.MouseEvent, id: string) => {
         e.preventDefault()
@@ -33,7 +39,6 @@ const HadithCollectionsTabSection = ({ collections }: HadithCollectionsTabSectio
     return (
         <section className="py-8 sm:py-10">
             <div className="container px-4 sm:px-6 md:px-6">
-                {/* Header section  */}
                 <header className="mb-4 sm:mb-5 flex items-end justify-between gap-3">
                     <div>
                         <p className="text-[11px] font-medium uppercase tracking-[0.18em]">
@@ -50,18 +55,16 @@ const HadithCollectionsTabSection = ({ collections }: HadithCollectionsTabSectio
                     </div>
                 </header>
 
-                {/* Content section  */}
                 <section className="h-max min-h-[45dvh]">
                     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 xl:grid-cols-3">
-                        {collections.map((c, index) => {
+                        {items.map((c, index) => {
                             const liked = likedIds.has(c.id)
 
                             return (
-                                <motion.div
+                                <Stagger
                                     key={c.id}
-                                    initial={{ opacity: 0, y: 8, scale: 0.99 }}
-                                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                                    transition={{ duration: 0.2, delay: index * 0.02, ease: "easeOut" }}
+                                    index={index - newFromIndex}
+                                    animate={index >= newFromIndex}
                                 >
                                     <Link
                                         href={`/hadith/${c.id}`}
@@ -118,9 +121,10 @@ const HadithCollectionsTabSection = ({ collections }: HadithCollectionsTabSectio
                                             </CardContent>
                                         </Card>
                                     </Link>
-                                </motion.div>
+                                </Stagger>
                             )
                         })}
+                        <div ref={sentinelRef} className="col-span-full h-px w-full" aria-hidden />
                     </div>
                 </section>
             </div>

@@ -3,10 +3,10 @@
 import { useMemo, useState } from "react"
 import { Filter, Star } from "lucide-react"
 import { Input } from "@/components/ui/input"
-import { Pagination } from "@/components/ui/pagination"
 import FilterDropdown from "@/components/shared/FilterDropdown"
 import SectionHeader from "@/components/shared/SectionHeader"
-import { usePagination } from "@/hooks/usePagination"
+import { useIncrementalReveal } from "@/hooks/useIncrementalReveal"
+import Stagger from "@/components/shared/motion/Stagger"
 import MiracleCard from "./MiracleCard"
 import { MIRACLES_CATEGORIES, MIRACLES_EDITORIAL, MIRACLES_TOPICS } from "./content"
 
@@ -27,7 +27,11 @@ export default function MiraclesPage() {
         })
     }, [category, searchQuery])
 
-    const { page, setPage, totalPages, paginatedItems } = usePagination(filtered, 6)
+    const { items, sentinelRef, newFromIndex } = useIncrementalReveal({
+        items: filtered,
+        batchLength: 18,
+        offsetTop: 480,
+    })
 
     const getCategoryCount = (categoryId: string) =>
         categoryId === "all"
@@ -105,24 +109,21 @@ export default function MiraclesPage() {
                         {filtered.length === 0 ? (
                             <p className="py-12 text-center text-sm text-gray-500">No signs found.</p>
                         ) : (
-                            <>
-                                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                                    {paginatedItems.map((topic, index) => (
+                            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                                {items.map((topic, index) => (
+                                    <Stagger
+                                        key={topic.id}
+                                        index={index - newFromIndex}
+                                        animate={index >= newFromIndex}
+                                    >
                                         <MiracleCard
-                                            key={topic.id}
                                             topic={topic}
-                                            index={index}
                                             categoryLabel={categoryLabel(topic.category)}
                                         />
-                                    ))}
-                                </div>
-                                <Pagination
-                                    page={page}
-                                    totalPages={totalPages}
-                                    onPageChange={setPage}
-                                    align="right"
-                                />
-                            </>
+                                    </Stagger>
+                                ))}
+                                <div ref={sentinelRef} className="col-span-full h-px w-full" aria-hidden />
+                            </div>
                         )}
                     </div>
                 </div>

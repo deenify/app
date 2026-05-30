@@ -1,81 +1,123 @@
 "use client"
 
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState, type Ref } from "react"
+
+export type UseIncrementalRevealOptions<T> = {
+    items: T[]
+    /** Items revealed per load. Default 15. */
+    batchLength?: number
+    /** Load more when the sentinel is within this many px of the viewport bottom. Default 200. */
+    offsetTop?: number
+}
+
+export type UseIncrementalRevealResult<T> = {
+    /** Currently revealed slice of the source array. */
+    items: T[]
+    sentinelRef: Ref<HTMLDivElement>
+    /** Start index of the latest batch — use with `Stagger` for entrance animation. */
+    newFromIndex: number
+    hasMore: boolean
+}
 
 /**
- * Incrementally reveals a large list in fixed-size batches.
- *
- * This hook is useful for infinite-scroll style UIs where rendering everything
- * at once would be heavy. It reveals an initial batch, then auto-loads more
- * items when a sentinel element approaches the viewport.
- *
- * @param totalCount Total number of items available in the source list.
- * @param batchSize Number of items to reveal per load cycle. Defaults to 15.
- *
- * @returns
- * - `visibleCount`: number of items that should currently be rendered
- * - `newFromIndex`: start index for the latest appended batch
- * - `sentinelRef`: attach this to a bottom sentinel div
- * - `hasMore`: whether more items are still hidden
+ * Incrementally reveals a large list in fixed-size batches when a sentinel nears the viewport.
  *
  * @example
  * ```tsx
- * const { visibleCount, sentinelRef, hasMore } = useIncrementalReveal(items.length, 20)
- * const visibleItems = items.slice(0, visibleCount)
+ * const { items, sentinelRef, newFromIndex } = useIncrementalReveal({
+ *   items: surahs,
+ *   batchLength: 10,
+ *   offsetTop: 200,
+ * })
  *
  * return (
  *   <>
- *     {visibleItems.map((item) => <Card key={item.id} item={item} />)}
- *     {hasMore && <div ref={sentinelRef} className="h-8" />}
+ *     {items.map((surah, i) => (
+ *       <Stagger key={surah.id} index={i - newFromIndex} animate={i >= newFromIndex}>
+ *         <Card surah={surah} />
+ *       </Stagger>
+ *     ))}
+ *     <div ref={sentinelRef} className="col-span-full h-px w-full" aria-hidden />
  *   </>
  * )
  * ```
  */
-export function useIncrementalReveal(totalCount: number, batchSize = 15) {
-    const [visibleCount, setVisibleCount] = useState(Math.min(batchSize, totalCount))
+export function useIncrementalReveal<T>({
+    items: sourceItems,
+    batchLength = 15,
+    offsetTop = 200,
+}: UseIncrementalRevealOptions<T>): UseIncrementalRevealResult<T> {
+    const totalCount = sourceItems.length
+    const [visibleCount, setVisibleCount] = useState(() =>
+        Math.min(batchLength, totalCount)
+    )
     const [newFromIndex, setNewFromIndex] = useState(0)
     const sentinelRef = useRef<HTMLDivElement | null>(null)
 
+    const visibleCountRef = useRef(visibleCount)
+    visibleCountRef.current = visibleCount
+
     useEffect(() => {
-        setVisibleCount(Math.min(batchSize, totalCount))
+        const next = Math.min(batchLength, sourceItems.length)
+        setVisibleCount(next)
         setNewFromIndex(0)
-    }, [totalCount, batchSize])
+        visibleCountRef.current = next
+    }, [sourceItems.length, batchLength])
 
     const loadMore = useCallback(() => {
-        setVisibleCount((n) => {
-            if (n >= totalCount) return n
-            const next = Math.min(n + batchSize, totalCount)
-            setNewFromIndex(n)
+        setVisibleCount((current) => {
+            if (current >= totalCount) return current
+            const next = Math.min(current + batchLength, totalCount)
+            setNewFromIndex(current)
+            visibleCountRef.current = next
             return next
         })
-    }, [batchSize, totalCount])
+    }, [batchLength, totalCount])
 
+    const loadMoreRef = useRef(loadMore)
+    loadMoreRef.current = loadMore
+
+    const isNearSentinel = useCallback(() => {
+        const el = sentinelRef.current
+        if (!el) return false
+        const rect = el.getBoundingClientRect()
+        return rect.top <= window.innerHeight + offsetTop
+    }, [offsetTop])
+
+    const tryLoadMore = useCallback(() => {
+        if (visibleCountRef.current >= totalCount) return
+        loadMoreRef.current()
+    }, [totalCount])
+
+    // Single observer — stable deps so it is not torn down on every batch (avoids multi-second gaps).
     useEffect(() => {
         const el = sentinelRef.current
-        if (!el || visibleCount >= totalCount) return
+        if (!el || totalCount === 0) return
 
-        const observer = new IntersectionObserver(([entry]) => {
-            if (entry?.isIntersecting) loadMore()
-        }, { rootMargin: "0px 0px 800px 0px" })
-
-        const onScroll = () => {
-            const rect = el.getBoundingClientRect()
-            if (rect.top < window.innerHeight + 400) loadMore()
-        }
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry?.isIntersecting) tryLoadMore()
+            },
+            { rootMargin: `0px 0px ${offsetTop}px 0px`, threshold: 0 }
+        )
 
         observer.observe(el)
-        window.addEventListener("scroll", onScroll, { passive: true })
+        return () => observer.disconnect()
+    }, [offsetTop, totalCount, tryLoadMore])
 
-        return () => {
-            observer.disconnect()
-            window.removeEventListener("scroll", onScroll)
-        }
-    }, [visibleCount, totalCount, loadMore])
+    // If the sentinel stays in view after a batch, load the next batch immediately (no scroll nudge needed).
+    useEffect(() => {
+        if (visibleCount >= totalCount) return
+        const id = requestAnimationFrame(() => {
+            if (isNearSentinel()) tryLoadMore()
+        })
+        return () => cancelAnimationFrame(id)
+    }, [visibleCount, totalCount, isNearSentinel, tryLoadMore])
 
     return {
-        visibleCount,
-        newFromIndex,
+        items: sourceItems.slice(0, visibleCount),
         sentinelRef,
+        newFromIndex,
         hasMore: visibleCount < totalCount,
     }
 }

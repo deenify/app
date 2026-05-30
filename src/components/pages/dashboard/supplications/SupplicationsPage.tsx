@@ -175,14 +175,17 @@ export default function SupplicationsPage() {
                     </div>
                 </section>
 
-                {activeTab === "library" &&
+                {activeTab === "library" && (
                     <SupplicationsCollectionsSection
+                        key="library"
                         items={filtered}
                         bookmarkedIds={bookmarkedIds}
                         onToggleBookmark={toggleBookmark}
-                    />}
+                    />
+                )}
                 {activeTab === "saved" && (
                     <SupplicationsCollectionsSection
+                        key="saved"
                         items={savedItems}
                         bookmarkedIds={bookmarkedIds}
                         onToggleBookmark={toggleBookmark}

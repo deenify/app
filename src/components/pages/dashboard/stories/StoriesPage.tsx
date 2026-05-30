@@ -3,10 +3,10 @@
 import { useMemo, useState } from "react"
 import { Filter, Heart } from "lucide-react"
 import { Input } from "@/components/ui/input"
-import { Pagination } from "@/components/ui/pagination"
 import FilterDropdown from "@/components/shared/FilterDropdown"
 import SectionHeader from "@/components/shared/SectionHeader"
-import { usePagination } from "@/hooks/usePagination"
+import { useIncrementalReveal } from "@/hooks/useIncrementalReveal"
+import Stagger from "@/components/shared/motion/Stagger"
 import { STORIES_CATEGORIES, STORIES_EDITORIAL, STORIES_TOPICS } from "./content"
 import StoryCard from "./StoryCard"
 import StoryDetailModal from "./StoryDetailModal"
@@ -30,15 +30,17 @@ export default function StoriesPage() {
         })
     }, [category, searchQuery])
 
-    const { page, setPage, totalPages, paginatedItems } = usePagination(
-        filtered,
-        6
-    )
+    const { items, sentinelRef, newFromIndex } = useIncrementalReveal({
+        items: filtered,
+        batchLength: 18,
+        offsetTop: 480,
+    })
 
     const getCategoryCount = (categoryId: string) =>
         categoryId === "all"
             ? STORIES_TOPICS.length
             : STORIES_TOPICS.filter((s) => s.category === categoryId).length
+
     const selected = useMemo(
         () => STORIES_TOPICS.find((s) => s.id === selectedId) ?? null,
         [selectedId]
@@ -112,24 +114,18 @@ export default function StoriesPage() {
                         {filtered.length === 0 ? (
                             <p className="py-12 text-center text-sm text-gray-500">No stories found.</p>
                         ) : (
-                            <>
-                                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                                    {paginatedItems.map((story, index) => (
-                                        <StoryCard
-                                            key={story.id}
-                                            story={story}
-                                            index={index}
-                                            onOpen={() => setSelectedId(story.id)}
-                                        />
-                                    ))}
-                                </div>
-                                <Pagination
-                                    page={page}
-                                    totalPages={totalPages}
-                                    onPageChange={setPage}
-                                    align="right"
-                                />
-                            </>
+                            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                                {items.map((story, index) => (
+                                    <Stagger
+                                        key={story.id}
+                                        index={index - newFromIndex}
+                                        animate={index >= newFromIndex}
+                                    >
+                                        <StoryCard story={story} onOpen={() => setSelectedId(story.id)} />
+                                    </Stagger>
+                                ))}
+                                <div ref={sentinelRef} className="col-span-full h-px w-full" aria-hidden />
+                            </div>
                         )}
                     </div>
                 </section>

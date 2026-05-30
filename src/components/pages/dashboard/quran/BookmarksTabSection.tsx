@@ -3,10 +3,10 @@
 import { useState, useEffect } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Bookmark } from "lucide-react"
-import { motion } from "framer-motion"
 import type { BookmarkItemType } from "./content"
 import { useIncrementalReveal } from "@/hooks/useIncrementalReveal"
 import BookmarkButton from "@/components/shared/buttons/BookmarkButton"
+import Stagger from "@/components/shared/motion/Stagger"
 import Link from "next/link"
 
 interface BookmarksTabSectionProps {
@@ -15,8 +15,11 @@ interface BookmarksTabSectionProps {
 
 export default function BookmarksTabSection({ bookmarks }: BookmarksTabSectionProps) {
     const [items, setItems] = useState<BookmarkItemType[]>(bookmarks)
-    const { visibleCount, sentinelRef, newFromIndex } = useIncrementalReveal(items.length)
-    const visibleItems = items.slice(0, visibleCount)
+    const { items: visibleItems, sentinelRef, newFromIndex } = useIncrementalReveal({
+        items,
+        batchLength: 18,
+        offsetTop: 480,
+    })
 
     useEffect(() => {
         setItems(bookmarks)
@@ -61,27 +64,19 @@ export default function BookmarksTabSection({ bookmarks }: BookmarksTabSectionPr
                         </div>
                     ) : (
                         <div className="grid gap-3 sm:gap-4 sm:grid-cols-2 xl:grid-cols-3">
-                            {visibleItems.map((item, index) => {
-
-                                const batchIndex = index - newFromIndex  // resets to 0 for each new batch
-                                const isNew = index >= newFromIndex
-
-                                return (
+                            {visibleItems.map((item, index) => (
+                                <Stagger
+                                    key={`${item.surahNumber}-${item.verseNumber}-${item.savedAt}`}
+                                    index={index - newFromIndex}
+                                    animate={index >= newFromIndex}
+                                    className="flex flex-1"
+                                >
                                     <Link
                                         href={`/quran/${item.surahNumber}`}
-                                        key={`${item.surahNumber}-${item.verseNumber}-${index}`}
                                         className="flex flex-1"
                                     >
-                                        <motion.button
-                                            key={`${item.surahNumber}-${item.verseNumber}-${index}`}
+                                        <button
                                             type="button"
-                                            initial={{ opacity: 0, y: 8, scale: 0.99 }}
-                                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                                            transition={{
-                                                duration: 0.2,
-                                                delay: isNew ? batchIndex * 0.02 : 0,
-                                                ease: "easeOut"
-                                            }}
                                             className="group flex flex-col rounded-xl border border-gray-100 bg-white p-4 text-left
                                         shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-[border-color,box-shadow] hover:border-emerald-300 
                                         hover:shadow-md justify-between gap-2 w-full"
@@ -136,13 +131,12 @@ export default function BookmarksTabSection({ bookmarks }: BookmarksTabSectionPr
                                                     Open in Quran →
                                                 </p>
                                             </div>
-                                        </motion.button>
+                                        </button>
                                     </Link>
-                                )
-                            })}
+                                </Stagger>
+                            ))}
 
-                            {/* Sentinel item-observer  */}
-                            <div ref={sentinelRef} aria-hidden />
+                            <div ref={sentinelRef} className="col-span-full h-px w-full" aria-hidden />
                         </div>
                     )}
                 </section>

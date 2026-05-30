@@ -1,6 +1,5 @@
 "use client"
 
-import { motion } from "framer-motion"
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils/clsx"
 import BookmarkButton from "@/components/shared/buttons/BookmarkButton"
@@ -18,32 +17,26 @@ const categoryTone: Record<string, string> = {
 
 type SupplicationCardProps = {
     item: SupplicationItem
-    index: number
     isBookmarked: boolean
     onToggleBookmark: () => void
 }
 
 export default function SupplicationCard({
     item,
-    index,
     isBookmarked,
     onToggleBookmark,
 }: SupplicationCardProps) {
     return (
-        <motion.article
+        <article
             id={item.id}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.28, delay: index * 0.04, ease: "easeOut" }}
             className={cn(
                 "flex h-full flex-col rounded-2xl border border-gray-100 bg-white p-5 shadow-sm",
-                "transition-[border-color,box-shadow] hover:border-red-200 hover:shadow-md cursor-pointer"
+                "cursor-pointer transition-[border-color,box-shadow] hover:border-red-200 hover:shadow-md"
             )}
         >
-            <div className="flex justify-between items-start gap-4">
+            <div className="flex items-start justify-between gap-4">
                 <div className="flex items-start justify-between gap-3">
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-rose-50 text-rose-700 
-                ring-1 ring-rose-100">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-rose-50 text-rose-700 ring-1 ring-rose-100">
                         <BookHeart className="h-5 w-5" strokeWidth={1.6} />
                     </div>
                 </div>
@@ -57,18 +50,18 @@ export default function SupplicationCard({
             </div>
 
             <div className="pt-4">
-                <h3 className="text-lg font-semibold text-gray-900 truncate">{item.title}</h3>
-                <p className="text-sm leading-relaxed text-gray-600 line-clamp-2">{item.excerpt}</p>
+                <h3 className="truncate text-lg font-semibold text-gray-900">{item.title}</h3>
+                <p className="line-clamp-2 text-sm leading-relaxed text-gray-600">{item.excerpt}</p>
             </div>
 
             <div className="mt-4 rounded-md border border-gray-100 bg-gray-50/80 p-4">
                 <p
-                    className="font-arabic text-right text-lg leading-relaxed text-gray-900 line-clamp-2"
+                    className="line-clamp-2 text-right font-arabic text-lg leading-relaxed text-gray-900"
                     dir="rtl"
                 >
                     {item.arabic}
                 </p>
-                <p className="mt-3 text-sm italic leading-relaxed text-gray-700 line-clamp-2">{item.translation}</p>
+                <p className="mt-3 line-clamp-2 text-sm italic leading-relaxed text-gray-700">{item.translation}</p>
             </div>
 
             <div className="mt-auto flex flex-wrap items-center justify-between gap-2 pt-5">
@@ -84,6 +77,6 @@ export default function SupplicationCard({
             {item.reference && (
                 <p className="mt-3 border-t border-gray-100 pt-3 text-xs text-gray-500">{item.reference}</p>
             )}
-        </motion.article>
+        </article>
     )
 }
