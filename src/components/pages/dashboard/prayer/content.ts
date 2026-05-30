@@ -133,6 +133,8 @@ export const PRAYER_SECTIONS: PrayerSection[] = [
     },
 ]
 
+
+
 export const DEMO_CURRENT_PRAYER_ID = "Asr"
 export const DEMO_NEXT_PRAYER_ID = "Maghrib"
 export const DEMO_COUNTDOWN = "01h 22m"

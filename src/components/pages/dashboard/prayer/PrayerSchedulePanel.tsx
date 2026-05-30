@@ -34,12 +34,12 @@ export default function PrayerSchedulePanel({
     return (
         <div className="min-w-0 space-y-10">
             <div className="space-y-4">
-                <div className="flex items-center gap-2">
+                {/* <div className="flex items-center gap-2">
                     <Clock className="h-4 w-4 text-emerald-600" />
                     <p className="text-sm font-semibold text-gray-900">
                         Prayer Schedule
                     </p>
-                </div>
+                </div> */}
                 <PrayerPresenceHero loggedCount={dailyLoggedCount} />
             </div>
 

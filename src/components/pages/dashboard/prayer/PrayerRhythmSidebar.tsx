@@ -24,7 +24,7 @@ export default function PrayerRhythmSidebar({ streakDays }: PrayerRhythmSidebarP
     const completionRate = Math.round((totalPrayers / (monthlyDays.length * 5)) * 100)
 
     return (
-        <aside className="min-w-0 space-y-7 lg:sticky lg:top-20 lg:self-start lg:border-l lg:border-layout-separator lg:pl-8">
+        <aside className="min-w-0 space-y-7 lg:sticky lg:top-20 lg:self-start lg:border-l lg:border-layout-separator lg:pl-5 xl:pl-8">
             <section className="space-y-4">
                 <div className="flex items-center gap-2">
                     <Flame className="h-4 w-4 text-orange-600" />

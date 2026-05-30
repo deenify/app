@@ -105,7 +105,7 @@ export default function PrayerPage() {
                 </div>
 
                 <div className="container relative py-8 sm:py-10">
-                    <div className="mx-auto grid max-w-6xl items-start gap-10 lg:grid-cols-[minmax(0,1fr)_300px] xl:grid-cols-[minmax(0,1fr)_320px]">
+                    <div className="mx-auto grid max-w-6xl items-start gap-4 sm:gap-5 lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-5 xl:grid-cols-[minmax(0,1fr)_320px] xl:gap-8">
                         <PrayerSchedulePanel
                             logged={logged}
                             onToggle={toggleLogged}
