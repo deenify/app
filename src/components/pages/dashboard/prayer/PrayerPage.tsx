@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { Bell, Calendar, Clock, MapPin, Settings, Sparkles } from "lucide-react"
 import { motion } from "framer-motion"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -11,31 +12,9 @@ import {
     DEFAULT_LOCATION_LABEL,
     DEMO_FAJR_STREAK,
     INITIAL_LOGGED,
-    PRAYER_EDITORIAL,
-    type PrayerEntry,
+    PRAYER_EDITORIAL
 } from "./content"
-import {
-    Bell, Calendar, Clock,
-    MapPin, Moon, Settings, Sparkles,
-    Sun, Sunrise, Sunset
-} from "lucide-react"
 
-
-function phaseIcon(phase: PrayerEntry["phase"]) {
-    switch (phase) {
-        case "dawn":
-            return Sunrise
-        case "dusk":
-            return Sunset
-        case "night":
-            return Moon
-        case "afternoon":
-        case "noon":
-            return Sun
-        default:
-            return undefined
-    }
-}
 
 export default function PrayerPage() {
     const [logged, setLogged] = useState(INITIAL_LOGGED)
@@ -67,7 +46,7 @@ export default function PrayerPage() {
                             day: "numeric",
                         })}
                     </Badge>
-                    <Badge variant="emerald" >
+                    <Badge variant="emerald">
                         <Sparkles className="mr-1 h-3.5 w-3.5" />
                         Asr time
                     </Badge>
@@ -105,11 +84,10 @@ export default function PrayerPage() {
                 </div>
 
                 <div className="container relative py-8 sm:py-10">
-                    <div className="mx-auto grid max-w-6xl items-start gap-10 lg:grid-cols-[minmax(0,1fr)_300px] xl:grid-cols-[minmax(0,1fr)_320px]">
+                    <div className="mx-auto grid max-w-6xl items-start gap-4 sm:gap-5 lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-5 xl:grid-cols-[minmax(0,1fr)_320px] xl:gap-8">
                         <PrayerSchedulePanel
                             logged={logged}
                             onToggle={toggleLogged}
-                            phaseIcon={phaseIcon}
                         />
                         <PrayerRhythmSidebar streakDays={DEMO_FAJR_STREAK} />
                     </div>

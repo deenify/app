@@ -2,8 +2,8 @@
 
 import { Headphones, Play } from "lucide-react"
 import { MockReciters, SurahRecitersMap, type QuranSurahType, type ReciterType } from "./content"
-import { motion } from "framer-motion"
 import { useIncrementalReveal } from "@/hooks/useIncrementalReveal"
+import Stagger from "@/components/shared/motion/Stagger"
 import Link from "next/link"
 import ReciterStack from "./ReciterStack"
 
@@ -20,8 +20,11 @@ function getRecitersForSurah(surahNumber: number): ReciterType[] {
 
 export default function ListenTabSection({ surahs }: ListenTabSectionProps) {
 
-    const { visibleCount, sentinelRef, newFromIndex } = useIncrementalReveal(surahs.length)
-    const visibleSurahs = surahs.slice(0, visibleCount)
+    const { items: visibleSurahs, sentinelRef, newFromIndex } = useIncrementalReveal({
+        items: surahs,
+        batchLength: 18,
+        offsetTop: 480,
+    })
 
     if (surahs.length === 0) {
         return (
@@ -72,60 +75,50 @@ export default function ListenTabSection({ surahs }: ListenTabSectionProps) {
                                 {visibleSurahs.map((surah, index) => {
                                     const reciters = getRecitersForSurah(surah.number)
 
-                                    const batchIndex = index - newFromIndex  // resets to 0 for each new batch
-                                    const isNew = index >= newFromIndex
-
                                     return (
-                                        <Link
-                                            href={`/quran/${surah.number}`}
+                                        <Stagger
                                             key={surah.number}
+                                            index={index - newFromIndex}
+                                            animate={index >= newFromIndex}
                                         >
-                                            <motion.div
-                                                key={surah.number}
-                                                // onClick={() => router.push(`/quran/${surah.number}`)}
-                                                initial={{ opacity: 0, y: 8, scale: 0.99 }}
-                                                animate={{ opacity: 1, y: 0, scale: 1 }}
-                                                transition={{
-                                                    duration: 0.2,
-                                                    delay: isNew ? batchIndex * 0.02 : 0,
-                                                    ease: "easeOut"
-                                                }}
-                                                className="group flex flex-col gap-3 rounded-xl border border-gray-100 bg-white p-4 text-left 
+                                            <Link href={`/quran/${surah.number}`}>
+                                                <div
+                                                    className="group flex flex-col gap-3 rounded-xl border border-gray-100 bg-white p-4 text-left 
                                             shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-[box-shadow,border-color] hover:border-emerald-300 
                                             hover:shadow-md"
-                                            >
-                                                <div className="flex items-center gap-3">
-                                                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-emerald-50 text-sm font-bold tabular-nums text-emerald-800">
-                                                        {surah.number}
-                                                    </span>
-                                                    <div className="min-w-0 flex-1">
-                                                        <h3 className="truncate font-semibold text-gray-900">
-                                                            {surah.nameEnglish}
-                                                        </h3>
-                                                        <p
-                                                            className="truncate text-base font-arabic font-medium text-emerald-800"
-                                                            dir="rtl"
-                                                        >
-                                                            {surah.nameArabic}
-                                                        </p>
-                                                        <p className="mt-0.5 text-xs text-gray-500">
-                                                            {surah.verses} verses
-                                                        </p>
+                                                >
+                                                    <div className="flex items-center gap-3">
+                                                        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-emerald-50 text-sm font-bold tabular-nums text-emerald-800">
+                                                            {surah.number}
+                                                        </span>
+                                                        <div className="min-w-0 flex-1">
+                                                            <h3 className="truncate font-semibold text-gray-900">
+                                                                {surah.nameEnglish}
+                                                            </h3>
+                                                            <p
+                                                                className="truncate text-base font-arabic font-medium text-emerald-800"
+                                                                dir="rtl"
+                                                            >
+                                                                {surah.nameArabic}
+                                                            </p>
+                                                            <p className="mt-0.5 text-xs text-gray-500">
+                                                                {surah.verses} verses
+                                                            </p>
+                                                        </div>
+                                                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 transition-colors group-hover:bg-emerald-200">
+                                                            <Play className="h-4 w-4 ml-0.5" strokeWidth={2.5} />
+                                                        </span>
                                                     </div>
-                                                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 transition-colors group-hover:bg-emerald-200">
-                                                        <Play className="h-4 w-4 ml-0.5" strokeWidth={2.5} />
-                                                    </span>
+                                                    <div className="border-t border-gray-50 pt-2">
+                                                        <ReciterStack reciters={reciters} />
+                                                    </div>
                                                 </div>
-                                                <div className="border-t border-gray-50 pt-2">
-                                                    <ReciterStack reciters={reciters} />
-                                                </div>
-                                            </motion.div>
-                                        </Link>
+                                            </Link>
+                                        </Stagger>
                                     )
                                 })}
 
-                                {/* Sentinel item-observer  */}
-                                <div ref={sentinelRef} aria-hidden />
+                                <div ref={sentinelRef} className="col-span-full h-px w-full" aria-hidden />
                             </div>
                         </>
                     )}

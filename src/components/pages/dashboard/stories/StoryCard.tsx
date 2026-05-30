@@ -1,22 +1,18 @@
 "use client"
 
-import { motion } from "framer-motion"
 import { BookHeart } from "lucide-react"
 import { cn } from "@/lib/utils/clsx"
-import { cardStagger } from "@/lib/utils/card-motion"
 import type { StoryTopic } from "./content"
 
 type StoryCardProps = {
     story: StoryTopic
-    index: number
     onOpen: () => void
 }
 
-export default function StoryCard({ story, index, onOpen }: StoryCardProps) {
+export default function StoryCard({ story, onOpen }: StoryCardProps) {
     return (
-        <motion.button
+        <button
             type="button"
-            {...cardStagger(index)}
             onClick={onOpen}
             className={cn(
                 "group flex h-full w-full flex-col rounded-2xl border border-gray-100 bg-white p-5 text-left",
@@ -40,6 +36,6 @@ export default function StoryCard({ story, index, onOpen }: StoryCardProps) {
                 <span className="capitalize">{story.category.replace("-", " ")}</span>
                 <span className="tabular-nums">{story.readMinutes} min</span>
             </div>
-        </motion.button>
+        </button>
     )
 }

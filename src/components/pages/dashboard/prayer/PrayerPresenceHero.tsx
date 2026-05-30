@@ -1,23 +1,31 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { motion } from "framer-motion"
+import Image from "next/image"
 import { Badge } from "@/components/ui/badge"
 import {
-    CALCULATION_METHOD,
     DEFAULT_LOCATION_LABEL,
     DEMO_COUNTDOWN,
-    DEMO_FAJR_STREAK,
+    DEMO_CURRENT_PRAYER_ID,
     DEMO_NEXT_PRAYER_ID,
-    DEMO_QAZA_COUNT,
     PRAYER_SECTIONS,
-    SUNRISE_TIME,
+    presenseHeroStats,
+    SUNRISE_TIME
 } from "./content"
-import { Calendar, MapPin, Sparkles, Sunrise } from "lucide-react"
+import {
+    Bell,
+    Calendar,
+    Clock,
+    MapPin,
+    Sparkles,
+    Sunrise,
+} from "lucide-react"
+import PrayerTimelineArc from "@/components/shared/charts/timeline-arc/TimelineArc"
+import { cn } from "@/lib/utils/clsx"
 
 
-function formatClock(locale: string) {
-    return new Intl.DateTimeFormat(locale, {
+function formatClock() {
+    return new Intl.DateTimeFormat("en-US", {
         hour: "numeric",
         minute: "2-digit",
         second: "2-digit",
@@ -32,6 +40,7 @@ function formatHeadingDate() {
         day: "numeric",
     }).format(new Date())
 }
+
 function formatHijriDate() {
     return new Intl.DateTimeFormat("en-u-ca-islamic", {
         day: "numeric",
@@ -46,130 +55,176 @@ function splitTime(time: string) {
     return { main: match[1].trim(), period: match[2].toUpperCase() }
 }
 
+
+
 export default function PrayerPresenceHero({ loggedCount }: { loggedCount: number }) {
-    const [nowEn, setNowEn] = useState("")
-    const [nowAr, setNowAr] = useState("")
+    const [now, setNow] = useState("")
+    const DAILY_PRAYERS = PRAYER_SECTIONS[0].entries
 
     useEffect(() => {
-        const tick = () => {
-            setNowEn(formatClock("en-US"))
-            setNowAr(formatClock("ar-SA"))
-        }
+        const tick = () => setNow(formatClock())
         tick()
         const id = setInterval(tick, 1000)
         return () => clearInterval(id)
     }, [])
 
-
-    const next = PRAYER_SECTIONS[0].entries.find((e) => e.id === DEMO_NEXT_PRAYER_ID)
-    const totalDaily = PRAYER_SECTIONS[0].entries.length
+    const next = DAILY_PRAYERS.find((e) => e.id === DEMO_NEXT_PRAYER_ID)
     const nextParts = next ? splitTime(next.time) : { main: "", period: "" }
-
+    const presenseHeroStatContent = presenseHeroStats(loggedCount)
 
     return (
-        <div className="relative overflow-hidden rounded-lg border border-emerald-200/70 bg-[#0c1412] text-white shadow-[0_20px_56px_rgba(6,78,59,0.18)]">
-            <motion.div
-                aria-hidden
-                className="pointer-events-none absolute -left-12 top-0 h-48 w-48 rounded-full bg-emerald-500/80 blur-3xl
-                xs:h-56 xs:w-56"
-                animate={{ opacity: [0.22, 0.42, 0.22], scale: [1, 1.08, 1] }}
-                transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" }}
-            />
-            <motion.div
-                aria-hidden
-                className="pointer-events-none absolute bottom-0 right-0 h-48 w-48 rounded-full bg-teal-400 blur-3xl"
-                animate={{ opacity: [0.15, 0.32, 0.15], scale: [1, 1.06, 1] }}
-                transition={{ duration: 14, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
-            />
-            <div
-                className="pointer-events-none absolute -right-6 -top-6 h-28 w-28 xs:h-32 xs:w-32 
-                rounded-full border border-emerald-400/15"
-            />
+        <div className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-[#1c1c1c] 
+        text-white shadow-[0_24px_64px_rgba(0,0,0,0.22)]...">
+            <div className="pointer-events-none absolute inset-0" aria-hidden>
+                <Image
+                    src={"/images/pages/prayer/presense-hero-background.avif"}
+                    alt=""
+                    fill
+                    sizes="100vw"
+                    className="object-cover opacity-95"
+                    priority
+                />
 
-            <div className="relative xs:px-5 px-4 py-8 sm:p-6">
-                <div className="flex flex-col gap-6 lg:flex-row lg:justify-between">
-                    <div className="min-w-0 flex-1 flex flex-col justify-between gap-6">
+                {/* < md  */}
+                <div className="absolute inset-0 md:hidden bg-gradient-to-br from-[#141414] from-0% via-[#141414]/88 via-[38%] to-transparent to-72%" />
+                <div className="absolute inset-0 md:hidden bg-gradient-to-b from-[#141414] from-0% via-[#141414]/65 via-[32%] to-transparent to-[58%]" />
+                <div className="absolute inset-0 md:hidden bg-gradient-to-t from-[#141414]/75 from-0% via-[#141414]/35 via-[28%] to-transparent to-[55%]" />
+
+                {/* md → lg  */}
+                <div className="absolute inset-0 hidden bg-gradient-to-r from-[#141414] from-0% via-[#141414]/80 via-[52%] to-transparent md:block lg:hidden" />
+                <div className="absolute inset-0 hidden bg-gradient-to-br from-[#141414]/92 from-0% via-transparent via-[32%] to-transparent md:block lg:hidden" />
+                <div className="absolute inset-0 hidden bg-gradient-to-t from-[#141414]/50 via-transparent to-[#141414]/25 md:block lg:hidden" />
+
+                {/* lg+  */}
+                <div className="absolute inset-0 hidden bg-gradient-to-r from-[#141414] from-0% via-[#141414]/70 via-[46%] to-transparent lg:block" />
+                <div className="absolute inset-0 hidden bg-gradient-to-t from-[#141414]/55 via-transparent to-[#141414]/30 lg:block" />
+                <div className="absolute inset-0 hidden bg-[radial-gradient(ellipse_85%_75%_at_76%_48%,transparent_0%,rgba(20,20,20,0.32)_52%,rgba(20,20,20,0.58)_100%)] lg:block" />
+            </div>
+
+            <div className="relative px-5 py-8 lg:p-6">
+                <div
+                    className={cn(
+                        "grid gap-4 sm:gap-5",
+                        "md:grid-cols-[minmax(0,1fr)_minmax(200px,38%)] md:items-stretch md:gap-5",
+                        "lg:grid-cols-2 lg:gap-6"
+                    )}
+                >
+                    <section className="flex min-w-0 flex-col justify-between">
                         <div>
-                            <p className="text-xs font-normal text-emerald-300 tracking-wider 
-                            flex items-center gap-2"
-                            >
+                            <p className="text-[11px] font-normal uppercase tracking-wider text-white/45 sm:text-[10px]">
                                 {formatHijriDate()}
                             </p>
-                            <p className="text-3xl xs:text-4xl sm:text-[40px] font-light tabular-nums font-mono pt-1 uppercase">
-                                {nowEn || "—"}
-                            </p>
+                            <h5
+                                className={cn(
+                                    "pt-1 font-semibold leading-none tabular-nums tracking-tight font-body",
+                                    "text-3xl sm:text-4xl"
+                                )}
+                            >
+                                {now || "—"}
+                            </h5>
                         </div>
-                        <p
-                            className="font-arabic text-xl tracking-wider text-emerald-300"
-                            dir="rtl"
-                        >
-                            {nowAr}
-                        </p>
-                    </div>
-
-                    <div className="flex flex-col justify-between gap-4 rounded-lg border 
-                    border-white/15 bg-white/[0.04] p-4 lg:w-[210px] lg:shrink-0">
-                        <div>
-                            <p className="text-[10px] capitalize tracking-wider text-white/60">Next</p>
-                            <p className="text-xl font-medium">{next?.name}</p>
-                            <p className="font-arabic text-base text-emerald-200/90" dir="rtl">
-                                {next?.arabic}
-                            </p>
-                            <p className="mt-2 text-2xl font-semibold tabular-nums text-emerald-400">
-                                {DEMO_COUNTDOWN}
-                            </p>
-                            <p className="mt-0.5 text-sm tabular-nums text-white/70 tracking-wider">
-                                {nextParts.main}
-                                {nextParts.period ? ` ${nextParts.period}` : ""}
-                            </p>
+                        <div className="flex w-full min-w-0 items-end md:pt-6 lg:pt-0">
+                            <PrayerTimelineArc
+                                prayers={DAILY_PRAYERS}
+                                currentId={DEMO_CURRENT_PRAYER_ID}
+                            />
                         </div>
+                    </section>
 
-                        <div>
-                            <p className="flex items-center gap-1.5 truncate text-[11px] text-emerald-100 tracking-wide">
-                                <MapPin size={12} strokeWidth={1.5} className="shrink-0" />
-                                {DEFAULT_LOCATION_LABEL}
-                            </p>
-                            <p className="flex items-center gap-1.5 truncate text-[11px] text-emerald-100 pt-1 tracking-wide">
-                                <Calendar size={12} strokeWidth={1.5} className="shrink-0" />
-                                {formatHeadingDate()}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="mt-4 grid gap-2 pt-4 xs:mt-5 xs:grid-cols-2 xs:border-t xs:border-white/15 xs:pt-5 lg:grid-cols-4">
-                    {[
-                        { label: "Today", value: `${loggedCount}/${totalDaily}`, sub: "farḍ logged" },
-                        { label: "Fajr streak", value: String(DEMO_FAJR_STREAK), sub: "mornings" },
-                        { label: "Qaza", value: String(DEMO_QAZA_COUNT), sub: "to make up" },
-                        { label: "Method", value: CALCULATION_METHOD, sub: "calculation" },
-                    ].map((stat) => (
+                    <section className="flex w-full min-w-0 md:justify-end">
                         <div
-                            key={stat.label}
-                            className="rounded-md bg-white/5 px-2.5 py-2.5 ring-1 ring-white/15 backdrop-blur-sm xs:px-3 xs:py-2.5"
+                            className={cn(
+                                "relative flex w-full flex-col justify-between gap-3 rounded-md border",
+                                "border-white/5 bg-[#323232]/70 p-3.5 backdrop-blur-md sm:gap-4 sm:p-4",
+                                "max-w-none md:min-h-full md:max-w-[260px] lg:max-w-[220px] lg:shrink-0"
+                            )}
                         >
-                            <p className="text-xs uppercase tracking-wide text-white/60">{stat.label}</p>
-                            <p className="mt-0.5 text-sm font-semibold leading-snug tabular-nums">{stat.value}</p>
-                            <p className="text-[10px] text-white/45">{stat.sub}</p>
+                            <Sparkles
+                                className="absolute right-3 top-3 h-3.5 w-3.5 text-white/35"
+                                strokeWidth={1.5}
+                            />
+                            <div>
+                                <p className="text-[11px] capitalize tracking-wide text-white/50 sm:text-[10px]">
+                                    Next
+                                </p>
+                                <p className="text-lg font-semibold leading-tight sm:text-xl">
+                                    {next?.name}
+                                </p>
+                                <p
+                                    className="font-arabic mt-0.5 text-sm text-white/55 sm:text-[0.8125rem]"
+                                    dir="rtl"
+                                >
+                                    {next?.arabic}
+                                </p>
+                                <p className="mt-2 text-2xl font-semibold leading-none tabular-nums tracking-tight sm:mt-3 sm:text-[1.65rem]">
+                                    {DEMO_COUNTDOWN}
+                                </p>
+                                <p className="mt-1 text-sm tabular-nums text-white/50">
+                                    {nextParts.main}
+                                    {nextParts.period ? ` ${nextParts.period}` : ""}
+                                </p>
+                            </div>
+                            <div className="space-y-1">
+                                <p className="flex items-center gap-1.5 truncate text-[11px] text-white/55">
+                                    <MapPin size={11} strokeWidth={1.5} className="shrink-0" />
+                                    {DEFAULT_LOCATION_LABEL}
+                                </p>
+                                <p className="flex items-center gap-1.5 truncate text-[11px] text-white/55">
+                                    <Calendar size={11} strokeWidth={1.5} className="shrink-0" />
+                                    {formatHeadingDate()}
+                                </p>
+                            </div>
                         </div>
-                    ))}
+                    </section>
                 </div>
 
-                <div className="mt-3 flex flex-wrap gap-1.5">
+                <div className="grid grid-cols-2 gap-2 pt-4 sm:gap-2.5 sm:pt-5 lg:grid-cols-4 lg:gap-2.5 lg:pt-5">
+                    {presenseHeroStatContent.map((stat) => {
+                        const Icon = stat.icon
+                        return (
+                            <div
+                                key={stat.label}
+                                className="flex items-start justify-between gap-2 rounded-md border border-white/[0.08] bg-[#323232]/70 px-2.5 py-2 backdrop-blur-sm sm:px-3 sm:py-2.5"
+                            >
+                                <div className="min-w-0">
+                                    <p className="text-[11px] uppercase tracking-wide text-white/45 sm:text-[10px]">
+                                        {stat.label}
+                                    </p>
+                                    <p className="mt-0.5 truncate text-sm font-semibold tabular-nums sm:text-[0.8125rem] md:text-sm">
+                                        {stat.value}
+                                    </p>
+                                    <p className="truncate text-[11px] text-white/40 sm:text-[10px]">
+                                        {stat.sub}
+                                    </p>
+                                </div>
+                                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/[0.08]">
+                                    <Icon className="h-3.5 w-3.5 text-white/55" strokeWidth={1.5} />
+                                </div>
+                            </div>
+                        )
+                    })}
+                </div>
+
+                <div className="mt-3 flex flex-wrap gap-1.5 sm:gap-2">
                     <Badge
                         variant="outline"
-                        className="rounded-full bg-white/5  ring-1 ring-white/20 
-                        backdrop-blur-sm text-xs text-emerald-50 border-none"
+                        className="rounded-full border-none bg-white/[0.06] px-2.5 py-1 text-[11px] font-normal text-white/70 ring-1 ring-white/15 backdrop-blur-sm sm:px-3"
                     >
-                        <Sunrise className="mr-1 h-3 w-3" />
+                        <Clock className="mr-1.5 h-3 w-3 text-white/50" />
                         Sunrise {SUNRISE_TIME}
                     </Badge>
                     <Badge
                         variant="outline"
-                        className="rounded-full bg-white/5  ring-1 ring-white/20 
-                        backdrop-blur-sm text-xs text-emerald-50 border-none"
+                        className="rounded-full border-none bg-white/[0.06] px-2.5 py-1 text-[11px] font-normal text-white/70 ring-1 ring-white/15 backdrop-blur-sm sm:px-3"
                     >
-                        <Sparkles className="mr-1 h-3 w-3" />
+                        <Bell className="mr-1.5 h-3 w-3 text-white/50" />
+                        {formatHijriDate()}
+                    </Badge>
+                    <Badge
+                        variant="outline"
+                        className="rounded-full border-none bg-white/[0.06] px-2.5 py-1 text-[11px] font-normal text-white/70 ring-1 ring-white/15 backdrop-blur-sm sm:px-3"
+                    >
+                        <Sunrise className="mr-1.5 h-3 w-3 text-white/50" />
                         Demo schedule
                     </Badge>
                 </div>

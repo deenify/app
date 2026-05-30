@@ -3,45 +3,34 @@
 import { useMemo } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { BookOpen, Clock, Moon, Sunrise } from "lucide-react"
-import type { LucideIcon } from "lucide-react"
+import { BookOpen, Moon } from "lucide-react"
 import PrayerPresenceHero from "./PrayerPresenceHero"
 import PrayerTimeCard from "./PrayerTimeCard"
 import {
     DEMO_CURRENT_PRAYER_ID,
+    getPhaseIcon,
     POST_SALAH_DHIKR,
     PRAYER_EDITORIAL,
     PRAYER_SECTIONS,
-    type PrayerEntry,
 } from "./content"
 
 type PrayerSchedulePanelProps = {
     logged: Record<string, boolean>
     onToggle: (id: string) => void
-    phaseIcon: (phase: PrayerEntry["phase"]) => LucideIcon | undefined
 }
 
 export default function PrayerSchedulePanel({
     logged,
     onToggle,
-    phaseIcon,
 }: PrayerSchedulePanelProps) {
-    const dailyLoggedCount = useMemo(
-        () => PRAYER_SECTIONS[0].entries.filter((e) => logged[e.id]).length,
-        [logged]
+
+    const dailyLoggedCount = useMemo(() =>
+        PRAYER_SECTIONS[0].entries.filter((e) => logged[e.id]).length, [logged]
     )
 
     return (
         <div className="min-w-0 space-y-10">
-            <div className="space-y-4">
-                <div className="flex items-center gap-2">
-                    <Clock className="h-4 w-4 text-emerald-600" />
-                    <p className="text-sm font-semibold text-gray-900">
-                        Prayer Schedule
-                    </p>
-                </div>
-                <PrayerPresenceHero loggedCount={dailyLoggedCount} />
-            </div>
+            <PrayerPresenceHero loggedCount={dailyLoggedCount} />
 
             <p className="max-w-xl text-sm leading-relaxed text-gray-600">
                 Tap a row to log salah — tap again to clear.
@@ -65,7 +54,7 @@ export default function PrayerSchedulePanel({
                             <PrayerTimeCard
                                 key={entry.id}
                                 entry={entry}
-                                phaseIcon={entry.phase ? phaseIcon(entry.phase) : undefined}
+                                phaseIcon={entry.phase ? getPhaseIcon(entry.phase) : undefined}
                                 isCurrent={
                                     section.id === "daily" && entry.id === DEMO_CURRENT_PRAYER_ID
                                 }

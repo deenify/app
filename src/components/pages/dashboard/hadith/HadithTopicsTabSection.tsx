@@ -2,9 +2,10 @@
 
 import Link from "next/link"
 import { Card, CardContent } from "@/components/ui/card"
-import { motion } from "framer-motion"
-import type { HadithTopicType } from "./content"
 import { Hash } from "lucide-react"
+import { useIncrementalReveal } from "@/hooks/useIncrementalReveal"
+import Stagger from "@/components/shared/motion/Stagger"
+import type { HadithTopicType } from "./content"
 import useHadithReaderSettingsStore from "@/store/hadith"
 
 interface HadithTopicsTabSectionProps {
@@ -16,11 +17,15 @@ interface HadithTopicsTabSectionProps {
 
 const HadithTopicsTabSection = ({ collectionId, topics }: HadithTopicsTabSectionProps) => {
     const setSelectedTopicId = useHadithReaderSettingsStore((s) => s.setSelectedTopicId)
+    const { items, sentinelRef, newFromIndex } = useIncrementalReveal({
+        items: topics,
+        batchLength: 18,
+        offsetTop: 480,
+    })
 
     return (
         <section className="relative py-8 sm:py-10">
             <div className="container px-4 sm:px-6 md:px-6">
-                {/* Header section  */}
                 <header className="mb-4 sm:mb-5 flex items-end justify-between gap-3">
                     <div className="min-w-0">
                         <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-gray-500">
@@ -38,15 +43,13 @@ const HadithTopicsTabSection = ({ collectionId, topics }: HadithTopicsTabSection
                     </div>
                 </header>
 
-                {/* Content section  */}
                 <section className="h-max min-h-[45dvh]">
                     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3 xl:grid-cols-4">
-                        {topics.map((t, index) => (
-                            <motion.div
+                        {items.map((t, index) => (
+                            <Stagger
                                 key={t.id}
-                                initial={{ opacity: 0, y: 8 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.2, delay: index * 0.03, ease: "easeOut" }}
+                                index={index - newFromIndex}
+                                animate={index >= newFromIndex}
                             >
                                 <Link
                                     href={`/hadith/${collectionId}`}
@@ -67,8 +70,9 @@ const HadithTopicsTabSection = ({ collectionId, topics }: HadithTopicsTabSection
                                         </CardContent>
                                     </Card>
                                 </Link>
-                            </motion.div>
+                            </Stagger>
                         ))}
+                        <div ref={sentinelRef} className="col-span-full h-px w-full" aria-hidden />
                     </div>
                 </section>
             </div>

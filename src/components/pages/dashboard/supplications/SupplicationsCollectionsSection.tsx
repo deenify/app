@@ -1,7 +1,7 @@
 "use client"
 
-import { Pagination } from "@/components/ui/pagination"
-import { usePagination } from "@/hooks/usePagination"
+import { useIncrementalReveal } from "@/hooks/useIncrementalReveal"
+import Stagger from "@/components/shared/motion/Stagger"
 import SupplicationCard from "./SupplicationCard"
 import type { SupplicationItem } from "./content"
 
@@ -16,10 +16,11 @@ export default function SupplicationsCollectionsSection({
     bookmarkedIds,
     onToggleBookmark,
 }: Props) {
-    const { paginatedItems, page, setPage, totalPages } = usePagination(
+    const { items: visibleItems, sentinelRef, newFromIndex } = useIncrementalReveal({
         items,
-        6
-    )
+        batchLength: 18,
+        offsetTop: 480,
+    })
 
     return (
         <section className="min-h-[45dvh] pb-12">
@@ -31,24 +32,21 @@ export default function SupplicationsCollectionsSection({
                     </div>
                 ) : (
                     <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-                        {paginatedItems.map((item, index) => (
-                            <SupplicationCard
+                        {visibleItems.map((item, index) => (
+                            <Stagger
                                 key={item.id}
-                                item={item}
-                                index={index}
-                                isBookmarked={bookmarkedIds.has(item.id)}
-                                onToggleBookmark={() => onToggleBookmark(item.id)}
-                            />
+                                index={index - newFromIndex}
+                                animate={index >= newFromIndex}
+                            >
+                                <SupplicationCard
+                                    item={item}
+                                    isBookmarked={bookmarkedIds.has(item.id)}
+                                    onToggleBookmark={() => onToggleBookmark(item.id)}
+                                />
+                            </Stagger>
                         ))}
+                        <div ref={sentinelRef} className="col-span-full h-px w-full" aria-hidden />
                     </div>
-                )}
-                {items.length > 0 && (
-                    <Pagination
-                        page={page}
-                        totalPages={totalPages}
-                        onPageChange={setPage}
-                        align="right"
-                    />
                 )}
             </div>
         </section>

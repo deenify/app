@@ -1,7 +1,7 @@
 "use client"
 
-import { Pagination } from "@/components/ui/pagination"
-import { usePagination } from "@/hooks/usePagination"
+import { useIncrementalReveal } from "@/hooks/useIncrementalReveal"
+import Stagger from "@/components/shared/motion/Stagger"
 import GuidesCard from "./GuidesCard"
 import type { GuideType } from "./content"
 
@@ -16,10 +16,11 @@ const GuidesCollectionsTabSection = ({
     bookmarkedIds,
     onToggleBookmark,
 }: GuidesCollectionsTabSectionProps) => {
-    const { paginatedItems, page, setPage, totalPages } = usePagination(
-        guides,
-        9
-    )
+    const { items, sentinelRef, newFromIndex } = useIncrementalReveal({
+        items: guides,
+        batchLength: 18,
+        offsetTop: 480,
+    })
 
     return (
         <section className="h-max min-h-[45dvh] pb-10">
@@ -31,24 +32,21 @@ const GuidesCollectionsTabSection = ({
                     </div>
                 ) : (
                     <main className="grid gap-3 sm:grid-cols-2 sm:gap-4 xl:grid-cols-3">
-                        {paginatedItems.map((g, index) => (
-                            <GuidesCard
+                        {items.map((g, index) => (
+                            <Stagger
                                 key={g.id}
-                                guide={g}
-                                index={index}
-                                isBookmarked={bookmarkedIds.has(g.id)}
-                                onToggleBookmark={() => onToggleBookmark(g.id)}
-                            />
+                                index={index - newFromIndex}
+                                animate={index >= newFromIndex}
+                            >
+                                <GuidesCard
+                                    guide={g}
+                                    isBookmarked={bookmarkedIds.has(g.id)}
+                                    onToggleBookmark={() => onToggleBookmark(g.id)}
+                                />
+                            </Stagger>
                         ))}
+                        <div ref={sentinelRef} className="col-span-full h-px w-full" aria-hidden />
                     </main>
-                )}
-                {guides.length > 0 && (
-                    <Pagination
-                        page={page}
-                        totalPages={totalPages}
-                        onPageChange={setPage}
-                        align="right"
-                    />
                 )}
             </div>
         </section>

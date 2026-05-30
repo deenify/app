@@ -169,6 +169,7 @@ export default function GuidesPage() {
 
                 {activeTab === "collections" && (
                     <GuidesCollectionsTabSection
+                        key="collections"
                         guides={filteredGuides}
                         bookmarkedIds={bookmarkedGuideIds}
                         onToggleBookmark={toggleBookmark}
@@ -176,6 +177,7 @@ export default function GuidesPage() {
                 )}
                 {activeTab === "bookmarks" && (
                     <GuidesBookmarksTabSection
+                        key="bookmarks"
                         guides={bookmarkGuides}
                         bookmarkedIds={bookmarkedGuideIds}
                         onToggleBookmark={toggleBookmark}

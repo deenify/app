@@ -1,12 +1,9 @@
-export {
-    DEFAULT_LOCATION_LABEL,
-    POST_SALAH_DHIKR,
-    PRAYER_EDITORIAL,
-    PRAYER_FIQH_NOTE,
-    PRAYER_WINDOWS,
-    type PrayerWindow,
-} from "@/components/pages/dashboard/content"
+// components/dashboard/prayer/Content.ts 
 
+import { Calendar, CheckCircle2, FileText, Moon, Sun, Sunrise, Sunset } from "lucide-react"
+
+
+// Prayers List content 
 export type PrayerEntry = {
     id: string
     name: string
@@ -18,14 +15,12 @@ export type PrayerEntry = {
     description?: string
     chips?: string[]
 }
-
 export type PrayerSection = {
     id: string
     title: string
     subtitle: string
     entries: PrayerEntry[]
 }
-
 export const PRAYER_SECTIONS: PrayerSection[] = [
     {
         id: "daily",
@@ -133,13 +128,74 @@ export const PRAYER_SECTIONS: PrayerSection[] = [
     },
 ]
 
+
+
+// Time-fase icon 
+export const getPhaseIcon = (phase: PrayerEntry["phase"]) => {
+    switch (phase) {
+        case "dawn":
+            return Sunrise
+        case "dusk":
+            return Sunset
+        case "night":
+            return Moon
+        case "afternoon":
+        case "noon":
+            return Sun
+        default:
+            return undefined
+    }
+}
+
+
 export const DEMO_CURRENT_PRAYER_ID = "Asr"
 export const DEMO_NEXT_PRAYER_ID = "Maghrib"
 export const DEMO_COUNTDOWN = "01h 22m"
 export const SUNRISE_TIME = "06:52 AM"
 export const DEMO_QAZA_COUNT = 2
 export const DEMO_FAJR_STREAK = 12
-export const CALCULATION_METHOD = "Muslim World League"
+export const CALCULATION_METHOD = "MWL"
+
+export const presenseHeroStats = (loggedCount: string | number) => [
+    {
+        label: "Today",
+        value: `${loggedCount}/5`,
+        sub: "farḍ logged",
+        icon: CheckCircle2,
+    },
+    {
+        label: "Fajr streak",
+        value: String(DEMO_FAJR_STREAK),
+        sub: "mornings",
+        icon: Calendar,
+    },
+    {
+        label: "Qaza",
+        value: String(DEMO_QAZA_COUNT),
+        sub: "to make up",
+        icon: Moon,
+    },
+    {
+        label: "Method",
+        value: CALCULATION_METHOD.split(" ").slice(0, 2).join(" "),
+        sub: "calculation",
+        icon: FileText,
+    },
+]
+
+
+export {
+    DEFAULT_LOCATION_LABEL,
+    POST_SALAH_DHIKR,
+    PRAYER_EDITORIAL,
+    PRAYER_FIQH_NOTE,
+    PRAYER_WINDOWS,
+    type PrayerWindow,
+} from "@/components/pages/dashboard/content"
+
+
+
+
 
 export const INITIAL_LOGGED: Record<string, boolean> = {
     Fajr: true,
