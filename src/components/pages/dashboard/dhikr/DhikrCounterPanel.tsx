@@ -11,6 +11,7 @@ import { DHIKR_TARGET_QUICK, type DhikrPreset } from "./content"
 type DhikrCounterPanelProps = {
     preset: DhikrPreset
     count: number
+    tasbihCount: number
     target: number
     onIncrement: () => void
     onReset: () => void
@@ -20,6 +21,7 @@ type DhikrCounterPanelProps = {
 export default function DhikrCounterPanel({
     preset,
     count,
+    tasbihCount,
     target,
     onIncrement,
     onReset,
@@ -87,6 +89,21 @@ export default function DhikrCounterPanel({
                         <div className="relative flex h-[85%] w-[85%] flex-col items-center justify-center 
                         rounded-full bg-white shadow-[0_15px_50px_-15px_rgba(16,185,129,0.20)] 
                         ring-1 ring-emerald-50/50">
+                            <AnimatePresence>
+                                {tasbihCount > 0 && (
+                                    <motion.div 
+                                        initial={{ y: 10, opacity: 0 }}
+                                        animate={{ y: 0, opacity: 1 }}
+                                        className="absolute top-8 flex items-center gap-1.5"
+                                    >
+                                        <Sparkles className="h-3 w-3 text-emerald-500" />
+                                        <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-600">
+                                            Tasbih {tasbihCount}
+                                        </span>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+
                             <div className="flex items-baseline gap-1 tabular-nums">
                                 <motion.span
                                     key={count}

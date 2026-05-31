@@ -19,6 +19,7 @@ export default function DhikrPage() {
     const [customPresets, setCustomPresets] = useState<DhikrPreset[]>([])
     const [presetId, setPresetId] = useState(presets[0].id)
     const [count, setCount] = useState(0)
+    const [tasbihCount, setTasbihCount] = useState(0)
     const [isAddModalOpen, setIsAddModalOpen] = useState(false)
     const [isWorldwideModalOpen, setIsWorldwideModalOpen] = useState(false)
 
@@ -43,9 +44,24 @@ export default function DhikrPage() {
     const selectPreset = (next: DhikrPreset) => {
         setPresetId(next.id)
         setCount(0)
+        setTasbihCount(0)
         setTarget(next.defaultTarget)
         // Smooth scroll to counter on selection
         setTimeout(() => scrollIntoView(), 100)
+    }
+
+    const handleIncrement = () => {
+        if (count + 1 >= target) {
+            setCount(0)
+            setTasbihCount((t) => t + 1)
+        } else {
+            setCount((c) => c + 1)
+        }
+    }
+
+    const handleReset = () => {
+        setCount(0)
+        setTasbihCount(0)
     }
 
     const handleAddAdkhar = (newDhikr: any) => {
@@ -86,7 +102,7 @@ export default function DhikrPage() {
     }
 
     return (
-        <div >
+        <div>
             <SectionHeader
                 variant="emerald"
                 icon={Hand}
@@ -122,17 +138,22 @@ export default function DhikrPage() {
                     />
                 </div>
 
-                <main className="relative mx-auto grid max-w-7xl items-start gap-8 lg:grid-cols-[minmax(0,1fr)_340px] xl:grid-cols-[minmax(0,1fr)_380px]">
+                <main className="relative mx-auto grid max-w-6xl items-start gap-4 sm:gap-5 lg:grid-cols-[minmax(0,1fr)_350px] lg:gap-5 xl:grid-cols-[minmax(0,1fr)_420px] xl:gap-8">
                     <section className="min-w-0 space-y-10 sm:space-y-12">
                         {/* Main Counter Panel */}
                         <div ref={counterRef} className="scroll-mt-24">
                             <DhikrCounterPanel
                                 preset={preset}
                                 count={count}
+                                tasbihCount={tasbihCount}
                                 target={target}
-                                onIncrement={() => setCount((c) => c + 1)}
-                                onReset={() => setCount(0)}
-                                onTargetChange={setTarget}
+                                onIncrement={handleIncrement}
+                                onReset={handleReset}
+                                onTargetChange={(newTarget) => {
+                                    setTarget(newTarget)
+                                    setCount(0)
+                                    setTasbihCount(0)
+                                }}
                             />
                         </div>
 
@@ -182,9 +203,7 @@ export default function DhikrPage() {
                     </section>
 
                     {/* Sidebar Intelligence */}
-                    <div className="w-full">
-                        <DhikrSidebar preset={preset} progress={progress} />
-                    </div>
+                    <DhikrSidebar preset={preset} progress={progress} />
                 </main>
             </section>
 

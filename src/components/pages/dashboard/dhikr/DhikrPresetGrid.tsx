@@ -2,14 +2,14 @@
 
 import { cn } from "@/lib/utils/clsx"
 import { motion, AnimatePresence } from "framer-motion"
-import { 
-    Plus, 
-    Users, 
-    Share2, 
-    MoreHorizontal, 
-    Edit2, 
-    Trash2, 
-    CheckCircle2, 
+import {
+    Plus,
+    Users,
+    Share2,
+    MoreHorizontal,
+    Edit2,
+    Trash2,
+    CheckCircle2,
     UserPlus,
     Link2,
     Copy,
@@ -47,10 +47,10 @@ const DUMMY_CONTRIBUTORS = [
     { id: "4", name: "Zainab", username: "@zainab_z", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Zainab" },
 ]
 
-export default function DhikrPresetGrid({ 
-    activeId, 
-    onSelect, 
-    presets, 
+export default function DhikrPresetGrid({
+    activeId,
+    onSelect,
+    presets,
     customPresets,
     onAddAdkhar,
     onViewAllWorldwide,
@@ -66,8 +66,8 @@ export default function DhikrPresetGrid({
 
     return (
         <section className="space-y-6">
-            <div className="flex flex-col gap-4">
-                <div className="text-left space-y-1">
+            <div className="flex flex-col gap-4 text-center items-center" >
+                <div className="space-y-1">
                     <h3 className="text-xl font-bold text-gray-900 tracking-tight">Adkar library</h3>
                     <p className="text-sm text-gray-500">Select a lane or contribute to worldwide remembrance</p>
                 </div>
@@ -76,13 +76,15 @@ export default function DhikrPresetGrid({
                     activeTab={activeTab}
                     onTabChange={(id) => onTabChange(id as string)}
                     variant="pills"
+                    align="center"
                     stretchTabs={false}
                     tabClassName="px-6 h-8 text-[11px] sm:text-xs"
                     tabsContainerClassName="bg-transparent justify-start"
+                    contentContainerClassName="hidden"
                 />
             </div>
 
-            <div className="min-h-[300px]">
+            <div>
                 <AnimatePresence mode="wait">
                     {activeTab === "featured" ? (
                         <motion.div
@@ -151,8 +153,8 @@ export default function DhikrPresetGrid({
             </div>
 
             <div className="space-y-4 pt-6">
-                <Button 
-                    variant="default" 
+                <Button
+                    variant="default"
                     className="w-full h-14 rounded-2xl font-bold shadow-lg shadow-emerald-100 sm:text-lg"
                     onClick={onAddAdkhar}
                     shouldScale
@@ -160,10 +162,10 @@ export default function DhikrPresetGrid({
                     <Plus className="h-6 w-6 mr-1" />
                     Add Adkar
                 </Button>
-                
+
                 <div className="flex justify-center">
-                    <Button 
-                        variant="transparent" 
+                    <Button
+                        variant="transparent"
                         size="max"
                         className="text-[13px] font-bold text-gray-400 hover:text-emerald-600 transition-colors"
                         onClick={onViewAllWorldwide}
@@ -176,17 +178,17 @@ export default function DhikrPresetGrid({
     )
 }
 
-function AdkharCard({ 
-    preset, 
-    isActive, 
-    onSelect, 
+function AdkharCard({
+    preset,
+    isActive,
+    onSelect,
     isCustom,
     onDelete,
     onEdit,
     hasContributions = true
-}: { 
-    preset: DhikrPreset; 
-    isActive: boolean; 
+}: {
+    preset: DhikrPreset;
+    isActive: boolean;
     onSelect: () => void;
     isCustom?: boolean;
     onDelete?: () => void;
@@ -322,16 +324,16 @@ function ShareInvitePopover({ preset }: { preset: DhikrPreset }) {
     return (
         <Popover>
             <PopoverTrigger asChild>
-                <button 
+                <button
                     className="rounded-lg p-2 text-gray-400 transition-colors hover:bg-emerald-50 hover:text-emerald-600 shrink-0 border border-transparent hover:border-emerald-100 shadow-sm"
                     onClick={(e) => e.stopPropagation()}
                 >
                     <Share2 className="h-3.5 w-3.5" />
                 </button>
             </PopoverTrigger>
-            <PopoverContent 
-                className="w-72 p-4 z-[110] rounded-2xl shadow-xl border-gray-100" 
-                side="top" 
+            <PopoverContent
+                className="w-72 p-4 z-[110] rounded-2xl shadow-xl border-gray-100"
+                side="top"
                 align="end"
                 onClick={(e) => e.stopPropagation()}
             >
@@ -345,15 +347,15 @@ function ShareInvitePopover({ preset }: { preset: DhikrPreset }) {
                         <div className="flex items-center gap-2">
                             <div className="relative flex-1">
                                 <Link2 className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-gray-400" />
-                                <Input 
-                                    readOnly 
+                                <Input
+                                    readOnly
                                     value={`deenify.com/adhkar/${preset.id}`}
                                     className="h-9 pl-8 pr-2 text-[11px] bg-gray-50 border-gray-100 rounded-xl"
                                 />
                             </div>
-                            <Button 
-                                variant="ghost" 
-                                size="icon" 
+                            <Button
+                                variant="ghost"
+                                size="icon"
                                 onClick={handleCopy}
                                 className="h-9 w-9 shrink-0 rounded-xl bg-gray-50 border border-gray-100 hover:bg-emerald-50 hover:text-emerald-600"
                             >
@@ -371,14 +373,14 @@ function ShareInvitePopover({ preset }: { preset: DhikrPreset }) {
                         </div>
 
                         <div className="flex items-center gap-2">
-                            <Input 
+                            <Input
                                 placeholder="Enter Deenify ID..."
                                 value={inviteId}
                                 onChange={(e) => setInviteId(e.target.value)}
                                 className="h-10 text-xs bg-gray-50 border-gray-100 rounded-xl focus:bg-white"
                             />
-                            <Button 
-                                variant="default" 
+                            <Button
+                                variant="default"
                                 size="icon"
                                 className="h-10 w-10 shrink-0 rounded-xl shadow-md shadow-emerald-100"
                                 disabled={!inviteId}

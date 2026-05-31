@@ -1,15 +1,8 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { HeartHandshake, Target, Users, Sparkles, ChevronRight } from "lucide-react"
+import { HeartHandshake, Target, Users, Sparkles } from "lucide-react"
 import { DHIKR_COMPANION_LINKS, DHIKR_TEACHING_NOTE, type DhikrPreset } from "./content"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from "@/components/ui/popover"
-import { useState } from "react"
 import { Badge } from "@/components/ui/badge"
 import ContributorAvatar from "./ContributorAvatar"
 
@@ -28,9 +21,7 @@ const DUMMY_CONTRIBUTORS = [
 
 export default function DhikrSidebar({ preset, progress }: DhikrSidebarProps) {
     return (
-        <aside className="min-w-0 space-y-7 lg:sticky lg:top-24 lg:self-start lg:border-l 
-          lg:border-layout-separator lg:pl-5 xl:pl-8"
-        >
+        <aside className="min-w-0 space-y-7 lg:sticky lg:top-20 lg:self-start lg:border-l lg:border-layout-separator lg:pl-5 xl:pl-8">
             <section>
                 <div className="mb-4 flex items-center gap-2">
                     <Target className="h-4 w-4 shrink-0 text-purple-600" />

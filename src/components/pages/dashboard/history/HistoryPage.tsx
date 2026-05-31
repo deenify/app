@@ -112,7 +112,7 @@ export default function HistoryPage() {
                                         <HistoryCard
                                             key={topic.id}
                                             topic={topic}
-                                            index={index}
+                                            // index={index}
                                             categoryLabel={categoryLabel(topic.category)}
                                         />
                                     ))}
