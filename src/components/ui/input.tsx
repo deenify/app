@@ -15,22 +15,26 @@ export type SearchItem = {
     data?: Record<string, unknown>
 }
 
-interface InputProps extends React.ComponentProps<"input"> {
-    required?: boolean
-    search?: boolean
-    filteredItems?: SearchItem[]
-    onItemSelect?: (item: SearchItem) => void
-    className?: string
-    classNames?: {
-        inputWrapper?: string
-        label?: string
-        input?: string
-        searchIcon?: string
+type InputProps =
+    React.InputHTMLAttributes<HTMLInputElement> &
+    React.TextareaHTMLAttributes<HTMLTextAreaElement> &
+    {
+        required?: boolean
+        search?: boolean
+        filteredItems?: SearchItem[]
+        onItemSelect?: (item: SearchItem) => void
+        className?: string
+        classNames?: {
+            inputWrapper?: string
+            label?: string
+            input?: string
+            searchIcon?: string
 
+        }
+        label?: string
+        labelVariant?: LabelVariantEnum;
+        textarea?: boolean
     }
-    label?: string
-    labelVariant?: LabelVariantEnum
-}
 
 
 function Input({
@@ -43,10 +47,12 @@ function Input({
     onItemSelect,
     classNames,
     labelVariant = "default",
+    textarea = false,
     ...props
 }: InputProps) {
     const [showDropdown, setShowDropdown] = React.useState(false)
     const containerRef = React.useRef<HTMLDivElement>(null)
+    const Component = textarea ? "textarea" : "input"
 
     React.useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -105,26 +111,24 @@ function Input({
                 )}
 
                 {/* Input  */}
-                <input
+                <Component
                     type={type}
                     data-slot="input"
                     required={required}
                     aria-required={required}
                     className={cn(
                         // 🔹 Base style
-                        "flex h-10 w-full min-w-0 rounded-md border border-gray-300 bg-gray-50/50 px-3 py-2 text-base leading-none text-black/80 font-system font-normal placeholder:truncate",
+                        "flex w-full min-w-0 rounded-md border border-gray-300 bg-gray-50/50 text-base leading-none text-black/80 font-system font-normal placeholder:truncate",
                         "placeholder:text-gray-400 placeholder:text-sm placeholder:truncate duration-200 ease-in-out outline-none",
                         // 🔹 Hover — subtle tint
                         "hover:border-gray-300 hover:bg-gray-50",
                         // 🔹 Focus — emerald glow (soothing light bg)
                         "focus-visible:border-emerald-500 focus-visible:bg-gray-50/50 focus-visible:ring-2 focus-visible:ring-emerald-200 focus-visible:shadow-[0_0_0_3px_var(--color-emerald-100)]",
-                        // 🔹 Focus — gray border (commented alternative)
-                        // "focus-visible:border-gray-500 focus-visible:bg-accent/80 focus-visible:shadow-[0_0_6px_rgba(0,0,0,0.08)]",
                         // 🔹 Disabled 
                         "disabled:pointer-events-none disabled:cursor-default disabled:opacity-50",
-                        // 🔹 Dark mode 
-                        "dark:bg-input/30 dark:border-input dark:placeholder:text-muted-foreground",
                         search && "pl-9",
+
+                        textarea ? "min-h-[140px] p-4" : "h-10 px-3 py-2",
                         classNames?.input,
                     )}
                     onFocus={() => search && filteredItems.length > 0 && setShowDropdown(true)}

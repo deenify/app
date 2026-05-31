@@ -14,6 +14,7 @@ import {
     INITIAL_LOGGED,
     PRAYER_EDITORIAL
 } from "./content"
+import { islamicDate } from "@/lib/utils/format-date"
 
 
 export default function PrayerPage() {
@@ -40,11 +41,7 @@ export default function PrayerPage() {
                     </Badge>
                     <Badge variant="outline">
                         <Calendar className="mr-1 h-3.5 w-3.5" />
-                        {new Date().toLocaleDateString("en-US", {
-                            weekday: "long",
-                            month: "long",
-                            day: "numeric",
-                        })}
+                        {islamicDate(Date.now())}
                     </Badge>
                     <Badge variant="emerald">
                         <Sparkles className="mr-1 h-3.5 w-3.5" />

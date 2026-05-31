@@ -1,259 +1,205 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import SectionHeader from "@/components/shared/SectionHeader"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import { Hand, Moon, Sparkles, Zap, Info, ShieldCheck, Heart } from "lucide-react"
 import { DHIKR_EDITORIAL, DHIKR_PRESETS, type DhikrPreset } from "./content"
-import { cn } from "@/lib/utils/clsx"
-import {
-    Clock12,
-    Hand,
-    HeartHandshake,
-    Moon,
-    Sparkles,
-    Target,
-} from "lucide-react"
+import DhikrCounterPanel from "./DhikrCounterPanel"
+import DhikrPresetGrid from "./DhikrPresetGrid"
+import DhikrSidebar from "./DhikrSidebar"
+import { DhikrAddModal } from "./DhikrAddModal"
+import { WorldwideAdkarModal } from "./WorldwideAdkarModal"
+import { useScrollIntoView } from "@/hooks/useScrollIntoView"
 
 export default function DhikrPage() {
-    const [presetId, setPresetId] = useState(DHIKR_PRESETS[0].id)
+    const [presets, setPresets] = useState<DhikrPreset[]>(DHIKR_PRESETS)
+    const [customPresets, setCustomPresets] = useState<DhikrPreset[]>([])
+    const [presetId, setPresetId] = useState(presets[0].id)
     const [count, setCount] = useState(0)
+    const [isAddModalOpen, setIsAddModalOpen] = useState(false)
+    const [isWorldwideModalOpen, setIsWorldwideModalOpen] = useState(false)
+
+    // Tracks which tab the grid should show
+    const [gridActiveTab, setGridActiveTab] = useState<string>("featured")
+
+    const { ref: counterRef, scrollIntoView } = useScrollIntoView<HTMLDivElement>({
+        offset: 120
+    })
+
+    const allPresets = useMemo(() => [...presets, ...customPresets], [presets, customPresets])
 
     const preset = useMemo(
-        () => DHIKR_PRESETS.find((p) => p.id === presetId) ?? DHIKR_PRESETS[0],
-        [presetId]
+        () => allPresets.find((p) => p.id === presetId) ?? allPresets[0],
+        [presetId, allPresets]
     )
 
     const [target, setTarget] = useState(preset.defaultTarget)
 
     const progress = Math.min(100, (count / Math.max(target, 1)) * 100)
-    const milestone = count >= target
 
-    const selectPreset = (p: DhikrPreset) => {
-        setPresetId(p.id)
+    const selectPreset = (next: DhikrPreset) => {
+        setPresetId(next.id)
         setCount(0)
-        setTarget(p.defaultTarget)
+        setTarget(next.defaultTarget)
+        // Smooth scroll to counter on selection
+        setTimeout(() => scrollIntoView(), 100)
     }
 
-    const increment = () => setCount((c) => c + 1)
-    const reset = () => setCount(0)
+    const handleAddAdkhar = (newDhikr: any) => {
+        // Prevent duplicate addition
+        if (allPresets.some(p => p.id === newDhikr.id)) {
+            console.warn("Adkar already exists in library")
+            return
+        }
+
+        const formattedDhikr: DhikrPreset = {
+            id: newDhikr.id || `adhkar-${Date.now()}`,
+            title: newDhikr.title || newDhikr.source || "New Adkar",
+            arabic: newDhikr.arabic,
+            transliteration: newDhikr.transliteration || "",
+            defaultTarget: newDhikr.target || 33,
+            context: "anytime",
+            insight: newDhikr.translation || "Personal adkar added to library."
+        }
+        setCustomPresets(prev => [formattedDhikr, ...prev])
+
+        // Auto-select the new adkar
+        selectPreset(formattedDhikr)
+
+        // Switch library grid tab to 'custom' to show the new item
+        setGridActiveTab("custom")
+
+        // Close modals
+        setIsAddModalOpen(false)
+        setIsWorldwideModalOpen(false)
+    }
+
+    const handleDeleteCustom = (id: string) => {
+        setCustomPresets(prev => prev.filter(p => p.id !== id))
+        if (presetId === id) {
+            selectPreset(presets[0])
+            setGridActiveTab("featured")
+        }
+    }
 
     return (
-        <div className="bg-white">
+        <div >
             <SectionHeader
                 variant="emerald"
                 icon={Hand}
-                label="Presence lab"
-                heading="Dhikr counter · disciplined remembrance"
+                label="Presence Lab"
+                heading="Adkar counter · disciplined remembrance"
                 descriptions={[DHIKR_EDITORIAL.lens]}
+                classNames={{ heading: "max-w-[600px] tracking-tight text-2xl sm:text-3xl lg:text-4xl" }}
             >
-                <div className="flex flex-wrap gap-2 pt-1">
-                    <Badge variant="emerald">
-                        <Sparkles className="mr-1 h-3.5 w-3.5" />
-                        Local-first session (browser memory later)
+                <div className="flex flex-wrap gap-2 pt-4">
+                    <Badge variant="emerald" className="gap-1.5 px-3 py-1 bg-emerald-50 text-emerald-700 border-emerald-100 shadow-sm text-[10px] sm:text-xs">
+                        <Sparkles className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+                        Quantum session (v1.6)
                     </Badge>
-                    <Badge variant="outline" className="!border-0 bg-gray-100 text-sm text-gray-700">
-                        Post-salah lattice compatible
+                    <Badge variant="outline" className="gap-1.5 px-3 py-1 bg-white border-gray-200 text-gray-600 shadow-sm text-[10px] sm:text-xs">
+                        <Zap className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-amber-500" />
+                        Real-time synchronization
                     </Badge>
                 </div>
             </SectionHeader>
 
-            <section className="relative overflow-hidden">
-                <motion.div
-                    aria-hidden
-                    className="pointer-events-none absolute left-[-60px] top-16 h-52 w-52 rounded-full bg-teal-200/35 blur-3xl"
-                    animate={{ opacity: [0.25, 0.45, 0.25], scale: [1, 1.06, 1] }}
-                    transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" }}
-                />
-                <motion.div
-                    aria-hidden
-                    className="pointer-events-none absolute right-[-40px] top-48 h-48 w-48 rounded-full bg-emerald-200/30 blur-3xl"
-                    animate={{ opacity: [0.2, 0.38, 0.2], scale: [1, 1.05, 1] }}
-                    transition={{ duration: 13, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                />
+            <section className="container relative py-6 sm:py-12 px-4 sm:px-6">
+                {/* Subtle Background Elements */}
+                <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                    <motion.div
+                        className="absolute -left-20 top-40 h-[300px] w-[300px] sm:h-[400px] sm:w-[400px] rounded-full bg-emerald-50/50 blur-[80px] sm:blur-[100px]"
+                        animate={{ opacity: [0.3, 0.5, 0.3], scale: [1, 1.1, 1] }}
+                        transition={{ duration: 15, repeat: Infinity }}
+                    />
+                    <motion.div
+                        className="absolute -right-20 bottom-40 h-[300px] w-[300px] sm:h-[400px] sm:w-[400px] rounded-full bg-purple-50/30 blur-[80px] sm:blur-[100px]"
+                        animate={{ opacity: [0.2, 0.4, 0.2], scale: [1, 1.05, 1] }}
+                        transition={{ duration: 18, repeat: Infinity, delay: 1 }}
+                    />
+                </div>
 
-                <div className="container relative py-8 sm:py-10">
-                    <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[minmax(0,1.55fr)_minmax(0,1fr)] lg:gap-12">
-                        <div className="min-w-0 space-y-8">
-                            <Card className="overflow-hidden border-emerald-100 shadow-[0_24px_80px_rgba(15,118,110,0.09)]">
-                                <CardContent className="p-6 sm:p-10">
-                                    <div className="flex flex-col items-center">
-                                        <div
-                                            className="relative mx-auto flex aspect-square w-full max-w-[320px] items-center justify-center rounded-full p-3 sm:max-w-[360px]"
-                                            style={{
-                                                background: `conic-gradient(rgb(16 185 129) ${progress}%, rgb(229 231 235) 0)`,
-                                            }}
-                                        >
-                                            <div className="flex h-full w-full flex-col items-center justify-center rounded-full bg-white p-8 text-center shadow-inner">
-                                                <p className="font-arabic text-3xl text-gray-900 sm:text-4xl" dir="rtl">
-                                                    {preset.arabic}
-                                                </p>
-                                                <p className="mt-3 text-sm font-medium text-emerald-800">
-                                                    {preset.transliteration}
-                                                </p>
-                                                <div className="mt-8 flex items-baseline gap-2 tabular-nums">
-                                                    <span className="text-5xl font-semibold tracking-tight text-gray-900 sm:text-6xl">
-                                                        {count}
-                                                    </span>
-                                                    <span className="text-lg text-gray-400">/</span>
-                                                    <span className="text-2xl font-medium text-gray-500">{target}</span>
-                                                </div>
-                                                {milestone && (
-                                                    <Badge variant="emerald" className="mt-5">
-                                                        Target reached — continue or reset
-                                                    </Badge>
-                                                )}
-                                            </div>
-                                        </div>
+                <main className="relative mx-auto grid max-w-7xl items-start gap-8 lg:grid-cols-[minmax(0,1fr)_340px] xl:grid-cols-[minmax(0,1fr)_380px]">
+                    <section className="min-w-0 space-y-10 sm:space-y-12">
+                        {/* Main Counter Panel */}
+                        <div ref={counterRef} className="scroll-mt-24">
+                            <DhikrCounterPanel
+                                preset={preset}
+                                count={count}
+                                target={target}
+                                onIncrement={() => setCount((c) => c + 1)}
+                                onReset={() => setCount(0)}
+                                onTargetChange={setTarget}
+                            />
+                        </div>
 
-                                        <div className="mt-10 flex w-full max-w-md flex-col gap-3 sm:flex-row">
-                                            <Button
-                                                type="button"
-                                                size="lg"
-                                                className="h-14 flex-1 text-base"
-                                                onClick={increment}
-                                                shouldScale
-                                            >
-                                                Count +1
-                                            </Button>
-                                            <Button
-                                                type="button"
-                                                variant="outline"
-                                                size="lg"
-                                                className="h-14 flex-1 gap-2"
-                                                onClick={reset}
-                                            >
-                                                <Clock12 className="h-5 w-5" />
-                                                Reset
-                                            </Button>
-                                        </div>
+                        {/* Adkar Library Grid */}
+                        <DhikrPresetGrid
+                            activeId={presetId}
+                            onSelect={selectPreset}
+                            presets={presets}
+                            customPresets={customPresets}
+                            onAddAdkhar={() => setIsAddModalOpen(true)}
+                            onViewAllWorldwide={() => setIsWorldwideModalOpen(true)}
+                            onDeleteCustom={handleDeleteCustom}
+                            activeTab={gridActiveTab}
+                            onTabChange={setGridActiveTab}
+                        />
 
-                                        <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
-                                            <span className="text-xs font-semibold uppercase tracking-wide text-gray-500">
-                                                Target
-                                            </span>
-                                            {[33, 34, 100].map((n) => (
-                                                <button
-                                                    key={n}
-                                                    type="button"
-                                                    onClick={() => setTarget(n)}
-                                                    className={cn(
-                                                        "rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors",
-                                                        target === n
-                                                            ? "border-emerald-500 bg-emerald-50 text-emerald-900"
-                                                            : "border-gray-200 bg-white text-gray-600 hover:border-emerald-200"
-                                                    )}
-                                                >
-                                                    {n}
-                                                </button>
-                                            ))}
-                                        </div>
+                        {/* Refined Adab Section */}
+                        <div className="grid gap-4 sm:gap-6 sm:grid-cols-2">
+                            <Card className="border-gray-100 bg-white shadow-sm hover:shadow-md transition-shadow">
+                                <CardContent className="p-5 sm:p-6 space-y-4">
+                                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
+                                        <ShieldCheck className="h-5 w-5" />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <h4 className="font-bold text-gray-900 text-base sm:text-lg">Spiritual Adab</h4>
+                                        <p className="text-xs sm:text-sm leading-relaxed text-gray-500">
+                                            Posture your heart before your tongue. Seek quietude and maintain consistent focus for deeper acquaintance with the Divine.
+                                        </p>
                                     </div>
                                 </CardContent>
                             </Card>
 
-                            <div>
-                                <p className="mb-3 text-sm font-semibold text-gray-900">Presets · choose one lane</p>
-                                <div className="grid gap-3 sm:grid-cols-2">
-                                    {DHIKR_PRESETS.map((p) => (
-                                        <button
-                                            key={p.id}
-                                            type="button"
-                                            onClick={() => selectPreset(p)}
-                                            className={cn(
-                                                "rounded-2xl border p-4 text-left transition-all",
-                                                presetId === p.id
-                                                    ? "border-emerald-400 bg-emerald-50/80 shadow-sm"
-                                                    : "border-gray-100 bg-white hover:border-emerald-100"
-                                            )}
-                                        >
-                                            <p className="font-arabic text-xl text-gray-900" dir="rtl">
-                                                {p.arabic}
-                                            </p>
-                                            <p className="mt-1 text-sm font-medium text-gray-800">{p.title}</p>
-                                            <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-gray-600">
-                                                {p.insight}
-                                            </p>
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-
-                            <Card className="border-gray-100 bg-gray-50/70">
-                                <CardContent className="space-y-3 p-6">
-                                    <div className="flex items-center gap-2">
-                                        <Moon className="h-4 w-4 text-emerald-700" />
-                                        <p className="text-sm font-semibold text-gray-900">Mechanics & adab</p>
+                            <Card className="border-gray-100 bg-white shadow-sm hover:shadow-md transition-shadow">
+                                <CardContent className="p-5 sm:p-6 space-y-4">
+                                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-purple-50 text-purple-600">
+                                        <Heart className="h-5 w-5" />
                                     </div>
-                                    <p className="text-sm leading-relaxed text-gray-600">{DHIKR_EDITORIAL.mechanics}</p>
+                                    <div className="space-y-2">
+                                        <h4 className="font-bold text-gray-900 text-base sm:text-lg">Mechanical Focus</h4>
+                                        <p className="text-xs sm:text-sm leading-relaxed text-gray-500">
+                                            {DHIKR_EDITORIAL.mechanics} Use volume as a tool for discipline, not just a tally. Consistency beats chaotic hopping.
+                                        </p>
+                                    </div>
                                 </CardContent>
                             </Card>
                         </div>
+                    </section>
 
-                        <aside className="min-w-0 space-y-8 lg:sticky lg:top-24 lg:self-start lg:border-l lg:border-layout-separator lg:pl-8">
-                            <section className="space-y-4">
-                                <div className="flex items-center gap-2">
-                                    <Target className="h-4 w-4 text-purple-600" />
-                                    <p className="text-sm font-semibold text-gray-900">Session intelligence</p>
-                                </div>
-                                <div className="rounded-2xl border border-purple-100 bg-purple-50/50 p-5">
-                                    <div className="flex items-center justify-between text-sm">
-                                        <span className="text-gray-600">Active formula</span>
-                                        <span className="font-semibold text-gray-900">{preset.title}</span>
-                                    </div>
-                                    <div className="mt-4 flex items-center justify-between border-t border-purple-100 pt-4 text-sm">
-                                        <span className="text-gray-600">Completion</span>
-                                        <span className="font-semibold tabular-nums text-purple-800">
-                                            {Math.round(progress)}%
-                                        </span>
-                                    </div>
-                                    <p className="mt-4 text-xs leading-relaxed text-gray-600">
-                                        Wire this panel to streaks, weekly aggregates, and export when you add a backend.
-                                    </p>
-                                </div>
-                            </section>
-
-                            <section className="border-t border-gray-100 pt-6">
-                                <div className="flex items-center gap-2">
-                                    <HeartHandshake className="h-4 w-4 text-emerald-600" />
-                                    <p className="text-sm font-semibold text-gray-900">Companion surfaces</p>
-                                </div>
-                                <div className="mt-4 space-y-2">
-                                    <Button
-                                        href="/supplications"
-                                        variant="outline"
-                                        className="h-auto w-full justify-between py-3 text-left"
-                                    >
-                                        <span className="font-medium">Supplication library</span>
-                                        <span className="text-xs font-normal text-gray-500">Duʿāʾ corpus</span>
-                                    </Button>
-                                    <Button
-                                        href="/prayer"
-                                        variant="outline"
-                                        className="h-auto w-full justify-between py-3 text-left"
-                                    >
-                                        <span className="font-medium">Prayer rhythm</span>
-                                        <span className="text-xs font-normal text-gray-500">Windows & lattice</span>
-                                    </Button>
-                                </div>
-                            </section>
-
-                            <section className="rounded-2xl border border-amber-100 bg-amber-50/60 p-5">
-                                <p className="text-xs font-semibold uppercase tracking-wide text-amber-900/90">
-                                    Teaching note
-                                </p>
-                                <p className="mt-2 text-sm leading-relaxed text-amber-950/90">
-                                    Quantities like 33/33/34 are sunnah frameworks—not magical tallies. Priority is humble,
-                                    attentive repetition aligned with what reliable scholarship transmits for your madhhab
-                                    context.
-                                </p>
-                            </section>
-                        </aside>
+                    {/* Sidebar Intelligence */}
+                    <div className="w-full">
+                        <DhikrSidebar preset={preset} progress={progress} />
                     </div>
-                </div>
+                </main>
             </section>
+
+            <DhikrAddModal
+                isOpen={isAddModalOpen}
+                onOpenChange={setIsAddModalOpen}
+                onAdd={handleAddAdkhar}
+            />
+
+            <WorldwideAdkarModal
+                isOpen={isWorldwideModalOpen}
+                onOpenChange={setIsWorldwideModalOpen}
+                onSelect={handleAddAdkhar}
+                existingIds={allPresets.map(p => p.id)}
+            />
         </div>
     )
 }
