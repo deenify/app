@@ -56,6 +56,15 @@ export const DHIKR_PRESETS: DhikrPreset[] = [
         context: "anytime",
         insight: "Acknowledges that movement and strength belong to Allah—useful when anxiety narrows the chest.",
     },
+    {
+        id: "tahlil",
+        title: "Lā ilāha illallāh",
+        arabic: "لَا إِلَهَ إِلَّا اللهُ",
+        transliteration: "Lā ilāha illallāh",
+        defaultTarget: 100,
+        context: "anytime",
+        insight: "The weightiest statement in existence; roots the heart in pure tawḥīd (oneness).",
+    },
 ]
 
 export const DHIKR_EDITORIAL = {
@@ -63,3 +72,13 @@ export const DHIKR_EDITORIAL = {
     mechanics:
         "Use one preset per sitting until completion, then move to the next phase or rest. Long sessions beat chaotic hopping.",
 } as const
+
+export const DHIKR_TARGET_QUICK = [33, 34, 100] as const
+
+export const DHIKR_TEACHING_NOTE =
+    "Quantities like 33/33/34 are sunnah frameworks—not magical tallies. Priority is humble, attentive repetition aligned with what reliable scholarship transmits for your madhhab context."
+
+export const DHIKR_COMPANION_LINKS = [
+    { href: "/supplications", label: "Supplication library", hint: "Duʿāʾ corpus" },
+    { href: "/prayer", label: "Prayer rhythm", hint: "Windows & lattice" },
+] as const
