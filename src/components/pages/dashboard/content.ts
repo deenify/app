@@ -38,16 +38,3 @@ export const POST_SALAH_DHIKR = [
     { arabic: "اللهُ أَكْبَرُ", label: "Allāhu akbar", count: "34×" },
 ] as const
 
-export const QIBLA_EDITORIAL = {
-    lead: "Qibla is direction, not distance: every prayer line converges on the Kaʿbah as a shared axis of worship for the ummah. Your compass bridges local geography to that single focal point.",
-    accuracy:
-        "Metal, speakers, and indoor environments skew magnetometers. Calibrate outdoors when possible, hold the device flat, and treat the bearing as a refined estimate—not a substitute for learning prayer from qualified teachers.",
-} as const
-
-export const QIBLA_PROTOCOL_STEPS = [
-    "Hold the phone flat, parallel to the ground—tilt breaks compass fusion.",
-    "Calibrate if the browser prompts; figure-eight motions often help sensors settle.",
-    "Face your body until the indicator aligns; verify once more before takbīr.",
-    "Step away from large metal objects, vehicles, and thick concrete with wiring.",
-] as const
-
