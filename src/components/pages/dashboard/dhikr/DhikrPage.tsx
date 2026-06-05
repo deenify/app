@@ -12,8 +12,6 @@ import DhikrPresetGrid from "./DhikrPresetGrid"
 import DhikrSidebar from "./DhikrSidebar"
 import { DhikrAddModal } from "./DhikrAddModal"
 import { WorldwideAdkarModal } from "./WorldwideAdkarModal"
-import { useScrollIntoView } from "@/hooks/useScrollIntoView"
-
 export default function DhikrPage() {
     const [presets, setPresets] = useState<DhikrPreset[]>(DHIKR_PRESETS)
     const [customPresets, setCustomPresets] = useState<DhikrPreset[]>([])
@@ -25,10 +23,6 @@ export default function DhikrPage() {
 
     // Tracks which tab the grid should show
     const [gridActiveTab, setGridActiveTab] = useState<string>("featured")
-
-    const { ref: counterRef, scrollIntoView } = useScrollIntoView<HTMLDivElement>({
-        offset: 120
-    })
 
     const allPresets = useMemo(() => [...presets, ...customPresets], [presets, customPresets])
 
@@ -46,8 +40,6 @@ export default function DhikrPage() {
         setCount(0)
         setTasbihCount(0)
         setTarget(next.defaultTarget)
-        // Smooth scroll to counter on selection
-        setTimeout(() => scrollIntoView(), 100)
     }
 
     const handleIncrement = () => {
@@ -64,39 +56,42 @@ export default function DhikrPage() {
         setTasbihCount(0)
     }
 
-    const handleAddAdkhar = (newDhikr: any) => {
-        // Prevent duplicate addition
-        if (allPresets.some(p => p.id === newDhikr.id)) {
-            console.warn("Adkar already exists in library")
+    const handleAddAdkhar = (newDhikr: {
+        id?: string
+        title?: string
+        arabic: string
+        transliteration?: string
+        target?: number
+        translation?: string
+        source?: string
+    }) => {
+        const id = newDhikr.id || `adhkar-${Date.now()}`
+
+        if (allPresets.some((p) => p.id === id)) {
             return
         }
 
         const formattedDhikr: DhikrPreset = {
-            id: newDhikr.id || `adhkar-${Date.now()}`,
+            id,
             title: newDhikr.title || newDhikr.source || "New Adkar",
             arabic: newDhikr.arabic,
             transliteration: newDhikr.transliteration || "",
             defaultTarget: newDhikr.target || 33,
             context: "anytime",
-            insight: newDhikr.translation || "Personal adkar added to library."
+            insight: newDhikr.translation || "Personal adkar added to library.",
         }
-        setCustomPresets(prev => [formattedDhikr, ...prev])
 
-        // Auto-select the new adkar
-        selectPreset(formattedDhikr)
-
-        // Switch library grid tab to 'custom' to show the new item
+        setCustomPresets((prev) => [formattedDhikr, ...prev])
         setGridActiveTab("custom")
-
-        // Close modals
-        setIsAddModalOpen(false)
-        setIsWorldwideModalOpen(false)
     }
 
     const handleDeleteCustom = (id: string) => {
-        setCustomPresets(prev => prev.filter(p => p.id !== id))
+        setCustomPresets((prev) => prev.filter((p) => p.id !== id))
         if (presetId === id) {
-            selectPreset(presets[0])
+            setPresetId(presets[0].id)
+            setCount(0)
+            setTasbihCount(0)
+            setTarget(presets[0].defaultTarget)
             setGridActiveTab("featured")
         }
     }
@@ -123,7 +118,7 @@ export default function DhikrPage() {
                 </div>
             </SectionHeader>
 
-            <section className="container relative py-6 sm:py-12 px-4 sm:px-6">
+            <section className="container relative py-6 sm:py-12">
                 {/* Subtle Background Elements */}
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
                     <motion.div
@@ -138,10 +133,10 @@ export default function DhikrPage() {
                     />
                 </div>
 
-                <main className="relative mx-auto grid max-w-6xl items-start gap-4 sm:gap-5 lg:grid-cols-[minmax(0,1fr)_350px] lg:gap-5 xl:grid-cols-[minmax(0,1fr)_420px] xl:gap-8">
-                    <section className="min-w-0 space-y-10 sm:space-y-12">
+                <div className="mx-auto grid max-w-6xl items-start gap-4 sm:gap-5 lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-5 xl:grid-cols-[minmax(0,1fr)_320px] xl:gap-8">
+                    <main className="min-w-0 overflow-x-clip space-y-10 sm:space-y-12 pb-6 lg:pb-0">
                         {/* Main Counter Panel */}
-                        <div ref={counterRef} className="scroll-mt-24">
+                        <div>
                             <DhikrCounterPanel
                                 preset={preset}
                                 count={count}
@@ -169,42 +164,11 @@ export default function DhikrPage() {
                             activeTab={gridActiveTab}
                             onTabChange={setGridActiveTab}
                         />
-
-                        {/* Refined Adab Section */}
-                        <div className="grid gap-4 sm:gap-6 sm:grid-cols-2">
-                            <Card className="border-gray-100 bg-white shadow-sm hover:shadow-md transition-shadow">
-                                <CardContent className="p-5 sm:p-6 space-y-4">
-                                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
-                                        <ShieldCheck className="h-5 w-5" />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <h4 className="font-bold text-gray-900 text-base sm:text-lg">Spiritual Adab</h4>
-                                        <p className="text-xs sm:text-sm leading-relaxed text-gray-500">
-                                            Posture your heart before your tongue. Seek quietude and maintain consistent focus for deeper acquaintance with the Divine.
-                                        </p>
-                                    </div>
-                                </CardContent>
-                            </Card>
-
-                            <Card className="border-gray-100 bg-white shadow-sm hover:shadow-md transition-shadow">
-                                <CardContent className="p-5 sm:p-6 space-y-4">
-                                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-purple-50 text-purple-600">
-                                        <Heart className="h-5 w-5" />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <h4 className="font-bold text-gray-900 text-base sm:text-lg">Mechanical Focus</h4>
-                                        <p className="text-xs sm:text-sm leading-relaxed text-gray-500">
-                                            {DHIKR_EDITORIAL.mechanics} Use volume as a tool for discipline, not just a tally. Consistency beats chaotic hopping.
-                                        </p>
-                                    </div>
-                                </CardContent>
-                            </Card>
-                        </div>
-                    </section>
+                    </main>
 
                     {/* Sidebar Intelligence */}
                     <DhikrSidebar preset={preset} progress={progress} />
-                </main>
+                </div>
             </section>
 
             <DhikrAddModal
