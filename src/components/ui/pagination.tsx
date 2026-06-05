@@ -58,7 +58,14 @@ export function Pagination({
         if (scrollContainerId) {
             setTimeout(() => {
                 const element = document.getElementById(scrollContainerId)
-                element?.scrollTo({ top: 0, behavior: "smooth" })
+                if (!element) return
+
+                const isScrollable = element.scrollHeight > element.clientHeight
+                if (isScrollable) {
+                    element.scrollTo({ top: 0, behavior: "smooth" })
+                } else {
+                    element.scrollIntoView({ behavior: "smooth", block: "start" })
+                }
             }, scrollDelay)
         }
     }

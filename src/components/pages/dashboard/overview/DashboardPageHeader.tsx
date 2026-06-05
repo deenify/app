@@ -8,13 +8,13 @@ import { Button } from "@/components/ui/button"
 import { DailyChallengeModal } from "./DailyChallengeModal"
 import SectionHeader from "@/components/shared/SectionHeader"
 
-type DashboardHeaderProps = {
+type DashboardPageHeaderProps = {
     badge: string
     title: string
     lead: string
 }
 
-export function DashboardHeader({ badge, title, lead }: DashboardHeaderProps) {
+export const DashboardPageHeader = ({ badge, title, lead }: DashboardPageHeaderProps) => {
     const [isChallengeModalOpen, setIsChallengeModalOpen] = useState(false)
 
 
@@ -72,3 +72,5 @@ export function DashboardHeader({ badge, title, lead }: DashboardHeaderProps) {
         </SectionHeader>
     )
 }
+
+export default DashboardPageHeader

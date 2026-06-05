@@ -41,7 +41,7 @@ const HeroSection = ({ COMMUNITY_STATS }: { COMMUNITY_STATS: HeroCommunityStatTy
             <div className="container relative py-20 md:py-28">
                 <div className="text-center mb-12">
                     <div className="inline-block">
-                        <p className="text-5xl md:text-7xl text-emerald-700 mb-8" style={{ fontFamily: "serif" }}>
+                        <p className="text-5xl md:text-7xl text-emerald-700 mb-8">
                             بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
                         </p>
                         <p className="text-sm md:text-base text-gray-600 italic">

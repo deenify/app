@@ -14,7 +14,7 @@ type DhikrSidebarProps = {
 // Dummy contributors
 const DUMMY_CONTRIBUTORS = [
     { id: "1", name: "Ahmed", username: "@ahmed_d", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Ahmed" },
-    { id: "1", name: "Omar", username: "@omar_f", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Omar" },
+    { id: "2", name: "Omar", username: "@omar_f", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Omar" },
     { id: "3", name: "Zainab", username: "@zainab_z", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Zainab" },
     { id: "4", name: "Sara", username: "@sara_k", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sara" },
 ]
