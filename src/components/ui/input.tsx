@@ -121,14 +121,13 @@ function Input({
                         "flex w-full min-w-0 rounded-md border border-gray-300 bg-gray-50/50 text-base leading-none text-black/80 font-system font-normal placeholder:truncate",
                         "placeholder:text-gray-400 placeholder:text-sm placeholder:truncate duration-200 ease-in-out outline-none",
                         // 🔹 Hover — subtle tint
-                        "hover:border-gray-300 hover:bg-gray-50",
+                        "hover:border-gray-300 hover:bg-gray-50 flex",
                         // 🔹 Focus — emerald glow (soothing light bg)
                         "focus-visible:border-emerald-500 focus-visible:bg-gray-50/50 focus-visible:ring-2 focus-visible:ring-emerald-200 focus-visible:shadow-[0_0_0_3px_var(--color-emerald-100)]",
                         // 🔹 Disabled 
                         "disabled:pointer-events-none disabled:cursor-default disabled:opacity-50",
-                        search && "pl-9",
-
                         textarea ? "min-h-[140px] p-4" : "h-10 px-3 py-2",
+                        search && "pl-9",
                         classNames?.input,
                     )}
                     onFocus={() => search && filteredItems.length > 0 && setShowDropdown(true)}

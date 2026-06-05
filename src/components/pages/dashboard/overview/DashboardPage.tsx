@@ -3,7 +3,6 @@
 import { PRAYER_WINDOWS } from "@/components/pages/dashboard/content"
 import { DashboardConsistencyChart } from "./DashboardConsistencyChart"
 import { DashboardDailyProgress } from "./DashboardDailyProgress"
-import { DashboardHeader } from "./DashboardHeader"
 import { DashboardInspirationCard } from "./DashboardInspirationCard"
 import { DashboardPrayerSchedule } from "./DashboardPrayerSchedule"
 import { DashboardRecentActivity } from "./DashboardRecentActivity"
@@ -18,11 +17,12 @@ import {
     DASHBOARD_RECENT_ACTIVITY,
     DASHBOARD_STATS,
 } from "./content"
+import DashboardPageHeader from "./DashboardPageHeader"
 
 export default function DashboardPage() {
     return (
         <div className="bg-white">
-            <DashboardHeader
+            <DashboardPageHeader
                 badge={DASHBOARD_EDITORIAL.badge}
                 title={DASHBOARD_EDITORIAL.title}
                 lead={DASHBOARD_EDITORIAL.lead}
