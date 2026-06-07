@@ -12,7 +12,7 @@ const ICON_BY_VARIANT: Partial<Record<NonNullable<BadgeProps["variant"]>, string
     amber: "bg-amber-50 text-amber-800",
     blue: "bg-blue-50 text-blue-700",
     pink: "bg-rose-50 text-rose-700",
-    red: "bg-red-50 text-red-700",
+    red: "bg-red-100 text-red-700",
 }
 
 type SectionHeaderProps = {
@@ -56,7 +56,7 @@ export default function SectionHeader({
 
     return (
         <section className={cn("border-b border-layout-separator", className)}>
-            <div className="container px-4 pb-8 pt-6 sm:px-6 sm:pt-8 md:pt-10">
+            <div className="container pb-8 pt-6 sm:pt-8 md:pt-10">
                 <div className={cn(
                     isCenter && "mx-auto max-w-2xl text-center",
                     classNames?.content

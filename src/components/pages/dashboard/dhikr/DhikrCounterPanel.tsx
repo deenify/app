@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { cn } from "@/lib/utils/clsx"
-import { RotateCcw, Plus, Sparkles, BookOpen } from "lucide-react"
+import { RotateCcw, Plus, Sparkles, SquircleDashed } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { DHIKR_TARGET_QUICK, type DhikrPreset } from "./content"
 
@@ -25,7 +25,7 @@ interface TargetTabsProps {
 
 
 
-function TargetTabs({ target,  onTargetChange }: TargetTabsProps) {
+function TargetTabs({ target, onTargetChange }: TargetTabsProps) {
     return (
         <div className="relative inline-flex items-center rounded-full bg-gray-100/90 p-0.5 ring-1 ring-gray-200/60">
             {DHIKR_TARGET_QUICK.map((n) => (
@@ -63,7 +63,7 @@ export default function DhikrCounterPanel({
     onReset,
     onTargetChange,
 }: DhikrCounterPanelProps) {
-    
+
     const progress = Math.min(100, (count / Math.max(target, 1)) * 100)
     const milestone = count >= target
     const arabicLines = preset.arabic.length > 28 ? 2 : 1
@@ -81,13 +81,7 @@ export default function DhikrCounterPanel({
                 <div className="flex flex-col items-center gap-4 sm:gap-5 max-h-[min(88vh,720px)]">
                     {/* Header */}
                     <div className="w-full max-w-xl space-y-2 text-center">
-                        <div className="flex flex-col items-center gap-2 xs:flex-row xs:justify-center xs:gap-3">
-                            <div className="flex items-center gap-1.5 text-emerald-700/80">
-                                <BookOpen className="h-3.5 w-3.5" />
-                                <span className="text-[10px] font-bold uppercase tracking-wider">
-                                    Active Adkar
-                                </span>
-                            </div>
+                        <div className="sm:pb-2">
                             <TargetTabs target={target} onTargetChange={onTargetChange} />
                         </div>
 

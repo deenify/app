@@ -26,8 +26,8 @@ interface FilterDropdownProps {
     value: string | number
     onChange: (value: string | number) => void
     placeholder?: string
-    triggerIcon?: LucideIcon
-    theme?: "emerald" | "amber" | "blue" | "purple" | "slate"
+    triggerIcon?: LucideIcon | React.ReactNode
+    theme?: "emerald" | "amber" | "blue" | "purple" | "slate" | "red"
     className?: string
     contentClassName?: string
     classNames?: {
@@ -35,6 +35,7 @@ interface FilterDropdownProps {
         triggerButton?: string;
         content?: string;
         label?: string;
+        labelText?: string;
     }
 }
 
@@ -58,6 +59,11 @@ const THEME_CLASS = {
         triggerIcon: "text-purple-600",
         selectedItem: "bg-purple-50 text-purple-900 hover:bg-purple-100 data-[highlighted]:bg-purple-100",
         selectedIcon: "text-purple-700",
+    },
+    red: {
+        triggerIcon: "text-rose-600",
+        selectedItem: "bg-rose-50 text-rose-900 hover:bg-rose-100 data-[highlighted]:bg-rose-100",
+        selectedIcon: "text-rose-700",
     },
     slate: {
         triggerIcon: "text-gray-600",
@@ -109,12 +115,12 @@ const FilterDropdown = ({
                 <DropdownMenuTrigger
                     asChild
                     className={cn(
-                        "block w-full min-w-0 max-w-full outline-none focus:outline-none focus-visible:outline-none select-none",
+                        "block w-full min-w-0 max-w-full outline-none focus:outline-none focus-visible:outline-none select-none cursor-pointer",
                         className,
                         classNames?.trigger
                     )}
                 >
-                    <span
+                    <div
                         className={cn(
                             "flex w-full min-w-0 items-center justify-between gap-2",
                             "rounded-md border border-gray-200 bg-white px-3",
@@ -126,22 +132,24 @@ const FilterDropdown = ({
                         )}
                         aria-expanded={open}
                     >
-                        <span className="flex min-w-0 flex-1 items-center gap-2 text-left">
+                        <p className="flex min-w-0 flex-1 items-center gap-2 text-left">
                             {TriggerIcon ? (
-                                <TriggerIcon
-                                    className={cn("h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4", t.triggerIcon)}
-                                    aria-hidden
-                                />
+                                typeof TriggerIcon === "function"
+                                    ? <TriggerIcon
+                                        className={cn("h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4", t.triggerIcon)}
+                                        aria-hidden
+                                    />
+                                    : TriggerIcon
                             ) : null}
-                            <span className="truncate text-left">{SelectedLabel}</span>
-                        </span>
+                            <span className={cn("truncate text-left", classNames?.labelText)}>{SelectedLabel}</span>
+                        </p>
                         <ChevronDown
                             className={cn(
                                 "h-4 w-4 shrink-0 text-gray-400 transition-transform duration-200",
                                 open ? "rotate-180" : ""
                             )}
                         />
-                    </span>
+                    </div>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent
                     align="end"

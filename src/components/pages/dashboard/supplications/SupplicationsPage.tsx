@@ -1,57 +1,58 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { Bookmark, BookHeart, Filter } from "lucide-react"
-import { Input } from "@/components/ui/input"
-import FilterDropdown from "@/components/shared/FilterDropdown"
-import SectionHeader from "@/components/shared/SectionHeader"
-import Tabs from "@/components/shared/Tabs"
-import { cn } from "@/lib/utils/clsx"
+import { X, Library, Sparkles, Database, CheckCircle2 } from "lucide-react"
 import {
-    SUPPLICATION_CATEGORIES,
     SUPPLICATIONS_MOCK,
     type SupplicationCategoryId,
+    type SupplicationTag,
 } from "./content"
 import SupplicationsCollectionsSection from "./SupplicationsCollectionsSection"
+import SupplicationsSidebar from "./SupplicationsSidebar"
+import SupplicationsTopBar from "./SupplicationsTopBar"
+import { Drawer, DrawerContent, DrawerThumb } from "@/components/ui/drawer"
+import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
+import SectionHeader from "@/components/shared/SectionHeader"
+import FiltersDrawer from "./FiltersDrawer"
 
-export type SupplicationsTabId = "library" | "saved"
-
-const tabs = [
-    { id: "library" as const, label: "Library", icon: BookHeart },
-    { id: "saved" as const, label: "Saved", icon: Bookmark },
-]
+export type SupplicationsViewMode = "grid" | "list"
+export type SupplicationsSortOption = "recommended" | "shortest" | "longest" | "alphabetical"
 
 export default function SupplicationsPage() {
     const [searchQuery, setSearchQuery] = useState("")
-    const [category, setCategory] = useState<SupplicationCategoryId>("all")
-    const [activeTab, setActiveTab] = useState<SupplicationsTabId>("library")
-    const [bookmarkedIds, setBookmarkedIds] = useState<Set<string>>(
-        () => new Set(["sayyid-istighfar", "distress-yunus"])
-    )
+    const [selectedCategories, setSelectedCategories] = useState<Set<SupplicationCategoryId>>(new Set())
+    const [selectedTags, setSelectedTags] = useState<Set<SupplicationTag>>(new Set())
+    const [sortBy, setSortBy] = useState<SupplicationsSortOption>("recommended")
+    const [viewMode, setViewMode] = useState<SupplicationsViewMode>("grid")
+    const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false)
+    const [bookmarkedIds, setBookmarkedIds] = useState<Set<string>>(new Set(
+        ["sayyid-istighfar", "distress-yunus"]
+    ))
 
-    const getCategoryCount = (categoryId: string) =>
-        categoryId === "all"
-            ? SUPPLICATIONS_MOCK.length
-            : SUPPLICATIONS_MOCK.filter((s) => s.category === categoryId).length
-
-    const filtered = useMemo(() => {
-        const q = searchQuery.trim().toLowerCase()
-        return SUPPLICATIONS_MOCK.filter((s) => {
-            const catOk = category === "all" || s.category === category
-            const searchOk =
-                !q ||
-                s.title.toLowerCase().includes(q) ||
-                s.excerpt.toLowerCase().includes(q) ||
-                s.translation.toLowerCase().includes(q) ||
-                s.arabic.includes(q)
-            return catOk && searchOk
+    const toggleCategory = (id: SupplicationCategoryId) => {
+        setSelectedCategories((prev) => {
+            const next = new Set(prev)
+            if (next.has(id)) next.delete(id)
+            else next.add(id)
+            return next
         })
-    }, [category, searchQuery])
+    }
 
-    const savedItems = useMemo(
-        () => filtered.filter((s) => bookmarkedIds.has(s.id)),
-        [bookmarkedIds, filtered]
-    )
+    const toggleTag = (tag: SupplicationTag) => {
+        setSelectedTags((prev) => {
+            const next = new Set(prev)
+            if (next.has(tag)) next.delete(tag)
+            else next.add(tag)
+            return next
+        })
+    }
+
+    const clearAllFilters = () => {
+        setSelectedCategories(new Set())
+        setSelectedTags(new Set())
+        setSearchQuery("")
+    }
 
     const toggleBookmark = (id: string) => {
         setBookmarkedIds((prev) => {
@@ -62,136 +63,173 @@ export default function SupplicationsPage() {
         })
     }
 
-    const supplicationCategoryOptions = useMemo(
-        () =>
-            SUPPLICATION_CATEGORIES.map((c) => ({
-                value: c.id,
-                label: c.label,
-                metaLabel: String(getCategoryCount(c.id)),
-            })),
-        [category]
-    )
+    const filteredAndSorted = useMemo(() => {
+        let result = [...SUPPLICATIONS_MOCK]
 
-    const itemCount = activeTab === "saved" ? savedItems.length : filtered.length
-    const searchPlaceholder =
-        activeTab === "saved"
-            ? "Search saved supplications..."
-            : "Search Arabic, titles, themes..."
+        if (searchQuery.trim()) {
+            const q = searchQuery.toLowerCase()
+            result = result.filter(
+                (s) =>
+                    s.title.toLowerCase().includes(q) ||
+                    s.arabic.includes(q) ||
+                    s.excerpt.toLowerCase().includes(q) ||
+                    s.tags.some((t) => t.toLowerCase().includes(q))
+            )
+        }
+
+        if (selectedCategories.size > 0) {
+            result = result.filter((s) => selectedCategories.has(s.category))
+        }
+
+        if (selectedTags.size > 0) {
+            result = result.filter((s) => s.tags.some((tag) => selectedTags.has(tag)))
+        }
+
+        result.sort((a, b) => {
+            switch (sortBy) {
+                case "shortest":
+                    return a.readSeconds - b.readSeconds
+                case "longest":
+                    return b.readSeconds - a.readSeconds
+                case "alphabetical":
+                    return a.title.localeCompare(b.title)
+                default:
+                    return 0
+            }
+        })
+
+        return result
+    }, [searchQuery, selectedCategories, selectedTags, sortBy])
+
+    const categoryCounts = useMemo(() => {
+        const counts: Record<string, number> = {}
+        SUPPLICATIONS_MOCK.forEach((s) => {
+            counts[s.category] = (counts[s.category] || 0) + 1
+        })
+        return counts
+    }, [])
 
     return (
-        <div className="bg-gray-50">
+        <div>
             <SectionHeader
-                layoutScope="center"
-                className="bg-white"
-                variant="pink"
-                icon={BookHeart}
-                label="Duʿāʾ & heartfelt speech"
-                heading="Supplications that shape interior weather"
-                descriptions={[
-                    "A curated corpus—not exhaustive—organized for retrieval when salah, travel, anxiety, or gratitude call for words finer than your own. Pair with dhikr lanes for rhythm.",
-                ]}
-            />
+                variant="red"
+                icon={Library}
+                label="Supplications"
+                heading="Supplications · Catalog"
+                descriptions={["A curated collection of prophetic cadences architected for retrieval whenever the heart calls for words finer than your own."]}
+                className="bg-gradient-to-br from-rose-50 via-white to-white"
+            >
+                <div className="flex flex-wrap items-center gap-4 pt-2">
+                    <Badge variant="outline" className="gap-1.5">
+                        <Database className="h-3.5 w-3.5 text-rose-600" />
+                        <span className="text-xs text-gray-900">{SUPPLICATIONS_MOCK.length} Collections</span>
+                    </Badge>
+                    <Badge variant="red" className="gap-1.5">
+                        <CheckCircle2 className="h-3.5 w-3.5 text-rose-600" />
+                        <span className="text-xs text-rose-700">Verified Traditions</span>
+                    </Badge>
+                    <Badge variant="secondary" className="gap-1.5">
+                        <Sparkles className="h-3.5 w-3.5 text-amber-500" />
+                        <span className="text-xs text-gray-900">Premium Cadence</span>
+                    </Badge>
+                </div>
+            </SectionHeader>
 
-            <main className="bg-[linear-gradient(180deg,#fff7fb_0%,#f0fdf9_100%)]">
-                <section className={cn("relative w-full border-t border-layout-separator bg-transparent")}>
-                    <div className="container py-6 sm:py-8">
-                        <div className="mx-auto min-w-0 max-w-6xl space-y-4 sm:space-y-5">
-                            <section className="flex w-full min-w-0 flex-col gap-3 sm:flex-row sm:items-center sm:gap-3">
-                                <Input
-                                    search
-                                    type="input"
-                                    placeholder={searchPlaceholder}
-                                    value={searchQuery}
-                                    onChange={(e) => setSearchQuery(e.target.value)}
-                                    className="w-full min-w-0 sm:min-w-0 sm:flex-1"
-                                    classNames={{
-                                        inputWrapper: "w-full min-w-0",
-                                        input: "h-10 w-full min-w-0 rounded-md border-gray-200 bg-white text-base placeholder:text-gray-400 focus:bg-white",
-                                    }}
-                                />
-                                <div className="flex w-full min-w-0 items-center gap-2 sm:max-w-[260px] sm:shrink-0 md:max-w-[280px]">
-                                    <div className="min-w-0 flex-1 sm:w-full">
-                                        <FilterDropdown
-                                            options={supplicationCategoryOptions}
-                                            value={category}
-                                            onChange={(v) => setCategory(v as SupplicationCategoryId)}
-                                            placeholder="Topic"
-                                            triggerIcon={Filter}
-                                            theme="purple"
-                                            className="w-full"
-                                            classNames={{
-                                                triggerButton: "w-full max-w-full",
-                                                content: "scrollbar-thin",
-                                            }}
-                                        />
-                                    </div>
-                                    <div className="inline-flex h-9 shrink-0 items-center justify-center rounded-md border border-rose-200 bg-rose-50/80 px-2.5 text-xs font-medium text-rose-900 shadow-sm sm:hidden">
-                                        <span className="tabular-nums font-semibold">{itemCount}</span>
-                                        <span className="ml-1 truncate">entries</span>
-                                    </div>
-                                </div>
-                                <div className="hidden h-9 shrink-0 items-center justify-center rounded-md border border-rose-200 bg-rose-50/80 px-3 text-xs font-medium text-rose-900 shadow-sm sm:inline-flex">
-                                    <span className="tabular-nums font-semibold">{itemCount}</span>
-                                    <span className="ml-1">entries</span>
-                                </div>
-                            </section>
-
-                            <section className="flex items-center justify-between pt-6">
-                                <Tabs
-                                    allTabs={tabs}
-                                    activeTab={activeTab}
-                                    onTabChange={(tabId) => setActiveTab(tabId as SupplicationsTabId)}
-                                    variant="pills"
-                                    showIndicator
-                                    align="left"
-                                    stretchTabs={false}
-                                    className="pt-0"
-                                    contentContainerClassName="hidden"
-                                    tabsContainerClassName="flex h-max justify-center border-none"
-                                    tabClassName="px-5 xs:px-7 sm:px-8 md:px-10 lg:px-12"
-                                    classNames={{
-                                        pillsIndicator: "border border-layout-separator bg-white",
-                                        tabsWrapper: "border border-layout-separator",
-                                        labelClassName: "text-xs xs:text-sm",
-                                    }}
-                                />
-
-                                <div className="hidden items-center gap-1.5 rounded-full border border-rose-200 bg-rose-50/90 px-3 py-1 text-[11px] font-medium text-rose-900 shadow-sm sm:inline-flex sm:text-xs">
-                                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-rose-600" />
-                                    {activeTab === "library" ? (
-                                        <>
-                                            <span className="tabular-nums">{filtered.length}</span>
-                                            <span>shown</span>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <span className="tabular-nums">{bookmarkedIds.size}</span>
-                                            <span>saved</span>
-                                        </>
-                                    )}
-                                </div>
-                            </section>
-                        </div>
+            <main
+                className="container py-10 lg:py-16 relative"
+                id="supplications-collections-section"
+            >
+                <div className="flex flex-col lg:flex-row 2xl:gap-10 gap-7 items-start">
+                    {/* Professional Sidebar */}
+                    <div className="hidden lg:block 2xl:w-64 w-56 shrink-0 sticky top-0">
+                        <SupplicationsSidebar
+                            selectedCategories={selectedCategories}
+                            onCategoryToggle={toggleCategory}
+                            selectedTags={selectedTags}
+                            onTagToggle={toggleTag}
+                            onClearAll={clearAllFilters}
+                            categoryCounts={categoryCounts}
+                        />
                     </div>
-                </section>
 
-                {activeTab === "library" && (
-                    <SupplicationsCollectionsSection
-                        key="library"
-                        items={filtered}
-                        bookmarkedIds={bookmarkedIds}
-                        onToggleBookmark={toggleBookmark}
-                    />
-                )}
-                {activeTab === "saved" && (
-                    <SupplicationsCollectionsSection
-                        key="saved"
-                        items={savedItems}
-                        bookmarkedIds={bookmarkedIds}
-                        onToggleBookmark={toggleBookmark}
-                    />
-                )}
+                    {/* Main Content Area */}
+                    <div className="flex-1 min-w-0 w-full">
+                        <SupplicationsTopBar
+                            searchQuery={searchQuery}
+                            onSearchChange={setSearchQuery}
+                            sortBy={sortBy}
+                            onSortChange={setSortBy}
+                            viewMode={viewMode}
+                            onViewModeChange={setViewMode}
+                            resultCount={filteredAndSorted.length}
+                            onMobileFilterToggle={() => setIsMobileFilterOpen(true)}
+                        />
+
+                        {/* Robust Active Filter Approach - Elevated above cards, Professional SaaS UI */}
+                        <div className="pt-4 pb-6 flex flex-wrap items-center gap-3 min-h-[68px]">
+                            <span className="text-xs font-black uppercase text-gray-600 mr-2">
+                                Filters:
+                            </span>
+                            {Array.from(selectedCategories).map((catId) => (
+                                <div
+                                    key={catId}
+                                    className="flex items-center gap-1 px-2.5 py-[3px] rounded-full border
+                                     border-gray-200 bg-white shadow-sm hover:border-rose-300 
+                                     transition-all group hover:bg-rose-50/30"
+                                >
+                                    <div className="h-1.5 w-1.5 rounded-full bg-rose-600 animate-pulse" />
+                                    <span className="text-[11px] font-bold text-gray-900 uppercase 
+                                    tracking-tighter">
+                                        {catId}
+                                    </span>
+                                    <button
+                                        onClick={() => toggleCategory(catId)}
+                                        className="ml-1 p-1 rounded-lg hover:bg-rose-100 text-gray-400
+                                         hover:text-rose-600 transition-colors"
+                                    >
+                                        <X size={12} />
+                                    </button>
+                                </div>
+                            ))}
+                            {Array.from(selectedTags).map((tag) => (
+                                <div
+                                    key={tag}
+                                    className="flex items-center gap-2 px-2.5 py-[3px] rounded-full border border-gray-200 bg-white shadow-sm hover:border-rose-200 transition-all group"
+                                >
+                                    <div className="h-1.5 w-1.5 rounded-full bg-rose-600 animate-pulse" />
+                                    <span className="text-[11px] font-bold text-gray-900 uppercase tracking-tighter">{tag}</span>
+                                    <button
+                                        onClick={() => toggleTag(tag)}
+                                        className="ml-1 p-1 rounded-lg hover:bg-rose-50 text-gray-400 hover:text-rose-600 transition-colors"
+                                    >
+                                        <X size={12} />
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
+
+                        <SupplicationsCollectionsSection
+                            items={filteredAndSorted}
+                            bookmarkedIds={bookmarkedIds}
+                            onToggleBookmark={toggleBookmark}
+                            viewMode={viewMode}
+                        />
+                    </div>
+                </div>
             </main>
+
+            {/* Premium Mobile Filter Drawer */}
+            <FiltersDrawer
+                isMobileFilterOpen={isMobileFilterOpen}
+                setIsMobileFilterOpen={setIsMobileFilterOpen}
+                clearAllFilters={clearAllFilters}
+                selectedCategories={selectedCategories}
+                selectedTags={selectedTags}
+                toggleCategory={toggleCategory}
+                toggleTag={toggleTag}
+                categoryCounts={categoryCounts}
+                filteredAndSorted={filteredAndSorted}
+            />
         </div>
     )
 }
