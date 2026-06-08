@@ -8,7 +8,7 @@ export type TabType = string
 
 export interface TabItem {
     id: TabType
-    label: string
+    label?: string
     icon?: React.ElementType
     content?: React.ReactNode
 }
@@ -31,6 +31,8 @@ interface TabsPropType {
         pillsIndicator?: string
         tabsWrapper?: string
         labelClassName?: string
+        icon?: string
+        iconActive?: string
     }
 }
 
@@ -199,16 +201,20 @@ const Tabs = ({
                                             size={15}
                                             className={cn(
                                                 "inline text-center text-sm z-3 relative",
-                                                isActive ? "text-gray-900" : "text-gray-600"
+                                                isActive ? "text-gray-900" : "text-gray-600",
+                                                classNames?.icon,
+                                                isActive ? classNames?.iconActive : ""
                                             )}
                                         />
                                     )}
-                                    <span className={cn(
-                                        'inline w-max text-center text-sm z-3 relative',
-                                        classNames?.labelClassName)}
-                                    >
-                                        {tab.label}
-                                    </span>
+                                    {tab.label && (
+                                        <span className={cn(
+                                            'inline w-max text-center text-sm z-3 relative',
+                                            classNames?.labelClassName)}
+                                        >
+                                            {tab.label}
+                                        </span>
+                                    )}
                                 </button>
                             )
                         }
