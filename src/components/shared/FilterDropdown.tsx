@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { createElement, isValidElement, useState } from "react"
 import type { LucideIcon } from "lucide-react"
 import {
     DropdownMenu,
@@ -92,6 +92,15 @@ const FilterDropdown = ({
 
     const t = THEME_CLASS[theme]
 
+    const renderTriggerIcon = () => {
+        if (!TriggerIcon) return null
+        if (isValidElement(TriggerIcon)) return TriggerIcon
+        return createElement(TriggerIcon as LucideIcon, {
+            className: cn("h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4", t.triggerIcon),
+            "aria-hidden": true,
+        })
+    }
+
     return (
         <div>
             {label && label?.length > 0 && (
@@ -133,14 +142,7 @@ const FilterDropdown = ({
                         aria-expanded={open}
                     >
                         <p className="flex min-w-0 flex-1 items-center gap-2 text-left">
-                            {TriggerIcon ? (
-                                typeof TriggerIcon === "function"
-                                    ? <TriggerIcon
-                                        className={cn("h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4", t.triggerIcon)}
-                                        aria-hidden
-                                    />
-                                    : TriggerIcon
-                            ) : null}
+                            {renderTriggerIcon()}
                             <span className={cn("truncate text-left", classNames?.labelText)}>{SelectedLabel}</span>
                         </p>
                         <ChevronDown

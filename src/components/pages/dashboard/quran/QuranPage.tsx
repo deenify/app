@@ -24,7 +24,6 @@ import { Badge } from "@/components/ui/badge"
 import SectionHeader from "@/components/shared/SectionHeader"
 import Tabs, { TabItem } from "@/components/shared/Tabs"
 import FilterDropdown, { type FilterOption } from "@/components/shared/FilterDropdown"
-import { motion } from "framer-motion"
 import type { OrderMode } from "./QuranOrderDropdown"
 
 type QuranTabId = "all" | "bookmarks" | "listen"
