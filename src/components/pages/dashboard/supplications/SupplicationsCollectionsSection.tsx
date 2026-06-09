@@ -29,8 +29,8 @@ export default function SupplicationsCollectionsSection({
         <section className="w-full">
             {items.length === 0 ? (
                 <div className="flex flex-col items-center justify-center rounded-[32px] border-2 border-dashed border-gray-100 bg-white p-20 text-center shadow-sm">
-                    <div className="flex h-20 w-20 items-center justify-center rounded-3xl bg-gray-50 mb-6 group transition-all hover:bg-rose-50">
-                        <SearchX className="h-10 w-10 text-gray-300 group-hover:text-rose-400 transition-colors" />
+                    <div className="flex h-20 w-20 items-center justify-center rounded-3xl bg-gray-50 mb-6 group transition-all hover:bg-emerald-50">
+                        <SearchX className="h-10 w-10 text-gray-300 group-hover:text-emerald-500 transition-colors" />
                     </div>
                     <h3 className="text-2xl font-black tracking-tight text-gray-900">No matches in our library</h3>
                     <p className="mt-3 text-sm font-medium text-gray-400 max-w-sm mx-auto leading-relaxed">

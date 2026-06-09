@@ -49,7 +49,7 @@ export default function SupplicationCard({
 
     if (viewMode === "list") {
         return (
-            <Card className="group relative border-gray-100 bg-white hover:border-rose-200 transition-all overflow-hidden shadow-sm hover:shadow-md rounded-2xl">
+            <Card className="group relative border-gray-100 bg-white hover:border-emerald-200 transition-all overflow-hidden shadow-sm hover:shadow-md rounded-2xl">
                 <CardContent className="p-2 sm:p-2.5 flex items-start gap-3 sm:gap-5">
                     {/* Visual Anchor */}
                     <a
@@ -68,10 +68,10 @@ export default function SupplicationCard({
                     {/* Content Area */}
                     <div className="flex-1 min-w-0 flex flex-col justify-center">
                         <div className="flex items-center gap-2 mb-0.5 sm:mb-1">
-                            <h3 className="text-xs sm:text-sm font-black text-gray-900 group-hover:text-rose-600 transition-colors tracking-tight uppercase truncate">
+                            <h3 className="text-xs sm:text-sm font-black text-gray-900 group-hover:text-emerald-600 transition-colors tracking-tight uppercase truncate">
                                 {item.title}
                             </h3>
-                            <Badge variant="outline" className="text-[7px] sm:text-[8px] py-0 px-1.5 h-3.5 sm:h-4 border-rose-100 text-rose-600 bg-rose-50/50 font-black uppercase tracking-widest hidden xs:flex">
+                            <Badge variant="outline" className="text-[7px] sm:text-[8px] py-0 px-1.5 h-3.5 sm:h-4 border-emerald-100 text-emerald-600 bg-emerald-50/50 font-black uppercase tracking-widest hidden xs:flex">
                                 {item.category.split("-")[0]}
                             </Badge>
                         </div>
@@ -90,18 +90,18 @@ export default function SupplicationCard({
                             <div className="flex items-center gap-1 sm:gap-2 shrink-0 pr-1">
                                 <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all translate-x-2 group-hover:translate-x-0">
                                     <Button
-                                        variant="ghost-red"
+                                        variant="ghost-emerald"
                                         size="icon"
-                                        className="h-8 w-8 rounded-lg p-0 hover:bg-rose-50"
+                                        className="h-8 w-8 rounded-lg p-0 hover:bg-emerald-50"
                                         onClick={handleCopy}
                                         title="Copy Arabic"
                                     >
                                         {copied ? <Check size={14} className="text-emerald-500" /> : <Copy size={14} />}
                                     </Button>
                                     <Button
-                                        variant="ghost-red"
+                                        variant="ghost-emerald"
                                         size="icon"
-                                        className="h-8 w-8 rounded-lg p-0 hover:bg-rose-50"
+                                        className="h-8 w-8 rounded-lg p-0 hover:bg-emerald-50"
                                         onClick={handleShare}
                                         title="Share"
                                     >
@@ -124,8 +124,8 @@ export default function SupplicationCard({
     }
 
     return (
-        <Card className="group relative border-gray-100 bg-white hover:border-rose-100 transition-all 
-        duration-500 overflow-hidden shadow-sm hover:shadow-[0_12px_40px_rgba(225,29,72,0.03)] 
+        <Card className="group relative border-gray-100 bg-white hover:border-emerald-100 transition-all 
+        duration-500 overflow-hidden shadow-sm hover:shadow-[0_12px_40px_rgba(16,185,129,0.06)] 
         rounded-md">
             <CardContent className="p-2">
                 {/* Visual Header - High Ratio (16:10) */}
@@ -164,7 +164,7 @@ export default function SupplicationCard({
                 <section className="px-1">
                     <div className="space-y-1 mb-4 pt-2">
                         <h3 className="text-base font-bold tracking-tighter text-gray-900
-                        group-hover:text-rose-600 transition-colors truncate">
+                        group-hover:text-emerald-600 transition-colors truncate">
                             {item.title}
                         </h3>
                         <p className="text-xs text-gray-500 line-clamp-2 font-medium opacity-80">
@@ -172,7 +172,7 @@ export default function SupplicationCard({
                         </p>
                     </div>
 
-                    <div className="py-3 border-y border-gray-50 group-hover:border-rose-50 transition-colors mb-4">
+                    <div className="py-3 border-y border-gray-50 group-hover:border-emerald-50 transition-colors mb-4">
                         <p className="font-arabic text-base text-right leading-none text-gray-800 opacity-60 group-hover:opacity-100 transition-opacity truncate" dir="rtl">
                             {item.arabic}
                         </p>
@@ -180,9 +180,9 @@ export default function SupplicationCard({
 
                     <div className="w-full">
                         <Button
-                            variant="default-red"
+                            variant="default"
                             size="sm"
-                            className="w-full rounded-m'"
+                            className="w-full rounded-md"
                         >
                             <span className="text-xs">Read More</span>
                             <Library size={14} strokeWidth={2.5} />
@@ -192,10 +192,10 @@ export default function SupplicationCard({
 
                 {/* Secondary Quick Tools - Hidden on mobile, visible on hover */}
                 <div className="absolute top-4 right-4 flex flex-col gap-1.5 opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-500">
-                    <Button variant="ghost-red" size="icon" className="h-8 w-8 rounded-full bg-white shadow-xl border border-gray-100" onClick={handleCopy}>
+                    <Button variant="ghost-emerald" size="icon" className="h-8 w-8 rounded-full bg-white shadow-xl border border-gray-100" onClick={handleCopy}>
                         {copied ? <Check size={14} className="text-emerald-500" /> : <Copy size={14} />}
                     </Button>
-                    <Button variant="ghost-red" size="icon" className="h-8 w-8 rounded-full bg-white shadow-xl border border-gray-100" onClick={handleShare}>
+                    <Button variant="ghost-emerald" size="icon" className="h-8 w-8 rounded-full bg-white shadow-xl border border-gray-100" onClick={handleShare}>
                         <Share2 size={14} />
                     </Button>
                 </div>

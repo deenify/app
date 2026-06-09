@@ -44,7 +44,7 @@ export default function SupplicationsTopBar({
                 placeholder="Search titles, themes, or keywords..."
                 value={searchQuery}
                 onChange={(e) => onSearchChange(e.target.value)}
-                className="h-14 bg-transparent border-0 border-b border-gray-100 focus:border-rose-500 rounded-none shadow-none text-base font-medium placeholder:text-gray-400 focus-visible:ring-0 transition-all duration-300"
+                className="h-14 bg-transparent border-0 border-b border-gray-100 focus:border-emerald-500 rounded-none shadow-none text-base font-medium placeholder:text-gray-400 focus-visible:ring-0 transition-all duration-300"
             />
 
             {/* Utility Toolbar - Refined UI */}
@@ -78,7 +78,7 @@ export default function SupplicationsTopBar({
                                 pillsIndicator: "bg-white border border-gray-200/60 rounded-lg",
                                 tabsWrapper: "border border-gray-200/60 rounded-lg",
                                 icon: "text-gray-600",
-                                iconActive: "text-rose-600",
+                                iconActive: "text-emerald-600",
                             }}
                         />
                     </div>
@@ -86,7 +86,7 @@ export default function SupplicationsTopBar({
 
                 <div className="h-6 w-px bg-gray-200 mx-3 hidden md:block" />
                 <div className="flex items-center justify-between gap-3 md:w-max w-full pt-3 md:pt-0">
-                    {/* Sophisticated Sort Menu - Consistent Red Variant */}
+                    {/* Sort menu */}
                     <div className="flex-1 xs:w-[220px] xs:flex-auto">
                         <FilterDropdown
                             id="sort"
@@ -98,20 +98,20 @@ export default function SupplicationsTopBar({
                             onChange={(value) => onSortChange(value as SortOption)}
                             placeholder="Sort by"
                             triggerIcon={
-                                <span className="text-rose-400 text-[9px] font-bold uppercase tracking-tighter">
+                                <span className="text-emerald-500 text-[9px] font-bold uppercase tracking-tighter">
                                     Sort
                                 </span>
                             }
-                            theme="red"
+                            theme="emerald"
                             className="w-full"
                             classNames={{ labelText: "text-[11px] font-black uppercase tracking-wider" }}
                         />
                     </div>
 
                     <Button
-                        variant="ghost-red"
+                        variant="ghost-emerald"
                         onClick={onMobileFilterToggle}
-                        className="h-10 w-10 lg:hidden rounded-xl p-0 bg-rose-50 text-rose-600 border border-rose-100 shadow-sm"
+                        className="h-10 w-10 lg:hidden rounded-xl p-0 bg-emerald-50 text-emerald-600 border border-emerald-100 shadow-sm"
                     >
                         <SlidersHorizontal className="h-4 w-4" />
                     </Button>

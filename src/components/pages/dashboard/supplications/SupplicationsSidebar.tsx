@@ -56,7 +56,7 @@ export default function SupplicationsSidebar({
                     {hasFilters && (
                         <button
                             onClick={(e) => { e.preventDefault(); onClearAll(); }}
-                            className="text-[10px] tracking-tight font-black uppercase text-rose-600 hover:text-rose-700 
+                            className="text-[10px] tracking-tight font-black uppercase text-emerald-600 hover:text-emerald-700 
                             flex items-center gap-1 transition-colors"
                         >
                             <History size={14} />
@@ -84,20 +84,20 @@ export default function SupplicationsSidebar({
                                 className={cn(
                                     "flex w-full items-center justify-between px-3 py-2.5 rounded-xl transition-all group",
                                     isSelected
-                                        ? "bg-rose-50/50 text-rose-700 font-bold"
+                                        ? "bg-emerald-50/50 text-emerald-700 font-bold"
                                         : "text-gray-500 hover:bg-gray-50 hover:text-gray-900"
                                 )}
                             >
                                 <div className="flex items-center gap-3">
                                     <div className={cn(
                                         "h-1.5 w-1.5 rounded-full transition-all duration-300",
-                                        isSelected ? "bg-rose-600 scale-125 shadow-[0_0_8px_rgba(225,29,72,0.4)]" : "bg-gray-200 group-hover:bg-gray-400"
+                                        isSelected ? "bg-emerald-600 scale-125 shadow-[0_0_8px_rgba(16,185,129,0.4)]" : "bg-gray-200 group-hover:bg-gray-400"
                                     )} />
                                     <span className="text-sm tracking-tight">{cat.label}</span>
                                 </div>
                                 <span className={cn(
                                     "text-[10px] font-bold tabular-nums px-1.5 py-0.5 rounded-md transition-colors",
-                                    isSelected ? "bg-rose-100 text-rose-600" : "bg-gray-100 text-gray-400"
+                                    isSelected ? "bg-emerald-100 text-emerald-600" : "bg-gray-100 text-gray-400"
                                 )}>
                                     {String(categoryCounts[cat.id] || 0).padStart(2, '0')}
                                 </span>
@@ -126,8 +126,8 @@ export default function SupplicationsSidebar({
                                     "rounded-full border px-3.5 pt-[5px] pb-[4px] text-[10px] font-bold uppercase",
                                     "tracking-tight transition-all duration-200 shadow-sm",
                                     isSelected
-                                        ? "bg-rose-600 border-rose-600 text-white shadow-rose-900/10"
-                                        : "bg-rose-50/30 border-rose-100 text-rose-400 hover:border-rose-300 hover:text-rose-600"
+                                        ? "bg-emerald-600 border-emerald-600 text-white shadow-emerald-900/10"
+                                        : "bg-emerald-50/30 border-emerald-100 text-emerald-500 hover:border-emerald-300 hover:text-emerald-600"
                                 )}
                             >
                                 {tag}
@@ -138,19 +138,19 @@ export default function SupplicationsSidebar({
             </div>
 
             {/* Verse Note - Refined Profile Style */}
-            <Card className="border-rose-100 bg-rose-50/30 shadow-sm overflow-hidden rounded-lg">
+            <Card className="border-emerald-100 bg-emerald-50/30 shadow-sm overflow-hidden rounded-lg">
                 <CardContent className="p-5">
                     <div className="flex items-start gap-3">
-                        <div className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded bg-rose-100 text-rose-600">
+                        <div className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded bg-emerald-100 text-emerald-600">
                             <Bookmark size={14} strokeWidth={2.5} />
                         </div>
                         <div className="space-y-2">
-                            <p className="text-xs leading-relaxed text-rose-900/80 font-medium italic text-left">
+                            <p className="text-xs leading-relaxed text-emerald-900/80 font-medium italic text-left">
                                 "I respond to the call of the caller when he calls upon Me."
                             </p>
                             <div className="flex items-center gap-2">
-                                <div className="h-px flex-1 bg-rose-200/50" />
-                                <span className="text-[9px] font-bold uppercase text-rose-500 tracking-widest">Al-Baqarah 2:186</span>
+                                <div className="h-px flex-1 bg-emerald-200/50" />
+                                <span className="text-[9px] font-bold uppercase text-emerald-600 tracking-widest">Al-Baqarah 2:186</span>
                             </div>
                         </div>
                     </div>

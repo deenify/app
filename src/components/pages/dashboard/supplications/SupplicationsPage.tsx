@@ -112,24 +112,23 @@ export default function SupplicationsPage() {
     return (
         <div>
             <SectionHeader
-                variant="red"
+                variant="emerald"
                 icon={Library}
                 label="Supplications"
                 heading="Supplications · Catalog"
                 descriptions={["A curated collection of prophetic cadences architected for retrieval whenever the heart calls for words finer than your own."]}
-                className="bg-gradient-to-br from-rose-50 via-white to-white"
             >
                 <div className="flex flex-wrap items-center gap-4 pt-2">
                     <Badge variant="outline" className="gap-1.5">
-                        <Database className="h-3.5 w-3.5 text-rose-600" />
+                        <Database className="h-3.5 w-3.5 text-emerald-600" />
                         <span className="text-xs text-gray-900">{SUPPLICATIONS_MOCK.length} Collections</span>
                     </Badge>
-                    <Badge variant="red" className="gap-1.5">
-                        <CheckCircle2 className="h-3.5 w-3.5 text-rose-600" />
-                        <span className="text-xs text-rose-700">Verified Traditions</span>
+                    <Badge variant="emerald" className="gap-1.5">
+                        <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
+                        <span className="text-xs text-emerald-700">Verified Traditions</span>
                     </Badge>
                     <Badge variant="secondary" className="gap-1.5">
-                        <Sparkles className="h-3.5 w-3.5 text-amber-500" />
+                        <Sparkles className="h-3.5 w-3.5 text-emerald-500" />
                         <span className="text-xs text-gray-900">Premium Cadence</span>
                     </Badge>
                 </div>
@@ -174,18 +173,18 @@ export default function SupplicationsPage() {
                                 <div
                                     key={catId}
                                     className="flex items-center gap-1 px-2.5 py-[3px] rounded-full border
-                                     border-gray-200 bg-white shadow-sm hover:border-rose-300 
-                                     transition-all group hover:bg-rose-50/30"
+                                     border-gray-200 bg-white shadow-sm hover:border-emerald-300 
+                                     transition-all group hover:bg-emerald-50/30"
                                 >
-                                    <div className="h-1.5 w-1.5 rounded-full bg-rose-600 animate-pulse" />
+                                    <div className="h-1.5 w-1.5 rounded-full bg-emerald-600 animate-pulse" />
                                     <span className="text-[11px] font-bold text-gray-900 uppercase 
                                     tracking-tighter">
                                         {catId}
                                     </span>
                                     <button
                                         onClick={() => toggleCategory(catId)}
-                                        className="ml-1 p-1 rounded-lg hover:bg-rose-100 text-gray-400
-                                         hover:text-rose-600 transition-colors"
+                                        className="ml-1 p-1 rounded-lg hover:bg-emerald-100 text-gray-400
+                                         hover:text-emerald-600 transition-colors"
                                     >
                                         <X size={12} />
                                     </button>
@@ -194,13 +193,13 @@ export default function SupplicationsPage() {
                             {Array.from(selectedTags).map((tag) => (
                                 <div
                                     key={tag}
-                                    className="flex items-center gap-2 px-2.5 py-[3px] rounded-full border border-gray-200 bg-white shadow-sm hover:border-rose-200 transition-all group"
+                                    className="flex items-center gap-2 px-2.5 py-[3px] rounded-full border border-gray-200 bg-white shadow-sm hover:border-emerald-200 transition-all group"
                                 >
-                                    <div className="h-1.5 w-1.5 rounded-full bg-rose-600 animate-pulse" />
+                                    <div className="h-1.5 w-1.5 rounded-full bg-emerald-600 animate-pulse" />
                                     <span className="text-[11px] font-bold text-gray-900 uppercase tracking-tighter">{tag}</span>
                                     <button
                                         onClick={() => toggleTag(tag)}
-                                        className="ml-1 p-1 rounded-lg hover:bg-rose-50 text-gray-400 hover:text-rose-600 transition-colors"
+                                        className="ml-1 p-1 rounded-lg hover:bg-emerald-50 text-gray-400 hover:text-emerald-600 transition-colors"
                                     >
                                         <X size={12} />
                                     </button>
