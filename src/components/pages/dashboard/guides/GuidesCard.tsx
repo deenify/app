@@ -68,7 +68,7 @@ const GuidesCard = ({ guide, isBookmarked, onToggleBookmark, viewMode = "grid" }
     return (
         <Card className="group overflow-hidden rounded-md border-gray-100 bg-white shadow-sm transition-all duration-500 hover:border-emerald-100 hover:shadow-[0_12px_40px_rgba(16,185,129,0.06)]">
             <CardContent className="p-2">
-                <div className="relative aspect-[16/10] w-full overflow-hidden rounded-md bg-gradient-to-br from-emerald-50 to-emerald-100/80">
+                <div className="relative aspect-[5/2] w-full shrink-0 overflow-hidden rounded-md bg-gradient-to-br from-emerald-50 to-emerald-100/80 xs:aspect-[16/10]">
                     <div className="absolute inset-0 flex items-center justify-center">
                         <BookOpen className="h-10 w-10 text-emerald-600/80 transition-transform duration-500 group-hover:scale-110" strokeWidth={1.5} />
                     </div>
