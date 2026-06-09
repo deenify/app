@@ -39,7 +39,7 @@ const FiltersDrawer = ({ isMobileFilterOpen,
                                     Filters
                                 </DrawerTitle>
                                 {hasActiveFilters && (
-                                    <Badge variant="red" className="rounded-full px-2 py-0 h-5 text-[10px] font-black">
+                                    <Badge variant="emerald" className="rounded-full px-2 py-0 h-5 text-[10px] font-black">
                                         {filterCount}
                                     </Badge>
                                 )}
@@ -48,7 +48,7 @@ const FiltersDrawer = ({ isMobileFilterOpen,
                                 variant="ghost"
                                 size="sm"
                                 onClick={(e) => { e.preventDefault(); clearAllFilters(); }}
-                                className="text-rose-600 font-bold uppercase tracking-widest text-[10px] hover:bg-rose-50"
+                                className="text-emerald-600 font-bold uppercase tracking-widest text-[10px] hover:bg-emerald-50"
                                 disabled={!hasActiveFilters}
                             >
                                 Reset All

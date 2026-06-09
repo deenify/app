@@ -1,49 +1,115 @@
 "use client"
 
+import Image from "next/image"
 import Link from "next/link"
-import { ArrowUpRight } from "lucide-react"
-import { cn } from "@/lib/utils/clsx"
+import { Clock, Sparkles } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import BookmarkButton from "@/components/shared/buttons/BookmarkButton"
 import type { MiracleTopic } from "./content"
 
 type MiracleCardProps = {
     topic: MiracleTopic
     categoryLabel: string
+    isBookmarked: boolean
+    onToggleBookmark: () => void
+    viewMode?: "grid" | "list"
 }
 
-export default function MiracleCard({ topic, categoryLabel }: MiracleCardProps) {
+export default function MiracleCard({
+    topic,
+    categoryLabel,
+    isBookmarked,
+    onToggleBookmark,
+    viewMode = "grid",
+}: MiracleCardProps) {
+    const detailHref = `/miracles/${topic.id}`
+
+    if (viewMode === "list") {
+        return (
+            <Card className="group overflow-hidden rounded-2xl border-gray-100 bg-white shadow-sm transition-all hover:border-emerald-200 hover:shadow-md">
+                <CardContent className="flex items-start gap-3 p-2 sm:gap-5 sm:p-2.5">
+                    <Link
+                        href={detailHref}
+                        className="relative block h-14 w-14 shrink-0 overflow-hidden rounded-xl border border-gray-50 bg-gray-50 sm:h-20 sm:w-20"
+                    >
+                        <Image src={topic.thumbnail} alt={topic.title} fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
+                    </Link>
+                    <div className="flex min-w-0 flex-1 flex-col justify-center">
+                        <div className="mb-1 flex items-center gap-2">
+                            <Link href={detailHref} className="min-w-0">
+                                <h3 className="truncate text-xs font-black uppercase tracking-tight text-gray-900 transition-colors group-hover:text-emerald-600 sm:text-sm">
+                                    {topic.title}
+                                </h3>
+                            </Link>
+                            <Badge variant="outline" className="hidden border-emerald-100 bg-emerald-50/50 text-[8px] font-black uppercase text-emerald-600 xs:flex">
+                                {categoryLabel}
+                            </Badge>
+                        </div>
+                        <p className="line-clamp-2 text-[10px] font-medium text-gray-400 sm:text-xs">{topic.excerpt}</p>
+                        <div className="mt-2 flex justify-end">
+                            <BookmarkButton
+                                isBookmarked={isBookmarked}
+                                buttonProps={{ onClick: onToggleBookmark }}
+                                iconSize={16}
+                            />
+                        </div>
+                    </div>
+                </CardContent>
+            </Card>
+        )
+    }
+
     return (
-        <Link
-            href={`/miracles/${topic.id}`}
-            className={cn(
-                "group flex h-full flex-col rounded-2xl border border-gray-100 bg-white p-5",
-                "transition-[border-color,box-shadow] duration-300",
-                "hover:border-gray-200 hover:shadow-[0_6px_24px_rgba(0,0,0,0.05)]"
-            )}
-        >
-            <div className="flex items-center justify-between gap-2">
-                <span className="text-[10px] font-medium uppercase tracking-[0.14em] text-gray-400">
-                    {categoryLabel}
-                </span>
-                {topic.quranRef && (
-                    <span className="truncate text-[10px] text-gray-400">{topic.quranRef}</span>
-                )}
-            </div>
+        <Card className="group overflow-hidden rounded-md border-gray-100 bg-white shadow-sm transition-all duration-500 hover:border-emerald-100 hover:shadow-[0_12px_40px_rgba(16,185,129,0.06)]">
+            <CardContent className="p-2">
+                <div className="relative aspect-[16/10] w-full overflow-hidden rounded-md">
+                    <Image src={topic.thumbnail} alt={topic.title} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                    <div className="absolute top-2.5 left-2.5">
+                        <div className="rounded-full bg-white p-px shadow-md">
+                            <BookmarkButton
+                                isBookmarked={isBookmarked}
+                                buttonProps={{
+                                    shouldScale: false,
+                                    onClick: onToggleBookmark,
+                                }}
+                                iconSize={14}
+                            />
+                        </div>
+                    </div>
+                    <div className="absolute bottom-2.5 left-2.5 flex gap-1.5">
+                        <div className="flex items-center gap-1 rounded-md border border-white/10 bg-gray-900/40 px-2 py-0.5 text-white backdrop-blur-md">
+                            <Clock size={8} />
+                            <span className="text-[8px] font-black uppercase tracking-widest">{topic.readMinutes}m</span>
+                        </div>
+                    </div>
+                </div>
 
-            <h3 className="mt-4 text-[15px] font-medium leading-snug tracking-tight text-gray-900 group-hover:text-emerald-800">
-                {topic.title}
-            </h3>
+                <section className="px-1 pt-2">
+                    <div className="mb-4 space-y-1">
+                        <h3 className="truncate text-base font-bold tracking-tighter text-gray-900 transition-colors group-hover:text-emerald-600">
+                            {topic.title}
+                        </h3>
+                        <p className="line-clamp-2 text-xs font-medium text-gray-500 opacity-80">{topic.excerpt}</p>
+                    </div>
 
-            <p className="mt-2.5 line-clamp-3 flex-1 text-sm leading-[1.65] text-gray-500">
-                {topic.excerpt}
-            </p>
+                    <div className="mb-4 flex items-center justify-between border-y border-gray-50 py-3">
+                        <Badge variant="outline" className="border-emerald-100 bg-emerald-50/50 text-[10px] font-black uppercase text-emerald-600">
+                            {categoryLabel}
+                        </Badge>
+                        {topic.quranRef && (
+                            <span className="truncate text-[10px] text-gray-400">{topic.quranRef}</span>
+                        )}
+                    </div>
 
-            <div className="mt-5 flex items-center justify-between text-xs text-gray-400">
-                <span>{topic.readMinutes} min</span>
-                <span className="inline-flex items-center gap-0.5 font-medium text-gray-500 group-hover:text-emerald-700">
-                    Open
-                    <ArrowUpRight className="h-3.5 w-3.5" />
-                </span>
-            </div>
-        </Link>
+                    <Button variant="default" size="sm" href={detailHref} className="w-full rounded-md">
+                        <span className="text-xs">Discover Sign</span>
+                        <Sparkles size={14} strokeWidth={2.5} />
+                    </Button>
+                </section>
+            </CardContent>
+        </Card>
     )
 }

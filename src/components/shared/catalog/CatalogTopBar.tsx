@@ -6,50 +6,49 @@ import { Button } from "@/components/ui/button"
 import Tabs from "@/components/shared/Tabs"
 import FilterDropdown from "@/components/shared/FilterDropdown"
 
-type SortOption = "recommended" | "shortest" | "longest" | "alphabetical"
-
-type ScopeOption = {
+export type CatalogSortOption = {
     value: string
     label: string
 }
 
-type SupplicationsTopBarProps = {
+type CatalogScopeFilter = {
+    value: string
+    onChange: (value: string) => void
+    options: CatalogSortOption[]
+    placeholder?: string
+}
+
+type CatalogTopBarProps = {
     searchQuery: string
     onSearchChange: (query: string) => void
     searchPlaceholder?: string
-    scopeFilter?: {
-        value: string
-        onChange: (value: string) => void
-        options: ScopeOption[]
-        placeholder?: string
-    }
-    sortBy: SortOption
-    onSortChange: (sort: SortOption) => void
+    scopeFilter?: CatalogScopeFilter
+    sortBy: string
+    onSortChange: (sort: string) => void
+    sortOptions: CatalogSortOption[]
     viewMode: "grid" | "list"
     onViewModeChange: (mode: "grid" | "list") => void
     resultCount: number
-    onMobileFilterToggle: () => void
+    matchedLabel?: string
+    onMobileFilterToggle?: () => void
+    showMobileFilter?: boolean
 }
 
-const sortLabels: Record<SortOption, string> = {
-    recommended: "Recommended",
-    shortest: "Shortest Duration",
-    longest: "Longest Duration",
-    alphabetical: "Alphabetical (A-Z)",
-}
-
-export default function SupplicationsTopBar({
+export default function CatalogTopBar({
     searchQuery,
     onSearchChange,
-    searchPlaceholder = "Search titles, themes, or keywords...",
+    searchPlaceholder = "Search...",
     scopeFilter,
     sortBy,
     onSortChange,
+    sortOptions,
     viewMode,
     onViewModeChange,
     resultCount,
+    matchedLabel = "Matched",
     onMobileFilterToggle,
-}: SupplicationsTopBarProps) {
+    showMobileFilter = true,
+}: CatalogTopBarProps) {
     return (
         <div className="flex flex-col gap-6">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -79,7 +78,7 @@ export default function SupplicationsTopBar({
                 <div className="flex flex-1 items-center justify-between gap-4">
                     <div className="flex items-center gap-2 rounded-full border border-gray-200 bg-gray-50 px-3 py-1">
                         <span className="text-[11px] font-black tabular-nums text-gray-900">{resultCount}</span>
-                        <span className="text-[11px] font-bold uppercase tracking-widest text-gray-400">Matched</span>
+                        <span className="text-[11px] font-bold uppercase tracking-widest text-gray-400">{matchedLabel}</span>
                     </div>
 
                     <Tabs
@@ -107,13 +106,9 @@ export default function SupplicationsTopBar({
                 <div className="flex w-full items-center justify-between gap-3 pt-3 md:w-max md:pt-0">
                     <div className="flex-1 xs:w-[220px] xs:flex-auto">
                         <FilterDropdown
-                            id="sort"
-                            options={Object.keys(sortLabels).map((option) => ({
-                                value: option,
-                                label: sortLabels[option as SortOption],
-                            }))}
+                            options={sortOptions}
                             value={sortBy}
-                            onChange={(value) => onSortChange(value as SortOption)}
+                            onChange={(value) => onSortChange(String(value))}
                             placeholder="Sort by"
                             triggerIcon={
                                 <span className="text-[9px] font-bold uppercase tracking-tighter text-emerald-500">
@@ -126,13 +121,15 @@ export default function SupplicationsTopBar({
                         />
                     </div>
 
-                    <Button
-                        variant="ghost-emerald"
-                        onClick={onMobileFilterToggle}
-                        className="h-10 w-10 rounded-xl border border-emerald-100 bg-emerald-50 p-0 text-emerald-600 shadow-sm lg:hidden"
-                    >
-                        <SlidersHorizontal className="h-4 w-4" />
-                    </Button>
+                    {showMobileFilter && onMobileFilterToggle && (
+                        <Button
+                            variant="ghost-emerald"
+                            onClick={onMobileFilterToggle}
+                            className="h-10 w-10 rounded-xl border border-emerald-100 bg-emerald-50 p-0 text-emerald-600 shadow-sm lg:hidden"
+                        >
+                            <SlidersHorizontal className="h-4 w-4" />
+                        </Button>
+                    )}
                 </div>
             </div>
         </div>

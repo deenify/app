@@ -70,6 +70,65 @@ const IMAGES = {
     hero: "/images/pages/prayer/presense-hero-background.avif",
 }
 
+export type SupplicationDetailSection = {
+    number: number
+    title: string
+    content: string
+    keyPoints: string[]
+}
+
+export function getCategoryLabel(categoryId: SupplicationCategoryId): string {
+    return SUPPLICATION_CATEGORIES.find((c) => c.id === categoryId)?.label ?? categoryId
+}
+
+export function getSupplicationById(id: string): SupplicationItem | undefined {
+    return SUPPLICATIONS_MOCK.find((item) => item.id === id)
+}
+
+export function getRelatedSupplications(id: string, limit = 3): SupplicationItem[] {
+    const current = getSupplicationById(id)
+    if (!current) return SUPPLICATIONS_MOCK.slice(0, limit)
+    return SUPPLICATIONS_MOCK.filter(
+        (item) => item.id !== id && (item.category === current.category || item.tags.some((t) => current.tags.includes(t)))
+    ).slice(0, limit)
+}
+
+export function getSupplicationDetailSections(item: SupplicationItem): SupplicationDetailSection[] {
+    const whenPoints = item.tags.includes("Morning")
+        ? ["After Fajr before leaving home", "When starting your daily routine"]
+        : item.tags.includes("Night")
+            ? ["After Isha before sleep", "During quiet reflection at night"]
+            : ["When the need arises with presence of heart", "After salah for deeper connection"]
+
+    return [
+        {
+            number: 1,
+            title: "Meaning & context",
+            content: `${item.excerpt} This supplication is preserved in authentic Islamic tradition and is recited with sincerity, knowing that Allah hears every whisper of the heart.`,
+            keyPoints: [
+                item.reference ? `Source: ${item.reference}` : "Prophetic or Quranic tradition",
+                `Category: ${getCategoryLabel(item.category)}`,
+            ],
+        },
+        {
+            number: 2,
+            title: "When to recite",
+            content: "Scholars encourage consistency over quantity. Repeat with understanding, pause between phrases, and let the words settle in the heart before rushing to the next task.",
+            keyPoints: whenPoints,
+        },
+        {
+            number: 3,
+            title: "Spiritual benefit",
+            content: "Regular remembrance softens the heart, anchors gratitude, and turns ordinary moments into acts of worship when recited with presence (khushūʿ).",
+            keyPoints: [
+                "Strengthens reliance upon Allah (tawakkul)",
+                "Brings calm during anxiety and difficulty",
+                "Connects daily life to prophetic cadence",
+            ],
+        },
+    ]
+}
+
 export const SUPPLICATIONS_MOCK: SupplicationItem[] = [
     {
         id: "sayyid-istighfar",
