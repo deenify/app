@@ -1,44 +1,109 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { BookOpen, Bookmark, Filter, GraduationCap } from "lucide-react"
-import { Input } from "@/components/ui/input"
-import FilterDropdown from "@/components/shared/FilterDropdown"
+import { CheckCircle2, Database, GraduationCap, Sparkles } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
 import SectionHeader from "@/components/shared/SectionHeader"
-import Tabs from "@/components/shared/Tabs"
-import { cn } from "@/lib/utils/clsx"
-import { GuideCategories, GuidesMock } from "./content"
+import CatalogTopBar from "@/components/shared/catalog/CatalogTopBar"
+import CatalogFilterChips from "@/components/shared/catalog/CatalogFilterChips"
+import CatalogCategorySidebar from "@/components/shared/catalog/CatalogCategorySidebar"
+import CatalogFiltersDrawer from "@/components/shared/catalog/CatalogFiltersDrawer"
+import { GuideCategories, GuidesMock, type GuideCategoryId, type GuideDifficulty } from "./content"
 import GuidesCollectionsTabSection from "./GuidesCollectionsTabSection"
 import GuidesBookmarksTabSection from "./GuidesBookmarksTabSection"
 
 export type GuideExploreTabId = "collections" | "bookmarks"
+export type GuidesSortOption = "recommended" | "shortest" | "longest" | "alphabetical"
 
-const guideTabs = [
-    { id: "collections" as const, label: "All Guides", icon: BookOpen },
-    { id: "bookmarks" as const, label: "Bookmarks", icon: Bookmark },
+const scopeOptions = [
+    { value: "collections", label: "All Guides" },
+    { value: "bookmarks", label: "Bookmarks" },
+]
+
+const DIFFICULTIES: { id: GuideDifficulty; label: string }[] = [
+    { id: "beginner", label: "Beginner" },
+    { id: "intermediate", label: "Intermediate" },
+    { id: "advanced", label: "Advanced" },
+]
+
+const sortOptions = [
+    { value: "recommended", label: "Recommended" },
+    { value: "shortest", label: "Shortest Read" },
+    { value: "longest", label: "Longest Read" },
+    { value: "alphabetical", label: "Alphabetical (A-Z)" },
 ]
 
 export default function GuidesPage() {
     const [searchQuery, setSearchQuery] = useState("")
-    const [category, setCategory] = useState<string>("all")
+    const [selectedCategories, setSelectedCategories] = useState<Set<GuideCategoryId>>(new Set())
+    const [selectedDifficulties, setSelectedDifficulties] = useState<Set<GuideDifficulty>>(new Set())
+    const [sortBy, setSortBy] = useState<GuidesSortOption>("recommended")
+    const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
     const [activeTab, setActiveTab] = useState<GuideExploreTabId>("collections")
+    const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false)
     const [bookmarkedGuideIds, setBookmarkedGuideIds] = useState<Set<string>>(
         () => new Set(["wudu", "salah", "ramadan"])
     )
 
-    const getCategoryCount = (categoryId: string) =>
-        categoryId === "all"
-            ? GuidesMock.length + 20
-            : GuidesMock.filter((g) => g.category === categoryId).length
+    const categoryCounts = useMemo(() => {
+        const counts: Record<string, number> = {}
+        GuideCategories.filter((c) => c.id !== "all").forEach((c) => {
+            counts[c.id] = GuidesMock.filter((g) => g.category === c.id).length
+        })
+        return counts
+    }, [])
+
+    const sidebarCategories = useMemo(
+        () => GuideCategories.filter((c) => c.id !== "all").map((c) => ({ id: c.id, label: c.label })),
+        []
+    )
+
+    const toggleCategory = (id: string) => {
+        setSelectedCategories((prev) => {
+            const next = new Set(prev)
+            const catId = id as GuideCategoryId
+            if (next.has(catId)) next.delete(catId)
+            else next.add(catId)
+            return next
+        })
+    }
+
+    const toggleDifficulty = (id: string) => {
+        setSelectedDifficulties((prev) => {
+            const next = new Set(prev)
+            const diff = id as GuideDifficulty
+            if (next.has(diff)) next.delete(diff)
+            else next.add(diff)
+            return next
+        })
+    }
+
+    const clearAllFilters = () => {
+        setSelectedCategories(new Set())
+        setSelectedDifficulties(new Set())
+        setSearchQuery("")
+    }
 
     const filteredGuides = useMemo(() => {
         const q = searchQuery.trim().toLowerCase()
-        return GuidesMock.filter((g) => {
-            const matchCategory = category === "all" || g.category === category
+        let result = GuidesMock.filter((g) => {
+            const matchCategory = selectedCategories.size === 0 || selectedCategories.has(g.category)
+            const matchDifficulty = selectedDifficulties.size === 0 || selectedDifficulties.has(g.difficulty)
             const matchSearch = !q || g.title.toLowerCase().includes(q) || g.excerpt.toLowerCase().includes(q)
-            return matchCategory && matchSearch
+            return matchCategory && matchDifficulty && matchSearch
         })
-    }, [category, searchQuery])
+
+        result.sort((a, b) => {
+            switch (sortBy) {
+                case "shortest": return a.readTimeMinutes - b.readTimeMinutes
+                case "longest": return b.readTimeMinutes - a.readTimeMinutes
+                case "alphabetical": return a.title.localeCompare(b.title)
+                default: return 0
+            }
+        })
+
+        return result
+    }, [searchQuery, selectedCategories, selectedDifficulties, sortBy])
 
     const bookmarkGuides = useMemo(
         () => filteredGuides.filter((g) => bookmarkedGuideIds.has(g.id)),
@@ -54,137 +119,138 @@ export default function GuidesPage() {
         })
     }
 
-    const catalogCountLabel = `${GuidesMock.length - 1}+`
+    const filterChips = useMemo(() => {
+        const categoryChips = Array.from(selectedCategories).map((id) => ({
+            id: `cat-${id}`,
+            label: GuideCategories.find((c) => c.id === id)?.label ?? id,
+        }))
+        const difficultyChips = Array.from(selectedDifficulties).map((id) => ({
+            id: `diff-${id}`,
+            label: id,
+        }))
+        return [...categoryChips, ...difficultyChips]
+    }, [selectedCategories, selectedDifficulties])
 
-    const guideCategoryOptions = useMemo(
-        () =>
-            GuideCategories.map((c) => ({
-                value: c.id,
-                label: c.label,
-                metaLabel: String(getCategoryCount(c.id)),
-            })),
-        [category]
-    )
+    const removeChip = (chipId: string) => {
+        if (chipId.startsWith("cat-")) toggleCategory(chipId.replace("cat-", ""))
+        if (chipId.startsWith("diff-")) toggleDifficulty(chipId.replace("diff-", ""))
+    }
 
-    const searchPlaceholder =
-        activeTab === "bookmarks" ? "Search your saved guides..." : "Search guides..."
+    const displayedGuides = activeTab === "collections" ? filteredGuides : bookmarkGuides
 
     return (
-        <div className="bg-gray-50">
+        <div>
             <SectionHeader
-                layoutScope="center"
-                className="bg-white"
                 variant="emerald"
                 icon={GraduationCap}
                 label="Guides & learning"
-                heading="Study, practice, and grow"
+                heading="Guides · Catalog"
                 descriptions={[
                     "Curated learning paths for everyday worship, character, and foundational knowledge — structured for clarity and consistency.",
                 ]}
-            />
+            >
+                <div className="flex flex-wrap items-center gap-4 pt-2">
+                    <Badge variant="outline" className="gap-1.5">
+                        <Database className="h-3.5 w-3.5 text-emerald-600" />
+                        <span className="text-xs text-gray-900">{GuidesMock.length}+ Guides</span>
+                    </Badge>
+                    <Badge variant="emerald" className="gap-1.5">
+                        <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
+                        <span className="text-xs text-emerald-700">Scholar-reviewed</span>
+                    </Badge>
+                    <Badge variant="secondary" className="gap-1.5">
+                        <Sparkles className="h-3.5 w-3.5 text-emerald-500" />
+                        <span className="text-xs text-gray-900">Structured paths</span>
+                    </Badge>
+                </div>
+            </SectionHeader>
 
-            <main className="bg-[linear-gradient(180deg,#f8faf8_0%,#f0f7f4_100%)]">
-                <section className={cn("relative w-full border-t border-layout-separator bg-transparent")}>
-                    <div className="container py-6 sm:py-8">
-                        <div className="mx-auto min-w-0 max-w-6xl space-y-4 sm:space-y-5">
-                            <section className="flex w-full min-w-0 flex-col gap-3 sm:flex-row sm:items-center sm:gap-3">
-                                <Input
-                                    search
-                                    type="input"
-                                    placeholder={searchPlaceholder}
-                                    value={searchQuery}
-                                    onChange={(e) => setSearchQuery(e.target.value)}
-                                    className="w-full min-w-0 sm:min-w-0 sm:flex-1"
-                                    classNames={{
-                                        inputWrapper: "w-full min-w-0",
-                                        input: "h-10 w-full min-w-0 rounded-md border-gray-200 bg-white text-base placeholder:text-gray-400 focus:bg-white",
-                                    }}
-                                />
-                                <div className="flex w-full min-w-0 items-center gap-2 sm:max-w-[260px] sm:shrink-0 md:max-w-[280px]">
-                                    <div className="min-w-0 flex-1 sm:w-full">
-                                        <FilterDropdown
-                                            options={guideCategoryOptions}
-                                            value={category}
-                                            onChange={(v) => setCategory(String(v))}
-                                            placeholder="All topics"
-                                            triggerIcon={Filter}
-                                            theme="purple"
-                                            className="w-full"
-                                            classNames={{
-                                                triggerButton: "w-full max-w-full",
-                                                content: "scrollbar-thin",
-                                            }}
-                                        />
-                                    </div>
-                                    <div className="inline-flex h-9 shrink-0 items-center justify-center rounded-md border border-emerald-200 bg-emerald-50/80 px-2.5 text-xs font-medium text-emerald-800 shadow-sm sm:hidden">
-                                        <span className="tabular-nums font-semibold">{filteredGuides.length}</span>
-                                        <span className="ml-1 truncate">guides</span>
-                                    </div>
-                                </div>
-                                <div className="hidden h-9 shrink-0 items-center justify-center rounded-md border border-emerald-200 bg-emerald-50/80 px-3 text-xs font-medium text-emerald-800 shadow-sm sm:inline-flex">
-                                    <span className="tabular-nums font-semibold">{filteredGuides.length}</span>
-                                    <span className="ml-1">guides</span>
-                                </div>
-                            </section>
-
-                            <section className="flex items-center justify-between pt-6">
-                                <Tabs
-                                    allTabs={guideTabs}
-                                    activeTab={activeTab}
-                                    onTabChange={(tabId) => setActiveTab(tabId as GuideExploreTabId)}
-                                    variant="pills"
-                                    showIndicator
-                                    align="left"
-                                    stretchTabs={false}
-                                    className="pt-0"
-                                    contentContainerClassName="hidden"
-                                    tabsContainerClassName="flex h-max justify-center border-none"
-                                    tabClassName="px-5 xs:px-7 sm:px-8 md:px-10 lg:px-12"
-                                    classNames={{
-                                        pillsIndicator: "border border-layout-separator bg-white",
-                                        tabsWrapper: "border border-layout-separator",
-                                        labelClassName: "text-xs xs:text-sm",
-                                    }}
-                                />
-
-                                <div className="hidden items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50/80 px-3 py-1 
-                            text-[11px] font-medium text-emerald-800 shadow-[0_1px_2px_rgba(16,185,129,0.18)] sm:inline-flex sm:text-xs">
-                                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                                    {activeTab === "collections" ? (
-                                        <>
-                                            <span className="tabular-nums">{catalogCountLabel}</span>
-                                            <span>Guides</span>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <span className="tabular-nums">{bookmarkedGuideIds.size}</span>
-                                            <span>saved</span>
-                                        </>
-                                    )}
-                                </div>
-                            </section>
-                        </div>
+            <main className="container relative py-10 lg:py-16" id="guides-collections-section">
+                <div className="flex flex-col items-start gap-7 lg:flex-row 2xl:gap-10">
+                    <div className="sticky top-0 hidden w-56 shrink-0 lg:block 2xl:w-64">
+                        <CatalogCategorySidebar
+                            title="Topics"
+                            categories={sidebarCategories}
+                            selectedIds={selectedCategories as Set<string>}
+                            onToggle={toggleCategory}
+                            onClearAll={clearAllFilters}
+                            categoryCounts={categoryCounts}
+                            chips={{
+                                title: "Difficulty",
+                                items: DIFFICULTIES,
+                                selectedIds: selectedDifficulties as Set<string>,
+                                onToggle: toggleDifficulty,
+                            }}
+                            note={{
+                                quote: "Whoever travels a path in search of knowledge, Allah will make easy for him a path to Paradise.",
+                                reference: "Sahih Muslim",
+                            }}
+                        />
                     </div>
-                </section>
 
-                {activeTab === "collections" && (
-                    <GuidesCollectionsTabSection
-                        key="collections"
-                        guides={filteredGuides}
-                        bookmarkedIds={bookmarkedGuideIds}
-                        onToggleBookmark={toggleBookmark}
-                    />
-                )}
-                {activeTab === "bookmarks" && (
-                    <GuidesBookmarksTabSection
-                        key="bookmarks"
-                        guides={bookmarkGuides}
-                        bookmarkedIds={bookmarkedGuideIds}
-                        onToggleBookmark={toggleBookmark}
-                    />
-                )}
+                    <div className="w-full min-w-0 flex-1">
+                        <CatalogTopBar
+                            searchQuery={searchQuery}
+                            onSearchChange={setSearchQuery}
+                            searchPlaceholder={activeTab === "bookmarks" ? "Search your saved guides..." : "Search guides, topics, or keywords..."}
+                            scopeFilter={{
+                                value: activeTab,
+                                onChange: (v) => setActiveTab(v as GuideExploreTabId),
+                                options: scopeOptions,
+                                placeholder: "View",
+                            }}
+                            sortBy={sortBy}
+                            onSortChange={(v) => setSortBy(v as GuidesSortOption)}
+                            sortOptions={sortOptions}
+                            viewMode={viewMode}
+                            onViewModeChange={setViewMode}
+                            resultCount={displayedGuides.length}
+                            onMobileFilterToggle={() => setIsMobileFilterOpen(true)}
+                        />
+
+                        <CatalogFilterChips chips={filterChips} onRemove={removeChip} />
+
+                        {activeTab === "collections" ? (
+                            <GuidesCollectionsTabSection
+                                guides={filteredGuides}
+                                bookmarkedIds={bookmarkedGuideIds}
+                                onToggleBookmark={toggleBookmark}
+                                viewMode={viewMode}
+                                scrollContainerId="guides-collections-section"
+                            />
+                        ) : (
+                            <GuidesBookmarksTabSection
+                                guides={bookmarkGuides}
+                                bookmarkedIds={bookmarkedGuideIds}
+                                onToggleBookmark={toggleBookmark}
+                                viewMode={viewMode}
+                                scrollContainerId="guides-collections-section"
+                            />
+                        )}
+                    </div>
+                </div>
             </main>
+
+            <CatalogFiltersDrawer
+                isOpen={isMobileFilterOpen}
+                onOpenChange={setIsMobileFilterOpen}
+                onClearAll={clearAllFilters}
+                categories={sidebarCategories}
+                selectedIds={selectedCategories as Set<string>}
+                onToggle={toggleCategory}
+                categoryCounts={categoryCounts}
+                sidebarTitle="Topics"
+                chips={{
+                    title: "Difficulty",
+                    items: DIFFICULTIES,
+                    selectedIds: selectedDifficulties as Set<string>,
+                    onToggle: toggleDifficulty,
+                }}
+                note={{
+                    quote: "Whoever travels a path in search of knowledge, Allah will make easy for him a path to Paradise.",
+                    reference: "Sahih Muslim",
+                }}
+            />
         </div>
     )
 }
-

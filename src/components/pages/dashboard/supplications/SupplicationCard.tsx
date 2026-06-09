@@ -1,10 +1,9 @@
 "use client"
 
 import { Badge } from "@/components/ui/badge"
-import { cn } from "@/lib/utils/clsx"
 import BookmarkButton from "@/components/shared/buttons/BookmarkButton"
 import type { SupplicationItem } from "./content"
-import { Copy, Share2, Clock, Check, Sparkles, BookOpen, Library } from "lucide-react"
+import { Copy, Share2, Clock, Check, Heart } from "lucide-react"
 import { useState } from "react"
 import { notify } from "@/lib/notification/notify"
 import Image from "next/image"
@@ -28,6 +27,7 @@ export default function SupplicationCard({
     const [copied, setCopied] = useState(false)
 
     const handleCopy = (e: React.MouseEvent) => {
+        e.preventDefault()
         e.stopPropagation()
         navigator.clipboard.writeText(item.arabic)
         setCopied(true)
@@ -36,6 +36,7 @@ export default function SupplicationCard({
     }
 
     const handleShare = (e: React.MouseEvent) => {
+        e.preventDefault()
         e.stopPropagation()
         if (navigator.share) {
             navigator.share({
@@ -52,46 +53,45 @@ export default function SupplicationCard({
 
     if (viewMode === "list") {
         return (
-            <Card className="group relative border-gray-100 bg-white hover:border-emerald-200 transition-all overflow-hidden shadow-sm hover:shadow-md rounded-2xl">
-                <CardContent className="p-2 sm:p-2.5 flex items-start gap-3 sm:gap-5">
-                    {/* Visual Anchor */}
+            <Card className="group overflow-hidden rounded-2xl border-gray-100 bg-white shadow-sm transition-all hover:border-emerald-200 hover:shadow-md">
+                <CardContent className="flex items-start gap-3 p-2 sm:gap-5 sm:p-2.5">
                     <Link
                         href={detailHref}
-                        className="relative h-14 w-14 sm:h-20 sm:w-20 shrink-0 overflow-hidden 
-                        rounded-xl border border-gray-50 bg-gray-50">
+                        className="relative block h-14 w-14 shrink-0 overflow-hidden rounded-xl border border-gray-50 bg-gray-50 sm:h-20 sm:w-20"
+                    >
                         <Image
                             src={item.image}
                             alt={item.title}
                             fill
                             className="object-cover transition-transform duration-500 group-hover:scale-110"
                         />
-                        <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors" />
+                        <div className="absolute inset-0 bg-black/5 transition-colors group-hover:bg-transparent" />
                     </Link>
 
-                    {/* Content Area */}
-                    <div className="flex-1 min-w-0 flex flex-col justify-center">
-                        <div className="flex items-center gap-2 mb-0.5 sm:mb-1">
-                            <h3 className="text-xs sm:text-sm font-black text-gray-900 group-hover:text-emerald-600 transition-colors tracking-tight uppercase truncate">
-                                {item.title}
-                            </h3>
-                            <Badge variant="outline" className="text-[7px] sm:text-[8px] py-0 px-1.5 h-3.5 sm:h-4 border-emerald-100 text-emerald-600 bg-emerald-50/50 font-black uppercase tracking-widest hidden xs:flex">
+                    <div className="flex min-w-0 flex-1 flex-col justify-center">
+                        <div className="mb-0.5 flex items-center gap-2 sm:mb-1">
+                            <Link href={detailHref} className="min-w-0">
+                                <h3 className="truncate text-xs font-black uppercase tracking-tight text-gray-900 transition-colors group-hover:text-emerald-600 sm:text-sm">
+                                    {item.title}
+                                </h3>
+                            </Link>
+                            <Badge variant="outline" className="hidden h-3.5 border-emerald-100 bg-emerald-50/50 px-1.5 py-0 text-[7px] font-black uppercase tracking-widest text-emerald-600 xs:flex sm:h-4 sm:text-[8px]">
                                 {item.category.split("-")[0]}
                             </Badge>
                         </div>
 
                         <div className="mb-1">
-                            <p className="font-arabic text-base sm:text-lg text-right leading-none text-gray-800 truncate" dir="rtl">
+                            <p className="truncate text-right font-arabic text-base leading-none text-gray-800 sm:text-lg" dir="rtl">
                                 {item.arabic}
                             </p>
                         </div>
 
-                        <section className="flex items-center justify-between">
-                            <p className="text-[10px] sm:text-xs text-gray-400 line-clamp-1 font-medium italic opacity-80">
+                        <section className="flex items-center justify-between gap-2">
+                            <p className="line-clamp-1 text-[10px] font-medium italic text-gray-400 opacity-80 sm:text-xs">
                                 {item.excerpt}
                             </p>
-                            {/* Side Actions Column */}
-                            <div className="flex items-center gap-1 sm:gap-2 shrink-0 pr-1">
-                                <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all translate-x-2 group-hover:translate-x-0">
+                            <div className="flex shrink-0 items-center gap-1 sm:gap-2">
+                                <div className="flex items-center gap-1 opacity-0 transition-all group-hover:opacity-100">
                                     <Button
                                         variant="ghost-emerald"
                                         size="icon"
@@ -113,9 +113,7 @@ export default function SupplicationCard({
                                 </div>
                                 <BookmarkButton
                                     isBookmarked={isBookmarked}
-                                    buttonProps={{
-                                        onClick: (e) => { e.stopPropagation(); onToggleBookmark(); },
-                                    }}
+                                    buttonProps={{ onClick: onToggleBookmark }}
                                     iconSize={16}
                                 />
                             </div>
@@ -127,37 +125,32 @@ export default function SupplicationCard({
     }
 
     return (
-        <Card className="group relative border-gray-100 bg-white hover:border-emerald-100 transition-all 
-        duration-500 overflow-hidden shadow-sm hover:shadow-[0_12px_40px_rgba(16,185,129,0.06)] 
-        rounded-md">
+        <Card className="group relative overflow-hidden rounded-md border-gray-100 bg-white shadow-sm transition-all duration-500 hover:border-emerald-100 hover:shadow-[0_12px_40px_rgba(16,185,129,0.06)]">
             <CardContent className="p-2">
-                {/* Visual Header - High Ratio (16:10) */}
-                <div className="relative block aspect-[16/10] w-full overflow-hidden rounded-md">
+                <div className="relative aspect-[16/10] w-full overflow-hidden rounded-md">
                     <Image
                         src={item.image}
                         alt={item.title}
                         fill
                         className="object-cover transition-transform duration-700 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
-                    {/* Floating Bookmark Chip - On Image */}
                     <div className="absolute top-2.5 left-2.5">
-                        <div className="rounded-full bg-white shadow-md p-px">
+                        <div className="rounded-full bg-white p-px shadow-md">
                             <BookmarkButton
                                 isBookmarked={isBookmarked}
                                 buttonProps={{
                                     shouldScale: false,
-                                    onClick: (e) => { e.stopPropagation(); onToggleBookmark(); },
+                                    onClick: onToggleBookmark,
                                 }}
                                 iconSize={14}
                             />
                         </div>
                     </div>
 
-                    {/* Reading Meta */}
                     <div className="absolute bottom-2.5 left-2.5 flex gap-1.5">
-                        <div className="flex items-center gap-1 px-2 py-0.5 bg-gray-900/40 backdrop-blur-md rounded-md text-white border border-white/10">
+                        <div className="flex items-center gap-1 rounded-md border border-white/10 bg-gray-900/40 px-2 py-0.5 text-white backdrop-blur-md">
                             <Clock size={8} />
                             <span className="text-[8px] font-black uppercase tracking-widest">{item.readSeconds}s</span>
                         </div>
@@ -165,41 +158,32 @@ export default function SupplicationCard({
                 </div>
 
                 <section className="px-1">
-                    <div className="space-y-1 mb-4 pt-2">
-                        <h3 className="text-base font-bold tracking-tighter text-gray-900
-                            group-hover:text-emerald-600 transition-colors truncate">
+                    <div className="mb-4 space-y-1 pt-2">
+                        <h3 className="truncate text-base font-bold tracking-tighter text-gray-900 transition-colors group-hover:text-emerald-600">
                             {item.title}
                         </h3>
-                        <p className="text-xs text-gray-500 line-clamp-2 font-medium opacity-80">
+                        <p className="line-clamp-2 text-xs font-medium text-gray-500 opacity-80">
                             {item.excerpt}
                         </p>
                     </div>
 
-                    <div className="py-3 border-y border-gray-50 group-hover:border-emerald-50 transition-colors mb-4">
-                        <p className="font-arabic text-base text-right leading-none text-gray-800 opacity-60 group-hover:opacity-100 transition-opacity truncate" dir="rtl">
+                    <div className="mb-4 border-y border-gray-50 py-3">
+                        <p className="truncate text-right font-arabic text-base leading-none text-gray-800 opacity-60" dir="rtl">
                             {item.arabic}
                         </p>
                     </div>
 
-                    <div className="w-full">
-                        <Button
-                            variant="default"
-                            size="sm"
-                            href={detailHref}
-                            className="w-full rounded-md"
-                        >
-                            <span className="text-xs">Read More</span>
-                            <Library size={14} strokeWidth={2.5} />
-                        </Button>
-                    </div>
+                    <Button variant="default" size="sm" href={detailHref} className="w-full rounded-md">
+                        <span className="text-xs">Read Dua</span>
+                        <Heart size={14} strokeWidth={2.5} />
+                    </Button>
                 </section>
 
-                {/* Secondary Quick Tools - Hidden on mobile, visible on hover */}
-                <div className="absolute top-4 right-4 flex flex-col gap-1.5 opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-500">
-                    <Button variant="ghost-emerald" size="icon" className="h-8 w-8 rounded-full bg-white shadow-xl border border-gray-100" onClick={handleCopy}>
+                <div className="absolute top-4 right-4 flex flex-col gap-1.5 opacity-0 transition-all duration-500 group-hover:opacity-100">
+                    <Button variant="ghost-emerald" size="icon" className="h-8 w-8 rounded-full border border-gray-100 bg-white shadow-xl" onClick={handleCopy}>
                         {copied ? <Check size={14} className="text-emerald-500" /> : <Copy size={14} />}
                     </Button>
-                    <Button variant="ghost-emerald" size="icon" className="h-8 w-8 rounded-full bg-white shadow-xl border border-gray-100" onClick={handleShare}>
+                    <Button variant="ghost-emerald" size="icon" className="h-8 w-8 rounded-full border border-gray-100 bg-white shadow-xl" onClick={handleShare}>
                         <Share2 size={14} />
                     </Button>
                 </div>

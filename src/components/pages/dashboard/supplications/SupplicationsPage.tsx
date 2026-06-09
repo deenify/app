@@ -18,6 +18,12 @@ import FiltersDrawer from "./FiltersDrawer"
 
 export type SupplicationsViewMode = "grid" | "list"
 export type SupplicationsSortOption = "recommended" | "shortest" | "longest" | "alphabetical"
+export type SupplicationsExploreTabId = "collections" | "bookmarks"
+
+const scopeOptions = [
+    { value: "collections", label: "All Supplications" },
+    { value: "bookmarks", label: "Bookmarks" },
+]
 
 export default function SupplicationsPage() {
     const [searchQuery, setSearchQuery] = useState("")
@@ -25,6 +31,7 @@ export default function SupplicationsPage() {
     const [selectedTags, setSelectedTags] = useState<Set<SupplicationTag>>(new Set())
     const [sortBy, setSortBy] = useState<SupplicationsSortOption>("recommended")
     const [viewMode, setViewMode] = useState<SupplicationsViewMode>("grid")
+    const [activeTab, setActiveTab] = useState<SupplicationsExploreTabId>("collections")
     const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false)
     const [bookmarkedIds, setBookmarkedIds] = useState<Set<string>>(new Set(
         ["sayyid-istighfar", "distress-yunus"]
@@ -101,6 +108,13 @@ export default function SupplicationsPage() {
         return result
     }, [searchQuery, selectedCategories, selectedTags, sortBy])
 
+    const bookmarkItems = useMemo(
+        () => filteredAndSorted.filter((s) => bookmarkedIds.has(s.id)),
+        [bookmarkedIds, filteredAndSorted]
+    )
+
+    const displayedItems = activeTab === "collections" ? filteredAndSorted : bookmarkItems
+
     const categoryCounts = useMemo(() => {
         const counts: Record<string, number> = {}
         SUPPLICATIONS_MOCK.forEach((s) => {
@@ -156,11 +170,18 @@ export default function SupplicationsPage() {
                         <SupplicationsTopBar
                             searchQuery={searchQuery}
                             onSearchChange={setSearchQuery}
+                            searchPlaceholder={activeTab === "bookmarks" ? "Search your saved duas..." : "Search titles, themes, or keywords..."}
+                            scopeFilter={{
+                                value: activeTab,
+                                onChange: (v) => setActiveTab(v as SupplicationsExploreTabId),
+                                options: scopeOptions,
+                                placeholder: "View",
+                            }}
                             sortBy={sortBy}
                             onSortChange={setSortBy}
                             viewMode={viewMode}
                             onViewModeChange={setViewMode}
-                            resultCount={filteredAndSorted.length}
+                            resultCount={displayedItems.length}
                             onMobileFilterToggle={() => setIsMobileFilterOpen(true)}
                         />
 
@@ -208,10 +229,11 @@ export default function SupplicationsPage() {
                         </div>
 
                         <SupplicationsCollectionsSection
-                            items={filteredAndSorted}
+                            items={displayedItems}
                             bookmarkedIds={bookmarkedIds}
                             onToggleBookmark={toggleBookmark}
                             viewMode={viewMode}
+                            isBookmarksView={activeTab === "bookmarks"}
                         />
                     </div>
                 </div>
