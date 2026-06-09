@@ -36,24 +36,29 @@ const GuidesCard = ({ guide, isBookmarked, onToggleBookmark, viewMode = "grid" }
                         <BookOpen className="h-6 w-6 text-emerald-600 transition-transform duration-500 group-hover:scale-110 sm:h-8 sm:w-8" strokeWidth={1.6} />
                     </Link>
                     <div className="flex min-w-0 flex-1 flex-col justify-center">
-                        <div className="mb-1 flex items-center gap-2">
-                            <Link href={detailHref} className="min-w-0">
+                        <div className="mb-0.5 flex items-center gap-2 sm:mb-1">
+                            <Link href={detailHref} className="min-w-0 flex-1">
                                 <h3 className="truncate text-xs font-black uppercase tracking-tight text-gray-900 transition-colors group-hover:text-emerald-600 sm:text-sm">
                                     {guide.title}
                                 </h3>
                             </Link>
-                            <Badge variant="outline" className={cn("hidden h-4 px-1.5 text-[8px] font-black uppercase xs:flex", difficultyBadge(guide.difficulty))}>
+                            <Badge variant="outline" className={cn("hidden h-4 shrink-0 px-1.5 text-[8px] font-black uppercase xs:flex", difficultyBadge(guide.difficulty))}>
                                 {guide.difficulty}
                             </Badge>
                         </div>
-                        <div className="flex items-center justify-between gap-2">
-                            <p className="line-clamp-1 text-[10px] font-medium italic text-gray-400 sm:text-xs">{guide.excerpt}</p>
-                            <BookmarkButton
-                                isBookmarked={isBookmarked}
-                                buttonProps={{ onClick: onToggleBookmark }}
-                                iconSize={16}
-                            />
-                        </div>
+                        <p className="mb-1 text-[10px] tabular-nums text-gray-400 sm:text-xs">{guide.readTimeMinutes} min read</p>
+                        <section className="flex items-start justify-between gap-2 sm:items-center">
+                            <p className="min-w-0 flex-1 line-clamp-2 text-[10px] font-medium italic text-gray-400 opacity-80 sm:line-clamp-1 sm:text-xs">
+                                {guide.excerpt}
+                            </p>
+                            <div className="shrink-0">
+                                <BookmarkButton
+                                    isBookmarked={isBookmarked}
+                                    buttonProps={{ onClick: onToggleBookmark }}
+                                    iconSize={16}
+                                />
+                            </div>
+                        </section>
                     </div>
                 </CardContent>
             </Card>
