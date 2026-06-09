@@ -8,6 +8,7 @@ import { Copy, Share2, Clock, Check, Sparkles, BookOpen, Library } from "lucide-
 import { useState } from "react"
 import { notify } from "@/lib/notification/notify"
 import Image from "next/image"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 
@@ -47,13 +48,15 @@ export default function SupplicationCard({
         }
     }
 
+    const detailHref = `/supplications/${item.id}`
+
     if (viewMode === "list") {
         return (
             <Card className="group relative border-gray-100 bg-white hover:border-emerald-200 transition-all overflow-hidden shadow-sm hover:shadow-md rounded-2xl">
                 <CardContent className="p-2 sm:p-2.5 flex items-start gap-3 sm:gap-5">
                     {/* Visual Anchor */}
-                    <a
-                        href={`/supplications/${item.id}`}
+                    <Link
+                        href={detailHref}
                         className="relative h-14 w-14 sm:h-20 sm:w-20 shrink-0 overflow-hidden 
                         rounded-xl border border-gray-50 bg-gray-50">
                         <Image
@@ -63,7 +66,7 @@ export default function SupplicationCard({
                             className="object-cover transition-transform duration-500 group-hover:scale-110"
                         />
                         <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors" />
-                    </a>
+                    </Link>
 
                     {/* Content Area */}
                     <div className="flex-1 min-w-0 flex flex-col justify-center">
@@ -129,7 +132,7 @@ export default function SupplicationCard({
         rounded-md">
             <CardContent className="p-2">
                 {/* Visual Header - High Ratio (16:10) */}
-                <section className="relative aspect-[16/10] w-full overflow-hidden rounded-md">
+                <div className="relative block aspect-[16/10] w-full overflow-hidden rounded-md">
                     <Image
                         src={item.image}
                         alt={item.title}
@@ -159,12 +162,12 @@ export default function SupplicationCard({
                             <span className="text-[8px] font-black uppercase tracking-widest">{item.readSeconds}s</span>
                         </div>
                     </div>
-                </section>
+                </div>
 
                 <section className="px-1">
                     <div className="space-y-1 mb-4 pt-2">
                         <h3 className="text-base font-bold tracking-tighter text-gray-900
-                        group-hover:text-emerald-600 transition-colors truncate">
+                            group-hover:text-emerald-600 transition-colors truncate">
                             {item.title}
                         </h3>
                         <p className="text-xs text-gray-500 line-clamp-2 font-medium opacity-80">
@@ -182,6 +185,7 @@ export default function SupplicationCard({
                         <Button
                             variant="default"
                             size="sm"
+                            href={detailHref}
                             className="w-full rounded-md"
                         >
                             <span className="text-xs">Read More</span>
