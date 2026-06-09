@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { BookHeart, Clock } from "lucide-react"
+import { Clock, History, Library, ToolCase } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -33,7 +33,7 @@ export default function StoryCard({
                         href={detailHref}
                         className="relative flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-purple-100 bg-purple-50 sm:h-20 sm:w-20"
                     >
-                        <BookHeart className="h-6 w-6 text-purple-600 transition-transform duration-500 group-hover:scale-110 sm:h-8 sm:w-8" strokeWidth={1.6} />
+                        <Library className="h-6 w-6 text-purple-600 transition-transform duration-500 group-hover:scale-110 sm:h-8 sm:w-8" strokeWidth={1.6} />
                     </Link>
                     <div className="flex min-w-0 flex-1 flex-col justify-center">
                         <div className="mb-0.5 flex items-center gap-2 sm:mb-1">
@@ -68,9 +68,9 @@ export default function StoryCard({
     return (
         <Card className="group flex h-full flex-col overflow-hidden rounded-md border-gray-100 bg-white shadow-sm transition-all duration-500 hover:border-purple-100 hover:shadow-[0_12px_40px_rgba(147,51,234,0.08)]">
             <CardContent className="flex h-full flex-col p-2">
-                <div className="relative aspect-[16/10] w-full shrink-0 overflow-hidden rounded-md bg-gradient-to-br from-purple-50 to-purple-100/80">
+                <div className="relative aspect-[5/2] w-full shrink-0 overflow-hidden rounded-md bg-gradient-to-br from-purple-50 to-purple-100/80 xs:aspect-[16/10]">
                     <div className="absolute inset-0 flex items-center justify-center">
-                        <BookHeart className="h-10 w-10 text-purple-600/80 transition-transform duration-500 group-hover:scale-110" strokeWidth={1.5} />
+                        <Library className="h-10 w-10 text-purple-600/80 transition-transform duration-500 group-hover:scale-110" strokeWidth={1.5} />
                     </div>
                     <div className="absolute top-2.5 left-2.5">
                         <div className="rounded-full bg-white p-px shadow-md">
@@ -111,8 +111,8 @@ export default function StoryCard({
                     </div>
 
                     <Button variant="default-purple" size="sm" href={detailHref} className="mt-auto w-full rounded-md">
+                        <History size={14} strokeWidth={2.5} />
                         <span className="text-xs">Read Story</span>
-                        <BookHeart size={14} strokeWidth={2.5} />
                     </Button>
                 </section>
             </CardContent>

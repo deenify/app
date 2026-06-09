@@ -6,7 +6,7 @@ import SupplicationCard from "./SupplicationCard"
 import type { SupplicationItem } from "./content"
 import { Pagination } from "@/components/ui/pagination"
 import { usePagination } from "@/hooks/usePagination"
-import { useBreakpoint } from "@/hooks/useBreakpoint"
+import { useCatalogPageSize } from "@/hooks/useCatalogPageSize"
 
 type Props = {
     items: SupplicationItem[]
@@ -23,8 +23,8 @@ export default function SupplicationsCollectionsSection({
     viewMode = "grid",
     isBookmarksView = false,
 }: Props) {
-    const is2XlUp = useBreakpoint("2xl", "up")
-    const { page, setPage, totalPages, paginatedItems } = usePagination(items, is2XlUp ? 12 : 9)
+    const pageSize = useCatalogPageSize()
+    const { page, setPage, totalPages, paginatedItems } = usePagination(items, pageSize)
 
     return (
         <section className="w-full">

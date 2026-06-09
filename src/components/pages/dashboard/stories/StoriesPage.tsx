@@ -1,7 +1,7 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { BookHeart, CheckCircle2, Database, Sparkles } from "lucide-react"
+import { CheckCircle2, Database, Heart, Sparkles } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import SectionHeader from "@/components/shared/SectionHeader"
 import CatalogTopBar from "@/components/shared/catalog/CatalogTopBar"
@@ -12,7 +12,7 @@ import CatalogEmptyState from "@/components/shared/catalog/CatalogEmptyState"
 import Stagger from "@/components/shared/motion/Stagger"
 import { Pagination } from "@/components/ui/pagination"
 import { usePagination } from "@/hooks/usePagination"
-import { useBreakpoint } from "@/hooks/useBreakpoint"
+import { useCatalogPageSize } from "@/hooks/useCatalogPageSize"
 import StoryCard from "./StoryCard"
 import { STORIES_CATEGORIES, STORIES_EDITORIAL, STORIES_TOPICS } from "./content"
 
@@ -118,14 +118,14 @@ export default function StoriesPage() {
         label: categoryLabel(id),
     }))
 
-    const is2XlUp = useBreakpoint("2xl", "up")
-    const { page, setPage, totalPages, paginatedItems } = usePagination(displayed, is2XlUp ? 12 : 9)
+    const pageSize = useCatalogPageSize()
+    const { page, setPage, totalPages, paginatedItems } = usePagination(displayed, pageSize)
 
     return (
         <div>
             <SectionHeader
                 variant="purple"
-                icon={BookHeart}
+                icon={Heart}
                 label={STORIES_EDITORIAL.badge}
                 heading="Prophetic Stories · Catalog"
                 descriptions={[STORIES_EDITORIAL.lead]}

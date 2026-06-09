@@ -13,10 +13,10 @@ export function usePagination<T>(items: T[], pageSize: number = 10) {
     // Calculate total pages, ensuring at least 1 page exists
     const totalPages = Math.max(1, Math.ceil(items.length / pageSize))
 
-    // Reset to first page when items change (e.g. filters applied)
+    // Reset to first page when items or page size change (e.g. filters, resize)
     useEffect(() => {
         setPage(1)
-    }, [items.length])
+    }, [items.length, pageSize])
 
     // Ensure current page is within valid range if items are removed
     useEffect(() => {

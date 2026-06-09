@@ -127,7 +127,7 @@ export default function SupplicationCard({
     return (
         <Card className="group relative overflow-hidden rounded-md border-gray-100 bg-white shadow-sm transition-all duration-500 hover:border-emerald-100 hover:shadow-[0_12px_40px_rgba(16,185,129,0.06)]">
             <CardContent className="p-2">
-                <div className="relative aspect-[16/10] w-full overflow-hidden rounded-md">
+                <div className="relative aspect-[5/2] w-full shrink-0 overflow-hidden rounded-md xs:aspect-[16/10]">
                     <Image
                         src={item.image}
                         alt={item.title}

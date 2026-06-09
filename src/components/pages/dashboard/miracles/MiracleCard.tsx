@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { Clock, Sparkles } from "lucide-react"
+import { Clock, Notebook, Sparkles } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -71,7 +71,7 @@ export default function MiracleCard({
     return (
         <Card className="group overflow-hidden rounded-md border-gray-100 bg-white shadow-sm transition-all duration-500 hover:border-emerald-100 hover:shadow-[0_12px_40px_rgba(16,185,129,0.06)]">
             <CardContent className="p-2">
-                <div className="relative aspect-[16/10] w-full overflow-hidden rounded-md">
+                <div className="relative aspect-[5/2] w-full shrink-0 overflow-hidden rounded-md xs:aspect-[16/10]">
                     <Image src={topic.thumbnail} alt={topic.title} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                     <div className="absolute top-2.5 left-2.5">
@@ -112,8 +112,8 @@ export default function MiracleCard({
                     </div>
 
                     <Button variant="default" size="sm" href={detailHref} className="w-full rounded-md">
+                        <Notebook size={14} strokeWidth={2.5} />
                         <span className="text-xs">Discover Sign</span>
-                        <Sparkles size={14} strokeWidth={2.5} />
                     </Button>
                 </section>
             </CardContent>
