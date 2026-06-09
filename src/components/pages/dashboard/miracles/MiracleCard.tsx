@@ -37,24 +37,31 @@ export default function MiracleCard({
                         <Image src={topic.thumbnail} alt={topic.title} fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
                     </Link>
                     <div className="flex min-w-0 flex-1 flex-col justify-center">
-                        <div className="mb-1 flex items-center gap-2">
-                            <Link href={detailHref} className="min-w-0">
+                        <div className="mb-0.5 flex items-center gap-2 sm:mb-1">
+                            <Link href={detailHref} className="min-w-0 flex-1">
                                 <h3 className="truncate text-xs font-black uppercase tracking-tight text-gray-900 transition-colors group-hover:text-emerald-600 sm:text-sm">
                                     {topic.title}
                                 </h3>
                             </Link>
-                            <Badge variant="outline" className="hidden border-emerald-100 bg-emerald-50/50 text-[8px] font-black uppercase text-emerald-600 xs:flex">
+                            <Badge variant="outline" className="hidden shrink-0 border-emerald-100 bg-emerald-50/50 text-[8px] font-black uppercase text-emerald-600 xs:flex">
                                 {categoryLabel}
                             </Badge>
                         </div>
-                        <p className="line-clamp-2 text-[10px] font-medium text-gray-400 sm:text-xs">{topic.excerpt}</p>
-                        <div className="mt-2 flex justify-end">
-                            <BookmarkButton
-                                isBookmarked={isBookmarked}
-                                buttonProps={{ onClick: onToggleBookmark }}
-                                iconSize={16}
-                            />
-                        </div>
+                        {topic.quranRef && (
+                            <p className="mb-1 truncate text-[10px] font-medium text-gray-400 sm:text-xs">{topic.quranRef}</p>
+                        )}
+                        <section className="flex items-start justify-between gap-2 sm:items-center">
+                            <p className="min-w-0 flex-1 line-clamp-2 text-[10px] font-medium text-gray-400 sm:line-clamp-1 sm:text-xs">
+                                {topic.excerpt}
+                            </p>
+                            <div className="shrink-0">
+                                <BookmarkButton
+                                    isBookmarked={isBookmarked}
+                                    buttonProps={{ onClick: onToggleBookmark }}
+                                    iconSize={16}
+                                />
+                            </div>
+                        </section>
                     </div>
                 </CardContent>
             </Card>

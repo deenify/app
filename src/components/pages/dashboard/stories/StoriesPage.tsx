@@ -1,25 +1,87 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { Filter, Heart } from "lucide-react"
-import { Input } from "@/components/ui/input"
-import FilterDropdown from "@/components/shared/FilterDropdown"
+import { BookHeart, CheckCircle2, Database, Sparkles } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
 import SectionHeader from "@/components/shared/SectionHeader"
-import { useIncrementalReveal } from "@/hooks/useIncrementalReveal"
+import CatalogTopBar from "@/components/shared/catalog/CatalogTopBar"
+import CatalogFilterChips from "@/components/shared/catalog/CatalogFilterChips"
+import CatalogCategorySidebar from "@/components/shared/catalog/CatalogCategorySidebar"
+import CatalogFiltersDrawer from "@/components/shared/catalog/CatalogFiltersDrawer"
+import CatalogEmptyState from "@/components/shared/catalog/CatalogEmptyState"
 import Stagger from "@/components/shared/motion/Stagger"
-import { STORIES_CATEGORIES, STORIES_EDITORIAL, STORIES_TOPICS } from "./content"
+import { Pagination } from "@/components/ui/pagination"
+import { usePagination } from "@/hooks/usePagination"
+import { useBreakpoint } from "@/hooks/useBreakpoint"
 import StoryCard from "./StoryCard"
-import StoryDetailModal from "./StoryDetailModal"
+import { STORIES_CATEGORIES, STORIES_EDITORIAL, STORIES_TOPICS } from "./content"
+
+type StoriesExploreTabId = "collections" | "bookmarks"
+type StoriesSortOption = "recommended" | "shortest" | "longest" | "alphabetical"
+
+const scopeOptions = [
+    { value: "collections", label: "All Stories" },
+    { value: "bookmarks", label: "Bookmarks" },
+]
+
+const sortOptions = [
+    { value: "recommended", label: "Recommended" },
+    { value: "shortest", label: "Shortest Read" },
+    { value: "longest", label: "Longest Read" },
+    { value: "alphabetical", label: "Alphabetical (A-Z)" },
+]
 
 export default function StoriesPage() {
     const [searchQuery, setSearchQuery] = useState("")
-    const [category, setCategory] = useState("all")
-    const [selectedId, setSelectedId] = useState<string | null>(null)
+    const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set())
+    const [sortBy, setSortBy] = useState<StoriesSortOption>("recommended")
+    const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
+    const [activeTab, setActiveTab] = useState<StoriesExploreTabId>("collections")
+    const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false)
+    const [bookmarkedIds, setBookmarkedIds] = useState<Set<string>>(
+        () => new Set(["yusuf", "musa-sea", "ibrahim"])
+    )
+
+    const sidebarCategories = useMemo(
+        () => STORIES_CATEGORIES.filter((c) => c.id !== "all").map((c) => ({ id: c.id, label: c.label })),
+        []
+    )
+
+    const categoryCounts = useMemo(() => {
+        const counts: Record<string, number> = {}
+        STORIES_CATEGORIES.filter((c) => c.id !== "all").forEach((c) => {
+            counts[c.id] = STORIES_TOPICS.filter((s) => s.category === c.id).length
+        })
+        return counts
+    }, [])
+
+    const toggleCategory = (id: string) => {
+        setSelectedCategories((prev) => {
+            const next = new Set(prev)
+            if (next.has(id)) next.delete(id)
+            else next.add(id)
+            return next
+        })
+    }
+
+    const toggleBookmark = (id: string) => {
+        setBookmarkedIds((prev) => {
+            const next = new Set(prev)
+            if (next.has(id)) next.delete(id)
+            else next.add(id)
+            return next
+        })
+    }
+
+    const clearAllFilters = () => {
+        setSelectedCategories(new Set())
+        setSearchQuery("")
+    }
 
     const filtered = useMemo(() => {
         const q = searchQuery.trim().toLowerCase()
-        return STORIES_TOPICS.filter((s) => {
-            const catOk = category === "all" || s.category === category
+        let result = STORIES_TOPICS.filter((s) => {
+            const catOk = selectedCategories.size === 0 || selectedCategories.has(s.category)
             const searchOk =
                 !q ||
                 s.title.toLowerCase().includes(q) ||
@@ -28,113 +90,157 @@ export default function StoriesPage() {
                 s.lesson.toLowerCase().includes(q)
             return catOk && searchOk
         })
-    }, [category, searchQuery])
 
-    const { items, sentinelRef, newFromIndex } = useIncrementalReveal({
-        items: filtered,
-        batchLength: 18,
-        offsetTop: 480,
-    })
+        result.sort((a, b) => {
+            switch (sortBy) {
+                case "shortest": return a.readMinutes - b.readMinutes
+                case "longest": return b.readMinutes - a.readMinutes
+                case "alphabetical": return a.title.localeCompare(b.title)
+                default: return 0
+            }
+        })
 
-    const getCategoryCount = (categoryId: string) =>
-        categoryId === "all"
-            ? STORIES_TOPICS.length
-            : STORIES_TOPICS.filter((s) => s.category === categoryId).length
+        return result
+    }, [searchQuery, selectedCategories, sortBy])
 
-    const selected = useMemo(
-        () => STORIES_TOPICS.find((s) => s.id === selectedId) ?? null,
-        [selectedId]
+    const bookmarkItems = useMemo(
+        () => filtered.filter((s) => bookmarkedIds.has(s.id)),
+        [bookmarkedIds, filtered]
     )
 
-    const categoryOptions = useMemo(
-        () =>
-            STORIES_CATEGORIES.map((c) => ({
-                value: c.id,
-                label: c.label,
-                metaLabel: String(getCategoryCount(c.id)),
-            })),
-        [category]
-    )
+    const displayed = activeTab === "collections" ? filtered : bookmarkItems
+
+    const categoryLabel = (id: string) =>
+        STORIES_CATEGORIES.find((c) => c.id === id)?.label ?? id
+
+    const filterChips = Array.from(selectedCategories).map((id) => ({
+        id,
+        label: categoryLabel(id),
+    }))
+
+    const is2XlUp = useBreakpoint("2xl", "up")
+    const { page, setPage, totalPages, paginatedItems } = usePagination(displayed, is2XlUp ? 12 : 9)
 
     return (
-        <div className="bg-gray-50">
+        <div>
             <SectionHeader
-                layoutScope="center"
-                className="bg-white"
-                variant="blue"
-                icon={Heart}
+                variant="purple"
+                icon={BookHeart}
                 label={STORIES_EDITORIAL.badge}
-                heading={STORIES_EDITORIAL.title}
+                heading="Prophetic Stories · Catalog"
                 descriptions={[STORIES_EDITORIAL.lead]}
-            />
+            >
+                <div className="flex flex-wrap items-center gap-4 pt-2">
+                    <Badge variant="outline" className="gap-1.5">
+                        <Database className="h-3.5 w-3.5 text-purple-600" />
+                        <span className="text-xs text-gray-900">{STORIES_TOPICS.length} Stories</span>
+                    </Badge>
+                    <Badge variant="purple" className="gap-1.5">
+                        <CheckCircle2 className="h-3.5 w-3.5 text-purple-600" />
+                        <span className="text-xs text-purple-700">Quran & Sunnah</span>
+                    </Badge>
+                    <Badge variant="secondary" className="gap-1.5">
+                        <Sparkles className="h-3.5 w-3.5 text-purple-500" />
+                        <span className="text-xs text-gray-900">Life lessons</span>
+                    </Badge>
+                </div>
+            </SectionHeader>
 
-            <main className="border-t border-layout-separator">
-                <section className="container py-6 sm:py-8">
-                    <div className="mx-auto min-w-0 max-w-6xl space-y-5">
-                        <section className="flex w-full min-w-0 flex-col gap-3 sm:flex-row sm:items-center sm:gap-3">
-                            <Input
-                                search
-                                type="input"
-                                placeholder="Search stories..."
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full min-w-0 sm:min-w-0 sm:flex-1"
-                                classNames={{
-                                    inputWrapper: "w-full min-w-0",
-                                    input: "h-10 w-full min-w-0 rounded-md border-gray-200 bg-white text-base placeholder:text-gray-400 focus:bg-white",
-                                }}
+            <main className="container relative py-10 lg:py-16" id="stories-collections-section">
+                <div className="flex flex-col items-start gap-7 lg:flex-row 2xl:gap-10">
+                    <div className="sticky top-0 hidden w-56 shrink-0 lg:block 2xl:w-64">
+                        <CatalogCategorySidebar
+                            title="Themes"
+                            categories={sidebarCategories}
+                            selectedIds={selectedCategories}
+                            onToggle={toggleCategory}
+                            onClearAll={clearAllFilters}
+                            categoryCounts={categoryCounts}
+                            note={{
+                                quote: "We relate to you the best of stories through what We have revealed to you of this Quran.",
+                                reference: "Yusuf 12:3",
+                            }}
+                        />
+                    </div>
+
+                    <div className="w-full min-w-0 flex-1">
+                        <CatalogTopBar
+                            searchQuery={searchQuery}
+                            onSearchChange={setSearchQuery}
+                            searchPlaceholder={activeTab === "bookmarks" ? "Search your saved stories..." : "Search stories, prophets, or lessons..."}
+                            scopeFilter={{
+                                value: activeTab,
+                                onChange: (v) => setActiveTab(v as StoriesExploreTabId),
+                                options: scopeOptions,
+                                placeholder: "View",
+                            }}
+                            sortBy={sortBy}
+                            onSortChange={(v) => setSortBy(v as StoriesSortOption)}
+                            sortOptions={sortOptions}
+                            viewMode={viewMode}
+                            onViewModeChange={setViewMode}
+                            resultCount={displayed.length}
+                            matchedLabel="Stories"
+                            onMobileFilterToggle={() => setIsMobileFilterOpen(true)}
+                        />
+
+                        <CatalogFilterChips chips={filterChips} onRemove={toggleCategory} />
+
+                        {displayed.length === 0 ? (
+                            <CatalogEmptyState
+                                variant={activeTab === "bookmarks" ? "bookmarks" : "search"}
+                                savedTotal={bookmarkedIds.size}
+                                title={activeTab === "bookmarks" ? undefined : "No stories found"}
+                                description={
+                                    activeTab === "bookmarks"
+                                        ? "Save stories from All Stories to find them here quickly."
+                                        : "Try refining your search or expanding your theme filters."
+                                }
                             />
-                            <div className="flex w-full min-w-0 items-center gap-2 sm:max-w-[260px] sm:shrink-0 md:max-w-[280px]">
-                                <div className="min-w-0 flex-1 sm:w-full">
-                                    <FilterDropdown
-                                        options={categoryOptions}
-                                        value={category}
-                                        onChange={(v) => setCategory(String(v))}
-                                        placeholder="All topics"
-                                        triggerIcon={Filter}
-                                        theme="blue"
-                                        className="w-full"
-                                        classNames={{
-                                            triggerButton: "w-full max-w-full",
-                                            content: "scrollbar-thin",
-                                        }}
-                                    />
-                                </div>
-                                <div className="inline-flex h-9 shrink-0 items-center justify-center rounded-md border border-blue-200 bg-blue-50/80 px-2.5 text-xs font-medium text-blue-900 shadow-sm sm:hidden">
-                                    <span className="tabular-nums font-semibold">{filtered.length}</span>
-                                    <span className="ml-1 truncate">stories</span>
-                                </div>
-                            </div>
-                            <div className="hidden h-9 shrink-0 items-center justify-center rounded-md border border-blue-200 bg-blue-50/80 px-3 text-xs font-medium text-blue-900 shadow-sm sm:inline-flex">
-                                <span className="tabular-nums font-semibold">{filtered.length}</span>
-                                <span className="ml-1">stories</span>
-                            </div>
-                        </section>
-
-                        {filtered.length === 0 ? (
-                            <p className="py-12 text-center text-sm text-gray-500">No stories found.</p>
                         ) : (
-                            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                                {items.map((story, index) => (
-                                    <Stagger
-                                        key={story.id}
-                                        index={index - newFromIndex}
-                                        animate={index >= newFromIndex}
-                                    >
-                                        <StoryCard story={story} onOpen={() => setSelectedId(story.id)} />
-                                    </Stagger>
-                                ))}
-                                <div ref={sentinelRef} className="col-span-full h-px w-full" aria-hidden />
-                            </div>
+                            <>
+                                <div className={viewMode === "grid"
+                                    ? "grid grid-cols-1 gap-4 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4"
+                                    : "flex flex-col gap-3"
+                                }>
+                                    {paginatedItems.map((story, index) => (
+                                        <Stagger key={story.id} index={index} animate>
+                                            <StoryCard
+                                                story={story}
+                                                categoryLabel={categoryLabel(story.category)}
+                                                isBookmarked={bookmarkedIds.has(story.id)}
+                                                onToggleBookmark={() => toggleBookmark(story.id)}
+                                                viewMode={viewMode}
+                                            />
+                                        </Stagger>
+                                    ))}
+                                </div>
+                                <Pagination
+                                    page={page}
+                                    totalPages={totalPages}
+                                    onPageChange={setPage}
+                                    scrollContainerId="stories-collections-section"
+                                    className="py-6"
+                                />
+                            </>
                         )}
                     </div>
-                </section>
+                </div>
             </main>
 
-            <StoryDetailModal
-                story={selected}
-                isOpen={Boolean(selectedId && selected)}
-                onOpenChange={(open) => setSelectedId(open ? selectedId : null)}
+            <CatalogFiltersDrawer
+                isOpen={isMobileFilterOpen}
+                onOpenChange={setIsMobileFilterOpen}
+                onClearAll={clearAllFilters}
+                categories={sidebarCategories}
+                selectedIds={selectedCategories}
+                onToggle={toggleCategory}
+                categoryCounts={categoryCounts}
+                sidebarTitle="Themes"
+                note={{
+                    quote: "We relate to you the best of stories through what We have revealed to you of this Quran.",
+                    reference: "Yusuf 12:3",
+                }}
             />
         </div>
     )
