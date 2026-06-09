@@ -111,8 +111,8 @@ export default function HistoryCard({
                     </div>
 
                     <Button variant="default-amber" size="sm" href={detailHref} className="w-full rounded-md">
-                        <span className="text-xs">Explore History</span>
                         <Scroll size={14} strokeWidth={2.5} />
+                        <span className="text-xs">Explore History</span>
                     </Button>
                 </section>
             </CardContent>

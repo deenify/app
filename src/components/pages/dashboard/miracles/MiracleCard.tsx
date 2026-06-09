@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { Clock, Sparkles } from "lucide-react"
+import { Clock, Notebook, Sparkles } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -112,8 +112,8 @@ export default function MiracleCard({
                     </div>
 
                     <Button variant="default" size="sm" href={detailHref} className="w-full rounded-md">
+                        <Notebook size={14} strokeWidth={2.5} />
                         <span className="text-xs">Discover Sign</span>
-                        <Sparkles size={14} strokeWidth={2.5} />
                     </Button>
                 </section>
             </CardContent>

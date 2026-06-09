@@ -4,7 +4,7 @@ import Stagger from "@/components/shared/motion/Stagger"
 import CatalogEmptyState from "@/components/shared/catalog/CatalogEmptyState"
 import { Pagination } from "@/components/ui/pagination"
 import { usePagination } from "@/hooks/usePagination"
-import { useBreakpoint } from "@/hooks/useBreakpoint"
+import { useCatalogPageSize } from "@/hooks/useCatalogPageSize"
 import GuidesCard from "./GuidesCard"
 import type { GuideType } from "./content"
 
@@ -23,8 +23,8 @@ const GuidesBookmarksTabSection = ({
     viewMode = "grid",
     scrollContainerId,
 }: GuidesBookmarksTabSectionProps) => {
-    const is2XlUp = useBreakpoint("2xl", "up")
-    const { page, setPage, totalPages, paginatedItems } = usePagination(guides, is2XlUp ? 12 : 9)
+    const pageSize = useCatalogPageSize()
+    const { page, setPage, totalPages, paginatedItems } = usePagination(guides, pageSize)
 
     if (guides.length === 0) {
         return (
