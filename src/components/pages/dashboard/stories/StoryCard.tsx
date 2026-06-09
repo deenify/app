@@ -66,9 +66,9 @@ export default function StoryCard({
     }
 
     return (
-        <Card className="group overflow-hidden rounded-md border-gray-100 bg-white shadow-sm transition-all duration-500 hover:border-purple-100 hover:shadow-[0_12px_40px_rgba(147,51,234,0.08)]">
-            <CardContent className="p-2">
-                <div className="relative aspect-[16/10] w-full overflow-hidden rounded-md bg-gradient-to-br from-purple-50 to-purple-100/80">
+        <Card className="group flex h-full flex-col overflow-hidden rounded-md border-gray-100 bg-white shadow-sm transition-all duration-500 hover:border-purple-100 hover:shadow-[0_12px_40px_rgba(147,51,234,0.08)]">
+            <CardContent className="flex h-full flex-col p-2">
+                <div className="relative aspect-[16/10] w-full shrink-0 overflow-hidden rounded-md bg-gradient-to-br from-purple-50 to-purple-100/80">
                     <div className="absolute inset-0 flex items-center justify-center">
                         <BookHeart className="h-10 w-10 text-purple-600/80 transition-transform duration-500 group-hover:scale-110" strokeWidth={1.5} />
                     </div>
@@ -92,23 +92,25 @@ export default function StoryCard({
                     </div>
                 </div>
 
-                <section className="px-1 pt-2">
-                    <div className="mb-4 space-y-1">
-                        <p className="truncate text-[10px] font-bold uppercase tracking-wider text-purple-600">{story.prophet}</p>
+                <section className="flex flex-1 flex-col px-1 pt-2">
+                    <div className="mb-2 space-y-0.5">
                         <h3 className="truncate text-base font-bold tracking-tighter text-gray-900 transition-colors group-hover:text-purple-600">
                             {story.title}
                         </h3>
-                        <p className="line-clamp-2 text-xs font-medium text-gray-500 opacity-80">{story.excerpt}</p>
+                        <p className="line-clamp-1 text-xs font-medium text-gray-500 opacity-80">{story.excerpt}</p>
                     </div>
 
-                    <div className="mb-4 flex items-center justify-between border-y border-gray-50 py-3">
-                        <Badge variant="outline" className="border-purple-100 bg-purple-50/50 text-[10px] font-black uppercase text-purple-600">
+                    <div className="mb-2 flex min-h-8 items-center gap-2 border-y border-gray-50 py-2">
+                        <Badge
+                            variant="outline"
+                            className="shrink-0 border-purple-100 bg-purple-50/50 text-[10px] font-black uppercase text-purple-600"
+                        >
                             {categoryLabel}
                         </Badge>
-                        <span className="truncate text-[10px] text-gray-400">{story.lesson}</span>
+                        <span className="min-w-0 flex-1 truncate text-[10px] text-purple-700/80">{story.prophet}</span>
                     </div>
 
-                    <Button variant="default-purple" size="sm" href={detailHref} className="w-full rounded-md">
+                    <Button variant="default-purple" size="sm" href={detailHref} className="mt-auto w-full rounded-md">
                         <span className="text-xs">Read Story</span>
                         <BookHeart size={14} strokeWidth={2.5} />
                     </Button>

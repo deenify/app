@@ -204,7 +204,7 @@ export default function StoriesPage() {
                                     : "flex flex-col gap-3"
                                 }>
                                     {paginatedItems.map((story, index) => (
-                                        <Stagger key={story.id} index={index} animate>
+                                        <Stagger key={story.id} index={index} animate className={viewMode === "grid" ? "h-full" : undefined}>
                                             <StoryCard
                                                 story={story}
                                                 categoryLabel={categoryLabel(story.category)}
