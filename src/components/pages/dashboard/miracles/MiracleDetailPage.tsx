@@ -1,7 +1,7 @@
 "use client"
 
 import { useMemo } from "react"
-import { BookOpen, CheckCircle2, Clock3 } from "lucide-react"
+import { BookOpen, CheckCircle2, Clock3, Sparkles, Star } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import BackButton from "@/components/shared/buttons/BackButton"
@@ -37,37 +37,47 @@ export default function MiracleDetailPage({ topicId }: MiracleDetailPageProps) {
 
     return (
         <div className="bg-white">
-            <section className="border-b border-gray-100">
+            <section className="border-b border-layout-separator">
                 <div className="container px-4 sm:px-6">
-                    <div className="mx-auto max-w-3xl pb-8 pt-6 sm:pb-10 sm:pt-8">
+                    <header className="mx-auto flex max-w-3xl flex-col items-start pb-8 pt-6 sm:pb-10 sm:pt-8">
                         <BackButton
                             renderMobileVariant={false}
+                            className="!mb-0"
                             buttonProps={{ variant: "ghost-emerald", href: "/miracles", shouldScale: false }}
                             label="Back to miracles"
                             labelMbl="Back"
                         />
-                        <Badge variant="emerald" className="mt-4 text-xs font-medium">
-                            Miracle
-                        </Badge>
-                        <h1 className="mt-3 text-3xl font-medium tracking-tight text-gray-900 sm:text-[2rem]">
-                            {topic.title}
-                        </h1>
-                        <p className="mt-2 text-sm text-gray-500">{topic.excerpt}</p>
-                        <div className="mt-4 flex flex-wrap gap-2">
-                            {topic.quranRef && (
-                                <Badge variant="outline" className="bg-gray-50 text-gray-600">
-                                    {topic.quranRef}
+
+                        <div className="mt-7 flex w-full flex-col items-start gap-1.5 sm:mt-8 sm:gap-2">
+                            <div className="flex items-center gap-2.5">
+                                <div className="flex items-center justify-center rounded-lg bg-emerald-50 p-2.5 text-emerald-700">
+                                    <Star className="h-4.5 w-4.5" strokeWidth={2} />
+                                </div>
+                                <Badge variant="emerald" className="text-xs font-medium">
+                                    Islamic miracle
                                 </Badge>
-                            )}
-                            <Badge variant="outline" className="capitalize bg-gray-50 text-gray-600">
-                                {topic.category}
-                            </Badge>
-                            <Badge variant="outline" className="bg-gray-50 text-gray-600">
-                                <Clock3 className="mr-1 h-3 w-3" />
-                                {topic.readMinutes} min
-                            </Badge>
+                            </div>
+
+                            <h1 className="text-3xl font-medium tracking-tight text-gray-900 sm:text-[2rem]">
+                                {topic.title}
+                            </h1>
+                            <p className="mt-2 text-sm text-gray-500">{topic.excerpt}</p>
+                            <div className="mt-4 flex flex-wrap gap-2">
+                                {topic.quranRef && (
+                                    <Badge variant="outline" className="bg-gray-50 text-gray-600">
+                                        {topic.quranRef}
+                                    </Badge>
+                                )}
+                                <Badge variant="outline" className="capitalize bg-gray-50 text-gray-600">
+                                    {topic.category}
+                                </Badge>
+                                <Badge variant="outline" className="bg-gray-50 text-gray-600">
+                                    <Clock3 className="mr-1 h-3 w-3" />
+                                    {topic.readMinutes} min
+                                </Badge>
+                            </div>
                         </div>
-                    </div>
+                    </header>
                 </div>
             </section>
 

@@ -27,33 +27,43 @@ export default function StoryDetailPage({ storyId }: StoryDetailPageProps) {
 
     return (
         <div className="bg-white">
-            <section className="border-b border-gray-100">
+            <section className="border-b border-layout-separator">
                 <div className="container px-4 sm:px-6">
-                    <div className="mx-auto max-w-3xl pb-8 pt-6 sm:pb-10 sm:pt-8">
+                    <header className="mx-auto flex max-w-3xl flex-col items-start pb-8 pt-6 sm:pb-10 sm:pt-8">
                         <BackButton
                             renderMobileVariant={false}
+                            className="!mb-0"
                             buttonProps={{ variant: "ghost-purple", href: "/stories", shouldScale: false }}
                             label="Back to stories"
                             labelMbl="Back"
                         />
-                        <Badge variant="purple" className="mt-4 text-xs font-medium">
-                            Prophetic story
-                        </Badge>
-                        <h1 className="mt-3 text-3xl font-medium tracking-tight text-gray-900 sm:text-[2rem]">
-                            {story.title}
-                        </h1>
-                        <p className="mt-2 text-sm text-purple-700">{story.prophet}</p>
-                        <p className="mt-2 text-sm text-gray-500">{story.excerpt}</p>
-                        <div className="mt-4 flex flex-wrap gap-2">
-                            <Badge variant="outline" className="capitalize bg-purple-50/50 text-purple-700">
-                                {categoryLabel}
-                            </Badge>
-                            <Badge variant="outline" className="bg-gray-50 text-gray-600">
-                                <Clock3 className="mr-1 h-3 w-3" />
-                                {story.readMinutes} min
-                            </Badge>
+
+                        <div className="mt-7 flex w-full flex-col items-start gap-1.5 sm:mt-8 sm:gap-2">
+                            <div className="flex items-center gap-2.5">
+                                <div className="flex items-center justify-center rounded-lg bg-purple-50 p-2.5 text-purple-700">
+                                    <BookHeart className="h-4.5 w-4.5" strokeWidth={2} />
+                                </div>
+                                <Badge variant="purple" className="text-xs font-medium">
+                                    Prophetic story
+                                </Badge>
+                            </div>
+
+                            <h1 className="text-3xl font-medium tracking-tight text-gray-900 sm:text-[2rem]">
+                                {story.title}
+                            </h1>
+                            <p className="mt-2 text-sm text-purple-700">{story.prophet}</p>
+                            <p className="mt-2 text-sm text-gray-500">{story.excerpt}</p>
+                            <div className="mt-4 flex flex-wrap gap-2">
+                                <Badge variant="outline" className="capitalize bg-purple-50/50 text-purple-700">
+                                    {categoryLabel}
+                                </Badge>
+                                <Badge variant="outline" className="bg-gray-50 text-gray-600">
+                                    <Clock3 className="mr-1 h-3 w-3" />
+                                    {story.readMinutes} min
+                                </Badge>
+                            </div>
                         </div>
-                    </div>
+                    </header>
                 </div>
             </section>
 
