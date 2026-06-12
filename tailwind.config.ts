@@ -10,7 +10,7 @@ const config: Config = {
     theme: {
         extend: {
 
-            // Font Family - Exact match to Figma Make
+            // Font Family 
             fontFamily: {
                 heading: ["var(--font-heading)", "ui-sans-serif", "system-ui", "sans-serif"],
                 accent: ["var(--font-accent)", "Georgia", "ui-serif", "serif"],
@@ -147,7 +147,7 @@ const config: Config = {
                     "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
             },
 
-            // Border Radius - Exact match to Figma Make
+            // Border Radius  
             borderRadius: {
                 sm: "4px",
                 md: "8px",
@@ -157,13 +157,20 @@ const config: Config = {
             },
 
             keyframes: {
-                "trust-marquee": {
-                    "0%": { transform: "translateX(0)" },
-                    "100%": { transform: "translateX(-50%)" },
+                "marquee-left": {
+                    "0%": { transform: "translate3d(0, 0, 0)" },
+                    "100%": { transform: "translate3d(-50%, 0, 0)" },
+                },
+                "marquee-right": {
+                    "0%": { transform: "translate3d(-50%, 0, 0)" },
+                    "100%": { transform: "translate3d(0, 0, 0)" },
                 },
             },
             animation: {
-                "trust-marquee": "trust-marquee 55s linear infinite",
+                "trust-marquee": "marquee-left 55s linear infinite",
+                "trust-marquee-reverse": "marquee-right 55s linear infinite",
+                "workspace-marquee": "marquee-left 48s linear infinite",
+                "workspace-marquee-reverse": "marquee-right 48s linear infinite",
             },
 
         },

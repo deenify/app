@@ -11,7 +11,7 @@ const POINTS = [
 
 const MarketingAboutSection = () => {
     return (
-        <section id="about" className="bg-[#f8faf9] py-16 sm:py-24">
+        <section id="about" className="bg-marketing-light py-14 sm:py-20 lg:py-24">
             <div className="container">
                 <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
                     <div>
@@ -21,7 +21,7 @@ const MarketingAboutSection = () => {
                         </Badge>
 
                         <MarketingSectionHeading
-                            lead="Software with the gravity your practice"
+                            lead={<>Software with the gravity <br className='block xs:hidden' /> your practice</>}
                             accent="deserves"
                             subtitle="We built Deenify because most Islamic apps feel assembled, not 
                             authored. Our dashboard treats prayer, Quran, and learning as interconnected 
@@ -39,7 +39,7 @@ const MarketingAboutSection = () => {
                         </ul>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-2 gap-2 sm:gap-4">
                         {[
                             { value: "14+", label: "Core modules" },
                             { value: "6", label: "Curated catalogs" },
@@ -48,8 +48,7 @@ const MarketingAboutSection = () => {
                         ].map((stat) => (
                             <div
                                 key={stat.label}
-                                className="rounded-2xl border border-gray-100 bg-white p-6 
-                                text-center shadow-sm"
+                                className="rounded-md border border-gray-100 bg-white p-3.5 text-center shadow-sm sm:rounded-2xl sm:p-6"
                             >
                                 <p className="font-heading text-3xl font-semibold text-emerald-700">
                                     {stat.value}

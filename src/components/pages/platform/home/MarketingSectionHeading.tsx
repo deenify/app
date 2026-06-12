@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils/clsx"
 
 type MarketingSectionHeadingProps = {
-    lead: string
+    lead: React.ReactNode | string
     accent: string
     subtitle?: string
     className?: string
@@ -19,7 +19,7 @@ const MarketingSectionHeading = ({
         <div className={cn(align === "center" && "text-center", className)}>
             <h2
                 className={cn(
-                    "font-heading text-3xl font-semibold tracking-tight text-gray-900 sm:text-4xl lg:text-[2.65rem]",
+                    "font-heading text-[1.65rem] font-semibold leading-tight tracking-tight text-gray-900 xs:text-3xl sm:text-4xl lg:text-[2.65rem]",
                     align === "center" && "mx-auto"
                 )}
             >
@@ -29,7 +29,7 @@ const MarketingSectionHeading = ({
             {subtitle && (
                 <p
                     className={cn(
-                        "mt-4 text-base leading-relaxed text-gray-600",
+                        "mt-3 text-sm leading-relaxed text-gray-600 sm:mt-4 sm:text-base",
                         align === "center" && "mx-auto max-w-2xl"
                     )}
                 >
