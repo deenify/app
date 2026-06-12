@@ -1,25 +1,25 @@
 "use client"
 
 import React, { ReactNode } from 'react'
-import PlatformFooter from './footer/PlatformFooter'
-import PlatformHeader from './header/PlatformHeader'
+import MarketingFooter from './footer/MarketingFooter'
+import MarketingHeader from './header/MarketingHeader'
 
-interface PlatformLayoutWrapperProps {
+interface MarketingLayoutWrapperProps {
     readonly children: ReactNode
 }
 
-const PlatformLayoutWrapper = ({ children }: PlatformLayoutWrapperProps) => {
+const MarketingLayoutWrapper = ({ children }: MarketingLayoutWrapperProps) => {
     return (
         <div className='w-dvh h-dvh overflow-hidden flex flex-col'>
             <div>
-                <PlatformHeader />
+                <MarketingHeader />
             </div>
             <div className='flex-1 overflow-y-auto scrollbar-content flex flex-col justify-between'>
                 {children}
-                <PlatformFooter />
+                <MarketingFooter />
             </div>
         </div>
     )
 }
 
-export default PlatformLayoutWrapper
+export default MarketingLayoutWrapper

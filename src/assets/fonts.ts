@@ -1,5 +1,14 @@
-import { Noto_Sans, Noto_Sans_Arabic, Red_Hat_Text } from "next/font/google";
+import { Instrument_Serif, Noto_Sans, Noto_Sans_Arabic, Red_Hat_Text } from "next/font/google";
 
+
+// marketing accent — serif italic highlights (Finora-style)
+export const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: ["400"],
+  style: ["normal", "italic"],
+  display: "swap",
+  variable: "--font-accent",
+});
 
 // heading - professional and stylish
 export const redHatText = Red_Hat_Text({

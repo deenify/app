@@ -13,6 +13,7 @@ const config: Config = {
             // Font Family - Exact match to Figma Make
             fontFamily: {
                 heading: ["var(--font-heading)", "ui-sans-serif", "system-ui", "sans-serif"],
+                accent: ["var(--font-accent)", "Georgia", "ui-serif", "serif"],
                 body: ["var(--font-noto)", "ui-sans-serif", "system-ui", "sans-serif"],
                 arabic: ["var(--font-noto-arabic)", "serif"],
             },
@@ -30,6 +31,8 @@ const config: Config = {
             // Colors 
             colors: {
                 "layout-separator": "#e5e7eb",
+                "marketing-light": "#f8faf9",
+                "marketing-card": "#f4f5f4",
 
                 emerald: {
                     50: "oklch(var(--color-emerald-50) / <alpha-value>)",
@@ -151,6 +154,16 @@ const config: Config = {
                 lg: "12px",
                 xl: "16px",
                 full: "9999px",
+            },
+
+            keyframes: {
+                "trust-marquee": {
+                    "0%": { transform: "translateX(0)" },
+                    "100%": { transform: "translateX(-50%)" },
+                },
+            },
+            animation: {
+                "trust-marquee": "trust-marquee 55s linear infinite",
             },
 
         },

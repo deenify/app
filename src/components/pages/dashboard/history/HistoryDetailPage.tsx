@@ -1,7 +1,7 @@
 "use client"
 
 import { useMemo } from "react"
-import { BookOpen, CheckCircle2, Clock3, Landmark } from "lucide-react"
+import { BookOpen, CheckCircle2, Clock3, Landmark, Scroll } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import BackButton from "@/components/shared/buttons/BackButton"
@@ -41,36 +41,46 @@ export default function HistoryDetailPage({ topicId }: HistoryDetailPageProps) {
 
     return (
         <div className="bg-white">
-            <section className="border-b border-gray-100">
+            <section className="border-b border-layout-separator">
                 <div className="container px-4 sm:px-6">
-                    <div className="mx-auto max-w-3xl pb-8 pt-6 sm:pb-10 sm:pt-8">
+                    <header className="mx-auto flex max-w-3xl flex-col items-start pb-8 pt-6 sm:pb-10 sm:pt-8">
                         <BackButton
                             renderMobileVariant={false}
-                            buttonProps={{ variant: "ghost-emerald", href: "/history", shouldScale: false }}
+                            className="!mb-0"
+                            buttonProps={{ variant: "ghost-amber", href: "/history", shouldScale: false }}
                             label="Back to history"
                             labelMbl="Back"
                         />
-                        <Badge variant="emerald" className="mt-4 text-xs font-medium">
-                            History
-                        </Badge>
-                        <h1 className="mt-3 text-3xl font-medium tracking-tight text-gray-900 sm:text-[2rem]">
-                            {topic.title}
-                        </h1>
-                        <p className="mt-2 text-sm text-gray-500">{topic.excerpt}</p>
-                        <div className="mt-4 flex flex-wrap gap-2">
-                            <Badge variant="outline" className="bg-gray-50 text-gray-600">
-                                <Landmark className="mr-1 h-3 w-3" />
-                                {topic.era}
-                            </Badge>
-                            <Badge variant="outline" className="capitalize bg-gray-50 text-gray-600">
-                                {categoryLabel}
-                            </Badge>
-                            <Badge variant="outline" className="bg-gray-50 text-gray-600">
-                                <Clock3 className="mr-1 h-3 w-3" />
-                                {topic.readMinutes} min
-                            </Badge>
+
+                        <div className="mt-7 flex w-full flex-col items-start gap-1.5 sm:mt-8 sm:gap-2">
+                            <div className="flex items-center gap-2.5">
+                                <div className="flex items-center justify-center rounded-lg bg-amber-50 p-2.5 text-amber-700">
+                                    <Scroll className="h-4.5 w-4.5" strokeWidth={2} />
+                                </div>
+                                <Badge variant="amber" className="text-xs font-medium">
+                                    Islamic history
+                                </Badge>
+                            </div>
+
+                            <h1 className="text-3xl font-medium tracking-tight text-gray-900 sm:text-[2rem]">
+                                {topic.title}
+                            </h1>
+                            <p className="mt-2 text-sm text-gray-500">{topic.excerpt}</p>
+                            <div className="mt-4 flex flex-wrap gap-2">
+                                <Badge variant="outline" className="bg-gray-50 text-gray-600">
+                                    <Landmark className="mr-1 h-3 w-3" />
+                                    {topic.era}
+                                </Badge>
+                                <Badge variant="outline" className="capitalize bg-gray-50 text-gray-600">
+                                    {categoryLabel}
+                                </Badge>
+                                <Badge variant="outline" className="bg-gray-50 text-gray-600">
+                                    <Clock3 className="mr-1 h-3 w-3" />
+                                    {topic.readMinutes} min
+                                </Badge>
+                            </div>
                         </div>
-                    </div>
+                    </header>
                 </div>
             </section>
 

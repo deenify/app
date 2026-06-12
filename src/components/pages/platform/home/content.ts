@@ -1,226 +1,237 @@
 import {
-    Compass, FileText, BookOpen, Calendar, Star, Users, Target, Heart, Shield, Smartphone,
-    Globe, Award, TrendingUp, Flame, LucideIcon,
-    Clock
+    BookHeart,
+    BookOpen,
+    Calendar,
+    Compass,
+    Heart,
+    Landmark,
+    Library,
+    Moon,
+    Scroll,
+    Sparkles,
+    GraduationCap,
+    HandHeart,
+    Headphones,
+    Repeat2,
+    type LucideIcon,
 } from "lucide-react"
 
-// Hero section
-export type HeroCommunityStatType = {
-    value: string
-    label: string
+export type TrustBadge = {
+    name: string
+    abbr: string
+    bg: string
+    fg: string
+    ring: string
 }
-export const HeroCommunityStats: HeroCommunityStatType[] = [
-    { value: "10M+", label: "Active Users Worldwide" },
-    { value: "50+", label: "Countries Supported" },
-    { value: "4.9/5", label: "Average User Rating" },
-    { value: "1M+", label: "Daily Prayer Notifications" },
+
+export const TRUST_BADGES: TrustBadge[] = [
+    { name: "MasjidOne", abbr: "MO", bg: "bg-emerald-600", fg: "text-white", ring: "ring-emerald-200" },
+    { name: "UmmahHub", abbr: "UH", bg: "bg-sky-600", fg: "text-white", ring: "ring-sky-200" },
+    { name: "NoorPath", abbr: "NP", bg: "bg-amber-500", fg: "text-white", ring: "ring-amber-200" },
+    { name: "SafaLearn", abbr: "SL", bg: "bg-purple-600", fg: "text-white", ring: "ring-purple-200" },
+    { name: "BarakahTech", abbr: "BT", bg: "bg-rose-600", fg: "text-white", ring: "ring-rose-200" },
+    { name: "HijraLabs", abbr: "HL", bg: "bg-teal-600", fg: "text-white", ring: "ring-teal-200" },
+    { name: "QuranCloud", abbr: "QC", bg: "bg-indigo-600", fg: "text-white", ring: "ring-indigo-200" },
+    { name: "MinaretCo", abbr: "MC", bg: "bg-orange-500", fg: "text-white", ring: "ring-orange-200" },
+    { name: "Sakinah", abbr: "SK", bg: "bg-cyan-600", fg: "text-white", ring: "ring-cyan-200" },
+    { name: "Tawbah", abbr: "TW", bg: "bg-lime-600", fg: "text-white", ring: "ring-lime-200" },
+    { name: "FajrWorks", abbr: "FW", bg: "bg-violet-600", fg: "text-white", ring: "ring-violet-200" },
+    { name: "Ihsan", abbr: "IH", bg: "bg-fuchsia-600", fg: "text-white", ring: "ring-fuchsia-200" },
+    { name: "Rahma", abbr: "RH", bg: "bg-emerald-700", fg: "text-white", ring: "ring-emerald-200" },
+    { name: "NurWorks", abbr: "NW", bg: "bg-blue-600", fg: "text-white", ring: "ring-blue-200" },
+    { name: "Sabr", abbr: "SB", bg: "bg-stone-600", fg: "text-white", ring: "ring-stone-200" },
+    { name: "Hikmah", abbr: "HK", bg: "bg-yellow-600", fg: "text-white", ring: "ring-yellow-200" },
 ]
 
-
-// Features section
-export type FeaturesSectionFeatureType = {
-    icon: LucideIcon
+export type FeatureCard = {
     title: string
     description: string
+    image: string
 }
-export const FeaturesSectionFeatures: FeaturesSectionFeatureType[] = [
+
+export const FEATURE_CARDS: FeatureCard[] = [
     {
-        icon: Clock,
-        title: "Accurate Prayer Times",
-        description: "Get precise prayer times based on your location with multiple calculation methods.",
+        title: "Prayer rhythm, precisely timed",
+        description:
+            "Location-aware adhan schedules and presence panels that keep worship anchored to your day.",
+        image: "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=900&q=80",
     },
     {
-        icon: BookOpen,
-        title: "Complete Quran",
-        description: "Read, search, and bookmark verses with translations in multiple languages.",
+        title: "Quran with deliberate depth",
+        description:
+            "Read, listen, and bookmark with typography tuned for long, focused sessions.",
+        image: "https://images.unsplash.com/photo-1609599001995-17e2c321d92e?w=900&q=80",
     },
     {
-        icon: Compass,
-        title: "Qibla Direction",
-        description: "Find the direction to Mecca from anywhere in the world with our compass.",
+        title: "Catalogs worth returning to",
+        description:
+            "Supplications, guides, history, and stories — filterable libraries with reading-room calm.",
+        image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=900&q=80",
     },
     {
-        icon: FileText,
-        title: "Authentic Hadith",
-        description: "Access verified collections of Hadith from Sahih al-Bukhari and Muslim.",
-    },
-    {
-        icon: Calendar,
-        title: "Islamic Calendar",
-        description: "Stay updated with Hijri dates and important Islamic occasions.",
-    },
-    {
-        icon: Star,
-        title: "Dhikr Counter",
-        description: "Track your daily remembrance of Allah with customizable goals.",
+        title: "Remembrance without friction",
+        description:
+            "Dhikr presets and counters built for the pockets of time between life's demands.",
+        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=900&q=80",
     },
 ]
 
+export type WorkspaceModule = { label: string; icon: LucideIcon; href: string }
 
-// Your-progress section 
-
-// tracking-activity points 
-export type YourProgressTrackingPointStatType = {
-    icon: LucideIcon
-    label: string
-    value: number
-    bgColor: string
-    iconColor: string
-}
-export const YourProgressTrackingPointStats: YourProgressTrackingPointStatType[] = [
-    { icon: Flame, label: "Day Streak", value: 7, bgColor: "bg-orange-100", iconColor: "text-orange-600" },
-    { icon: Award, label: "Total Points", value: 842, bgColor: "bg-purple-100", iconColor: "text-purple-600" },
-    { icon: TrendingUp, label: "Global Rank", value: 142, bgColor: "bg-blue-100", iconColor: "text-blue-600" },
-    { icon: Target, label: "Achievements", value: 12, bgColor: "bg-emerald-100", iconColor: "text-emerald-600" },
+export const WORKSPACE_MODULES: WorkspaceModule[] = [
+    { label: "Prayer", icon: Moon, href: "/prayer" },
+    { label: "Quran", icon: BookOpen, href: "/quran" },
+    { label: "Hadith", icon: Library, href: "/hadith" },
+    { label: "Qibla", icon: Compass, href: "/qibla" },
+    { label: "Calendar", icon: Calendar, href: "/calendar" },
+    { label: "Dhikr", icon: Repeat2, href: "/dhikr" },
+    { label: "Duas", icon: Heart, href: "/supplications" },
+    { label: "Guides", icon: GraduationCap, href: "/guides" },
+    { label: "History", icon: Landmark, href: "/history" },
+    { label: "Miracles", icon: Sparkles, href: "/miracles" },
+    { label: "Stories", icon: BookHeart, href: "/stories" },
+    { label: "Pillars", icon: Scroll, href: "/pillars" },
+    { label: "Donate", icon: HandHeart, href: "/donate" },
+    { label: "Support", icon: Headphones, href: "/support" },
 ]
 
-
-// weekly-activity charts 
-export type YourProgressWeeklyActivityType = {
-    day: string
-    prayers: number
-    quran: number
-    dhikr: number
-}
-export const YourProgressWeeklyActivity: YourProgressWeeklyActivityType[] = [
-    { day: "Mon", prayers: 5, quran: 3, dhikr: 100 },
-]
-
-// activity-distribution charts 
-export type YourProgressActivityDistributionType = {
+export type Testimonial = {
+    quote: string
     name: string
-    value: number
-    color: string
-}
-export const YourProgressActivityDistribution: YourProgressActivityDistributionType[] = [
-    { name: "Prayers", value: 35, color: "#10b981" },
-    { name: "Quran", value: 28, color: "#3b82f6" },
-    { name: "Dhikr", value: 25, color: "#8b5cf6" },
-    { name: "Duas", value: 12, color: "#f59e0b" },
-]
-
-// today-goals charts 
-export type YourProgressTodayGoalType = {
-    label: string
-    current: number
-    total: number
-    value: number
-}
-export const YourProgressTodayGoals: YourProgressTodayGoalType[] = [
-    { label: "Prayers Completed", current: 3, total: 5, value: 60 },
-]
-
-
-// learn-grow section 
-export type LearnGrowPageType = {
-    icon: LucideIcon
-    title: string
-    desc: string
-    bgColor: string
-    iconColor: string
-    slug: string
-}
-export const LearnGrowPages: LearnGrowPageType[] = [
-    { icon: BookOpen, title: "Total Books", desc: "Total Books", bgColor: "bg-purple-100", iconColor: "text-purple-600", slug: "total-books" },
-    { icon: Users, title: "Total Users", desc: "Total Users", bgColor: "bg-blue-100", iconColor: "text-blue-600", slug: "total-users" },
-    { icon: TrendingUp, title: "Total Views", desc: "Total Views", bgColor: "bg-emerald-100", iconColor: "text-emerald-600", slug: "total-views" },
-]
-
-
-
-// Testimonial section  
-export type TestimonialType = {
-    name: string
-    location: string
+    role: string
     avatar: string
-    rating: number
-    text: string
 }
-export const TESTIMONIALS: TestimonialType[] = [
+
+export const TESTIMONIALS: Testimonial[] = [
     {
-        name: "Ahmed Hassan",
-        location: "Dubai, UAE",
-        avatar: "AH",
-        rating: 5,
-        text: "This app has transformed my daily routine. The prayer time notifications are accurate, and the Quran reader is beautifully designed. May Allah reward the developers!",
+        quote:
+            "Deenify feels like someone finally treated an Islamic app with editorial restraint. I open it for prayer times and stay for the guides. The typography and spacing make long reading sessions genuinely pleasant.",
+        name: "Amina Rahman",
+        role: "Product Designer · London",
+        avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80",
     },
     {
-        name: "Fatima Zahra",
-        location: "London, UK",
-        avatar: "FZ",
-        rating: 5,
-        text: "As a busy professional, this app helps me stay connected to my faith. The Dhikr counter and Hadith collections are my favorite features.",
+        quote:
+            "The catalogs are unusually thoughtful — filters, bookmarks, and reading modes that respect both study and quick reference. It is the first platform I have recommended without caveats to my students.",
+        name: "Omar El-Hassan",
+        role: "Professor of Islamic Studies",
+        avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80",
     },
     {
-        name: "Muhammad Ibrahim",
-        location: "Jakarta, Indonesia",
-        avatar: "MI",
-        rating: 5,
-        text: "The most comprehensive Islamic app I have ever used. The interface is clean, and everything works seamlessly. Highly recommended!",
+        quote:
+            "Our study circle adopted Deenify for hadith nights. The interface disappears; the content remains dignified. Everyone commented on how calm and intentional the experience feels on mobile.",
+        name: "Fatima Noor",
+        role: "Community Educator · Toronto",
+        avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80",
     },
     {
-        name: "Aisha Rahman",
-        location: "Toronto, Canada",
-        avatar: "AR",
-        rating: 5,
-        text: "The Quran reading feature with bookmarks has helped me stay consistent with my daily recitation. Truly a blessing for Muslims everywhere.",
+        quote:
+            "I recommend it to reverts in our masjid — the guides and supplications are structured without feeling childish. New Muslims finally have software that matches the seriousness of what they are learning.",
+        name: "Yusuf Malik",
+        role: "Foundational CEO, NurPath",
+        avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80",
     },
     {
-        name: "Omar Abdullah",
-        location: "Riyadh, Saudi Arabia",
-        avatar: "OA",
-        rating: 5,
-        text: "Excellent resource for learning about Islam. The Hadith collections are authentic and the guides are very helpful for new Muslims.",
-    },
-    {
-        name: "Zainab Malik",
-        location: "Sydney, Australia",
-        avatar: "ZM",
-        rating: 5,
-        text: "A beautiful and user-friendly app. The Islamic calendar and Qibla finder are incredibly accurate. May Allah bless this project!",
+        quote:
+            "Prayer panels, dhikr, and Quran in one shell — finally an app that respects both craft and creed. I use it between shifts and never feel like I am fighting the interface.",
+        name: "Layla Karim",
+        role: "Healthcare Director · Dubai",
+        avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80",
     },
 ]
 
+export type PricingPlan = {
+    name: string
+    price: string
+    period: string
+    description: string
+    features: string[]
+    cta: string
+    href: string
+    highlighted?: boolean
+}
 
-
-// Why-Choose-Us section  
-
-// Why-Choose-Us features  
-export type WhyChooseUsFeatureType = string
-export const WhyChooseUsFeatures: WhyChooseUsFeatureType[] = [
-    "Customizable prayer notifications",
-    "Offline access to Quran",
-    "Dark mode support",
-    "Multiple language support",
-    "Sync across devices",
-    "Ad-free experience",
+export const PRICING_PLANS: PricingPlan[] = [
+    {
+        name: "Basic",
+        price: "$0",
+        period: "/ month",
+        description:
+            "For individuals beginning a composed daily routine with prayer, Quran, and remembrance at the center.",
+        features: [
+            "Prayer times & qibla direction",
+            "Quran read, listen & bookmarks",
+            "Core dhikr presets & counters",
+            "Catalog browsing across modules",
+            "Mobile & desktop responsive layouts",
+            "Community support access",
+        ],
+        cta: "Get Started",
+        href: "/register",
+    },
+    {
+        name: "Professional",
+        price: "$6",
+        period: "/ month",
+        description:
+            "For members who want depth, sync across devices, and early access to refinements as they ship.",
+        features: [
+            "Everything included in Basic",
+            "Advanced bookmarks & cloud sync",
+            "Extended catalog filters & search",
+            "Priority feature access & previews",
+            "Offline Quran passages & schedules",
+            "Early roadmap input sessions",
+        ],
+        cta: "Upgrade to Pro",
+        href: "/register",
+        highlighted: true,
+    },
+    {
+        name: "Enterprise",
+        price: "$12",
+        period: "/ month",
+        description:
+            "For communities and organizations sustaining verified content, outreach, and charitable allocation at scale.",
+        features: [
+            "Everything included in Professional",
+            "Supporter recognition on platform",
+            "Roadmap consultation with the team",
+            "Charitable allocation transparency",
+            "Dedicated onboarding for groups",
+            "Priority content verification requests",
+        ],
+        cta: "Get Started",
+        href: "/donate",
+    },
 ]
 
-// Why-Choose-Us stats  
-export type WhyChooseUsStatType = {
-    icon: LucideIcon
-    title: string
-    desc: string
-}
-export const WhyChooseUsStats: WhyChooseUsStatType[] = [
+export type FaqItem = { question: string; answer: string }
+
+export const FAQ_ITEMS: FaqItem[] = [
     {
-        icon: Shield,
-        title: "Verified Content",
-        desc: "All Hadith and Islamic content verified by scholars",
+        question: "Is Deenify suitable for new Muslims?",
+        answer:
+            "Yes. Guides, revert pathways, and plain-language catalogs are structured for first steps — without overwhelming terminology on day one.",
     },
     {
-        icon: Smartphone,
-        title: "Mobile First",
-        desc: "Optimized for all devices and screen sizes",
+        question: "Does the app work offline?",
+        answer:
+            "Core prayer schedules and saved Quran passages are available offline. Streaming audio requires connectivity.",
     },
     {
-        icon: Globe,
-        title: "Global Access",
-        desc: "Works anywhere in the world with offline support",
+        question: "How is content verified?",
+        answer:
+            "Collections are curated against established scholarly sources. Detail pages cite references where applicable.",
     },
     {
-        icon: Users,
-        title: "Community",
-        desc: "Join a thriving community of believers",
+        question: "Can I use Deenify on mobile and desktop?",
+        answer:
+            "The dashboard is responsive across breakpoints — from phone to wide displays — with layouts tuned per module.",
+    },
+    {
+        question: "What makes Deenify different?",
+        answer:
+            "We optimize for intellectual calm: fewer gimmicks, stronger typography, and catalogs that behave like serious reading products.",
     },
 ]
