@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils/clsx'
 import DashboardSidebar from './side-bar/DashboardSidebar'
 import DashboardHeader from './header/DashboardHeader'
 import DashboardBottombar from './bottom-bar/DashboardBottombar'
-import PlatformFooter from '../platform/footer/PlatformFooter'
+import MarketingFooter from '../marketing/footer/MarketingFooter'
 
 type DrawerTabsType = "menu" | "language" | "settings"
 interface DashboardLayoutWrapperProps { readonly children: ReactNode }
@@ -49,7 +49,7 @@ const DashboardLayoutWrapper = ({ children }: DashboardLayoutWrapperProps) => {
 
                     <div className='flex-1 overflow-y-auto scrollbar-content flex flex-col justify-between'>
                         {children}
-                        <PlatformFooter />
+                        <MarketingFooter />
                     </div>
                 </div>
 

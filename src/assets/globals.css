@@ -232,4 +232,41 @@
     .container-footer {
         @apply w-full max-w-[1360px] mx-auto md:px-6 px-4;
     }
+
+    /* Marketing homepage — wide breakout zone (testimonials, trust marquee, etc.) */
+    .container-marketing-wide {
+        @apply mx-auto w-full max-w-[min(100vw,1680px)] px-4 sm:px-8 lg:px-12;
+    }
+
+    .marketing-testimonials-swiper .swiper-wrapper {
+        transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .marketing-testimonials-swiper .testimonial-card {
+        opacity: 0.3;
+        transform: scale(0.78);
+        transform-origin: center center;
+        transition:
+            opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+            transform 0.95s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .marketing-testimonials-swiper .swiper-slide-prev .testimonial-card,
+    .marketing-testimonials-swiper .swiper-slide-next .testimonial-card {
+        opacity: 0.5;
+        transform: scale(0.86);
+    }
+
+    .marketing-testimonials-swiper .swiper-slide-active .testimonial-card {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    .marketing-testimonial-bullet {
+        @apply inline-block h-2 w-2 cursor-pointer rounded-full bg-gray-300 transition-all duration-300;
+    }
+
+    .marketing-testimonial-bullet-active {
+        @apply w-6 bg-emerald-600;
+    }
 }
