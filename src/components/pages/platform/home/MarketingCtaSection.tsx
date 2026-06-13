@@ -18,7 +18,7 @@ const MarketingCtaSection = () => {
                     <div className="relative">
                         <div className="mx-auto max-w-2xl">
                             <MarketingSectionHeading
-                                lead="Ready to compose your daily"
+                                lead={<>Ready to compose <br className='block xs:hidden' /> your daily</>}
                                 accent="deen?"
                                 subtitle="Step into a dashboard designed for Muslims who value 
                                 clarity, craft, and continuity — from first prayer to lifelong learning."
@@ -26,9 +26,11 @@ const MarketingCtaSection = () => {
                         </div>
                         <Button
                             variant="default"
-                            size="lg"
+                            size="sm"
                             href="/dashboard"
-                            className="mt-8 rounded-full px-10"
+                            className="mx-auto mt-6 h-9 w-full max-w-xs rounded-md px-4 text-xs 
+                            font-medium sm:mt-8 sm:h-12 sm:w-auto sm:max-w-none sm:rounded-full 
+                            sm:px-10 sm:text-base"
                         >
                             Open Dashboard
                         </Button>

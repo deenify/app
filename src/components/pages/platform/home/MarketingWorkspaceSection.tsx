@@ -1,123 +1,117 @@
 "use client"
 
-import Link from "next/link"
-import { useMemo, type CSSProperties } from "react"
+import { useState } from "react"
 import { ArrowUpRight } from "lucide-react"
-import type { LucideIcon } from "lucide-react"
 import { cn } from "@/lib/utils/clsx"
 import { useBreakpoint } from "@/hooks/useBreakpoint"
+import FadeEdge from "@/components/shared/FadeEdge"
+import InfiniteMarquee from "@/components/shared/InfiniteMarquee"
 import MarketingSectionHeading from "./MarketingSectionHeading"
-import { WORKSPACE_MODULES, type WorkspaceModule } from "./content"
-import { getWorkspaceColumns, groupWorkspaceRows } from "./workspace-rows"
+import { WORKSPACE_MARQUEE_ROWS, type WorkspaceModule } from "./content"
+import { Button } from "@/components/ui/button"
 
-type WorkspaceCardProps = {
-    label: string
-    icon: LucideIcon
-    href: string
-    className?: string
-    style?: CSSProperties
+
+type WorkspaceMarqueeRowProps = {
+    items: WorkspaceModule[]
+    reverse?: boolean
+    isPaused: boolean
 }
 
-const WorkspaceCard = ({ label, icon: Icon, href, className, style }: WorkspaceCardProps) => (
-    <Link
-        href={href}
-        style={style}
-        className={cn(
-            "hover:bg-gradient-to-b hover:from-white hover:to-emerald-50/50 sm:min-h-[5.75rem]",
-            "duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1.5 hover:border-emerald-200/90",
-            "rounded-2xl border border-gray-100 bg-white p-3 shadow-sm outline-none transition-all",
-            "group relative flex min-h-[5.25rem] flex-col items-center justify-center overflow-hidden",
-            "hover:shadow-[0_16px_40px_rgba(16,185,129,0.14)] focus-visible:ring-2 focus-visible:ring-emerald-500/40",
-            className
-        )}
-    >
-        <span className="pointer-events-none absolute inset-x-0 bottom-0 h-0.5 origin-left scale-x-0 bg-emerald-500 transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100" />
-
-        <ArrowUpRight
-            className="absolute right-2 top-2 h-3.5 w-3.5 text-emerald-600 opacity-0 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100"
-            style={{ transform: "translate(5px, -5px)" }}
+const WorkspaceMarqueeRow = ({
+    items,
+    reverse,
+    isPaused
+}: WorkspaceMarqueeRowProps) => (
+    <div className="relative overflow-hidden py-1.5 sm:py-2">
+        <FadeEdge
+            fadeDirection="both"
+            hideBelow="md"
+            classNames={{
+                left: "from-white via-white/90 to-transparent",
+                right: "from-white via-white/90 to-transparent",
+            }}
         />
-
-        <div
-            className={cn(
-                "flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600 shadow-sm shadow-emerald-100/50 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
-                "group-hover:scale-105 group-hover:bg-emerald-600 group-hover:text-white group-hover:shadow-emerald-200/60"
-            )}
+        <InfiniteMarquee
+            reverse={reverse}
+            duration="workspace"
+            trackClassName={isPaused ? "![animation-play-state:paused]" : undefined}
         >
-            <Icon className="h-4 w-4 sm:h-[1.125rem] sm:w-[1.125rem]" strokeWidth={1.9} />
-        </div>
-
-        <span className="mt-2 text-center text-[10px] font-medium text-gray-600 transition-colors duration-300 group-hover:text-emerald-900 sm:text-[11px]">
-            {label}
-        </span>
-    </Link>
+            {items.map((module) => (
+                <div
+                    role="button"
+                    tabIndex={0}
+                    aria-pressed={isPaused}
+                    className={cn(
+                        "group relative flex shrink-0 items-center gap-2.5 rounded-md border border-gray-100",
+                        "bg-white px-4 py-2.5 shadow-sm transition-all duration-300 sm:px-5 sm:py-3",
+                        "hover:border-emerald-200 hover:shadow-[0_8px_24px_rgba(16,185,129,0.12)] cursor-default",
+                        "hover:border-emerald-300 hover:shadow-[0_8px_24px_rgba(16,185,129,0.12)]"
+                    )}
+                >
+                    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-50 
+                   text-emerald-600 transition-colors group-hover:bg-emerald-600 group-hover:text-white 
+                   marker: sm:h-9 sm:w-9 flex-shrink-0">
+                        <module.icon className="h-4 w-4" strokeWidth={1.9} />
+                    </span>
+                    <span className="whitespace-nowrap text-xs font-medium text-gray-700
+                   group-hover:text-emerald-900 sm:text-sm">
+                        {module.label}
+                        <Button
+                            href={module.href}
+                            size="sm"
+                            variant="link"
+                            className="gap-1 w-max text-[10px] flex p-0 h-max sm:h-max leading-none"
+                        >
+                            Open
+                            <ArrowUpRight
+                                size={14}
+                                className="text-emerald-600 opacity-0 transition-opacity 
+                            group-hover:opacity-100"
+                            />
+                        </Button>
+                    </span>
+                </div>
+            ))}
+        </InfiniteMarquee>
+    </div>
 )
 
-type WorkspaceRowProps = {
-    row: WorkspaceModule[]
-    columns: number
-}
-
-const WorkspaceRow = ({ row, columns }: WorkspaceRowProps) => {
-    const isFullRow = row.length === columns
-
-    if (isFullRow) {
-        return (
-            <div
-                className="grid w-full gap-3 sm:gap-4"
-                style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}
-            >
-                {row.map((module) => (
-                    <WorkspaceCard key={module.label} {...module} />
-                ))}
-            </div>
-        )
-    }
-
-    return (
-        <div className="flex w-full justify-center gap-3 sm:gap-4">
-            {row.map((module) => (
-                <WorkspaceCard
-                    key={module.label}
-                    {...module}
-                    className="min-w-0 shrink-0"
-                    style={{
-                        width: `calc((100% - ${(columns - 1) * 0.75}rem) / ${columns})`,
-                    }}
-                />
-            ))}
-        </div>
-    )
-}
-
 const MarketingWorkspaceSection = () => {
-
-    const isLgUp = useBreakpoint("lg", "up")
     const isMdUp = useBreakpoint("md", "up")
-    const isSmUp = useBreakpoint("sm", "up")
-
-    const columns = getWorkspaceColumns(isLgUp, isMdUp, isSmUp)
-    const rows = useMemo(() => groupWorkspaceRows(WORKSPACE_MODULES, columns), [columns])
+    const [isPaused, setIsPaused] = useState(false)
 
     return (
-        <section className="overflow-hidden bg-white py-16 sm:py-24">
+        <section className="overflow-hidden bg-white py-14 sm:py-20 lg:py-24">
             <div className="container">
                 <div className="mx-auto max-w-2xl text-center">
                     <MarketingSectionHeading
-                        lead="One workspace for your entire"
+                        lead={<>One workspace for <br className='block xs:hidden' /> your entire</>}
                         accent="routine"
-                        subtitle="Every pillar of daily practice lives in a single, coherent shell — 
-                        tap a module to enter the dashboard directly."
+                        subtitle={!isMdUp
+                            ? "Tap a module to pause and open it — your full dashboard is one tap away."
+                            : "Every pillar of daily practice lives in a single, coherent shell — tap a module to enter the dashboard directly."
+                        }
                     />
                 </div>
+            </div>
 
-                <div className="relative mx-auto mt-14 max-w-5xl">
-                    <div className="absolute inset-0 rounded-full bg-emerald-100/35 blur-3xl" />
-                    <div className="relative flex flex-wrap justify-center gap-3 sm:gap-4">
-                        {rows.map((row, index) => (
-                            <WorkspaceRow key={`workspace-row-${index}`} row={row} columns={columns} />
-                        ))}
-                    </div>
+            <div className="container-narrow mt-10 sm:mt-12">
+                <div
+                    className={cn(
+                        "relative space-y-2 overflow-hidden sm:space-y-3",
+                        isPaused && "[&_.marquee-track]:[animation-play-state:paused]"
+                    )}
+                    onMouseEnter={() => setIsPaused(true)}
+                    onMouseLeave={() => setIsPaused(false)}
+                >
+                    {WORKSPACE_MARQUEE_ROWS.map((row, index) => (
+                        <WorkspaceMarqueeRow
+                            key={index}
+                            items={row.items}
+                            reverse={row.reverse}
+                            isPaused={isPaused}
+                        />
+                    ))}
                 </div>
             </div>
         </section>

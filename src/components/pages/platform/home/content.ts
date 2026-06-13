@@ -95,6 +95,21 @@ export const WORKSPACE_MODULES: WorkspaceModule[] = [
     { label: "Support", icon: Headphones, href: "/support" },
 ]
 
+const WORKSPACE_ROW_SIZE = 5
+
+/** Three equal-length marquee rows — alternating direction */
+export const WORKSPACE_MARQUEE_ROWS: { items: WorkspaceModule[]; reverse: boolean }[] = [
+    { items: WORKSPACE_MODULES.slice(0, WORKSPACE_ROW_SIZE), reverse: false },
+    { items: WORKSPACE_MODULES.slice(WORKSPACE_ROW_SIZE, WORKSPACE_ROW_SIZE * 2), reverse: true },
+    {
+        items: [
+            ...WORKSPACE_MODULES.slice(WORKSPACE_ROW_SIZE * 2),
+            WORKSPACE_MODULES[0],
+        ],
+        reverse: false,
+    },
+]
+
 export type Testimonial = {
     quote: string
     name: string

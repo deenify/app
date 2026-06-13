@@ -16,7 +16,7 @@ const MarketingHeader = () => {
 
     return (
         <header className="sticky top-0 z-50 border-b border-gray-100/80 bg-white/95 backdrop-blur-md">
-            <div className="container flex h-[72px] items-center justify-between gap-4 sm:h-[76px]">
+            <div className="container-header-footer flex h-[72px] items-center justify-between gap-4 sm:h-[76px]">
                 <Link href="/" className="group flex items-center gap-2.5">
                     {/* <span className="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-[0.65rem] bg-emerald-600 shadow-[0_4px_14px_rgba(16,185,129,0.35)] transition-all duration-300 group-hover:bg-emerald-700 group-hover:shadow-[0_6px_18px_rgba(16,185,129,0.4)] sm:h-10 sm:w-10">
                         <Moon
