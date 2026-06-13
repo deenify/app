@@ -37,8 +37,8 @@ const MarketingTestimonialsSection = () => {
                 </div>
             </div>
 
-            <div className="container-marketing-wide mt-10 sm:mt-12">
-                <div className="relative mx-auto max-w-5xl overflow-hidden py-2 md:overflow-visible md:py-4">
+            <div className="container mt-10 sm:mt-12">
+                <div className="relative mx-auto max-w-5xl.. overflow-hidden py-2 md:overflow-visible md:py-4">
                     <FadeEdge fadeDirection="both" hideBelow="md" />
 
                     <Swiper
