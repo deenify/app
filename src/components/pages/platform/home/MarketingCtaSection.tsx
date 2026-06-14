@@ -24,13 +24,12 @@ const MarketingCtaSection = () => {
                                 clarity, craft, and continuity — from first prayer to lifelong learning."
                             />
                         </div>
+
                         <Button
                             variant="default"
-                            size="sm"
                             href="/dashboard"
-                            className="mx-auto mt-6 h-9 w-full max-w-xs rounded-md px-4 text-xs 
-                            font-medium sm:mt-8 sm:h-12 sm:w-auto sm:max-w-none sm:rounded-full 
-                            sm:px-10 sm:text-base"
+                            className="w-max h-10 sm:h-12 text-sm sm:text-base px-8 sm:px-12
+                            font-medium mt-6 xs:mt-8 rounded-full"
                         >
                             Open Dashboard
                         </Button>

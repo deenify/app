@@ -39,23 +39,19 @@ const MarketingHeroSection = () => {
                         as the practices it serves.
                     </p>
 
-                    <div className="mt-6 flex w-full flex-col gap-2 sm:mt-8 sm:w-auto sm:flex-row 
-                    sm:items-center sm:justify-center sm:gap-3">
+                    <div className="mt-6 flex w-full flex-col gap-3 sm:mt-8 xs:w-auto xs:flex-row 
+                    xs:items-center xs:justify-center xs:gap-4">
                         <Button
                             variant="default"
-                            size="sm"
                             href="/dashboard"
-                            className="h-9 w-full rounded-md px-4 text-xs font-medium sm:h-12 sm:w-auto 
-                            sm:rounded-full sm:px-8 sm:text-base"
+                            className="w-full h-10 sm:h-12 xs:w-auto rounded-md sm:rounded-full text-sm font-medium px-8 sm:px-10"
                         >
                             Open Dashboard
                         </Button>
                         <Button
                             variant="outline-emerald"
-                            size="sm"
                             href="/register"
-                            className="h-9 w-full rounded-md px-4 text-xs font-medium sm:h-12 sm:w-auto 
-                            sm:rounded-full sm:px-8 sm:text-base"
+                            className="w-full h-10 sm:h-12 xs:w-auto rounded-md sm:rounded-full text-sm font-medium px-8 sm:px-10"
                         >
                             Create free account
                         </Button>

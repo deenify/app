@@ -41,8 +41,8 @@ const PricingCard = ({ plan, expanded, onToggle }: PricingCardProps) => {
                 variant={plan.highlighted ? "default" : "secondary"}
                 href={plan.href}
                 className={cn(
-                    "mt-5 w-full rounded-md py-5 text-sm font-medium lg:mt-6",
-                    !plan.highlighted && "bg-gray-900 text-white hover:bg-gray-800"
+                    "mt-5 w-full rounded-md py-5 text-sm font-medium lg:mt-6 shadow-sm shadow-transparent hover:shadow-[0_10px_20px_rgba(16,185,129,0.2)]",
+                    !plan.highlighted && "bg-gray-900 text-white hover:bg-gray-900/90 hover:shadow-[0_10px_20px_rgba(0,0,0,0.15)]"
                 )}
             >
                 {plan.cta}
