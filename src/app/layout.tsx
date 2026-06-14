@@ -12,9 +12,8 @@ export const metadata: Metadata = defaultMeta;
 export const viewport = {
     width: "device-width",
     initialScale: 1,
-    maximumScale: 1,
-    minimumScale: 1,
-    userScalable: false,
+    userScalable: true,
+    viewportFit: "cover",
 };
 
 interface RootLayoutProptype {

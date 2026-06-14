@@ -14,7 +14,10 @@ const MarketingLayoutWrapper = ({ children }: MarketingLayoutWrapperProps) => {
             <div>
                 <MarketingHeader />
             </div>
-            <div className='flex-1 overflow-y-auto scrollbar-content flex flex-col justify-between'>
+            <div
+                id='marketing-layout-wrapper-scroll-container'
+                className='flex-1 overflow-y-auto scrollbar-content flex flex-col justify-between'
+            >
                 {children}
                 <MarketingFooter />
             </div>

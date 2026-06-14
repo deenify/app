@@ -47,7 +47,10 @@ const DashboardLayoutWrapper = ({ children }: DashboardLayoutWrapperProps) => {
                         }}
                     />
 
-                    <div className='flex-1 overflow-y-auto scrollbar-content flex flex-col justify-between'>
+                    <div
+                        id='dashboard-layout-wrapper-scroll-container'
+                        className='flex-1 overflow-y-auto scrollbar-content flex flex-col justify-between'
+                    >
                         {children}
                         <MarketingFooter />
                     </div>

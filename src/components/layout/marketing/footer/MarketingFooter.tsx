@@ -9,15 +9,19 @@ import {
     FOOTER_LEGAL,
     FOOTER_LINK_SECTIONS,
     FOOTER_SOCIAL_LINKS,
+    handleFocusIn,
 } from "./content"
 import { AppleIcon } from "@/assets/svg/AppleIcon"
 import { PlayStoreIcon } from "@/assets/svg/PlayStoreIcon"
+import { useBreakpoint } from "@/hooks/useBreakpoint"
 
 
 const MarketingFooter = () => {
+    const isMobile = useBreakpoint('md', 'down')
 
     const [email, setEmail] = useState("")
     const year = new Date().getFullYear()
+
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault()
@@ -25,10 +29,10 @@ const MarketingFooter = () => {
     }
 
 
+    // Generic Styles
     const Title_Class = "text-base sm:text-lg font-semibold tracking-tight text-gray-900"
     const Description_Class = "text-sm leading-relaxed text-gray-600"
     const Link_Class = "text-sm w-max text-gray-600 transition-colors hover:text-emerald-700"
-
 
     return (
         <footer id="contact" className="border-t border-layout-separator bg-marketing-light">
@@ -113,6 +117,8 @@ const MarketingFooter = () => {
                                     type="email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
+                                    onFocus={() => handleFocusIn(isMobile)}
+                                    onBlur={() => setTimeout(() => window.scrollTo({ top: 0, left: 0, behavior: 'instant' }), 100)}
                                     placeholder="you@email.com"
                                     classNames={{ input: "h-11 w-full min-w-0 rounded-full" }}
                                     required
