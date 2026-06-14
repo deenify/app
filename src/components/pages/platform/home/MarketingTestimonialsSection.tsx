@@ -74,11 +74,13 @@ const MarketingTestimonialsSection = () => {
                             <SwiperSlide key={item.name}>
                                 <blockquote className="testimonial-card h-full w-full rounded-md border border-gray-200 bg-marketing-card p-4 sm:p-6">
                                     <div className="flex items-start justify-between gap-2 sm:gap-3">
-                                        <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-md sm:h-[4.5rem] sm:w-[4.5rem]">
+                                        <div className="relative hrink-0 overflow-hidden rounded-md h-[4.5rem] w-[4.5rem]">
                                             <Image
+                                                fill
+                                                priority
                                                 src={item.avatar}
                                                 alt={item.name}
-                                                fill
+                                                fetchPriority="high"
                                                 className="object-cover"
                                             />
                                         </div>
