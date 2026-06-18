@@ -156,21 +156,19 @@ const config: Config = {
                 full: "9999px",
             },
 
-            keyframes: {
+            keyframes: { 
                 "marquee-left": {
-                    "0%": { transform: "translate3d(0, 0, 0)" },
-                    "100%": { transform: "translate3d(-50%, 0, 0)" },
+                    "0%": { transform: "translateX(0%)" },
+                    "100%": { transform: "translateX(-50%)" },
                 },
                 "marquee-right": {
-                    "0%": { transform: "translate3d(-50%, 0, 0)" },
-                    "100%": { transform: "translate3d(0, 0, 0)" },
+                    "0%": { transform: "translateX(-50%)" },
+                    "100%": { transform: "translateX(0%)" },
                 },
             },
-            animation: {
-                "trust-marquee": "marquee-left 55s linear infinite",
-                "trust-marquee-reverse": "marquee-right 55s linear infinite",
-                "workspace-marquee": "marquee-left 48s linear infinite",
-                "workspace-marquee-reverse": "marquee-right 48s linear infinite",
+            animation: { 
+                "marquee-left": "marquee-left linear infinite",
+                "marquee-right": "marquee-right linear infinite",
             },
 
         },

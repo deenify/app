@@ -32,12 +32,13 @@ const WorkspaceMarqueeRow = ({
             }}
         />
         <InfiniteMarquee
-            reverse={reverse}
-            duration="workspace"
-            trackClassName={isPaused ? "![animation-play-state:paused]" : undefined}
-        >
-            {items.map((module) => (
+            direction={reverse ? "right" : "left"}
+            speedInSecond={80}
+            itemInteractionEffect={false}
+            disableOnInteraction
+            content={items.map((module, idx) => (
                 <div
+                    key={idx}
                     role="button"
                     tabIndex={0}
                     aria-pressed={isPaused}
@@ -72,7 +73,7 @@ const WorkspaceMarqueeRow = ({
                     </span>
                 </div>
             ))}
-        </InfiniteMarquee>
+        />
     </div>
 )
 

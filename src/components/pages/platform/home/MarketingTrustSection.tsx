@@ -17,7 +17,7 @@ const MarketingTrustSection = () => {
             </div>
 
             <div className="container-wide mt-8">
-                <div className="relative overflow-hidden py-2">
+                <div className="relative overflow-hidden py-2 [&_.marquee-track]:gap-10 sm:[&_.marquee-track]:gap-14">
                     <FadeEdge
                         fadeDirection="both"
                         hideBelow="md"
@@ -27,12 +27,7 @@ const MarketingTrustSection = () => {
                         }}
                     />
                     <InfiniteMarquee
-                        pauseOnHover
-                        duration="trust"
-                        gapClassName="gap-10 sm:gap-14"
-                        stripPadClassName="pr-10 sm:pr-14"
-                    >
-                        {TRUST_BADGES.map((badge) => (
+                        content={TRUST_BADGES.map((badge) => (
                             <div
                                 key={badge.name}
                                 className="group/badge flex shrink-0 cursor-default items-center gap-3 px-1 py-2"
@@ -56,7 +51,9 @@ const MarketingTrustSection = () => {
                                 </span>
                             </div>
                         ))}
-                    </InfiniteMarquee>
+                        speedInSecond={160}
+                        disableOnInteraction
+                    />
                 </div>
             </div>
         </section>

@@ -11,8 +11,8 @@ import {
     FOOTER_SOCIAL_LINKS,
     handleFocusIn,
 } from "./content"
-import { AppleIcon } from "@/assets/svg/AppleIcon"
-import { PlayStoreIcon } from "@/assets/svg/PlayStoreIcon"
+import { AppleIcon } from "@/assets/svg/social/AppleIcon"
+import { PlayStoreIcon } from "@/assets/svg/social/PlayStoreIcon"
 import { useBreakpoint } from "@/hooks/useBreakpoint"
 
 

@@ -22,9 +22,9 @@ const PricingCard = ({ plan, expanded, onToggle }: PricingCardProps) => {
                 <Badge
                     variant="emerald"
                     className="absolute right-4 top-4 bg-emerald-600 text-white py-1 
-                px-3 text-[11px] font-semibold uppercase tracking-tighter"
+                px-4 text-[10px] font-medium uppercase tracking-tigh font-heading rounded-md"
                 >
-                    Most popular
+                    popular
                 </Badge>
             )}
 

@@ -1,7 +1,7 @@
-import { LinkedinIcon } from "@/assets/svg/LinkedinIcon";
-import { InstagramIcon } from "@/assets/svg/InstagramIcon";
-import { FacebookIcon } from "@/assets/svg/FacebookIcon";
-import { XIcon } from "@/assets/svg/XIcon";
+import { LinkedinIcon } from "@/assets/svg/social/LinkedinIcon";
+import { InstagramIcon } from "@/assets/svg/social/InstagramIcon";
+import { FacebookIcon } from "@/assets/svg/social/FacebookIcon";
+import { XIcon } from "@/assets/svg/social/XIcon";
 
 export type FooterLink = { label: string; href: string }
 

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const MenuIcon = () => {
+const DashboardHamburger = () => {
     return (
         <svg
             width="24"
@@ -33,4 +33,4 @@ const MenuIcon = () => {
     )
 }
 
-export default MenuIcon
+export default DashboardHamburger

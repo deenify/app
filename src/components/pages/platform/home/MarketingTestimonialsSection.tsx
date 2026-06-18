@@ -45,13 +45,13 @@ const MarketingTestimonialsSection = () => {
                         className="marketing-testimonials-swiper overflow-hidden"
                         modules={[Pagination, Autoplay]}
                         watchSlidesProgress
-                        speed={950}
+                        speed={900}
                         loop
                         centeredSlides
                         slidesPerView={1}
                         spaceBetween={12}
                         autoplay={{
-                            delay: 5000,
+                            delay: 4000,
                             disableOnInteraction: false,
                             pauseOnMouseEnter: true,
                         }}

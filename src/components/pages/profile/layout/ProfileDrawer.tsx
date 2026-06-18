@@ -8,7 +8,7 @@ import {
 import { ChevronRight } from "lucide-react"
 import { cn } from "@/lib/utils/clsx"
 import { useRouter } from 'next/navigation'
-import MenuIcon from "@/assets/svg/MenuIcon"
+import MenuIcon from "@/assets/svg/menu/DashboardHamburger"
 import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
 import { profileSidebarContent, profileSidebarContentType } from '../content'
