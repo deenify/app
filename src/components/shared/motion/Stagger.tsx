@@ -1,38 +1,62 @@
 "use client"
 
-import { motion } from "framer-motion"
-import type { ReactNode } from "react"
+import { motion, ViewportOptions } from "framer-motion"
+import { type ReactNode } from "react"
+import { useScrollContainer } from "@/context/ScrollContainerContext"
+import { motionEase, resolveInViewViewport } from "@/components/shared/motion/inViewViewport"
 
 type StaggerProps = {
     children: ReactNode
-    /** Index within the current reveal batch (0 for first item in batch). */
     index: number
     className?: string
-    /** When false, skips entrance animation (already-visible items). Default true. */
     animate?: boolean
-    /** Seconds added per index step. Default 0.02. */
-    delayStep?: number
-    /** Entrance duration in seconds. Default 0.2. */
+    animation?: "on_mount" | "while_in_view"
+    /** Delay before the first item; each next item adds `delay`. */
+    baseDelay?: number
+    delay?: number
     duration?: number
+    variant?: "in" | "up"
+    viewport?: ViewportOptions
 }
+
+const VARIANT_INITIAL = {
+    up: { opacity: 0, y: 8, scale: 0.99 },
+    in: { opacity: 0, y: 0, scale: 1 },
+} as const
 
 const Stagger = ({
     children,
     index,
     className,
     animate = true,
-    delayStep = 0.05,
+    animation = "on_mount",
+    baseDelay = 0,
+    delay = 0.05,
     duration = 0.3,
+    variant = "up",
+    viewport,
 }: StaggerProps) => {
+    const scrollRoot = useScrollContainer()
+    const resolvedViewport = resolveInViewViewport(viewport, scrollRoot)
+
     return (
         <motion.div
-            initial={animate ? { opacity: 0, y: 8, scale: 0.99 } : false}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
+            initial={animate ? VARIANT_INITIAL[variant] : false}
+            {...(
+                animation === "while_in_view"
+                    ? { whileInView: { opacity: 1, y: 0, scale: 1 } }
+                    : { animate: { opacity: 1, y: 0, scale: 1 } }
+            )}
             transition={{
                 duration,
-                delay: animate ? index * delayStep : 0,
-                ease: "easeOut",
+                delay: animate ? baseDelay + index * delay : 0,
+                ease: motionEase,
             }}
+            viewport={
+                animation === "while_in_view"
+                    ? resolvedViewport
+                    : undefined
+            }
             className={className}
         >
             {children}

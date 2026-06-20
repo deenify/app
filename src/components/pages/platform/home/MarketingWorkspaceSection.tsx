@@ -6,9 +6,14 @@ import { cn } from "@/lib/utils/clsx"
 import { useBreakpoint } from "@/hooks/useBreakpoint"
 import FadeEdge from "@/components/shared/FadeEdge"
 import InfiniteMarquee from "@/components/shared/InfiniteMarquee"
+import Animate from "@/components/shared/motion/Animate"
+import Stagger from "@/components/shared/motion/Stagger"
 import MarketingSectionHeading from "./MarketingSectionHeading"
 import { WORKSPACE_MARQUEE_ROWS, type WorkspaceModule } from "./content"
 import { Button } from "@/components/ui/button"
+
+const CONTENT_BASE_DELAY = 0.55
+const STAGGER_STEP = 0.12
 
 
 type WorkspaceMarqueeRowProps = {
@@ -106,12 +111,21 @@ const MarketingWorkspaceSection = () => {
                     onMouseLeave={() => setIsPaused(false)}
                 >
                     {WORKSPACE_MARQUEE_ROWS.map((row, index) => (
-                        <WorkspaceMarqueeRow
+                        <Stagger
                             key={index}
-                            items={row.items}
-                            reverse={row.reverse}
-                            isPaused={isPaused}
-                        />
+                            index={index}
+                            animation="while_in_view"
+                            variant="in"
+                            baseDelay={CONTENT_BASE_DELAY}
+                            delay={STAGGER_STEP}
+                            duration={1.1}
+                        >
+                            <WorkspaceMarqueeRow
+                                items={row.items}
+                                reverse={row.reverse}
+                                isPaused={isPaused}
+                            />
+                        </Stagger>
                     ))}
                 </div>
             </div>

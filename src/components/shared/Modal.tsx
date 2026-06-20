@@ -2,11 +2,9 @@
 
 import * as Dialog from "@radix-ui/react-dialog"
 import { AnimatePresence, motion } from "framer-motion"
-import { X } from "lucide-react"
 import { cn } from "@/lib/utils/clsx"
-import { Button } from "../ui/button"
-import AnimateUp from "./motion/AnimateUp"
 import CloseButton from "./buttons/CloseButton"
+import Animate from "./motion/Animate"
 
 type ModalProps = {
     isOpen: boolean
@@ -59,7 +57,8 @@ export function Modal({
 
                         <Dialog.Content asChild>
                             <div onClick={(e) => e.stopPropagation()}>
-                                <AnimateUp
+                                <Animate
+                                    variant="up"
                                     className={cn(
                                         "fixed inset-0 z-[9999] m-auto",
                                         "flex flex-col overflow-hidden",
@@ -117,7 +116,7 @@ export function Modal({
                                             </footer>
                                         )}
                                     </section>
-                                </AnimateUp>
+                                </Animate>
                             </div>
                         </Dialog.Content>
                     </Dialog.Portal>

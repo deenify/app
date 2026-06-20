@@ -8,12 +8,14 @@ import { instrumentSerif, notoSans, notoSansArabic, redHatText } from "@/assets/
 import { defaultMeta } from "@/assets/meta";
 import LayoutWrapper from "@/components/layout/LayoutWrapper";
 
-export const metadata: Metadata = defaultMeta;
-export const viewport = {
-    width: "device-width",
-    initialScale: 1,
-    userScalable: true,
-    viewportFit: "cover",
+export const metadata: Metadata = {
+    ...defaultMeta,
+    viewport: {
+        width: "device-width",
+        initialScale: 1,
+        userScalable: true,
+        viewportFit: "cover",
+    },
 };
 
 interface RootLayoutProptype {

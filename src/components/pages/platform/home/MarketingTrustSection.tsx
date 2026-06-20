@@ -4,19 +4,32 @@ import { cn } from "@/lib/utils/clsx"
 import FadeEdge from "@/components/shared/FadeEdge"
 import InfiniteMarquee from "@/components/shared/InfiniteMarquee"
 import { TRUST_BADGES } from "./content"
+import Animate from "@/components/shared/motion/Animate"
 
 const MarketingTrustSection = () => {
 
     return (
         <section className="py-10 sm:py-12">
-            <div className="container text-center">
+            <Animate
+                animate="while_in_view"
+                delay={0.1}
+                duration={0.88}
+                className="container text-center"
+                variant="up"
+            >
                 <p className="text-sm text-gray-500">
                     More than <span className="font-medium text-gray-700">500+</span> communities
                     trust us with their daily practice
                 </p>
-            </div>
+            </Animate>
 
-            <div className="container-wide mt-8">
+            <Animate
+                animate="while_in_view"
+                className="container-wide mt-8"
+                delay={0.28}
+                duration={1.2}
+                variant="in"
+            >
                 <div className="relative overflow-hidden py-2 [&_.marquee-track]:gap-10 sm:[&_.marquee-track]:gap-14">
                     <FadeEdge
                         fadeDirection="both"
@@ -55,7 +68,7 @@ const MarketingTrustSection = () => {
                         disableOnInteraction
                     />
                 </div>
-            </div>
+            </Animate>
         </section>
     )
 }

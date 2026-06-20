@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { DashboardAreaChart } from "@/components/shared/charts/graphical-charts/DashboardAreaChart"
 import type { DashboardChartSeries } from "@/components/shared/charts/graphical-charts/DashboardAreaChart"
-import AnimateUp from "@/components/shared/motion/AnimateUp"
+import Animate from "@/components/shared/motion/Animate"
 
 type DashboardConsistencyChartProps = {
     title: string
@@ -20,7 +20,7 @@ export function DashboardConsistencyChart({
     series,
 }: DashboardConsistencyChartProps) {
     return (
-        <AnimateUp className="w-full lg:col-span-2">
+        <Animate variant="up" className="w-full lg:col-span-2">
             <Card className="border border-gray-200 shadow-sm flex flex-col justify-between h-full">
                 <CardHeader className="flex flex-col gap-3 pb-2 sm:flex-row sm:items-start sm:justify-between p-4">
                     <div className="space-y-1">
@@ -42,6 +42,6 @@ export function DashboardConsistencyChart({
                     />
                 </CardContent>
             </Card>
-        </AnimateUp>
+        </Animate>
     )
 }

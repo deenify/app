@@ -23,7 +23,7 @@ import {
 import { AnimatePresence, motion } from "framer-motion"
 import { cn } from "@/lib/utils/clsx"
 import type { DashboardActivityRow } from "./content"
-import AnimateUp from "@/components/shared/motion/AnimateUp"
+import Animate from "@/components/shared/motion/Animate"
 
 type RecentActivityModalProps = {
     isOpen: boolean
@@ -264,7 +264,8 @@ export function RecentActivityModal({ isOpen, onOpenChange, initialItems }: Rece
                             )
                         }) : (
                             <div className="flex items-center justify-center flex-1 text-center py-10">
-                                <AnimateUp
+                                <Animate
+                                    variant="up"
                                     className="flex flex-col items-center justify-center flex-1 text-center py-10"
                                 >
                                     <div className="h-20 w-20 bg-gray-50 rounded-3xl flex items-center justify-center mb-6 rotate-12 transition-transform hover:rotate-0">
@@ -288,7 +289,7 @@ export function RecentActivityModal({ isOpen, onOpenChange, initialItems }: Rece
                                     >
                                         Reset all filters
                                     </Button>
-                                </AnimateUp>
+                                </Animate>
                             </div>
                         )}
                     </AnimatePresence>

@@ -49,6 +49,8 @@ const MobileSidebar = ({ isOpen, onClose }: MobileSidebarProps) => {
     }, [isOpen, onClose])
 
 
+    if (typeof document === "undefined") return null
+
     return (
         createPortal(
             <AnimatePresence>

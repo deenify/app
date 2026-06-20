@@ -6,11 +6,14 @@ import type { Swiper as SwiperInstance } from "swiper"
 import { Autoplay, Pagination } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
 import FadeEdge from "@/components/shared/FadeEdge"
+import Animate from "@/components/shared/motion/Animate"
 import MarketingSectionHeading from "./MarketingSectionHeading"
 import { TESTIMONIALS } from "./content"
 
 import "swiper/css"
 import "swiper/css/pagination"
+
+const CONTENT_BASE_DELAY = 0.55
 
 const MarketingTestimonialsSection = () => {
     const paginationRef = useRef<HTMLDivElement>(null)
@@ -37,7 +40,13 @@ const MarketingTestimonialsSection = () => {
                 </div>
             </div>
 
-            <div className="container mt-10 sm:mt-12">
+            <Animate
+                animate="while_in_view"
+                variant="in"
+                delay={CONTENT_BASE_DELAY}
+                duration={1.1}
+                className="container mt-10 sm:mt-12"
+            >
                 <div className="relative mx-auto max-w-5xl.. overflow-hidden py-2 md:overflow-visible md:py-4">
                     <FadeEdge fadeDirection="both" hideBelow="md" />
 
@@ -108,13 +117,19 @@ const MarketingTestimonialsSection = () => {
                     </Swiper>
                 </div>
 
-                <div className="mt-6 flex justify-center sm:mt-8">
+                <Animate
+                    animate="while_in_view"
+                    variant="up"
+                    delay={0.7}
+                    duration={0.85}
+                    className="mt-6 flex justify-center sm:mt-8"
+                >
                     <div
                         ref={paginationRef}
                         className="marketing-testimonial-pagination flex items-center justify-center gap-2"
                     />
-                </div>
-            </div>
+                </Animate>
+            </Animate>
         </section>
     )
 }

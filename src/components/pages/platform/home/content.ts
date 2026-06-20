@@ -60,7 +60,7 @@ export const FEATURE_CARDS: FeatureCard[] = [
         title: "Quran with deliberate depth",
         description:
             "Read, listen, and bookmark with typography tuned for long, focused sessions.",
-        image: "https://images.unsplash.com/photo-1609599001995-17e2c321d92e?w=900&q=80",
+        image: "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=900&q=80",
     },
     {
         title: "Catalogs worth returning to",
