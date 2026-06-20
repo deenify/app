@@ -6,7 +6,7 @@ import Tabs, { TabItem } from "@/components/shared/Tabs"
 import { Button } from "@/components/ui/button"
 import { Pagination } from "@/components/ui/pagination"
 import AdkharCard from "./AdkharCard"
-import AnimateUp from "@/components/shared/motion/AnimateUp"
+import Animate from "@/components/shared/motion/Animate"
 import { usePagination } from "@/hooks/usePagination"
 import { useBreakpoint } from "@/hooks/useBreakpoint"
 
@@ -52,8 +52,12 @@ export default function DhikrPresetGrid({
         <section className="min-w-0 space-y-6 overflow-hidden">
             <div className="flex flex-col gap-4 text-center items-center" >
                 <div className="space-y-1">
-                    <h3 className="text-lg font-bold text-gray-900 tracking-tight xs:text-xl">Adkar library</h3>
-                    <p className="text-xs text-gray-500 xs:text-sm">Select a lane or contribute to worldwide remembrance</p>
+                    <h3 className="text-lg font-bold text-gray-900 tracking-tight xs:text-xl">
+                        Adkar library
+                    </h3>
+                    <p className="text-xs text-gray-500 xs:text-sm">
+                        Select a lane or contribute to worldwide remembrance
+                    </p>
                 </div>
                 <Tabs
                     allTabs={tabs}
@@ -74,7 +78,8 @@ export default function DhikrPresetGrid({
 
             <div>
                 {activeTab === "featured" ? (
-                    <AnimateUp
+                    <Animate
+                        variant="up"
                         key="featured"
                         className="grid gap-4 sm:grid-cols-2"
                     >
@@ -88,9 +93,10 @@ export default function DhikrPresetGrid({
                                 hasContributions={idx > 1}
                             />
                         ))}
-                    </AnimateUp>
+                    </Animate>
                 ) : (
-                    <AnimateUp
+                    <Animate
+                        variant="up"
                         key="custom"
                         className="h-full"
                     >
@@ -124,8 +130,10 @@ export default function DhikrPresetGrid({
                                 )}
                             </div>
                         ) : (
-                            <div className="flex flex-col items-center justify-center text-center py-16 px-4 bg-gray-50/50 rounded-3xl border border-dashed border-gray-200">
-                                <div className="w-16 h-16 rounded-full bg-emerald-50 flex items-center justify-center mb-4">
+                            <div className="flex flex-col items-center justify-center text-center py-16 
+                            px-4 bg-gray-50/50 rounded-3xl border border-dashed border-gray-200">
+                                <div className="w-16 h-16 rounded-full bg-emerald-50 flex items-center 
+                                justify-center mb-4">
                                     <CheckCircle2 className="h-8 w-8 text-emerald-500" strokeWidth={1.5} />
                                 </div>
                                 <h4 className="text-gray-900 font-bold text-lg mb-2">
@@ -136,14 +144,15 @@ export default function DhikrPresetGrid({
                                 </p>
                             </div>
                         )}
-                    </AnimateUp>
+                    </Animate>
                 )}
             </div>
 
             <div className="space-y-3 pt-4 sm:space-y-4 sm:pt-6">
                 <Button
                     variant="default"
-                    className="w-full h-11 rounded-xl font-bold text-sm shadow-md shadow-emerald-100 sm:h-12 sm:rounded-2xl sm:text-base"
+                    className="w-full h-11 rounded-xl font-bold text-sm shadow-md 
+                    shadow-emerald-100 sm:h-12 sm:rounded-2xl sm:text-base"
                     onClick={onAddAdkhar}
                     shouldScale
                 >
@@ -155,7 +164,8 @@ export default function DhikrPresetGrid({
                     <Button
                         variant="transparent"
                         size="max"
-                        className="text-[13px] font-bold text-gray-400 hover:text-emerald-600 transition-colors"
+                        className="text-[13px] font-bold text-gray-400 hover:text-emerald-600 
+                        transition-colors"
                         onClick={onViewAllWorldwide}
                     >
                         View all Adkar worldwide

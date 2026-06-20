@@ -7,6 +7,10 @@ import { cn } from "@/lib/utils/clsx"
 import MarketingSectionHeading from "./MarketingSectionHeading"
 import { PRICING_PLANS, type PricingPlan } from "./content"
 import { Badge } from "@/components/ui/badge"
+import Stagger from "@/components/shared/motion/Stagger"
+
+const CONTENT_BASE_DELAY = 0.55
+const STAGGER_STEP = 0.12
 
 
 type PricingCardProps = {
@@ -22,9 +26,9 @@ const PricingCard = ({ plan, expanded, onToggle }: PricingCardProps) => {
                 <Badge
                     variant="emerald"
                     className="absolute right-4 top-4 bg-emerald-600 text-white py-1 
-                px-3 text-[11px] font-semibold uppercase tracking-tighter"
+                px-4 text-[10px] font-medium uppercase tracking-tigh font-heading rounded-md"
                 >
-                    Most popular
+                    popular
                 </Badge>
             )}
 
@@ -41,8 +45,8 @@ const PricingCard = ({ plan, expanded, onToggle }: PricingCardProps) => {
                 variant={plan.highlighted ? "default" : "secondary"}
                 href={plan.href}
                 className={cn(
-                    "mt-5 w-full rounded-md py-5 text-sm font-medium lg:mt-6",
-                    !plan.highlighted && "bg-gray-900 text-white hover:bg-gray-800"
+                    "mt-5 w-full rounded-md py-5 text-sm font-medium lg:mt-6 shadow-sm shadow-transparent hover:shadow-[0_10px_20px_rgba(16,185,129,0.2)]",
+                    !plan.highlighted && "bg-gray-900 text-white hover:bg-gray-900/90 hover:shadow-[0_10px_20px_rgba(0,0,0,0.15)]"
                 )}
             >
                 {plan.cta}
@@ -108,17 +112,26 @@ const MarketingPricingSection = () => {
                 </div>
 
                 <div className="mx-auto mt-10 grid max-w-xl lg:max-w-none gap-3 sm:mt-12 sm:gap-4 lg:grid-cols-3">
-                    {PRICING_PLANS.map((plan) => (
-                        <PricingCard
+                    {PRICING_PLANS.map((plan, index) => (
+                        <Stagger
                             key={plan.name}
-                            plan={plan}
-                            expanded={expandedPlan === plan.name}
-                            onToggle={() =>
-                                setExpandedPlan((current) =>
-                                    current === plan.name ? null : plan.name
-                                )
-                            }
-                        />
+                            index={index}
+                            animation="while_in_view"
+                            variant="up"
+                            baseDelay={CONTENT_BASE_DELAY}
+                            delay={STAGGER_STEP}
+                            duration={0.85}
+                        >
+                            <PricingCard
+                                plan={plan}
+                                expanded={expandedPlan === plan.name}
+                                onToggle={() =>
+                                    setExpandedPlan((current) =>
+                                        current === plan.name ? null : plan.name
+                                    )
+                                }
+                            />
+                        </Stagger>
                     ))}
                 </div>
             </div>

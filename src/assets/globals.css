@@ -114,18 +114,22 @@
 
     html {
         width: 100%;
-        height: 100%;
+        height: 100dvh;
         scroll-behavior: smooth;
+        overscroll-behavior: none;
     }
 
     body {
         width: 100%;
-        height: 100%;
+        height: 100dvh;
+        position: fixed;
+        inset: 0;
         overflow: hidden;
         font-family: var(--font-noto, system-ui, ui-sans-serif, sans-serif);
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         scroll-behavior: smooth;
+        overscroll-behavior: none;
     }
 
     /* Reset defaults */

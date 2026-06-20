@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button"
+import Animate from "@/components/shared/motion/Animate"
 import MarketingSectionHeading from "./MarketingSectionHeading"
 
 const MarketingCtaSection = () => {
@@ -24,16 +25,22 @@ const MarketingCtaSection = () => {
                                 clarity, craft, and continuity — from first prayer to lifelong learning."
                             />
                         </div>
-                        <Button
-                            variant="default"
-                            size="sm"
-                            href="/dashboard"
-                            className="mx-auto mt-6 h-9 w-full max-w-xs rounded-md px-4 text-xs 
-                            font-medium sm:mt-8 sm:h-12 sm:w-auto sm:max-w-none sm:rounded-full 
-                            sm:px-10 sm:text-base"
+
+                        <Animate
+                            variant="up"
+                            animate="while_in_view"
+                            delay={0.55}
+                            duration={0.9}
                         >
-                            Open Dashboard
-                        </Button>
+                            <Button
+                                variant="default"
+                                href="/dashboard"
+                                className="w-max h-10 sm:h-12 text-sm sm:text-base px-8 sm:px-12
+                            font-medium mt-6 xs:mt-8 rounded-full"
+                            >
+                                Open Dashboard
+                            </Button>
+                        </Animate>
                     </div>
                 </div>
             </div>

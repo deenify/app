@@ -11,7 +11,7 @@ import {
 } from "@/components/shared/UserProfileDropdown"
 import { cn } from "@/lib/utils/clsx"
 import { useRouter } from "next/navigation"
-import MenuIcon from "@/assets/svg/MenuIcon"
+import MenuIcon from "@/assets/svg/menu/DashboardHamburger"
 import Logo from "@/components/shared/Logo"
 import { DEFAULT_SEARCH_ITEMS } from "./content"
 

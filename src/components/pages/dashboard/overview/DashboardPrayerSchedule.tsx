@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils/clsx"
 import type { PrayerWindow } from "@/components/pages/dashboard/content"
 import { useState } from "react"
-import AnimateUp from "@/components/shared/motion/AnimateUp"
+import Animate from "@/components/shared/motion/Animate"
 
 type DashboardPrayerScheduleProps = {
     prayers: PrayerWindow[]
@@ -36,7 +36,7 @@ export function DashboardPrayerSchedule({
     }
 
     return (
-        <AnimateUp delay={0.2}>
+        <Animate delay={0.2} variant="up">
             <Card className="overflow-hidden border border-gray-200 shadow-sm">
                 <CardHeader className="border-b border-gray-100 bg-gray-50/50 p-4">
                     <div className="flex items-start justify-between gap-2">
@@ -108,6 +108,6 @@ export function DashboardPrayerSchedule({
                     </ul>
                 </CardContent>
             </Card>
-        </AnimateUp>
+        </Animate>
     )
 }

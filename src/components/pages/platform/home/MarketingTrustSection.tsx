@@ -4,20 +4,33 @@ import { cn } from "@/lib/utils/clsx"
 import FadeEdge from "@/components/shared/FadeEdge"
 import InfiniteMarquee from "@/components/shared/InfiniteMarquee"
 import { TRUST_BADGES } from "./content"
+import Animate from "@/components/shared/motion/Animate"
 
 const MarketingTrustSection = () => {
 
     return (
         <section className="py-10 sm:py-12">
-            <div className="container text-center">
+            <Animate
+                animate="while_in_view"
+                delay={0.1}
+                duration={0.88}
+                className="container text-center"
+                variant="up"
+            >
                 <p className="text-sm text-gray-500">
                     More than <span className="font-medium text-gray-700">500+</span> communities
                     trust us with their daily practice
                 </p>
-            </div>
+            </Animate>
 
-            <div className="container-wide mt-8">
-                <div className="relative overflow-hidden py-2">
+            <Animate
+                animate="while_in_view"
+                className="container-wide mt-8"
+                delay={0.28}
+                duration={1.2}
+                variant="in"
+            >
+                <div className="relative overflow-hidden py-2 [&_.marquee-track]:gap-10 sm:[&_.marquee-track]:gap-14">
                     <FadeEdge
                         fadeDirection="both"
                         hideBelow="md"
@@ -27,12 +40,7 @@ const MarketingTrustSection = () => {
                         }}
                     />
                     <InfiniteMarquee
-                        pauseOnHover
-                        duration="trust"
-                        gapClassName="gap-10 sm:gap-14"
-                        stripPadClassName="pr-10 sm:pr-14"
-                    >
-                        {TRUST_BADGES.map((badge) => (
+                        content={TRUST_BADGES.map((badge) => (
                             <div
                                 key={badge.name}
                                 className="group/badge flex shrink-0 cursor-default items-center gap-3 px-1 py-2"
@@ -56,9 +64,11 @@ const MarketingTrustSection = () => {
                                 </span>
                             </div>
                         ))}
-                    </InfiniteMarquee>
+                        speedInSecond={160}
+                        disableOnInteraction
+                    />
                 </div>
-            </div>
+            </Animate>
         </section>
     )
 }

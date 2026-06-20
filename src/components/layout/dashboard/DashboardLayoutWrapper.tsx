@@ -1,18 +1,20 @@
 "use client"
 
-import React, { ReactNode, useState } from 'react'
+import React, { ReactNode, useRef, useState } from 'react'
 import { useBreakpoint } from '@/hooks/useBreakpoint'
 import { cn } from '@/lib/utils/clsx'
 import DashboardSidebar from './side-bar/DashboardSidebar'
 import DashboardHeader from './header/DashboardHeader'
 import DashboardBottombar from './bottom-bar/DashboardBottombar'
 import MarketingFooter from '../marketing/footer/MarketingFooter'
+import { ScrollContainerProvider } from '@/context/ScrollContainerContext'
 
 type DrawerTabsType = "menu" | "language" | "settings"
 interface DashboardLayoutWrapperProps { readonly children: ReactNode }
 
 
 const DashboardLayoutWrapper = ({ children }: DashboardLayoutWrapperProps) => {
+    const scrollRef = useRef<HTMLDivElement>(null)
     const [sidebarExpanded, setSidebarExpanded] = useState(false)
     const [isLocked, setIsLocked] = useState(false)
     const [activeDrawerTab, setActiveDrawerTab] = useState<DrawerTabsType | null>(null)
@@ -47,10 +49,16 @@ const DashboardLayoutWrapper = ({ children }: DashboardLayoutWrapperProps) => {
                         }}
                     />
 
-                    <div className='flex-1 overflow-y-auto scrollbar-content flex flex-col justify-between'>
-                        {children}
-                        <MarketingFooter />
-                    </div>
+                    <ScrollContainerProvider containerRef={scrollRef}>
+                        <div
+                            ref={scrollRef}
+                            id='dashboard-layout-wrapper-scroll-container'
+                            className='flex-1 overflow-y-auto scrollbar-content flex flex-col justify-between'
+                        >
+                            {children}
+                            <MarketingFooter />
+                        </div>
+                    </ScrollContainerProvider>
                 </div>
 
                 <DashboardBottombar

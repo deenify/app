@@ -6,11 +6,14 @@ import type { Swiper as SwiperInstance } from "swiper"
 import { Autoplay, Pagination } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
 import FadeEdge from "@/components/shared/FadeEdge"
+import Animate from "@/components/shared/motion/Animate"
 import MarketingSectionHeading from "./MarketingSectionHeading"
 import { TESTIMONIALS } from "./content"
 
 import "swiper/css"
 import "swiper/css/pagination"
+
+const CONTENT_BASE_DELAY = 0.55
 
 const MarketingTestimonialsSection = () => {
     const paginationRef = useRef<HTMLDivElement>(null)
@@ -37,7 +40,13 @@ const MarketingTestimonialsSection = () => {
                 </div>
             </div>
 
-            <div className="container mt-10 sm:mt-12">
+            <Animate
+                animate="while_in_view"
+                variant="in"
+                delay={CONTENT_BASE_DELAY}
+                duration={1.1}
+                className="container mt-10 sm:mt-12"
+            >
                 <div className="relative mx-auto max-w-5xl.. overflow-hidden py-2 md:overflow-visible md:py-4">
                     <FadeEdge fadeDirection="both" hideBelow="md" />
 
@@ -45,13 +54,13 @@ const MarketingTestimonialsSection = () => {
                         className="marketing-testimonials-swiper overflow-hidden"
                         modules={[Pagination, Autoplay]}
                         watchSlidesProgress
-                        speed={950}
+                        speed={900}
                         loop
                         centeredSlides
                         slidesPerView={1}
                         spaceBetween={12}
                         autoplay={{
-                            delay: 5000,
+                            delay: 4000,
                             disableOnInteraction: false,
                             pauseOnMouseEnter: true,
                         }}
@@ -74,11 +83,13 @@ const MarketingTestimonialsSection = () => {
                             <SwiperSlide key={item.name}>
                                 <blockquote className="testimonial-card h-full w-full rounded-md border border-gray-200 bg-marketing-card p-4 sm:p-6">
                                     <div className="flex items-start justify-between gap-2 sm:gap-3">
-                                        <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-md sm:h-[4.5rem] sm:w-[4.5rem]">
+                                        <div className="relative hrink-0 overflow-hidden rounded-md h-[4.5rem] w-[4.5rem]">
                                             <Image
+                                                fill
+                                                priority
                                                 src={item.avatar}
                                                 alt={item.name}
-                                                fill
+                                                fetchPriority="high"
                                                 className="object-cover"
                                             />
                                         </div>
@@ -106,13 +117,19 @@ const MarketingTestimonialsSection = () => {
                     </Swiper>
                 </div>
 
-                <div className="mt-6 flex justify-center sm:mt-8">
+                <Animate
+                    animate="while_in_view"
+                    variant="up"
+                    delay={0.7}
+                    duration={0.85}
+                    className="mt-6 flex justify-center sm:mt-8"
+                >
                     <div
                         ref={paginationRef}
                         className="marketing-testimonial-pagination flex items-center justify-center gap-2"
                     />
-                </div>
-            </div>
+                </Animate>
+            </Animate>
         </section>
     )
 }

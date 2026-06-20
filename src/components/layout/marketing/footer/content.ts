@@ -1,9 +1,40 @@
-import { LinkedinIcon } from "@/assets/svg/LinkedinIcon";
-import { InstagramIcon } from "@/assets/svg/InstagramIcon";
-import { FacebookIcon } from "@/assets/svg/FacebookIcon";
-import { XIcon } from "@/assets/svg/XIcon";
+import { LinkedinIcon } from "@/assets/svg/social/LinkedinIcon";
+import { InstagramIcon } from "@/assets/svg/social/InstagramIcon";
+import { FacebookIcon } from "@/assets/svg/social/FacebookIcon";
+import { XIcon } from "@/assets/svg/social/XIcon";
 
 export type FooterLink = { label: string; href: string }
+
+
+/** Scrolls the MarketingLayoutWrapperScrollContainer and DashboardLayoutWrapperScrollContainer 
+ *  to the bottom - so that the input is not hidden by the keyboard ( viewport offset bug )  */
+export const handleFocusIn = (isMobile: boolean) => {
+    if (isMobile) {
+        const MarketingLayoutWrapperScrollContainer =
+            document.getElementById('marketing-layout-wrapper-scroll-container')
+        const DashboardLayoutWrapperScrollContainer =
+            document.getElementById('dashboard-layout-wrapper-scroll-container')
+
+        setTimeout(() => {
+            window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+        }, 100)
+
+        if (MarketingLayoutWrapperScrollContainer) {
+            setTimeout(() => {
+                MarketingLayoutWrapperScrollContainer.scrollTo({
+                    top: MarketingLayoutWrapperScrollContainer.scrollHeight, behavior: 'instant'
+                })
+            }, 100)
+        }
+        if (DashboardLayoutWrapperScrollContainer) {
+            setTimeout(() => {
+                DashboardLayoutWrapperScrollContainer.scrollTo({
+                    top: DashboardLayoutWrapperScrollContainer.scrollHeight, behavior: 'instant'
+                })
+            }, 100)
+        }
+    }
+}
 
 
 export const FOOTER_PRODUCT: FooterLink[] = [

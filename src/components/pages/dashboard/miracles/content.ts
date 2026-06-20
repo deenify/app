@@ -100,7 +100,7 @@ export const MIRACLES_TOPICS: MiracleTopic[] = [
         category: "quran",
         excerpt: "The same words memorized and written for over 1,400 years.",
         readMinutes: 4,
-        thumbnail: "https://images.unsplash.com/photo-1609599001995-17e2c321d92e?w=800&q=80",
+        thumbnail: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80",
         quranRef: "Quran 15:9",
         sections: [
             section(1, "Oral and written", "Companions memorized fully. Written copies were kept and cross-checked.", ["Millions still memorize today", "One Arabic text for the ummah"]),
@@ -308,7 +308,7 @@ export const MIRACLES_TOPICS: MiracleTopic[] = [
         category: "quran",
         excerpt: "A literary challenge that remains unmatched.",
         readMinutes: 4,
-        thumbnail: "https://images.unsplash.com/photo-1609599001995-17e2c321d92e?w=800&q=80",
+        thumbnail: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80",
         quranRef: "Quran 2:23",
         sections: [
             section(1, "The challenge", "Bring a surah like it if you doubt its divine origin.", ["Learn Arabic gradually", "Recite with tajweed"]),
