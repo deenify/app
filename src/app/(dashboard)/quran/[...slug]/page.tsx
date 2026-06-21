@@ -3,6 +3,7 @@
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
 import QuranDetailPage from "@/components/pages/dashboard/quran/QuranDetailPage"
+import { serverEnv } from "@/env/server"
 
 interface PageProps {
     params: {
@@ -19,7 +20,7 @@ export async function generateMetadata(
     const surahNumber = slug[0] ? Number(slug[0]) : undefined
 
     if (!surahNumber) {
-        return { title: { absolute: "Deenify - Quran - Surah" } }
+        return { title: { absolute: `${serverEnv.APP_NAME} - Quran - Surah` } }
     }
 
     try {
@@ -41,7 +42,7 @@ export async function generateMetadata(
             description: surah.englishNameTranslation ?? "Read and explore the Quran.",
         }
     } catch {
-        return { title: { absolute: "Deenify - Quran - Surah" } }
+        return { title: { absolute: `${serverEnv.APP_NAME} - Quran - Surah` } }
     }
 }
 

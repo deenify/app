@@ -3,8 +3,8 @@
 import Image from "next/image"
 import { Headphones, TrendingUp, Users, Wallet } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { useBreakpoint } from "@/hooks/useBreakpoint"
 import Animate from "@/components/shared/motion/Animate"
+import { clientEnv } from "@/env/client"
 
 const MarketingHeroSection = () => {
 
@@ -40,7 +40,7 @@ const MarketingHeroSection = () => {
                     <Animate variant="up" delay={0.62} duration={0.92}>
                         <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-gray-600 sm:mt-5 
                     sm:text-base lg:text-lg">
-                            Deenify unifies prayer, Quran, remembrance, and curated learning into one
+                            {clientEnv.APP_NAME} unifies prayer, Quran, remembrance, and curated learning into one
                             dashboard — composed for Muslims who expect software to feel as considered
                             as the practices it serves.
                         </p>
@@ -91,7 +91,7 @@ const MarketingHeroSection = () => {
                                             <span className="h-2 w-2 rounded-full bg-amber-400 sm:h-2.5 sm:w-2.5" />
                                             <span className="h-2 w-2 rounded-full bg-emerald-400 sm:h-2.5 sm:w-2.5" />
                                             <span className="ml-1 truncate text-[10px] text-gray-400 sm:ml-2 sm:text-xs">
-                                                dashboard.deenify.app
+                                                {clientEnv.APP_DASHBOARD_URL}
                                             </span>
                                         </div>
                                         <div className="relative aspect-[16/10] bg-gradient-to-br from-gray-50 to-emerald-50/50">

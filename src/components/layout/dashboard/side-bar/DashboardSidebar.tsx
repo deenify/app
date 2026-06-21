@@ -7,6 +7,7 @@ import { ChevronLeft, BookOpen } from 'lucide-react';
 import { cn } from '@/lib/utils/clsx';
 import { sidebarSections } from './content';
 import Logo from '@/components/shared/Logo';
+import { clientEnv } from "@/env/client";
 
 interface DashboardSidebarProps {
     isLocked: boolean;
@@ -66,9 +67,8 @@ const DashboardSidebar = (
                 <header className="border-b border-layout-separator flex items-center px-4 h-[73px] w-full justify-center relative">
                     {/* Logo and Title */}
                     <Logo
-                        title='Deenify'
-                        subtitle='Islamic Companion'
                         href='/'
+                        title={clientEnv.APP_NAME}
                         isContentAncored={true}
                         className='w-full h-full'
                     />

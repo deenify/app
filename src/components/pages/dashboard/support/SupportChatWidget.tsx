@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils/clsx"
 import { Drawer, DrawerClose, DrawerContent, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer"
+import { clientEnv } from "@/env/client"
 
 type ChatMessage = { id: string; role: "user" | "team" | "system"; text: string }
 
@@ -15,7 +16,7 @@ const WELCOME: ChatMessage = {
     text: "Assalamu alaikum. Chat with our team here. Soon we may add AI help for app questions, Quran lookup, and source checks.",
 }
 
-const TEAM_REPLY = "Thanks for your message. A team member will reply within 2 business days. For urgent issues, email help@deenify.app."
+const TEAM_REPLY = `Thanks for your message. A team member will reply within 2 business days. For urgent issues, email ${clientEnv.APP_SUPPORT_EMAIL}.`
 
 export default function SupportChatWidget() {
     const [open, setOpen] = useState(false)
@@ -70,7 +71,7 @@ export default function SupportChatWidget() {
                                     msg.role === "user" && "ml-auto bg-emerald-600 text-white",
                                     msg.role === "team" && "mr-auto border border-gray-200 bg-white text-gray-700",
                                     msg.role === "system" &&
-                                        "mx-auto max-w-full border border-sky-100 bg-sky-50/80 text-center text-xs text-sky-900"
+                                    "mx-auto max-w-full border border-sky-100 bg-sky-50/80 text-center text-xs text-sky-900"
                                 )}
                             >
                                 {msg.role === "system" && (

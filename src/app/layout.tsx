@@ -1,5 +1,6 @@
 import "@/assets/globals.css";
-import "@/env/index"
+import "@/env/client"
+import "@/env/server"
 
 import type { Metadata } from "next";
 import { cn } from "@/lib/utils/clsx";

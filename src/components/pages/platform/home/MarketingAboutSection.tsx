@@ -3,6 +3,7 @@ import MarketingSectionHeading from "./MarketingSectionHeading"
 import { Badge } from "@/components/ui/badge"
 import Animate from "@/components/shared/motion/Animate"
 import Stagger from "@/components/shared/motion/Stagger"
+import { clientEnv } from "@/env/client"
 
 const POINTS = [
     "Scholar-aware catalogs with filters, bookmarks, and detail pages",
@@ -34,16 +35,16 @@ const MarketingAboutSection = () => {
                         >
                             <Badge variant="emerald" className="mb-2 gap-1.5">
                                 <Sparkles className="h-2.5 w-2.5" strokeWidth={2.5} />
-                                About Deenify
+                                About {clientEnv.APP_NAME}
                             </Badge>
                         </Animate>
 
                         <MarketingSectionHeading
                             lead={<>Software with the gravity <br className="block xs:hidden" /> your practice</>}
                             accent="deserves"
-                            subtitle="We built Deenify because most Islamic apps feel assembled, not 
+                            subtitle={`We built ${clientEnv.APP_NAME} because most Islamic apps feel assembled, not 
                             authored. Our dashboard treats prayer, Quran, and learning as interconnected 
-                            disciplines — with the visual discipline of a premium product studio."
+                            disciplines — with the visual discipline of a premium product studio.`}
                             align="left"
                         />
 

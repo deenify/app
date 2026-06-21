@@ -10,6 +10,7 @@ import Logo from "@/components/shared/Logo"
 import { Button } from "@/components/ui/button"
 import { usePathname } from "next/navigation"
 import { createPortal } from "react-dom"
+import { clientEnv } from "@/env/client"
 
 const SIDEBAR_EASE = [0.22, 1, 0.36, 1] as const
 
@@ -86,8 +87,7 @@ const MobileSidebar = ({ isOpen, onClose }: MobileSidebarProps) => {
                                 <div className="mb-5 flex items-center justify-between gap-2.5 border-b border-layout-separator pb-3.5">
                                     <div className="min-w-0 flex-1">
                                         <Logo
-                                            title="Deenify"
-                                            subtitle="Islamic Companion"
+                                            title={clientEnv.APP_NAME}
                                             href="/"
                                             isContentAncored
                                             className="h-full w-full"

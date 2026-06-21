@@ -7,6 +7,7 @@ import MarketingDesktopNav from "./MarketingDesktopNav"
 import MobileSidebar from "./MobileSidebar"
 import { cn } from "@/lib/utils/clsx"
 import MarketingHamburger from "@/assets/svg/menu/MarketingHamburger"
+import { clientEnv } from "@/env/client"
 
 const MarketingHeader = () => {
     const [open, setOpen] = useState(false)
@@ -14,11 +15,12 @@ const MarketingHeader = () => {
     return (
         <header className="sticky top-0 z-50 border-b border-gray-100/80 bg-white/95 backdrop-blur-md">
             <div className="container-header-footer flex h-[72px] items-center justify-between gap-4 sm:h-[76px]">
-                <Link href="/" className="group flex items-center gap-2.5">
-                    <span className="flex font-heading text-[1.22rem] font-semibold tracking-[-0.02em] text-gray-950 sm:text-[1.38rem]">
-                        Deenify
-                        <span className="font-accent text-[1.15em] italic text-emerald-600">.</span>
-                    </span>
+                <Link
+                    href="/"
+                    className="inline-flex font-heading text-2xl font-semibold 
+                                    tracking-tight text-emerald-900"
+                >
+                    {clientEnv.APP_NAME}<span className="font-accent italic text-emerald-600">.</span>
                 </Link>
 
                 <MarketingDesktopNav />

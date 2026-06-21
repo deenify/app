@@ -16,6 +16,7 @@ import {
 import { AppleIcon } from "@/assets/svg/social/AppleIcon"
 import { PlayStoreIcon } from "@/assets/svg/social/PlayStoreIcon"
 import { useBreakpoint } from "@/hooks/useBreakpoint"
+import { clientEnv } from "@/env/client"
 
 const COLUMN_BASE_DELAY = 0.1
 const COLUMN_STEP = 0.12
@@ -60,9 +61,10 @@ const MarketingFooter = () => {
                             <div className="space-y-4">
                                 <Link
                                     href="/"
-                                    className="inline-flex font-heading text-2xl font-semibold tracking-tight text-emerald-900"
+                                    className="inline-flex font-heading text-2xl font-semibold 
+                                    tracking-tight text-emerald-900"
                                 >
-                                    Deenify<span className="font-accent italic text-emerald-600">.</span>
+                                    {clientEnv.APP_NAME}<span className="font-accent italic text-emerald-600">.</span>
                                 </Link>
                                 <Animate
                                     variant="up"
@@ -94,7 +96,8 @@ const MarketingFooter = () => {
                                                 href={social.href}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="text-gray-400 transition-colors hover:text-emerald-600"
+                                                className="text-gray-400 transition-colors 
+                                                hover:text-emerald-600"
                                             >
                                                 <span className="sr-only">{social.label}</span>
                                                 <Icon className="h-5 w-5" />
@@ -151,7 +154,8 @@ const MarketingFooter = () => {
                         baseDelay={COLUMN_BASE_DELAY}
                         delay={COLUMN_STEP}
                         duration={0.85}
-                        className="flex w-full flex-wrap items-end justify-between gap-x-20 2xl:max-w-sm"
+                        className="flex w-full flex-wrap items-end justify-between 
+                        gap-x-20 2xl:max-w-sm"
                     >
                         <div className="min-w-0 w-full max-w-sm space-y-4">
                             <h4 className={Title_Class}>Newsletter</h4>
@@ -181,9 +185,12 @@ const MarketingFooter = () => {
                                         onChange={(e) => setEmail(e.target.value)}
                                         onFocus={() => handleFocusIn(isMobile)}
                                         onBlur={() =>
-                                            setTimeout(
-                                                () => window.scrollTo({ top: 0, left: 0, behavior: "instant" }),
-                                                100
+                                            setTimeout(() =>
+                                                window.scrollTo({
+                                                    top: 0,
+                                                    left: 0,
+                                                    behavior: "instant"
+                                                }), 100
                                             )
                                         }
                                         placeholder="you@email.com"
@@ -192,7 +199,9 @@ const MarketingFooter = () => {
                                     />
                                     <button
                                         type="submit"
-                                        className="inline-flex h-11 shrink-0 items-center justify-center gap-1.5 rounded-full whitespace-nowrap bg-emerald-600 px-6 text-sm font-medium text-white transition hover:bg-emerald-700"
+                                        className="inline-flex h-11 shrink-0 items-center justify-center 
+                                        gap-1.5 rounded-full whitespace-nowrap bg-emerald-600 px-6 text-sm 
+                                        font-medium text-white transition hover:bg-emerald-700"
                                     >
                                         Subscribe
                                         <ArrowRight className="h-3.5 w-3.5" />
@@ -216,7 +225,8 @@ const MarketingFooter = () => {
                                     >
                                         <Link
                                             href={store.href}
-                                            className="inline-flex items-center gap-2 rounded-md bg-gray-900 px-4 py-2 text-white transition hover:bg-emerald-700 sm:py-2.5"
+                                            className="inline-flex items-center gap-2 rounded-md bg-gray-900 
+                                            px-4 py-2 text-white transition hover:bg-emerald-700 sm:py-2.5"
                                         >
                                             <Icon className={"h-6 w-6"} />
                                             <div className="flex flex-col gap-0.5 sm:gap-0">
@@ -236,14 +246,17 @@ const MarketingFooter = () => {
                 </section>
 
                 {/* Copyright */}
-                <section className="flex flex-wrap items-center justify-between gap-x-10 gap-y-4 border-t border-gray-300/90 py-10">
+                <section className="flex flex-wrap items-center justify-between gap-x-10 
+                gap-y-4 border-t border-gray-300/90 py-10">
                     <Animate
                         variant="in"
                         animate="while_in_view"
                         delay={0.65}
                         duration={0.85}
                     >
-                        <p className={Description_Class}>© {year} Deenify. All rights reserved.</p>
+                        <p className={Description_Class}>
+                            © {year} {clientEnv.APP_NAME}. All rights reserved.
+                        </p>
                     </Animate>
 
                     <div className="flex flex-wrap gap-x-4 gap-y-2">

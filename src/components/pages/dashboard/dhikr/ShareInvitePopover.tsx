@@ -10,6 +10,7 @@ import { Copy } from "lucide-react"
 import { UserPlus } from "lucide-react"
 import { PopoverContent } from "@/components/ui/popover"
 import { DhikrPreset } from "./content"
+import { clientEnv } from "@/env/client"
 
 const ShareInvitePopover = ({ preset }: { preset: DhikrPreset }) => {
     const [copied, setCopied] = useState(false)
@@ -17,7 +18,7 @@ const ShareInvitePopover = ({ preset }: { preset: DhikrPreset }) => {
 
     const handleCopy = (e: React.MouseEvent) => {
         e.stopPropagation()
-        navigator.clipboard.writeText(`https://deenify.com/adhkar/${preset.id}`)
+        navigator.clipboard.writeText(`${clientEnv.APP_URL}/adhkar/${preset.id}`)
         setCopied(true)
         setTimeout(() => setCopied(false), 2000)
     }
@@ -45,7 +46,7 @@ const ShareInvitePopover = ({ preset }: { preset: DhikrPreset }) => {
                 <div className="space-y-4">
                     <div className="space-y-1">
                         <h4 className="text-sm font-bold text-gray-900">Share & Invite</h4>
-                        <p className="text-[11px] text-gray-500 leading-relaxed">Copy link to share or invite someone by their Deenify ID to count with you.</p>
+                        <p className="text-[11px] text-gray-500 leading-relaxed">Copy link to share or invite someone by their {clientEnv.APP_NAME} ID to count with you.</p>
                     </div>
 
                     <div className="space-y-3">
@@ -54,7 +55,7 @@ const ShareInvitePopover = ({ preset }: { preset: DhikrPreset }) => {
                                 <Link2 className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-gray-400" />
                                 <Input
                                     readOnly
-                                    value={`deenify.com/adhkar/${preset.id}`}
+                                    value={`${clientEnv.APP_URL}/adhkar/${preset.id}`}
                                     className="h-9 pl-8 pr-2 text-[11px] bg-gray-50 border-gray-100 rounded-xl"
                                 />
                             </div>
@@ -79,7 +80,7 @@ const ShareInvitePopover = ({ preset }: { preset: DhikrPreset }) => {
 
                         <div className="flex items-center gap-2">
                             <Input
-                                placeholder="Enter Deenify ID..."
+                                placeholder={`Enter User's ${clientEnv.APP_NAME} ID...`}
                                 value={inviteId}
                                 onChange={(e) => setInviteId(e.target.value)}
                                 className="h-10 text-xs bg-gray-50 border-gray-100 rounded-xl focus:bg-white"

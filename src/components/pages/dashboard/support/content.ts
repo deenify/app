@@ -1,3 +1,5 @@
+import { clientEnv } from "@/env/client"
+
 export const SUPPORT_EDITORIAL = {
     badge: "Support center",
     title: "We are here to help",
@@ -34,6 +36,6 @@ export const SUPPORT_FAQS: SupportFaq[] = [
 ]
 
 export const SUPPORT_CHANNELS = [
-    { label: "Email", value: "help@deenify.app", hint: "We reply within 2 business days" },
+    { label: "Email", value: clientEnv.APP_SUPPORT_EMAIL, hint: "We reply within 2 business days" },
     { label: "Community", value: "Discord (coming soon)", hint: "Chat with other users" },
 ] as const

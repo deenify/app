@@ -57,7 +57,6 @@ export default function QuranDetailPage({ surahNumber, verseNumber }: QuranDetai
     }, [surahNumber])
 
     const verses = useMemo(() => {
-        // Until we plug real Quran text, use a clean minimal mock that matches the deenify-latest UI.
         if (surah.number === 1) return SurahAlFatihahMockVerses
         return SurahAlFatihahMockVerses.slice(0, Math.min(7, surah.verses))
     }, [surah.number, surah.verses])

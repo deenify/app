@@ -1,6 +1,7 @@
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
 import GuidesDetailPage from "@/components/pages/dashboard/guides/GuidesDetailPage"
+import { serverEnv } from "@/env/server"
 
 interface PageProps {
     params: {
@@ -20,7 +21,7 @@ export async function generateMetadata({
     const guideId = params?.slug?.[0]
 
     if (!guideId) {
-        return { title: { absolute: "Deenify - Guides" } }
+        return { title: { absolute: `${serverEnv.APP_NAME} - Guides` } }
     }
 
     const english = formatTitle(guideId)

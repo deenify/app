@@ -2,6 +2,7 @@ import { Metadata } from "next"
 import { notFound } from "next/navigation"
 import SupplicationDetailPage from "@/components/pages/dashboard/supplications/SupplicationDetailPage"
 import { getSupplicationById } from "@/components/pages/dashboard/supplications/content"
+import { serverEnv } from "@/env/server"
 
 interface PageProps {
     params: {
@@ -14,7 +15,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const item = supplicationId ? getSupplicationById(supplicationId) : undefined
 
     if (!item) {
-        return { title: { absolute: "Deenify - Supplications" } }
+        return { title: { absolute: `${serverEnv.APP_NAME} - Supplications` } }
     }
 
     return {

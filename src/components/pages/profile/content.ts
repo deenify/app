@@ -9,7 +9,7 @@ import {
     User,
 } from "lucide-react"
 import type { BadgeProps } from "@/components/ui/badge"
-
+import { clientEnv } from "@/env/client"
 
 
 // Profile pages-header-content
@@ -37,7 +37,7 @@ export const profilePagesHeaderContent: profilePagesHeaderContentType[] = [
         badge: { label: "Account", variant: "blue" as const },
         title: "Personal information",
         description:
-            "Update how you appear across Deenify. These fields are ready to bind to your auth layer when you connect an API.",
+            `Update how you appear across ${clientEnv.APP_NAME}. These fields are ready to bind to your auth layer when you connect an API.`,
     },
     {
         path: "/profile/privacy",
@@ -64,7 +64,7 @@ export const profilePagesHeaderContent: profilePagesHeaderContentType[] = [
         badge: { label: "Personalization", variant: "emerald" as const },
         title: "Make it feel like yours",
         description:
-            "Language, reading comfort, and accent colors — tuned to match the rest of Deenify.",
+            `Language, reading comfort, and accent colors — tuned to match the rest of ${clientEnv.APP_NAME}.`,
     },
     {
         path: "/profile/settings",

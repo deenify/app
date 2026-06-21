@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils/clsx"
 import { SUPPORT_CHANNELS, SUPPORT_EDITORIAL, SUPPORT_FAQS } from "./content"
 import SupportChatWidget from "./SupportChatWidget"
+import { clientEnv } from "@/env/client"
 
 export default function SupportPage() {
     const [openId, setOpenId] = useState<string | null>(SUPPORT_FAQS[0]?.id ?? null)
@@ -133,7 +134,7 @@ export default function SupportPage() {
                                 </div>
                             ))}
                             <Button
-                                href="mailto:help@deenify.app"
+                                href={`mailto:${clientEnv.APP_SUPPORT_EMAIL}`}
                                 variant="outline-emerald"
                                 className="w-full gap-2"
                                 shouldScale
