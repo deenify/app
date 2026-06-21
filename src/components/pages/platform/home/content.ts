@@ -1,3 +1,4 @@
+import { clientEnv } from "@/env/client"
 import {
     BookHeart,
     BookOpen,
@@ -120,7 +121,7 @@ export type Testimonial = {
 export const TESTIMONIALS: Testimonial[] = [
     {
         quote:
-            "Deenify feels like someone finally treated an Islamic app with editorial restraint. I open it for prayer times and stay for the guides. The typography and spacing make long reading sessions genuinely pleasant.",
+            `${clientEnv.APP_NAME} feels like someone finally treated an Islamic app with editorial restraint. I open it for prayer times and stay for the guides. The typography and spacing make long reading sessions genuinely pleasant.`,
         name: "Amina Rahman",
         role: "Product Designer · London",
         avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80",
@@ -134,7 +135,7 @@ export const TESTIMONIALS: Testimonial[] = [
     },
     {
         quote:
-            "Our study circle adopted Deenify for hadith nights. The interface disappears; the content remains dignified. Everyone commented on how calm and intentional the experience feels on mobile.",
+            `Our study circle adopted ${clientEnv.APP_NAME} for hadith nights. The interface disappears; the content remains dignified. Everyone commented on how calm and intentional the experience feels on mobile.`,
         name: "Fatima Noor",
         role: "Community Educator · Toronto",
         avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80",
@@ -225,7 +226,7 @@ export type FaqItem = { question: string; answer: string }
 
 export const FAQ_ITEMS: FaqItem[] = [
     {
-        question: "Is Deenify suitable for new Muslims?",
+        question: `Is ${clientEnv.APP_NAME} suitable for new Muslims?`,
         answer:
             "Yes. Guides, revert pathways, and plain-language catalogs are structured for first steps — without overwhelming terminology on day one.",
     },
@@ -240,12 +241,12 @@ export const FAQ_ITEMS: FaqItem[] = [
             "Collections are curated against established scholarly sources. Detail pages cite references where applicable.",
     },
     {
-        question: "Can I use Deenify on mobile and desktop?",
+        question: `Can I use ${clientEnv.APP_NAME} on mobile and desktop?`,
         answer:
             "The dashboard is responsive across breakpoints — from phone to wide displays — with layouts tuned per module.",
     },
     {
-        question: "What makes Deenify different?",
+        question: `What makes ${clientEnv.APP_NAME} different?`,
         answer:
             "We optimize for intellectual calm: fewer gimmicks, stronger typography, and catalogs that behave like serious reading products.",
     },

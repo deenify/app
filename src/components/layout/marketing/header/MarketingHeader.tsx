@@ -7,18 +7,30 @@ import MarketingDesktopNav from "./MarketingDesktopNav"
 import MobileSidebar from "./MobileSidebar"
 import { cn } from "@/lib/utils/clsx"
 import MarketingHamburger from "@/assets/svg/menu/MarketingHamburger"
+import { clientEnv } from "@/env/client"
 
-const MarketingHeader = () => {
+interface MarketingHeaderProps {
+    className?: string
+}
+
+const MarketingHeader = ({ className }: MarketingHeaderProps) => {
     const [open, setOpen] = useState(false)
 
     return (
-        <header className="sticky top-0 z-50 border-b border-gray-100/80 bg-white/95 backdrop-blur-md">
+        <header className={cn(
+            "z-50 border-b border-layout-separator bg-white backdrop-blur-md ease-out duration-300",
+            // !isMobile && scrollDirection === "forward"
+            //     ? "-translate-y-full"
+            //     : "translate-y-0",
+            className
+        )}>
             <div className="container-header-footer flex h-[72px] items-center justify-between gap-4 sm:h-[76px]">
-                <Link href="/" className="group flex items-center gap-2.5">
-                    <span className="flex font-heading text-[1.22rem] font-semibold tracking-[-0.02em] text-gray-950 sm:text-[1.38rem]">
-                        Deenify
-                        <span className="font-accent text-[1.15em] italic text-emerald-600">.</span>
-                    </span>
+                <Link
+                    href="/"
+                    className="inline-flex font-heading text-2xl font-semibold 
+                                    tracking-tight text-emerald-900"
+                >
+                    {clientEnv.APP_NAME}<span className="font-accent italic text-emerald-600">.</span>
                 </Link>
 
                 <MarketingDesktopNav />
@@ -42,8 +54,8 @@ const MarketingHeader = () => {
                         onClick={() => setOpen(true)}
                         shouldScale
                         className={cn(
-                            "lg:hidden flex-shrink-0 h-10 w-10 p-0 hover:bg-gray-100/80 active:bg-gray-200/60",
-                            "text-gray-600 rounded-lg !focus-visible:ring-0 !focus-visible:ring-offset-0 focus-visible:outline-none",
+                            "lg:hidden flex-shrink-0 h-10 w-10 p-0 hover:bg-gray-100/80",
+                            "text-gray-600 rounded-lg !focus-visible:ring-0 !focus-visible:ring-offset-0",
                         )}
                     >
                         <MarketingHamburger />

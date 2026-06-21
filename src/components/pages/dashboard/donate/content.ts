@@ -1,6 +1,8 @@
+import { clientEnv } from "@/env/client"
+
 export const DONATE_EDITORIAL = {
     badge: "Donate",
-    title: "Support Deenify",
+    title: `Support ${clientEnv.APP_NAME}`,
     lead: "Pick a plan that fits you. Every gift keeps learning free for the ummah.",
 } as const
 

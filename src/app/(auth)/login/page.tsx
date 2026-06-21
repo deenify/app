@@ -6,10 +6,11 @@ import { Card } from "@/components/ui/card"
 import { SIGNIN_HIGHLIGHTS } from "@/components/pages/auth/content"
 import LoginForm from "@/components/pages/auth/login/LoginForm"
 import { Metadata } from "next"
+import { serverEnv } from "@/env/server"
 
 export const metadata: Metadata = {
-    title: { absolute: "Deenify - Sign in to your account" },
-    description: `Sign in to your Deenify account to continue your Quran, Hadith, guides and learning journey.`,
+    title: { absolute: `${serverEnv.APP_NAME} - Sign in` },
+    description: `Sign in to your ${serverEnv.APP_NAME} account to continue your Quran, Hadith, guides and learning journey.`,
 }
 
 const Page = () => {
@@ -37,7 +38,7 @@ const Page = () => {
                                         variant="emerald"
                                         className="mb-2 sm:mb-3"
                                     >
-                                        Deenify
+                                        {serverEnv.APP_NAME}
                                     </Badge>
                                     <h1 className="font-semibold capitalize tracking-tighter text-gray-900 text-[22px] sm:text-2xl">
                                         Keep your daily deen journey consistent

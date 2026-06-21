@@ -3,10 +3,12 @@
 import Image from "next/image"
 import { Headphones, TrendingUp, Users, Wallet } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { useBreakpoint } from "@/hooks/useBreakpoint"
 import Animate from "@/components/shared/motion/Animate"
+import { clientEnv } from "@/env/client"
+import { useBreakpoint } from "@/hooks/useBreakpoint"
 
 const MarketingHeroSection = () => {
+    const isMobile = useBreakpoint("md", "down")
 
     return (
         <section className="relative overflow-hidden bg-white pb-12 pt-8 sm:pb-20 sm:pt-14">
@@ -28,21 +30,25 @@ const MarketingHeroSection = () => {
                     </Animate>
 
                     <Animate variant="up" delay={0.42} duration={0.88}>
-                        <h1 className="font-heading text-[1.75rem] font-semibold leading-[1.15] tracking-tight 
-                    text-gray-900 xs:text-[2rem] sm:text-5xl lg:text-[3.25rem]">
-                            Transform  intention into{" "}
+                        <h1 className="font-heading font-semibold leading-[1.15] tracking-tight 
+                    text-gray-900 text-4xl sm:text-5xl lg:text-[3.25rem]">
+                            Transform <br className="block xs:hidden" />  intention into{" "}
                             <span className="font-accent text-[1.02em] italic text-emerald-600">
-                                spiritual rhythm
+                                —  spiritual rhythm
                             </span>
                         </h1>
                     </Animate>
-
                     <Animate variant="up" delay={0.62} duration={0.92}>
-                        <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-gray-600 sm:mt-5 
-                    sm:text-base lg:text-lg">
-                            Deenify unifies prayer, Quran, remembrance, and curated learning into one
-                            dashboard — composed for Muslims who expect software to feel as considered
-                            as the practices it serves.
+                        <p className="mx-auto mt-4 md:max-w-2xl max-w-md sm:max-w-xl text-sm leading-relaxed text-gray-600 sm:mt-5 
+                           sm:text-base lg:text-lg sm:block hidden">
+                            {clientEnv.APP_NAME} unifies Qur’an (95+ languages), Hadith, prayer, dhikr, structured guidance & more —
+                            single coherent software, built for those who expect Islam to rendered with precision.
+                        </p>
+
+                        <p className="mx-auto mt-4 max-w-[320px] xs:max-w-full text-sm leading-relaxed text-gray-600 sm:mt-5 
+                           sm:text-base lg:text-lg sm:hidden block">
+                            {clientEnv.APP_NAME} unifies Qur’an (95+ langs), Hadith, Prayer, Guidance & much more —
+                            coherent software, rendered with precision.
                         </p>
                     </Animate>
 
@@ -91,7 +97,7 @@ const MarketingHeroSection = () => {
                                             <span className="h-2 w-2 rounded-full bg-amber-400 sm:h-2.5 sm:w-2.5" />
                                             <span className="h-2 w-2 rounded-full bg-emerald-400 sm:h-2.5 sm:w-2.5" />
                                             <span className="ml-1 truncate text-[10px] text-gray-400 sm:ml-2 sm:text-xs">
-                                                dashboard.deenify.app
+                                                {clientEnv.APP_DASHBOARD_URL}
                                             </span>
                                         </div>
                                         <div className="relative aspect-[16/10] bg-gradient-to-br from-gray-50 to-emerald-50/50">

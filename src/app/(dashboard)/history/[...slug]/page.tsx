@@ -2,6 +2,7 @@ import { Metadata } from "next"
 import { notFound } from "next/navigation"
 import HistoryDetailPage from "@/components/pages/dashboard/history/HistoryDetailPage"
 import { getHistoryById } from "@/components/pages/dashboard/history/content"
+import { serverEnv } from "@/env/server"
 
 type PageProps = { params: { slug?: string[] } }
 
@@ -10,7 +11,7 @@ const formatTitle = (slug: string) =>
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
     const id = params?.slug?.[0]
-    if (!id) return { title: { absolute: "Deenify - Islamic History" } }
+    if (!id) return { title: { absolute: `${serverEnv.APP_NAME} - Islamic History` } }
     const topic = getHistoryById(id)
     const title = topic?.title ?? formatTitle(id)
     return {

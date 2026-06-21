@@ -3,6 +3,7 @@
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
 import HadithDetailPage from "@/components/pages/dashboard/hadith/HadithDetailPage"
+import { serverEnv } from "@/env/server"
 
 interface PageProps {
     params: Promise<{
@@ -24,7 +25,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const collectionSlug = slug[0]
 
     if (!collectionSlug) {
-        return { title: { absolute: "Deenify - Hadith", } }
+        return { title: { absolute: `${serverEnv.APP_NAME} - Hadith`, } }
     }
 
     const collection = HADITH_COLLECTIONS[collectionSlug]

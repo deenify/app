@@ -6,9 +6,10 @@ import { Card } from "@/components/ui/card"
 import { REGISTER_HIGHLIGHTS } from "@/components/pages/auth/content"
 import RegisterForm from "@/components/pages/auth/register/RegisterForm";
 import { Metadata } from "next";
+import { serverEnv } from "@/env/server";
 
 export const metadata: Metadata = {
-    title: { absolute: "Deenify - Create your account" },
+    title: { absolute: `${serverEnv.APP_NAME} - Create Your Account` },
     description: `Create a free account to track Quran, Hadith, and personal growth in one calm place.`,
 }
 
@@ -31,7 +32,7 @@ const Page = () => {
                             <div className="flex flex-col gap-6 sm:gap-8">
                                 <div>
                                     <Badge variant="emerald" className="mb-2 sm:mb-3">
-                                        Deenify
+                                        {serverEnv.APP_NAME}
                                     </Badge>
                                     <h1 className="font-semibold capitalize tracking-tighter text-gray-900 text-xl xs:text-[22px] sm:text-2xl">
                                         Begin your path with clarity and consistency
@@ -64,7 +65,7 @@ const Page = () => {
                                 Create Account
                             </h2>
                             <p className="max-w-md text-pretty text-sm leading-normal text-gray-600 sm:max-w-lg sm:text-[15px] hidden sm:block">
-                                Join Deenify to sync Quran reading, Hadith study, and learning—with personalized tracking across your devices.
+                                Join {serverEnv.APP_NAME} to sync Quran reading, Hadith study, and learning—with personalized tracking across your devices.
                             </p>
                             <p className="max-w-md text-pretty text-sm leading-normal text-gray-600 sm:max-w-lg sm:text-[15px] block sm:hidden">
                                 Sync Quran, Hadith, and learning with personalized progress on every device.

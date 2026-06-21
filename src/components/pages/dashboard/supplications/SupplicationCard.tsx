@@ -10,6 +10,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import { clientEnv } from "@/env/client"
 
 type SupplicationCardProps = {
     item: SupplicationItem
@@ -41,7 +42,7 @@ export default function SupplicationCard({
         if (navigator.share) {
             navigator.share({
                 title: item.title,
-                text: `${item.title}: ${item.arabic}\n\nRead more on Deenify.`,
+                text: `${item.title}: ${item.arabic}\n\nRead more on ${clientEnv.APP_NAME}.`,
                 url: window.location.href,
             })
         } else {

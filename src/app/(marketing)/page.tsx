@@ -8,11 +8,13 @@ import MarketingPricingSection from "@/components/pages/platform/home/MarketingP
 import MarketingTestimonialsSection from "@/components/pages/platform/home/MarketingTestimonialsSection"
 import MarketingTrustSection from "@/components/pages/platform/home/MarketingTrustSection"
 import MarketingWorkspaceSection from "@/components/pages/platform/home/MarketingWorkspaceSection"
+import { serverEnv } from "@/env/server"
 
 export const metadata: Metadata = {
-    title: { absolute: "Deenify — Your Complete Islamic Companion" },
+    title: { absolute: `${serverEnv.APP_NAME}` },
     description:
-        "Prayer times, Quran, dhikr, and curated Islamic learning — unified in one thoughtfully designed dashboard.",
+        `Prayer times, Quran, dhikr, and curated Islamic learning — 
+        unified in one thoughtfully designed dashboard.`,
 }
 
 const HomePage = () => {

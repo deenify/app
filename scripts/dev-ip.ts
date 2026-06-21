@@ -1,6 +1,6 @@
 import os from "node:os";
 import { spawn } from "node:child_process";
-import { clientEnv } from "@/env";
+import { clientEnv } from "@/env/client";
 
 const PORT = clientEnv.APP_PORT;
 

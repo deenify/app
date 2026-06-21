@@ -1,6 +1,7 @@
 import { cn } from '@/lib/utils/clsx'
 import { Moon } from 'lucide-react'
 import React from 'react'
+import { clientEnv } from "@/env/client"
 
 interface LogoProps {
     className?: string
@@ -18,12 +19,13 @@ interface LogoProps {
     subtitle?: string
 }
 
+
 const Logo = ({
     className,
     classNames,
     href = "/",
     isContentAncored = true,
-    title = "Deenify",
+    title = clientEnv.APP_NAME,
     subtitle = "Islamic Companion"
 }: LogoProps) => {
     return (
