@@ -9,7 +9,7 @@ const MarketingFeaturesSection = () => {
             <div className="container">
                 <div className="mx-auto max-w-2xl text-center">
                     <MarketingSectionHeading
-                        lead="Smart features for a composed"
+                        lead={<>Smart features for <br className="block xs:hidden" /> a composed</>}
                         accent="deen"
                         subtitle="Each module is built like a product in its own right — prayer, 
                         Quran, catalogs, and remembrance — then unified under one calm dashboard."

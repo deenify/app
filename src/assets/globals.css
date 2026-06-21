@@ -161,10 +161,29 @@
 }
 
 
-/* Utilities  */
-@layer utilities {
 
-    /* Scrollbar hide */
+/* Components */
+@layer components {
+
+    /* Containers */
+    .container {
+        @apply overflow-hidden w-full max-w-[1202px] mx-auto px-4;
+    }
+
+    .container-narrow {
+        @apply overflow-hidden mx-auto w-full max-w-5xl px-4 sm:px-8 lg:px-12;
+    }
+
+    .container-wide {
+        @apply overflow-hidden mx-auto w-full max-w-[1680px] px-4 sm:px-8 lg:px-12;
+    }
+
+    .container-header-footer {
+        @apply overflow-hidden mx-auto w-full max-w-[1480px] px-4 sm:px-6 md:px-8 lg:px-10;
+    }
+
+
+    /* Scrollbar */
     .scrollbar-hide {
         scrollbar-width: none;
 
@@ -173,7 +192,6 @@
         }
     }
 
-    /* Sidebar scrollbar - lighter, subtle */
     .scrollbar-thin {
         scrollbar-width: thin;
         scrollbar-color: rgba(209, 213, 219, 0.4) transparent;
@@ -198,7 +216,6 @@
         }
     }
 
-    /* Main content scrollbar - darker, more visible */
     .scrollbar-content {
         scrollbar-width: thin;
         scrollbar-color: rgba(107, 114, 128, 0.5) transparent;
@@ -221,29 +238,18 @@
             background-color: transparent;
         }
     }
+
+
+    /* Marketing section heading */
+    .marketing-section-heading {
+        @apply font-heading font-semibold md:leading-tight leading-[1.12] tracking-tight text-gray-900 lg:text-[42px] md:text-4xl text-3xl
+    }
+
 }
 
 
-/* Components */
-@layer components {
-
-    /* Containers  */
-    .container {
-        @apply overflow-hidden w-full max-w-[1202px] mx-auto px-4;
-    }
-
-    .container-narrow {
-        @apply overflow-hidden mx-auto w-full max-w-5xl px-4 sm:px-8 lg:px-12;
-    }
-
-    .container-wide {
-        @apply overflow-hidden mx-auto w-full max-w-[1680px] px-4 sm:px-8 lg:px-12;
-    }
-
-    .container-header-footer {
-        @apply overflow-hidden mx-auto w-full max-w-[1480px] px-4 sm:px-6 md:px-8 lg:px-10;
-    }
-
+/* Utilities CSS  */
+@layer utilities {
 
     /* Marketing testimonials swiper */
     .marketing-testimonials-swiper .swiper-wrapper {
@@ -284,4 +290,5 @@
     .marketing-testimonial-bullet-active {
         @apply w-6 bg-emerald-600;
     }
+
 }

@@ -1,9 +1,10 @@
-import { CheckCircle2, Sparkles } from "lucide-react"
+"use client"
+
+import { CheckCircle2 } from "lucide-react"
 import MarketingSectionHeading from "./MarketingSectionHeading"
-import { Badge } from "@/components/ui/badge"
-import Animate from "@/components/shared/motion/Animate"
 import Stagger from "@/components/shared/motion/Stagger"
 import { clientEnv } from "@/env/client"
+import { useBreakpoint } from "@/hooks/useBreakpoint"
 
 const POINTS = [
     "Scholar-aware catalogs with filters, bookmarks, and detail pages",
@@ -23,28 +24,22 @@ const POINTS_BASE_DELAY = 0.55
 const STAGGER_STEP = 0.12
 
 const MarketingAboutSection = () => {
+    const isXsUp = useBreakpoint("xs", "up")
+    const isSmUp = useBreakpoint("sm", "up")
+
     return (
         <section id="about" className="bg-marketing-light py-14 sm:py-20 lg:py-24">
             <div className="container">
                 <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
                     <div>
-                        <Animate
-                            variant="up"
-                            animate="while_in_view"
-                            duration={0.85}
-                        >
-                            <Badge variant="emerald" className="mb-2 gap-1.5">
-                                <Sparkles className="h-2.5 w-2.5" strokeWidth={2.5} />
-                                About {clientEnv.APP_NAME}
-                            </Badge>
-                        </Animate>
-
                         <MarketingSectionHeading
-                            lead={<>Software with the gravity <br className="block xs:hidden" /> your practice</>}
-                            accent="deserves"
-                            subtitle={`We built ${clientEnv.APP_NAME} because most Islamic apps feel assembled, not 
-                            authored. Our dashboard treats prayer, Quran, and learning as interconnected 
-                            disciplines — with the visual discipline of a premium product studio.`}
+                            lead={isXsUp
+                                ? ("Software with the gravity")
+                                : ("Software with gravity")}
+                            accent="your practice deserves"
+                            subtitle={isSmUp
+                                ? `We built ${clientEnv.APP_NAME} because most Islamic apps feel assembled, not authored. Our dashboard treats prayer, Quran, and learning as interconnected disciplines — with the visual discipline of a premium product studio.`
+                                : `${clientEnv.APP_NAME} was built because Islamic apps should feel authored — prayer, Quran, and learning, unified in one dashboard.`}
                             align="left"
                         />
 

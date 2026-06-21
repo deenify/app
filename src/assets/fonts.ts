@@ -1,7 +1,7 @@
 import { Instrument_Serif, Noto_Sans, Noto_Sans_Arabic, Red_Hat_Text } from "next/font/google";
 
 
-// marketing accent — serif italic highlights (Finora-style)
+// marketing accent — highlights  
 export const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
   weight: ["400"],
@@ -10,7 +10,8 @@ export const instrumentSerif = Instrument_Serif({
   variable: "--font-accent",
 });
 
-// heading - professional and stylish
+
+// heading — Marketing & Dashboard
 export const redHatText = Red_Hat_Text({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
@@ -19,8 +20,7 @@ export const redHatText = Red_Hat_Text({
 });
 
 
-// body - supports 95+ languages including Latin, Cyrillic, Greek, Devanagari, Vietnamese, and more
-// Excellent for Quran translations in multiple languages with diacritical marks
+// body — 95+ languages including Latin, Cyrillic, Greek, Devanagari, Vietnamese etc
 export const notoSans = Noto_Sans({
   subsets: ["latin", "latin-ext", "devanagari", "cyrillic", "greek", "vietnamese"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -29,7 +29,7 @@ export const notoSans = Noto_Sans({
 });
 
 
-// arabic - for Arabic text and Quran verses
+// arabic — Arabic text e.g: Quran verses
 export const notoSansArabic = Noto_Sans_Arabic({
   subsets: ["arabic"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
