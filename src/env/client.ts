@@ -18,7 +18,6 @@ const clientEnvSchema = z.object({
     APP_LINKEDIN: z.string().url(),
     APP_PINTEREST: z.string().url(),
     APP_TIKTOK: z.string().url(),
-
     APP_SUPPORT_EMAIL: z.string().email(),
 
     // Backend Configurations 
@@ -43,7 +42,6 @@ export const clientEnv = clientEnvSchema.parse({
     APP_LINKEDIN: process.env.NEXT_PUBLIC_APP_LINKEDIN,
     APP_PINTEREST: process.env.NEXT_PUBLIC_APP_PINTEREST,
     APP_TIKTOK: process.env.NEXT_PUBLIC_APP_TIKTOK,
-
     APP_SUPPORT_EMAIL: process.env.NEXT_PUBLIC_APP_SUPPORT_EMAIL,
 
     // Backend Configurations 

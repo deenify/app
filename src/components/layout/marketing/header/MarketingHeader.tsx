@@ -8,12 +8,24 @@ import MobileSidebar from "./MobileSidebar"
 import { cn } from "@/lib/utils/clsx"
 import MarketingHamburger from "@/assets/svg/menu/MarketingHamburger"
 import { clientEnv } from "@/env/client"
+import { useBreakpoint } from "@/hooks/useBreakpoint"
 
-const MarketingHeader = () => {
+interface MarketingHeaderProps {
+    className?: string
+}
+
+const MarketingHeader = ({ className }: MarketingHeaderProps) => {
     const [open, setOpen] = useState(false)
+    const isMobile = useBreakpoint("md", "down")
 
     return (
-        <header className="sticky top-0 z-50 border-b border-gray-100/80 bg-white/95 backdrop-blur-md">
+        <header className={cn(
+            "z-50 border-b border-layout-separator bg-white backdrop-blur-md ease-out duration-300",
+            // !isMobile && scrollDirection === "forward"
+            //     ? "-translate-y-full"
+            //     : "translate-y-0",
+            className
+        )}>
             <div className="container-header-footer flex h-[72px] items-center justify-between gap-4 sm:h-[76px]">
                 <Link
                     href="/"

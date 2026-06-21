@@ -1,12 +1,10 @@
 // src/env/server.ts
+import "server-only";
 import { z } from "zod";
 
-import "server-only";
 
 if (typeof window !== "undefined") {
-    throw new Error(
-        `serverEnv imported in browser. Stack:\n${new Error().stack}`
-    );
+    throw new Error(`serverEnv imported in browser. Stack:\n${new Error().stack}`);
 }
 
 

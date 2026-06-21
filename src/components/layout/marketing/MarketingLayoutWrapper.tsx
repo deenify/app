@@ -14,16 +14,18 @@ const MarketingLayoutWrapper = ({ children }: MarketingLayoutWrapperProps) => {
 
     return (
         <div className='w-dvh h-dvh overflow-hidden flex flex-col'>
-            <div>
-                <MarketingHeader />
-            </div>
             <ScrollContainerProvider containerRef={scrollRef}>
                 <div
                     ref={scrollRef}
                     id='marketing-layout-wrapper-scroll-container'
                     className='flex-1 overflow-y-auto scrollbar-content flex flex-col justify-between'
                 >
-                    {children}
+                    <div className='sticky inset-0 bottom-auto z-50'>
+                        <MarketingHeader className='absolute inset-0 bottom-auto z-50' />
+                    </div>
+                    <div className='pt-20'>
+                        {children}
+                    </div>
                     <MarketingFooter />
                 </div>
             </ScrollContainerProvider>
