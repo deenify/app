@@ -8,7 +8,6 @@ import MobileSidebar from "./MobileSidebar"
 import { cn } from "@/lib/utils/clsx"
 import MarketingHamburger from "@/assets/svg/menu/MarketingHamburger"
 import { clientEnv } from "@/env/client"
-import { useBreakpoint } from "@/hooks/useBreakpoint"
 
 interface MarketingHeaderProps {
     className?: string
@@ -16,7 +15,6 @@ interface MarketingHeaderProps {
 
 const MarketingHeader = ({ className }: MarketingHeaderProps) => {
     const [open, setOpen] = useState(false)
-    const isMobile = useBreakpoint("md", "down")
 
     return (
         <header className={cn(
@@ -56,8 +54,8 @@ const MarketingHeader = ({ className }: MarketingHeaderProps) => {
                         onClick={() => setOpen(true)}
                         shouldScale
                         className={cn(
-                            "lg:hidden flex-shrink-0 h-10 w-10 p-0 hover:bg-gray-100/80 active:bg-gray-200/60",
-                            "text-gray-600 rounded-lg !focus-visible:ring-0 !focus-visible:ring-offset-0 focus-visible:outline-none",
+                            "lg:hidden flex-shrink-0 h-10 w-10 p-0 hover:bg-gray-100/80",
+                            "text-gray-600 rounded-lg !focus-visible:ring-0 !focus-visible:ring-offset-0",
                         )}
                     >
                         <MarketingHamburger />
