@@ -1,8 +1,9 @@
 "use client"
 
-import React, { ReactNode, useRef } from 'react'
+import React, { ReactNode, useRef, useState } from 'react'
 import MarketingFooter from './footer/MarketingFooter'
 import MarketingHeader from './header/MarketingHeader'
+import MobileSidebar from './header/MobileSidebar'
 import { ScrollContainerProvider } from '@/context/ScrollContainerContext'
 
 interface MarketingLayoutWrapperProps {
@@ -11,6 +12,7 @@ interface MarketingLayoutWrapperProps {
 
 const MarketingLayoutWrapper = ({ children }: MarketingLayoutWrapperProps) => {
     const scrollRef = useRef<HTMLDivElement>(null)
+    const [isMenuOpen, setIsMenuOpen] = useState(false)
 
     return (
         <div className='w-dvh h-dvh overflow-hidden flex flex-col'>
@@ -21,13 +23,22 @@ const MarketingLayoutWrapper = ({ children }: MarketingLayoutWrapperProps) => {
                     className='flex-1 overflow-y-auto scrollbar-content flex flex-col justify-between'
                 >
                     <div className='sticky inset-0 bottom-auto z-50'>
-                        <MarketingHeader className='absolute inset-0 bottom-auto z-50' />
+                        <MarketingHeader
+                            className='absolute inset-0 bottom-auto z-50'
+                            isMenuOpen={isMenuOpen}
+                            onMenuOpen={() => setIsMenuOpen(true)}
+                        />
                     </div>
                     <div className='pt-20'>
                         {children}
                     </div>
                     <MarketingFooter />
                 </div>
+
+                <MobileSidebar
+                    isOpen={isMenuOpen}
+                    onClose={() => setIsMenuOpen(false)}
+                />
             </ScrollContainerProvider>
         </div>
     )
