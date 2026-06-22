@@ -1,27 +1,22 @@
 "use client"
 
 import Link from "next/link"
-import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import MarketingDesktopNav from "./MarketingDesktopNav"
-import MobileSidebar from "./MobileSidebar"
 import { cn } from "@/lib/utils/clsx"
 import MarketingHamburger from "@/assets/svg/menu/MarketingHamburger"
 import { clientEnv } from "@/env/client"
 
 interface MarketingHeaderProps {
     className?: string
+    onMenuOpen: () => void
+    isMenuOpen: boolean
 }
 
-const MarketingHeader = ({ className }: MarketingHeaderProps) => {
-    const [open, setOpen] = useState(false)
-
+const MarketingHeader = ({ className, onMenuOpen, isMenuOpen }: MarketingHeaderProps) => {
     return (
         <header className={cn(
             "z-50 border-b border-layout-separator bg-white backdrop-blur-md ease-out duration-300",
-            // !isMobile && scrollDirection === "forward"
-            //     ? "-translate-y-full"
-            //     : "translate-y-0",
             className
         )}>
             <div className="container-header-footer flex h-[72px] items-center justify-between gap-4 sm:h-[76px]">
@@ -48,10 +43,10 @@ const MarketingHeader = ({ className }: MarketingHeaderProps) => {
 
                     <Button
                         aria-label="Open menu"
-                        aria-expanded={open}
+                        aria-expanded={isMenuOpen}
                         variant="ghost"
                         size="icon"
-                        onClick={() => setOpen(true)}
+                        onClick={onMenuOpen}
                         shouldScale
                         className={cn(
                             "lg:hidden flex-shrink-0 h-10 w-10 p-0 hover:bg-gray-100/80",
@@ -62,8 +57,6 @@ const MarketingHeader = ({ className }: MarketingHeaderProps) => {
                     </Button>
                 </div>
             </div>
-
-            <MobileSidebar isOpen={open} onClose={() => setOpen(false)} />
         </header>
     )
 }
