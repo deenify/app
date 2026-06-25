@@ -11,46 +11,19 @@ interface PlatformHeaderProps {
 }
 
 
-const PlatformHeader: React.FC<PlatformHeaderProps> = ({
-    userPreferences,
-    className,
-}) => {
-
-    // Greeting Helper
-    const getGreeting = (username?: string) => {
-        const hour = new Date().getHours()
-        const greeting = hour < 12
-            ? "Good Morning"
-            : hour < 18
-                ? "Good Afternoon"
-                : "Good Evening"
-
-        return username ? `${greeting}, ${username}` : greeting
-    }
-
+const PlatformHeader: React.FC<PlatformHeaderProps> = ({ className }) => {
 
     return (
-        <header className={cn("bg-white.. border-b border-layout-separator.. h-[73px] flex items-center md:px-6 px-4", className)}>
-            <div className="flex items-center justify-between w-full gap-2 sm:gap-4">
-                {/* Left Section - Logo (Mobile) & Greeting */}
-                <div className="min-w-0 flex-1">
-                    {/* Logo - Mobile Only */}
-                    <Logo
-                        href='/'
-                        title={getGreeting(userPreferences?.name)}
-                        subtitle="Assalamu Alaikum wa Rahmatullahi wa Barakatuh"
-                        isContentAncored={false}
-                        className="min-w-0 mr-3 w-full"
-                        classNames={{
-                            contentWrapper: "min-w-0 whitespace-normal overflow-visible",
-                            titleWrapper: "block min-w-0 w-full max-w-full",
-                            title: "text-gray-900 text-sm sm:text-base lg:text-lg font-medium break-words leading-[1.16]",
-                            subtitle: "text-xs sm:text-sm text-gray-500 line-clamp-1 hidden sm:block truncate",
-                        }}
-                    />
-                </div>
-            </div>
-        </header>
+        <header className={cn(
+            "z-50 border-b border-layout-separator bg-white backdrop-blur-md ease-out duration-300",
+            className
+        )}>
+            <section className="container-header-footer flex h-[72px] items-center justify-between gap-4 sm:h-[76px]">
+                <main className="w-full max-w-[150px]">
+                    <Logo />
+                </main>
+            </section>
+        </header >
     )
 }
 

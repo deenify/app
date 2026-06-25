@@ -6,7 +6,6 @@ import { sidebarSections } from '../side-bar/content'
 import { cn } from '@/lib/utils/clsx'
 import { usePathname } from 'next/navigation'
 import Logo from '@/components/shared/Logo'
-import { clientEnv } from "@/env/client"
 
 type DrawerTabsType = "menu" | "language" | "settings"
 
@@ -21,12 +20,7 @@ const MenuList = ({ onDrawerTabChange }: MenuListProps) => {
         <div className="sm:p-4 py-4 px-3">
             {/* Logo Section */}
             <div className="flex items-center gap-3 mb-6 pb-4 border-b border-layout-separator">
-                <Logo
-                    title={clientEnv.APP_NAME}
-                    href='/'
-                    isContentAncored={true}
-                    className='w-full h-full'
-                />
+                <Logo />
             </div>
 
             {/* Navigation Sections */}

@@ -57,7 +57,7 @@ const MobileSidebar = ({ isOpen, onClose }: MobileSidebarProps) => {
                             <div
                                 className={cn("min-w-0 flex-1 transition-all duration-500")}
                             >
-                                <Logo isMarketing href="/" />
+                                <Logo />
                             </div>
 
                             <button
