@@ -1,7 +1,13 @@
-import { Instrument_Serif, Noto_Sans, Noto_Sans_Arabic, Red_Hat_Text } from "next/font/google";
+// src/assets/fonts.ts
+
+import {
+  Instrument_Serif, Noto_Sans,
+  Noto_Sans_Arabic, Red_Hat_Text
+} from "next/font/google";
+import localFont from "next/font/local";
 
 
-// marketing accent — highlights  
+// Marketing — Highlights  
 export const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
   weight: ["400"],
@@ -11,7 +17,7 @@ export const instrumentSerif = Instrument_Serif({
 });
 
 
-// heading — Marketing & Dashboard
+// Marketing / Dashboard — Headings  
 export const redHatText = Red_Hat_Text({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
@@ -20,7 +26,7 @@ export const redHatText = Red_Hat_Text({
 });
 
 
-// body — 95+ languages including Latin, Cyrillic, Greek, Devanagari, Vietnamese etc
+// Marketing / Dashboard — Body  
 export const notoSans = Noto_Sans({
   subsets: ["latin", "latin-ext", "devanagari", "cyrillic", "greek", "vietnamese"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -29,10 +35,18 @@ export const notoSans = Noto_Sans({
 });
 
 
-// arabic — Arabic text e.g: Quran verses
+// Dashboard — Arabic (95+ Languages)
 export const notoSansArabic = Noto_Sans_Arabic({
   subsets: ["arabic"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
   display: "swap",
   variable: "--font-noto-arabic",
 });
+
+
+// Moonwalk — Logo
+export const moonwalk = localFont({
+  src: "../../public/fonts/moon-walk/moonwalk.otf",
+  variable: "--font-moonwalk",
+  display: "swap",
+}); 

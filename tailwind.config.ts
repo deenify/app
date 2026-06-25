@@ -12,10 +12,11 @@ const config: Config = {
 
             // Font Family 
             fontFamily: {
-                heading: ["var(--font-heading)", "ui-sans-serif", "system-ui", "sans-serif"],
                 accent: ["var(--font-accent)", "Georgia", "ui-serif", "serif"],
+                heading: ["var(--font-heading)", "ui-sans-serif", "system-ui", "sans-serif"],
                 body: ["var(--font-noto)", "ui-sans-serif", "system-ui", "sans-serif"],
                 arabic: ["var(--font-noto-arabic)", "serif"],
+                moonwalk: ["var(--font-moonwalk)", "ui-sans-serif", "system-ui", "sans-serif"],
             },
 
             // Screens
@@ -156,7 +157,7 @@ const config: Config = {
                 full: "9999px",
             },
 
-            keyframes: { 
+            keyframes: {
                 "marquee-left": {
                     "0%": { transform: "translateX(0%)" },
                     "100%": { transform: "translateX(-50%)" },
@@ -166,7 +167,7 @@ const config: Config = {
                     "100%": { transform: "translateX(0%)" },
                 },
             },
-            animation: { 
+            animation: {
                 "marquee-left": "marquee-left linear infinite",
                 "marquee-right": "marquee-right linear infinite",
             },

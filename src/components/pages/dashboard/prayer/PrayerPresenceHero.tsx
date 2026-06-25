@@ -41,7 +41,6 @@ function splitTime(time: string) {
 }
 
 
-
 export default function PrayerPresenceHero({ loggedCount }: { loggedCount: number }) {
     const [now, setNow] = useState("")
     const DAILY_PRAYERS = PRAYER_SECTIONS[0].entries
@@ -62,11 +61,12 @@ export default function PrayerPresenceHero({ loggedCount }: { loggedCount: numbe
         text-white shadow-[0_24px_64px_rgba(0,0,0,0.22)]...">
             <div className="pointer-events-none absolute inset-0" aria-hidden>
                 <Image
-                    src={"/images/pages/prayer/presense-hero-background.avif"}
-                    alt=""
                     fill
-                    sizes="100vw"
+                    src={"/images/pages/dashboard/prayer/presense-hero-background.avif"}
+                    alt="Presense hero background"
                     className="object-cover opacity-95"
+                    fetchPriority="high"
+                    sizes="100vw"
                     priority
                 />
 

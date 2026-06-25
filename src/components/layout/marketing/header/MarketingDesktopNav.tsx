@@ -17,7 +17,7 @@ const MarketingDesktopNav = () => {
     return (
         <nav
             aria-label="Main"
-            className="hidden lg:flex items-center rounded-full bg-emerald-600 p-1 shadow-sm"
+            className="hidden lg:flex items-center rounded-full bg-emerald-600 p-1 shadow-sm w-max"
         >
             <LayoutGroup id="marketing-nav">
                 <div className="relative flex items-center">

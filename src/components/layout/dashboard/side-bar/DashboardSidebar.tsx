@@ -64,13 +64,14 @@ const DashboardSidebar = (
                 )}>
 
                 {/* Header - Logo */}
-                <header className="border-b border-layout-separator flex items-center px-4 h-[73px] w-full justify-center relative">
+                <header className="border-b border-layout-separator flex items-center px-4 h-[73px] w-full justify-center.. relative">
                     {/* Logo and Title */}
                     <Logo
                         href='/'
                         title={clientEnv.APP_NAME}
-                        isContentAncored={true}
-                        className='w-full h-full'
+                        classNames={{
+                            wrapper: "pl-1"
+                        }}
                     />
 
                     {/* Collapse/Expand Toggler */}
