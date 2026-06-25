@@ -60,7 +60,7 @@ const MarketingFooter = () => {
                     >
                         <div className="max-w-sm space-y-6">
                             <div className="space-y-4">
-                                <Logo isMarketing />
+                                <Logo />
 
                                 <Animate
                                     variant="up"
