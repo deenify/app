@@ -29,7 +29,7 @@ export default function ListenTabSection({ surahs }: ListenTabSectionProps) {
     if (surahs.length === 0) {
         return (
             <section className="relative py-12 sm:py-16">
-                <div className="container px-4 sm:px-6">
+                <div className="container">
                     <div className="mx-auto max-w-lg text-center">
                         <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-white/90 text-emerald-700 shadow-[0_1px_3px_rgba(0,0,0,0.06)] ring-1 ring-black/5">
                             <Headphones className="h-7 w-7" strokeWidth={1.5} />

@@ -28,7 +28,7 @@ export default function DashboardPage() {
                 lead={DASHBOARD_EDITORIAL.lead}
             />
 
-            <div className="container space-y-6 px-4 py-6 sm:space-y-8 sm:px-6 sm:py-8">
+            <div className="container space-y-6 py-6 sm:space-y-8 sm:py-8">
                 <DashboardStats items={DASHBOARD_STATS} />
 
                 <div className="grid gap-6 lg:grid-cols-3 h-max">
