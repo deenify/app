@@ -57,12 +57,7 @@ const MobileSidebar = ({ isOpen, onClose }: MobileSidebarProps) => {
                             <div
                                 className={cn("min-w-0 flex-1 transition-all duration-500")}
                             >
-                                <Logo
-                                    title={clientEnv.APP_NAME}
-                                    href="/"
-                                    isContentAncored
-                                    className="h-full w-full"
-                                />
+                                <Logo isMarketing href="/" />
                             </div>
 
                             <button

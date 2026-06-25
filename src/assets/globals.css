@@ -165,21 +165,27 @@
 /* Components */
 @layer components {
 
+    /* Marketing section heading */
+    .marketing-section-heading {
+        @apply font-heading font-semibold md:leading-tight leading-[1.12] tracking-tight text-gray-900 lg:text-[42px] md:text-4xl text-3xl
+    }
+
+
     /* Containers */
     .container {
-        @apply overflow-hidden w-full max-w-[1202px] mx-auto px-4;
+        @apply overflow-hidden w-full max-w-[1202px] mx-auto px-5 sm:px-8 lg:px-12;
     }
 
     .container-narrow {
-        @apply overflow-hidden mx-auto w-full max-w-5xl px-4 sm:px-8 lg:px-12;
+        @apply overflow-hidden mx-auto w-full max-w-5xl px-5 sm:px-8 lg:px-12;
     }
 
     .container-wide {
-        @apply overflow-hidden mx-auto w-full max-w-[1680px] px-4 sm:px-8 lg:px-12;
+        @apply overflow-hidden mx-auto w-full max-w-[1680px] px-5 sm:px-8 lg:px-12;
     }
 
     .container-header-footer {
-        @apply overflow-hidden mx-auto w-full max-w-[1480px] px-4 sm:px-6 md:px-8 lg:px-10;
+        @apply overflow-hidden mx-auto w-full max-w-[1480px] px-5 sm:px-8 lg:px-12;
     }
 
 
@@ -237,12 +243,6 @@
         &::-webkit-scrollbar-track {
             background-color: transparent;
         }
-    }
-
-
-    /* Marketing section heading */
-    .marketing-section-heading {
-        @apply font-heading font-semibold md:leading-tight leading-[1.12] tracking-tight text-gray-900 lg:text-[42px] md:text-4xl text-3xl
     }
 
 }

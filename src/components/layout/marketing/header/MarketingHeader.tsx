@@ -1,11 +1,10 @@
 "use client"
 
-import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import MarketingDesktopNav from "./MarketingDesktopNav"
 import { cn } from "@/lib/utils/clsx"
 import MarketingHamburger from "@/assets/svg/menu/MarketingHamburger"
-import { clientEnv } from "@/env/client"
+import Logo from "@/components/shared/Logo"
 
 interface MarketingHeaderProps {
     className?: string
@@ -19,18 +18,16 @@ const MarketingHeader = ({ className, onMenuOpen, isMenuOpen }: MarketingHeaderP
             "z-50 border-b border-layout-separator bg-white backdrop-blur-md ease-out duration-300",
             className
         )}>
-            <div className="container-header-footer flex h-[72px] items-center justify-between gap-4 sm:h-[76px]">
-                <Link
-                    href="/"
-                    className="inline-flex font-heading text-2xl font-semibold 
-                                    tracking-tight text-emerald-900"
-                >
-                    {clientEnv.APP_NAME}<span className="font-accent italic text-emerald-600">.</span>
-                </Link>
+            <section className="container-header-footer flex h-[72px] items-center justify-between gap-4 sm:h-[76px]">
+                <main className="w-full max-w-[150px]">
+                    <Logo />
+                </main>
 
-                <MarketingDesktopNav />
+                <div className="flex-1 flex items-center justify-center">
+                    <MarketingDesktopNav />
+                </div>
 
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 max-w-[150px] w-full justify-end">
                     <Button
                         variant="outline-emerald"
                         size="sm"
@@ -56,8 +53,8 @@ const MarketingHeader = ({ className, onMenuOpen, isMenuOpen }: MarketingHeaderP
                         <MarketingHamburger />
                     </Button>
                 </div>
-            </div>
-        </header>
+            </section>
+        </header >
     )
 }
 

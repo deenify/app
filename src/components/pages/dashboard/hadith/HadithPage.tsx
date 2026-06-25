@@ -30,9 +30,9 @@ import HadithCollectionsTabSection from "./HadithCollectionsTabSection"
 import HadithTopicsTabSection from "./HadithTopicsTabSection"
 import HadithSavedTabSection from "./HadithSavedTabSection"
 
-type HadithTabId = "collections" | "topics" | "saved"
-export type HadithDateFilter = "all" | "today" | "week" | "month" | "year"
 type SortMode = "az" | "za" | "count"
+export type HadithDateFilter = "all" | "today" | "week" | "month" | "year"
+type HadithTabId = "collections" | "topics" | "saved"
 
 const hadithTabs: TabItem[] = [
     { id: "collections" as HadithTabId, label: "Collections" },

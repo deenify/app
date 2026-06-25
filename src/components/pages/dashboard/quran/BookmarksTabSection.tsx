@@ -27,7 +27,7 @@ export default function BookmarksTabSection({ bookmarks }: BookmarksTabSectionPr
 
     return (
         <section className="relative py-8 sm:py-10">
-            <div className="container px-4 sm:px-6">
+            <div className="container">
                 {/* Header section  */}
                 <header className="mb-4 sm:mb-5 flex items-end justify-between gap-3">
                     <div>

@@ -28,7 +28,7 @@ const HadithSavedTabSection = ({ items: itemsProp }: HadithSavedTabSectionProps)
 
     return (
         <section className="relative min-h-[320px] py-8 sm:py-10">
-            <div className="container px-4 sm:px-6">
+            <div className="container">
                 <header className="mb-4 sm:mb-5 flex items-end justify-between gap-3">
                     <div>
                         <p className="text-[11px] font-medium uppercase tracking-[0.18em]">

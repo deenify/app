@@ -17,6 +17,7 @@ import { AppleIcon } from "@/assets/svg/social/AppleIcon"
 import { PlayStoreIcon } from "@/assets/svg/social/PlayStoreIcon"
 import { useBreakpoint } from "@/hooks/useBreakpoint"
 import { clientEnv } from "@/env/client"
+import Logo from "@/components/shared/Logo"
 
 const COLUMN_BASE_DELAY = 0.1
 const COLUMN_STEP = 0.12
@@ -59,13 +60,8 @@ const MarketingFooter = () => {
                     >
                         <div className="max-w-sm space-y-6">
                             <div className="space-y-4">
-                                <Link
-                                    href="/"
-                                    className="inline-flex font-heading text-2xl font-semibold 
-                                    tracking-tight text-emerald-900"
-                                >
-                                    {clientEnv.APP_NAME}<span className="font-accent italic text-emerald-600">.</span>
-                                </Link>
+                                <Logo isMarketing />
+
                                 <Animate
                                     variant="up"
                                     animate="while_in_view"

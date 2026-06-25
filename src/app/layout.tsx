@@ -5,7 +5,10 @@ import "@/env/server"
 import type { Metadata } from "next";
 import { cn } from "@/lib/utils/clsx";
 import { ReactNode } from "react";
-import { instrumentSerif, notoSans, notoSansArabic, redHatText } from "@/assets/fonts";
+import {
+    instrumentSerif, notoSans,
+    notoSansArabic, redHatText, moonwalk
+} from "@/assets/fonts";
 import { defaultMeta } from "@/assets/meta";
 import LayoutWrapper from "@/components/layout/LayoutWrapper";
 
@@ -31,7 +34,8 @@ export default function RootLayout({ children }: RootLayoutProptype) {
                 notoSans.variable,
                 notoSansArabic.variable,
                 redHatText.variable,
-                instrumentSerif.variable
+                instrumentSerif.variable,
+                moonwalk.variable,
             )}
         >
             <body className={notoSans.className}>

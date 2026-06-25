@@ -25,7 +25,7 @@ const HadithTopicsTabSection = ({ collectionId, topics }: HadithTopicsTabSection
 
     return (
         <section className="relative py-8 sm:py-10">
-            <div className="container px-4 sm:px-6 md:px-6">
+            <div className="container">
                 <header className="mb-4 sm:mb-5 flex items-end justify-between gap-3">
                     <div className="min-w-0">
                         <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-gray-500">
