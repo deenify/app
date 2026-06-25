@@ -31,10 +31,10 @@ export const clientEnv = clientEnvSchema.parse({
     // App Configurations
     APP_PORT: process.env.NEXT_PUBLIC_APP_PORT,
     APP_NAME: process.env.NEXT_PUBLIC_APP_NAME,
-    APP_DESCRIPTION: process.env.NEXT_PUBLIC_APP_Description,
+    APP_DESCRIPTION: process.env.NEXT_PUBLIC_APP_DESCRIPTION,
     APP_URL: process.env.NEXT_PUBLIC_APP_URL,
     APP_DASHBOARD_URL: process.env.NEXT_PUBLIC_APP_DASHBOARD_URL,
-    APP_LOGO: process.env.NEXT_PUBLIC_APP_Logo,
+    APP_LOGO: process.env.NEXT_PUBLIC_APP_LOGO,
     APP_TWITTER: process.env.NEXT_PUBLIC_APP_TWITTER,
     APP_FACEBOOK: process.env.NEXT_PUBLIC_APP_FACEBOOK,
     APP_INSTAGRAM: process.env.NEXT_PUBLIC_APP_INSTAGRAM,

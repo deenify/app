@@ -1,9 +1,12 @@
+import dotenv from "dotenv";
+import path from "node:path";
 import os from "node:os";
 import { spawn } from "node:child_process";
 import qrcode from "qrcode-terminal";
-import { clientEnv } from "@/env/client";
 
-const PORT = clientEnv.APP_PORT;
+dotenv.config({
+    path: path.resolve(process.cwd(), ".env.local"),
+});
 
 function getLocalIPAddress(): string {
     const interfaces = os.networkInterfaces();
@@ -11,12 +14,10 @@ function getLocalIPAddress(): string {
     for (const interfaceName of Object.keys(interfaces)) {
         const networkInterface = interfaces[interfaceName];
 
-        if (!networkInterface) continue
+        if (!networkInterface) continue;
 
         for (const network of networkInterface) {
-            const isIPv4 = network.family === "IPv4"
-
-            if (isIPv4 && !network.internal) {
+            if (network.family === "IPv4" && !network.internal) {
                 return network.address;
             }
         }
@@ -25,42 +26,51 @@ function getLocalIPAddress(): string {
     return "localhost";
 }
 
-const ipAddress = getLocalIPAddress();
+async function main() {
+    const { clientEnv } = await import("@/env/client");
 
-const mobileURL = `http://${ipAddress}:${PORT}`;
+    const PORT = clientEnv.APP_PORT;
 
-console.clear();
+    const ipAddress = getLocalIPAddress();
+    const mobileURL = `http://${ipAddress}:${PORT}`;
 
-console.log("");
-console.log("Next.js QR Development Server");
-console.log("");
-console.log(`Mobile   ${mobileURL}`);
-console.log("");
+    console.clear();
 
-qrcode.generate(
-    mobileURL,
-    {
+    console.log("");
+    console.log("Next.js QR Development Server");
+    console.log("");
+    console.log(`Mobile   ${mobileURL}`);
+    console.log("");
+
+    qrcode.generate(mobileURL, {
         small: true,
-    }
-);
+    });
 
-console.log("");
+    console.log("");
 
-const nextProcess = spawn(
-    "npx",
-    [
-        "next",
-        "dev",
-        "-H",
-        "0.0.0.0",
-        "-p",
-        PORT.toString(),
-        "--turbo",
-    ],
-    {
-        stdio: "inherit",
-        shell: true,
-    }
-);
+    const nextProcess = spawn(
+        "npx",
+        [
+            "next",
+            "dev",
+            "-H",
+            "0.0.0.0",
+            "-p",
+            PORT.toString(),
+            "--turbo",
+        ],
+        {
+            stdio: "inherit",
+            shell: true,
+        }
+    );
 
-nextProcess.on("close", (exitCode) => { process.exit(exitCode ?? 0) });
+    nextProcess.on("close", (exitCode) => {
+        process.exit(exitCode ?? 0);
+    });
+}
+
+main().catch((error) => {
+    console.error(error);
+    process.exit(1);
+});
