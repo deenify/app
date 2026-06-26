@@ -2,12 +2,14 @@
 
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { ArrowLeft, BookOpen, Compass, LayoutDashboard } from "lucide-react"
+import {
+    ArrowLeft, BookOpen,
+    Compass, LayoutDashboard
+} from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import Logo from "@/components/shared/Logo"
-import { clientEnv } from "@/env/client"
 
 const quickLinks = [
     { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
