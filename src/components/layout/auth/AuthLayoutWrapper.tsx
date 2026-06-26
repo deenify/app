@@ -16,13 +16,13 @@ const AuthLayoutWrapper = ({ children }: AuthLayoutWrapperProps) => {
         <ScrollContainerProvider containerRef={scrollRef} >
             <section
                 id='auth-layout-wrapper-scroll-container'
-                className='flex-1 overflow-y-auto scrollbar-thin flex flex-col justify-between'
+                className='flex-1 overflow-y-auto scrollbar-thin flex flex-col'
                 ref={scrollRef}
             >
                 <div className='sticky inset-0 bottom-auto z-50'>
                     <AuthHeader />
                 </div>
-                <div className='w-full'>
+                <div className='flex-1 flex flex-col items-center justify-center'>
                     {children}
                 </div>
             </section>

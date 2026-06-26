@@ -10,7 +10,8 @@ import { serverEnv } from "@/env/server"
 
 export const metadata: Metadata = {
     title: { absolute: `${serverEnv.APP_NAME} - Sign in` },
-    description: `Sign in to your ${serverEnv.APP_NAME} account to continue your Quran, Hadith, guides and learning journey.`,
+    description: `Sign in to your ${serverEnv.APP_NAME} account to continue 
+    your Quran, Hadith, guides and learning journey.`,
 }
 
 const Page = () => {
