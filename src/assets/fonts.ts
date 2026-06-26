@@ -23,6 +23,7 @@ export const instrumentSerif = localFont({
   ],
   variable: "--font-accent",
   display: "swap",
+  adjustFontFallback: false,
   fallback: ["Georgia", "Times New Roman", "serif"],
 });
 
