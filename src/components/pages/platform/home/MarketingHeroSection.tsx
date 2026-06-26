@@ -80,36 +80,15 @@ const MarketingHeroSection = () => {
                         from-emerald-50 via-white to-amber-50/40 p-2 shadow-[0_24px_80px_rgba(16,185,129,0.12)] 
                         sm:rounded-[1.75rem] sm:p-4 rounded-md"
                         >
-                            <div className="relative aspect-[16/10] overflow-hidden rounded-md bg-gray-900 
+                            <div className="relative aspect-[16/10] overflow-hidden rounded-md 
                         sm:rounded-[1.25rem]">
                                 <Image
-                                    src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1600&q=80"
+                                    src="/images/pages/marketing/home/mobile-overview.webp"
                                     alt="Scenic backdrop for dashboard preview"
                                     fill
-                                    className="object-cover opacity-90"
+                                    className="object-cover"
                                     priority
                                 />
-                                <div className="absolute inset-0 flex items-center justify-center p-3 sm:p-6 lg:p-10">
-                                    <div className="relative w-full max-w-2xl overflow-hidden rounded-md border 
-                                border-white/20 bg-white/95 shadow-2xl backdrop-blur sm:rounded-2xl">
-                                        <div className="flex items-center gap-2 border-b border-gray-100 px-3 py-2 sm:px-4 sm:py-3">
-                                            <span className="h-2 w-2 rounded-full bg-red-400 sm:h-2.5 sm:w-2.5" />
-                                            <span className="h-2 w-2 rounded-full bg-amber-400 sm:h-2.5 sm:w-2.5" />
-                                            <span className="h-2 w-2 rounded-full bg-emerald-400 sm:h-2.5 sm:w-2.5" />
-                                            <span className="ml-1 truncate text-[10px] text-gray-400 sm:ml-2 sm:text-xs">
-                                                {clientEnv.APP_DASHBOARD_URL}
-                                            </span>
-                                        </div>
-                                        <div className="relative aspect-[16/10] bg-gradient-to-br from-gray-50 to-emerald-50/50">
-                                            <Image
-                                                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80"
-                                                alt="Dashboard preview placeholder"
-                                                fill
-                                                className="object-cover object-top"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
 
