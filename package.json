@@ -1,11 +1,12 @@
 {
-    "name": "islam-companian",
+    "name": "Deenify",
     "version": "0.1.0",
     "private": true,
     "scripts": {
         "dev": "next dev -p 1426",
-        "dev-ip": "tsx scripts/dev-ip.ts",
-        "dev-qr": "tsx scripts/dev-qr.ts",
+        "dev-ip": "tsx scripts/development/dev-ip.ts",
+        "dev-qr": "tsx scripts/development/dev-qr.ts",
+        "generate": "tsx scripts/generate/index.ts",
         "build": "next build",
         "start": "next start",
         "lint": "next lint"
