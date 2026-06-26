@@ -14,6 +14,8 @@ export const instrumentSerif = Instrument_Serif({
   style: ["normal", "italic"],
   display: "swap",
   variable: "--font-accent",
+  adjustFontFallback: false,
+  fallback: ["Georgia", "Times New Roman", "serif"],
 });
 
 
