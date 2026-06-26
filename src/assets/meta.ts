@@ -36,8 +36,8 @@ export const defaultMeta: Metadata = {
         card: "summary_large_image",
         title: clientEnv.APP_NAME,
         description: clientEnv.APP_DESCRIPTION,
-        creator: "@IslamApp",
-        site: "@IslamApp",
+        creator: clientEnv.APP_TWITTER,
+        site: clientEnv.API_URL,
         images: [ogImage],
     },
     applicationName: clientEnv.APP_NAME,
@@ -48,9 +48,9 @@ export const defaultMeta: Metadata = {
     manifest: `${clientEnv.APP_URL}/manifest.webmanifest`,
     icons: {
         icon: [
-            { url: "/favicon.ico", sizes: "any" },
-            { url: "/icon.svg", type: "image/svg+xml" },
+            { url: "/icons/favicon.ico", sizes: "any" },
+            { url: "/icons/favicon.ico", type: "image/ico" },
         ],
-        apple: "/apple-touch-icon.png",
+        apple: "/icons/favicon.ico",
     },
 };
