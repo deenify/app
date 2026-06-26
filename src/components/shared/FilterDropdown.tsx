@@ -175,7 +175,8 @@ const FilterDropdown = ({
                         return (
                             <DropdownMenuItem
                                 key={String(opt.value)}
-                                onClick={() => {
+                                onClick={(e) => {
+                                    e.preventDefault()
                                     onChange(opt.value)
                                     setOpen(false)
                                 }}
