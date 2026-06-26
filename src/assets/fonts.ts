@@ -1,19 +1,28 @@
 // src/assets/fonts.ts
 
 import {
-  Instrument_Serif, Noto_Sans,
+  Noto_Sans,
   Noto_Sans_Arabic, Red_Hat_Text
 } from "next/font/google";
 import localFont from "next/font/local";
 
 
-// Marketing — Highlights  
-export const instrumentSerif = Instrument_Serif({
-  subsets: ["latin"],
-  weight: ["400"],
-  style: ["normal", "italic"],
-  display: "swap",
+// Marketing — Highlights
+export const instrumentSerif = localFont({
+  src: [
+    {
+      path: "../../public/fonts/instrument-serif/instrument-serif-regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/instrument-serif/instrument-serif-italic.woff2",
+      weight: "400",
+      style: "italic",
+    },
+  ],
   variable: "--font-accent",
+  display: "swap",
   adjustFontFallback: false,
   fallback: ["Georgia", "Times New Roman", "serif"],
 });
