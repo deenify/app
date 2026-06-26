@@ -1,4 +1,5 @@
-﻿
+﻿// structure.txt
+
 $exclude = @("node_modules", ".next", ".git", "cache")
 $script:output = @()
 
@@ -19,22 +20,47 @@ Build-Tree .
 
 $script:output | Out-File -Encoding UTF8 structure.txt
 
-------------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------
 
 
+├── .vscode
+│   ├── settings.json
 ├── public
-│   ├── favicon
+│   ├── designs
+│   │   ├── Image from iOS.jpg
+│   │   ├── original-951106d2a573176f8a302e4e000314ce.webp
+│   │   ├── original-bf9bb17199c8e197482b1edd7e5654f7.webp
+│   ├── fonts
+│   │   ├── instrument-serif
+│   │   │   ├── instrument-serif-italic.woff2
+│   │   │   ├── instrument-serif-regular.woff2
+│   │   ├── moon-walk
+│   │   │   ├── Moon Walk Font.zip
+│   │   │   ├── moonwalk.otf
+│   │   │   ├── moonwalk.ttf
+│   │   ├── sky-walk
+│   │   │   ├── iFonts-License.txt
+│   │   │   ├── sky-walk-font.zip
+│   │   │   ├── sky-walk.otf
+│   │   │   ├── sky-walk.ttf
+│   ├── icons
+│   │   ├── apple-touch-icon.png
+│   │   ├── favicon-2.ico
 │   │   ├── favicon.ico
-│   │   ├── next.svg
-│   │   ├── vercel.svg
 │   ├── images
-│   │   ├── designs
-│   │   │   ├── original-951106d2a573176f8a302e4e000314ce.webp
-│   │   │   ├── original-bf9bb17199c8e197482b1edd7e5654f7.webp
-│   ├── lottie
-│   │   ├── check-mark-animation.json
-│   │   ├── circular-animation.json
-│   │   ├── integrations-circular-animation.json
+│   │   ├── generic
+│   │   │   ├── deenify-prefix-1.png
+│   │   │   ├── deenify-prefix-2.png
+│   │   │   ├── deenify-prefix-3.png
+│   │   ├── pages
+│   │   │   ├── dashboard
+│   │   │   │   ├── prayer
+│   │   │   │   │   ├── presense-hero-background.avif
+│   │   │   ├── marketing
+├── scripts
+│   ├── dev-ip.ts
+│   ├── dev-qr.ts
 ├── src
 │   ├── app
 │   │   ├── (auth)
@@ -95,23 +121,44 @@ $script:output | Out-File -Encoding UTF8 structure.txt
 │   │   │   ├── revert
 │   │   │   │   ├── page.tsx
 │   │   │   ├── stories
+│   │   │   │   ├── [...slug]
 │   │   │   │   ├── page.tsx
 │   │   │   ├── supplications
+│   │   │   │   ├── [...slug]
 │   │   │   │   ├── page.tsx
 │   │   │   ├── support
 │   │   │   │   ├── page.tsx
 │   │   │   ├── layout.tsx
-│   │   ├── (platform)
-│   │   │   ├── legal-policy
-│   │   │   ├── privacy-policy
-│   │   │   ├── terms-and-conditions
+│   │   ├── (marketing)
+│   │   │   ├── about
+│   │   │   │   ├── page.tsx
+│   │   │   ├── blog
+│   │   │   │   ├── page.tsx
+│   │   │   ├── contact
+│   │   │   │   ├── page.tsx
+│   │   │   ├── features
+│   │   │   │   ├── page.tsx
+│   │   │   ├── pricing
+│   │   │   │   ├── page.tsx
 │   │   │   ├── layout.tsx
 │   │   │   ├── page.tsx
 │   │   ├── layout.tsx
 │   │   ├── not-found.tsx
 │   ├── assets
+│   │   ├── fonts
+│   │   │   ├── instrument-serif
+│   │   │   │   ├── OFL.txt
 │   │   ├── svg
-│   │   │   ├── MenuIcon.tsx
+│   │   │   ├── menu
+│   │   │   │   ├── DashboardHamburger.tsx
+│   │   │   │   ├── MarketingHamburger.tsx
+│   │   │   ├── social
+│   │   │   │   ├── AppleIcon.tsx
+│   │   │   │   ├── FacebookIcon.tsx
+│   │   │   │   ├── InstagramIcon.tsx
+│   │   │   │   ├── LinkedinIcon.tsx
+│   │   │   │   ├── PlayStoreIcon.tsx
+│   │   │   │   ├── XIcon.tsx
 │   │   ├── fonts.ts
 │   │   ├── globals.css
 │   │   ├── meta.ts
@@ -136,14 +183,16 @@ $script:output | Out-File -Encoding UTF8 structure.txt
 │   │   │   │   │   ├── content.ts
 │   │   │   │   │   ├── DashboardSidebar.tsx
 │   │   │   │   ├── DashboardLayoutWrapper.tsx
-│   │   │   ├── platform
+│   │   │   ├── marketing
 │   │   │   │   ├── footer
 │   │   │   │   │   ├── content.ts
-│   │   │   │   │   ├── PlatformFooter.tsx
+│   │   │   │   │   ├── MarketingFooter.tsx
 │   │   │   │   ├── header
 │   │   │   │   │   ├── content.ts
-│   │   │   │   │   ├── PlatformHeader.tsx
-│   │   │   │   ├── PlatformLayoutWrapper.tsx
+│   │   │   │   │   ├── MarketingDesktopNav.tsx
+│   │   │   │   │   ├── MarketingHeader.tsx
+│   │   │   │   │   ├── MobileSidebar.tsx
+│   │   │   │   ├── MarketingLayoutWrapper.tsx
 │   │   │   ├── LayoutWrapper.tsx
 │   │   ├── pages
 │   │   │   ├── auth
@@ -154,30 +203,44 @@ $script:output | Out-File -Encoding UTF8 structure.txt
 │   │   │   │   ├── content.ts
 │   │   │   ├── dashboard
 │   │   │   │   ├── calendar
-│   │   │   │   │   ├── IslamicCalendarContent.tsx
-│   │   │   │   ├── dhikr
+│   │   │   │   │   ├── CalendarDayDetail.tsx
+│   │   │   │   │   ├── CalendarPage.tsx
+│   │   │   │   │   ├── CalendarPanel.tsx
+│   │   │   │   │   ├── CalendarSidebar.tsx
 │   │   │   │   │   ├── content.ts
-│   │   │   │   │   ├── DhikrCounterContent.tsx
+│   │   │   │   │   ├── HijriMonthSwiper.tsx
+│   │   │   │   ├── dhikr
+│   │   │   │   │   ├── AdkharCard.tsx
+│   │   │   │   │   ├── content.ts
+│   │   │   │   │   ├── ContributorAvatar.tsx
+│   │   │   │   │   ├── ContributorsStack.tsx
+│   │   │   │   │   ├── DhikrAddModal.tsx
+│   │   │   │   │   ├── DhikrCounterPanel.tsx
+│   │   │   │   │   ├── DhikrPage.tsx
+│   │   │   │   │   ├── DhikrPresetGrid.tsx
+│   │   │   │   │   ├── DhikrSidebar.tsx
+│   │   │   │   │   ├── ShareInvitePopover.tsx
+│   │   │   │   │   ├── WorldwideAdkarModal.tsx
 │   │   │   │   ├── donate
 │   │   │   │   │   ├── content.ts
-│   │   │   │   │   ├── DonateContent.tsx
-│   │   │   │   │   ├── DonatePaymentContent.tsx
+│   │   │   │   │   ├── DonatePage.tsx
+│   │   │   │   │   ├── DonatePaymentPage.tsx
 │   │   │   │   ├── guides
 │   │   │   │   │   ├── content.ts
 │   │   │   │   │   ├── GuideDetailContent.tsx
 │   │   │   │   │   ├── GuideDetailHeader.tsx
-│   │   │   │   │   ├── GuideDetailPage.tsx
 │   │   │   │   │   ├── GuideDetailSidebar.tsx
 │   │   │   │   │   ├── GuidesBookmarksTabSection.tsx
 │   │   │   │   │   ├── GuidesCard.tsx
 │   │   │   │   │   ├── GuidesCollectionsTabSection.tsx
-│   │   │   │   │   ├── GuidesExplorePage.tsx
+│   │   │   │   │   ├── GuidesDetailPage.tsx
+│   │   │   │   │   ├── GuidesPage.tsx
 │   │   │   │   ├── hadith
 │   │   │   │   │   ├── content.ts
 │   │   │   │   │   ├── HadithCard.tsx
 │   │   │   │   │   ├── HadithCollectionsTabSection.tsx
 │   │   │   │   │   ├── HadithDetailPage.tsx
-│   │   │   │   │   ├── HadithExploreSection.tsx
+│   │   │   │   │   ├── HadithPage.tsx
 │   │   │   │   │   ├── HadithSavedTabSection.tsx
 │   │   │   │   │   ├── HadithSettingSidebar.tsx
 │   │   │   │   │   ├── HadithTopicsTabSection.tsx
@@ -185,80 +248,99 @@ $script:output | Out-File -Encoding UTF8 structure.txt
 │   │   │   │   │   ├── content.ts
 │   │   │   │   │   ├── HistoryCard.tsx
 │   │   │   │   │   ├── HistoryDetailPage.tsx
-│   │   │   │   │   ├── HistoryExploreContent.tsx
+│   │   │   │   │   ├── HistoryPage.tsx
 │   │   │   │   ├── miracles
 │   │   │   │   │   ├── content.ts
 │   │   │   │   │   ├── MiracleCard.tsx
 │   │   │   │   │   ├── MiracleDetailPage.tsx
-│   │   │   │   │   ├── MiraclesExploreContent.tsx
+│   │   │   │   │   ├── MiraclesPage.tsx
 │   │   │   │   ├── overview
+│   │   │   │   │   ├── ChallengeCard.tsx
 │   │   │   │   │   ├── content.ts
+│   │   │   │   │   ├── DailyChallengeModal.tsx
 │   │   │   │   │   ├── DashboardConsistencyChart.tsx
-│   │   │   │   │   ├── DashboardContent.tsx
 │   │   │   │   │   ├── DashboardDailyProgress.tsx
-│   │   │   │   │   ├── DashboardHeader.tsx
 │   │   │   │   │   ├── DashboardInspirationCard.tsx
+│   │   │   │   │   ├── DashboardPage.tsx
+│   │   │   │   │   ├── DashboardPageHeader.tsx
 │   │   │   │   │   ├── DashboardPrayerSchedule.tsx
 │   │   │   │   │   ├── DashboardRecentActivity.tsx
 │   │   │   │   │   ├── DashboardStats.tsx
+│   │   │   │   │   ├── RecentActivityModal.tsx
 │   │   │   │   ├── pillars
 │   │   │   │   │   ├── content.ts
-│   │   │   │   │   ├── PillarsContent.tsx
+│   │   │   │   │   ├── PillarsPage.tsx
 │   │   │   │   ├── prayer
-│   │   │   │   │   ├── PrayerTimesContent.tsx
-│   │   │   │   ├── prophetic-chain
+│   │   │   │   │   ├── content.ts
+│   │   │   │   │   ├── PrayerPage.tsx
+│   │   │   │   │   ├── PrayerPresenceHero.tsx
+│   │   │   │   │   ├── PrayerRhythmSidebar.tsx
+│   │   │   │   │   ├── PrayerSchedulePanel.tsx
+│   │   │   │   │   ├── PrayerTimeCard.tsx
+│   │   │   │   ├── prophets-lineage
 │   │   │   │   │   ├── cardDensity.ts
 │   │   │   │   │   ├── content.ts
 │   │   │   │   │   ├── prophetic-data.ts
-│   │   │   │   │   ├── PropheticChainContent.tsx
 │   │   │   │   │   ├── PropheticChartNode.tsx
 │   │   │   │   │   ├── PropheticDetailModal.tsx
+│   │   │   │   │   ├── ProphetsPage.tsx
 │   │   │   │   │   ├── scripture.ts
 │   │   │   │   │   ├── SelectedNodePanel.tsx
 │   │   │   │   ├── qibla
-│   │   │   │   │   ├── QiblaFinderContent.tsx
+│   │   │   │   │   ├── content.ts
+│   │   │   │   │   ├── QiblaCompass.tsx
+│   │   │   │   │   ├── QiblaPage.tsx
+│   │   │   │   │   ├── QiblaSidebar.tsx
 │   │   │   │   ├── quran
 │   │   │   │   │   ├── BookmarksTabSection.tsx
 │   │   │   │   │   ├── content.ts
 │   │   │   │   │   ├── ListenTabSection.tsx
 │   │   │   │   │   ├── QuranDetailPage.tsx
-│   │   │   │   │   ├── QuranExploreSection.tsx
 │   │   │   │   │   ├── QuranOrderDropdown.tsx
+│   │   │   │   │   ├── QuranPage.tsx
 │   │   │   │   │   ├── QuranSettingSidebar.tsx
 │   │   │   │   │   ├── ReadTabSection.tsx
 │   │   │   │   │   ├── ReciterStack.tsx
 │   │   │   │   │   ├── VerseCard.tsx
 │   │   │   │   ├── revert
 │   │   │   │   │   ├── content.ts
-│   │   │   │   │   ├── RevertContent.tsx
+│   │   │   │   │   ├── RevertPage.tsx
 │   │   │   │   ├── stories
 │   │   │   │   │   ├── content.ts
-│   │   │   │   │   ├── StoriesExploreContent.tsx
+│   │   │   │   │   ├── StoriesPage.tsx
 │   │   │   │   │   ├── StoryCard.tsx
-│   │   │   │   │   ├── StoryDetailModal.tsx
+│   │   │   │   │   ├── StoryDetailPage.tsx
 │   │   │   │   ├── supplications
 │   │   │   │   │   ├── content.ts
+│   │   │   │   │   ├── FiltersDrawer.tsx
 │   │   │   │   │   ├── SupplicationCard.tsx
+│   │   │   │   │   ├── SupplicationDetailContent.tsx
+│   │   │   │   │   ├── SupplicationDetailHeader.tsx
+│   │   │   │   │   ├── SupplicationDetailPage.tsx
+│   │   │   │   │   ├── SupplicationDetailSidebar.tsx
 │   │   │   │   │   ├── SupplicationsCollectionsSection.tsx
-│   │   │   │   │   ├── SupplicationsExploreContent.tsx
+│   │   │   │   │   ├── SupplicationsPage.tsx
+│   │   │   │   │   ├── SupplicationsSidebar.tsx
+│   │   │   │   │   ├── SupplicationsTopBar.tsx
 │   │   │   │   ├── support
 │   │   │   │   │   ├── content.ts
 │   │   │   │   │   ├── SupportChatWidget.tsx
-│   │   │   │   │   ├── SupportContent.tsx
+│   │   │   │   │   ├── SupportPage.tsx
 │   │   │   │   ├── content.ts
 │   │   │   ├── platform
+│   │   │   │   ├── developer-api
 │   │   │   │   ├── home
-│   │   │   │   │   ├── CallToActionSection.tsx
 │   │   │   │   │   ├── content.ts
-│   │   │   │   │   ├── FeatureSection.tsx
-│   │   │   │   │   ├── HeroSection.tsx
-│   │   │   │   │   ├── LearnGrowSection.tsx
-│   │   │   │   │   ├── TestimonialSection.tsx
-│   │   │   │   │   ├── WhyChooseUsSection.tsx
-│   │   │   │   │   ├── YourProgressSection.tsx
-│   │   │   │   ├── legal-policy
-│   │   │   │   ├── privacy-policy
-│   │   │   │   ├── terms-and-conditions
+│   │   │   │   │   ├── MarketingAboutSection.tsx
+│   │   │   │   │   ├── MarketingCtaSection.tsx
+│   │   │   │   │   ├── MarketingFaqSection.tsx
+│   │   │   │   │   ├── MarketingFeaturesSection.tsx
+│   │   │   │   │   ├── MarketingHeroSection.tsx
+│   │   │   │   │   ├── MarketingPricingSection.tsx
+│   │   │   │   │   ├── MarketingSectionHeading.tsx
+│   │   │   │   │   ├── MarketingTestimonialsSection.tsx
+│   │   │   │   │   ├── MarketingTrustSection.tsx
+│   │   │   │   │   ├── MarketingWorkspaceSection.tsx
 │   │   │   ├── profile
 │   │   │   │   ├── generic
 │   │   │   │   │   ├── SwitchItem.tsx
@@ -287,32 +369,47 @@ $script:output | Out-File -Encoding UTF8 structure.txt
 │   │   │   │   │   │   ├── ProfileSettingsPage.tsx
 │   │   │   │   ├── content.ts
 │   │   ├── shared
+│   │   │   ├── buttons
+│   │   │   │   ├── BackButton.tsx
+│   │   │   │   ├── BookmarkButton.tsx
+│   │   │   │   ├── CloseButton.tsx
+│   │   │   ├── catalog
+│   │   │   │   ├── CatalogCategorySidebar.tsx
+│   │   │   │   ├── CatalogEmptyState.tsx
+│   │   │   │   ├── CatalogFilterChips.tsx
+│   │   │   │   ├── CatalogFiltersDrawer.tsx
+│   │   │   │   ├── CatalogTopBar.tsx
 │   │   │   ├── charts
-│   │   │   │   ├── DashboardAreaChart.tsx
-│   │   │   ├── learn
-│   │   │   │   ├── DetailReadingBlocks.tsx
-│   │   │   │   ├── LearnExploreHero.tsx
-│   │   │   │   ├── LearnExplorePage.tsx
-│   │   │   │   ├── LearnExploreToolbar.tsx
-│   │   │   │   ├── types.ts
-│   │   │   ├── lineage-chart
-│   │   │   │   ├── buildEdgePath.ts
-│   │   │   │   ├── ChartCanvasToolbars.tsx
-│   │   │   │   ├── ChartControls.tsx
-│   │   │   │   ├── ChartNode.tsx
-│   │   │   │   ├── index.ts
-│   │   │   │   ├── layoutGraph.ts
-│   │   │   │   ├── LineageCanvas.tsx
-│   │   │   │   ├── types.ts
-│   │   │   │   ├── useChartViewport.ts
-│   │   │   ├── BackButton.tsx
-│   │   │   ├── BookmarkButton.tsx
+│   │   │   │   ├── graphical-charts
+│   │   │   │   │   ├── DashboardAreaChart.tsx
+│   │   │   │   ├── lineage-chart
+│   │   │   │   │   ├── buildEdgePath.ts
+│   │   │   │   │   ├── ChartCanvasToolbars.tsx
+│   │   │   │   │   ├── ChartControls.tsx
+│   │   │   │   │   ├── ChartNode.tsx
+│   │   │   │   │   ├── index.ts
+│   │   │   │   │   ├── layoutGraph.ts
+│   │   │   │   │   ├── LineageCanvas.tsx
+│   │   │   │   │   ├── types.ts
+│   │   │   │   │   ├── useChartViewport.ts
+│   │   │   │   ├── timeline-arc
+│   │   │   │   │   ├── index.ts
+│   │   │   │   │   ├── TimelineArc.tsx
+│   │   │   │   │   ├── TimelineGradientDefs.tsx
+│   │   │   │   │   ├── TimelineMarkers.tsx
+│   │   │   ├── motion
+│   │   │   │   ├── Animate.tsx
+│   │   │   │   ├── inViewViewport.ts
+│   │   │   │   ├── Stagger.tsx
+│   │   │   ├── FadeEdge.tsx
 │   │   │   ├── FilterDropdown.tsx
+│   │   │   ├── InfiniteMarquee.tsx
 │   │   │   ├── LabelCheckbox.tsx
 │   │   │   ├── LanguageSelector.tsx
 │   │   │   ├── Logo.tsx
 │   │   │   ├── Modal.tsx
 │   │   │   ├── NotificationsPopover.tsx
+│   │   │   ├── SectionHeader.tsx
 │   │   │   ├── Tabs.tsx
 │   │   │   ├── UserProfileDropdown.tsx
 │   │   ├── ui
@@ -333,25 +430,28 @@ $script:output | Out-File -Encoding UTF8 structure.txt
 │   │   │   ├── switch.tsx
 │   ├── constant
 │   │   ├── quranic-conatant.ts
+│   ├── context
+│   │   ├── ScrollContainerContext.tsx
 │   ├── env
 │   │   ├── client.ts
-│   │   ├── index.ts
 │   │   ├── server.ts
 │   ├── hooks
 │   │   ├── useBreakpoint.ts
+│   │   ├── useCatalogPageSize.ts
 │   │   ├── useIncrementalReveal.ts
+│   │   ├── usePagination.ts
+│   │   ├── useScrollIntoView.ts
+│   │   ├── useScrollLock.ts
+│   │   ├── useViewportFix.ts
 │   ├── lib
+│   │   ├── app
+│   │   ├── motion
 │   │   ├── notification
 │   │   │   ├── notify.ts
 │   │   │   ├── permissions.ts
 │   │   ├── utils
-│   │   │   ├── card-motion.ts
 │   │   │   ├── clsx.ts
-│   │   │   ├── formatDate.ts
-│   │   │   ├── isNullish.ts
-│   │   │   ├── pagination-range.ts
-│   │   │   ├── share.ts
-│   │   │   ├── usePaginatedList.ts
+│   │   │   ├── format-date.ts
 │   ├── store
 │   │   ├── hadith
 │   │   │   ├── hadith.store.ts
@@ -362,8 +462,8 @@ $script:output | Out-File -Encoding UTF8 structure.txt
 │   │   │   ├── quran.store.ts
 │   │   │   ├── quran.types.ts
 │   ├── middleware.ts
-│   ├── types.d.ts
 ├── .env.example
+├── .env.local
 ├── .gitignore
 ├── components.json
 ├── config.ts
@@ -378,4 +478,3 @@ $script:output | Out-File -Encoding UTF8 structure.txt
 ├── tailwind.config.ts
 ├── tsconfig.json
 ├── tsconfig.tsbuildinfo
-├── workflow.txt

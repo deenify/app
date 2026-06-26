@@ -1,7 +1,7 @@
 import { clientEnv } from "@/env/client";
 import type { Metadata } from "next";
 
-const ogImage = `${clientEnv.APP_URL}/og.png`;
+const ogImage = `${clientEnv.APP_URL}/images/generic/og.png`;
 
 export const defaultMeta: Metadata = {
     title: {
@@ -12,8 +12,10 @@ export const defaultMeta: Metadata = {
     keywords: [
         clientEnv.APP_NAME, "Quran", "Hadith", "Guides", "Learning", "Islam", "Islamic",
         "Islamic Education", "Islamic Learning", "Islamic Education", "Islamic Learning",
-        "Quran", "Hadith", "Adhan", "Islamic App", "Hijri", "Muslim", "signin or signup -s ${clientEnv.APP_NAME}"
+        "Quran", "Hadith", "Adhan", "Islamic App", "Hijri", "Muslim",
+        `signin or signup -s ${clientEnv.APP_NAME}`
     ],
+    themeColor: "#009966",
     metadataBase: new URL(clientEnv.APP_URL),
     openGraph: {
         title: clientEnv.APP_NAME,
@@ -25,7 +27,7 @@ export const defaultMeta: Metadata = {
                 url: ogImage,
                 width: 1200,
                 height: 630,
-                alt: "Islam Companion OG Image",
+                alt: `${clientEnv.APP_NAME} OG Image`,
                 type: "image/png",
             },
         ],
@@ -45,12 +47,12 @@ export const defaultMeta: Metadata = {
         title: clientEnv.APP_NAME,
         statusBarStyle: "black-translucent",
     },
-    manifest: `${clientEnv.APP_URL}/manifest.webmanifest`,
+    manifest: "/manifest.webmanifest",
     icons: {
         icon: [
             { url: "/icons/favicon.ico", sizes: "any" },
             { url: "/icons/favicon.ico", type: "image/ico" },
         ],
-        apple: "/icons/favicon.ico",
+        apple: "/icons/apple-touch-icon.png",
     },
 };
