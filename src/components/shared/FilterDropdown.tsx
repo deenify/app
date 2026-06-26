@@ -120,26 +120,34 @@ const FilterDropdown = ({
                 </label>
             )}
 
-            <DropdownMenu open={open} onOpenChange={setOpen}>
+            <DropdownMenu open={open} onOpenChange={() => setOpen(!open)}>
                 <DropdownMenuTrigger
                     asChild
                     className={cn(
-                        "block w-full min-w-0 max-w-full outline-none focus:outline-none focus-visible:outline-none select-none cursor-pointer",
+                        "block w-full min-w-0 max-w-full outline-none focus:outline-none focus-visible:outline-none select-nonw",
                         className,
                         classNames?.trigger
                     )}
+                    onPointerDown={(e) => {
+                        if (e.pointerType === "touch") {
+                            e.preventDefault();
+                        }
+                    }}
+                    onClick={() => setOpen(!open)}
                 >
-                    <div
+                    <button
+                        type="button"
                         className={cn(
                             "flex w-full min-w-0 items-center justify-between gap-2",
                             "rounded-md border border-gray-200 bg-white px-3",
                             "text-sm font-medium text-gray-700 transition-[color,box-shadow,border-color]",
                             "outline-none hover:bg-gray-50",
                             "focus-visible:border-emerald-300 focus-visible:ring-2 focus-visible:ring-emerald-100",
-                            "h-10",
+                            "h-10 ring-0 ring-offset-0 focus-visible:ring-0 focus-visible:ring-offset-0",
                             classNames?.triggerButton
                         )}
                         aria-expanded={open}
+                        onClick={() => setOpen(!open)}
                     >
                         <p className="flex min-w-0 flex-1 items-center gap-2 text-left">
                             {renderTriggerIcon()}
@@ -151,7 +159,7 @@ const FilterDropdown = ({
                                 open ? "rotate-180" : ""
                             )}
                         />
-                    </div>
+                    </button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent
                     align="end"
