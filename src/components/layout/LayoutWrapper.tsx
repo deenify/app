@@ -14,7 +14,7 @@ const LayoutWrapper = ({ children }: LayoutWrapperProptype) => {
     useViewportFix();
 
     return (
-        <div className={cn('w-dvh h-dvh overflow-hidden flex')}>
+        <div className={cn('layout flex')}>
             <div className='flex flex-col flex-1 overflow-y-auto scrollbar-content'>
                 {children}
             </div>

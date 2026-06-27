@@ -40,7 +40,7 @@ const MarketingHeroSection = () => {
                     </Animate>
                     <Animate variant="up" delay={0.62} duration={0.92}>
                         <p className="mx-auto mt-4 md:max-w-2xl max-w-md sm:max-w-xl text-sm leading-relaxed text-gray-600 sm:mt-5 
-                           sm:text-base lg:text-lg sm:block hidden">
+                           sm:text-base sm:block hidden">
                             {clientEnv.APP_NAME} unifies Qur’an (95+ languages), Hadith, prayer, dhikr, structured guidance & more —
                             single coherent software, built for those who expect Islam to rendered with precision.
                         </p>

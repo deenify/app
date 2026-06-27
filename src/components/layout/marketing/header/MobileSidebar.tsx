@@ -1,6 +1,6 @@
 "use client"
 
-import { X } from "lucide-react"
+import { ChevronRight, X } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { MARKETING_NAV } from "./content"
@@ -22,7 +22,7 @@ const MobileSidebar = ({ isOpen, onClose }: MobileSidebarProps) => {
     return (
         <div
             className={cn(
-                "fixed inset-0 z-[9998] lg:hidden",
+                "absolute inset-0 z-[9998] lg:hidden",
                 isOpen ? "pointer-events-auto" : "pointer-events-none",
             )}
             aria-hidden={!isOpen}
@@ -33,8 +33,8 @@ const MobileSidebar = ({ isOpen, onClose }: MobileSidebarProps) => {
                 onClick={onClose}
                 tabIndex={isOpen ? 0 : -1}
                 className={cn(
-                    "absolute inset-0 bg-black/45 ease-[cubic-bezier(0.22,1,0.36,1)] duration-300",
-                    isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none",
+                    "absolute inset-0 bg-transparent",
+                    isOpen ? "opointer-events-auto" : "pointer-events-none",
                 )}
             />
 
@@ -44,21 +44,17 @@ const MobileSidebar = ({ isOpen, onClose }: MobileSidebarProps) => {
                 aria-label="Mobile menu"
                 aria-hidden={!isOpen}
                 className={cn(
-                    "fixed right-0 top-0 z-[9999] flex h-dvh w-[min(88vw,320px)] flex-col",
-                    "border-l border-layout-separator bg-white outline-none xs:w-[min(86vw,340px)]",
+                    "fixed right-0 top-0 z-[9999] flex h-dvh w-[min(88vw,340px)] flex-col",
+                    "border-l border-layout-separator bg-gradient-to-br from-white to-white/85 backdrop-blur-md outline-none xs:w-[min(86vw,340px)]",
                     "transform-gpu will-change-transform",
-                    "transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                    "duration-500 ease-in-out",
                     isOpen ? "translate-x-0" : "translate-x-full",
                 )}
             >
                 <div className="flex flex-1 flex-col overflow-hidden">
-                    <div className="flex-1 overflow-y-auto px-4 py-4 scrollbar-content">
-                        <div className="mb-6 flex items-center justify-between gap-3 border-b border-layout-separator pb-4">
-                            <div
-                                className={cn("min-w-0 flex-1 transition-all duration-500")}
-                            >
-                                <Logo />
-                            </div>
+                    <div className="flex-1 overflow-y-auto scrollbar-content">
+                        <div className="container-header-footer flex h-[72px] items-center justify-between gap-4 sm:h-[76px]">
+                            <Logo />
 
                             <button
                                 type="button"
@@ -69,15 +65,18 @@ const MobileSidebar = ({ isOpen, onClose }: MobileSidebarProps) => {
                                 bg-gray-100/80 text-gray-500 transition-colors 
                                 hover:bg-gray-100 hover:text-gray-700"
                             >
-                                <X className="h-4 w-4" strokeWidth={2.25} />
+                                <X size={20} strokeWidth={2.25} />
                             </button>
                         </div>
 
-                        <nav aria-label="Mobile">
-                            <h3 className="mb-2.5 px-1 text-[11px] font-semibold uppercase 
-                            tracking-[0.14em] text-emerald-700/70">
+                        <nav
+                            aria-label="Mobile"
+                            className="px-4 py-4"
+                        >
+                            <h4 className="text-xs font-semibold text-gray-500 uppercase 
+                            tracking-wider mb-3 px-2">
                                 Menu
-                            </h3>
+                            </h4>
                             <div className="space-y-1">
                                 {MARKETING_NAV.map((item) => {
                                     const active =
@@ -92,7 +91,8 @@ const MobileSidebar = ({ isOpen, onClose }: MobileSidebarProps) => {
                                             onClick={onClose}
                                             tabIndex={isOpen ? 0 : -1}
                                             className={cn(
-                                                "group relative flex items-center gap-3 rounded-lg px-3 py-2.5 transition-colors duration-150",
+                                                "group relative flex items-center gap-3 rounded-lg px-3",
+                                                "py-2.5 duration-200",
                                                 active
                                                     ? "bg-emerald-50 text-emerald-900"
                                                     : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
@@ -107,15 +107,16 @@ const MobileSidebar = ({ isOpen, onClose }: MobileSidebarProps) => {
                                             )}
                                             <Icon
                                                 className={cn(
-                                                    "h-5 w-5 shrink-0",
+                                                    "flex-shrink-0",
                                                     active
                                                         ? "text-emerald-600"
                                                         : "text-gray-400 group-hover:text-emerald-600",
                                                 )}
+                                                size={20}
                                                 strokeWidth={2}
                                             />
-                                            <span className="min-w-0 flex-1 break-words text-sm 
-                                            font-medium leading-snug">
+                                            <span className="min-w-0 flex-1 break-words text-base 
+                                            font-medium leading-none">
                                                 {item.label}
                                             </span>
 
@@ -133,13 +134,13 @@ const MobileSidebar = ({ isOpen, onClose }: MobileSidebarProps) => {
                         </nav>
                     </div>
 
-                    <div className="shrink-0 border-t border-layout-separator p-4">
-                        <div className="flex items-center gap-2">
+                    <div className="border-t border-layout-separator py-3 px-4">
+                        <div className="flex flex-row items-center gap-1.5">
                             <Button
-                                variant="outline"
+                                variant="ghost"
                                 href="/login"
                                 onClick={onClose}
-                                className="h-10 flex-1 rounded-lg text-sm font-medium"
+                                className="h-11 w-full rounded-lg text-base font-medium"
                             >
                                 Log In
                             </Button>
@@ -147,7 +148,7 @@ const MobileSidebar = ({ isOpen, onClose }: MobileSidebarProps) => {
                                 variant="default"
                                 href="/register"
                                 onClick={onClose}
-                                className="h-10 flex-1 rounded-lg text-sm font-medium"
+                                className="h-11 w-full rounded-lg text-base font-medium"
                             >
                                 Sign Up
                             </Button>

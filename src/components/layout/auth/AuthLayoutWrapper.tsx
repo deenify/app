@@ -14,7 +14,7 @@ const AuthLayoutWrapper = ({ children }: AuthLayoutWrapperProps) => {
     const scrollRef = useRef<HTMLDivElement>(null)
     return (
         <ScrollContainerProvider containerRef={scrollRef} >
-            <section
+            <div
                 id='auth-layout-wrapper-scroll-container'
                 className='flex-1 overflow-y-auto scrollbar-thin flex flex-col'
                 ref={scrollRef}
@@ -22,10 +22,10 @@ const AuthLayoutWrapper = ({ children }: AuthLayoutWrapperProps) => {
                 <div className='sticky inset-0 bottom-auto z-50'>
                     <AuthHeader />
                 </div>
-                <div className='flex-1 flex flex-col items-center justify-center'>
+                <main className='flex-1 flex flex-col items-center justify-center'>
                     {children}
-                </div>
-            </section>
+                </main>
+            </div>
         </ScrollContainerProvider>
     )
 }

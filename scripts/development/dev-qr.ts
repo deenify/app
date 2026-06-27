@@ -57,7 +57,7 @@ async function main() {
             "0.0.0.0",
             "-p",
             PORT.toString(),
-            "--turbo",
+            // "--turbo",
         ],
         {
             stdio: "inherit",

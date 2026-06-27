@@ -15,12 +15,12 @@ const MarketingLayoutWrapper = ({ children }: MarketingLayoutWrapperProps) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
 
     return (
-        <div className='w-dvh h-dvh overflow-hidden flex flex-col'>
+        <div className='layout flex flex-col'>
             <ScrollContainerProvider containerRef={scrollRef}>
                 <div
                     ref={scrollRef}
                     id='marketing-layout-wrapper-scroll-container'
-                    className='flex-1 overflow-y-auto scrollbar-content flex flex-col justify-between'
+                    className='flex-1 overflow-y-auto scrollbar-content flex flex-col justify-between relative'
                 >
                     <div className='sticky inset-0 bottom-auto z-50'>
                         <MarketingHeader
@@ -29,16 +29,15 @@ const MarketingLayoutWrapper = ({ children }: MarketingLayoutWrapperProps) => {
                             onMenuOpen={() => setIsMenuOpen(true)}
                         />
                     </div>
-                    <div className='pt-20'>
+                    <div className='pt-20 relative'>
+                        <MobileSidebar
+                            isOpen={isMenuOpen}
+                            onClose={() => setIsMenuOpen(false)}
+                        />
                         {children}
                     </div>
                     <MarketingFooter />
                 </div>
-
-                <MobileSidebar
-                    isOpen={isMenuOpen}
-                    onClose={() => setIsMenuOpen(false)}
-                />
             </ScrollContainerProvider>
         </div>
     )

@@ -15,7 +15,8 @@ interface MarketingHeaderProps {
 const MarketingHeader = ({ className, onMenuOpen, isMenuOpen }: MarketingHeaderProps) => {
     return (
         <header className={cn(
-            "z-50 border-b border-layout-separator bg-white backdrop-blur-md ease-out duration-300",
+            "z-50 border-b border-layout-separator bg-white/95 md:bg-white/90",
+            "backdrop-blur-md ease-out duration-300",
             className
         )}>
             <section className="container-header-footer flex h-[72px] items-center justify-between gap-4 sm:h-[76px]">

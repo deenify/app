@@ -30,7 +30,8 @@ export type DashboardGoalItem = {
 
 export const DASHBOARD_EDITORIAL = {
     badge: "Spiritual overview",
-    title: "Your week at a glance",
+    // title: "Your week at a glance",
+    title: "Dashboard overview",
     lead: "Prayer rhythm, Qurʾān momentum, and dhikr habits—summarized so you can adjust before the day ends.",
 } as const
 

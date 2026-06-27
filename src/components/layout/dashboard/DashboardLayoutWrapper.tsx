@@ -23,7 +23,7 @@ const DashboardLayoutWrapper = ({ children }: DashboardLayoutWrapperProps) => {
 
 
     return (
-        <div className='flex-1 h-dvh overflow-hidden flex'>
+        <div className='layout flex'>
             <DashboardSidebar
                 isMobile={isMobile}
                 isLocked={isLocked}

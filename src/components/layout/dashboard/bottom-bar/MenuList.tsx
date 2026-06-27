@@ -26,9 +26,9 @@ const MenuList = ({ onDrawerTabChange }: MenuListProps) => {
             {/* Navigation Sections */}
             {sidebarSections.map((section: typeof sidebarSections[0], idx: number) => (
                 <div key={idx} className={cn("mb-6", idx !== sidebarSections.length - 1 && "pb-6 border-b border-layout-separator")}>
-                    <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3 px-2">
+                    <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3 px-2">
                         {section.title}
-                    </h3>
+                    </h4>
                     <div className="space-y-1">
                         {section.items.map((item: typeof section.items[0]) => {
                             const Icon = item.icon

@@ -1,3 +1,5 @@
+// app/layout.tsx
+
 import "@/assets/globals.css";
 import "@/env/client"
 import "@/env/server"
@@ -12,15 +14,13 @@ import {
 import { defaultMeta } from "@/assets/meta";
 import LayoutWrapper from "@/components/layout/LayoutWrapper";
 
-export const metadata: Metadata = {
-    ...defaultMeta,
-    viewport: {
-        width: "device-width",
-        initialScale: 1,
-        userScalable: true,
-        viewportFit: "cover",
-    },
-};
+
+export const viewport = {
+    width: "device-width",
+    initialScale: 1,
+    viewportFit: "cover",
+}
+export const metadata: Metadata = defaultMeta
 
 interface RootLayoutProptype {
     readonly children: ReactNode
