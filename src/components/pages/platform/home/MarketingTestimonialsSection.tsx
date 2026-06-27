@@ -35,7 +35,8 @@ const MarketingTestimonialsSection = () => {
                     <MarketingSectionHeading
                         lead={<>Trusted by users <br className='block xs:hidden' /> across the</>}
                         accent="world"
-                        subtitle="Voices from designers, chaplains, and everyday Muslims who wanted software that matched the seriousness of their practice."
+                        subtitle="Voices from designers, chaplains, and everyday Muslims
+                         who wanted software that matched the seriousness of their practice."
                     />
                 </div>
             </div>
@@ -47,7 +48,7 @@ const MarketingTestimonialsSection = () => {
                 duration={1.1}
                 className="container mt-10 sm:mt-12"
             >
-                <div className="relative mx-auto max-w-5xl.. overflow-hidden py-2 md:overflow-visible md:py-4">
+                <div className="relative overflow-hidden py-2 md:overflow-visible md:py-4">
                     <FadeEdge fadeDirection="both" hideBelow="md" />
 
                     <Swiper
@@ -81,9 +82,11 @@ const MarketingTestimonialsSection = () => {
                     >
                         {TESTIMONIALS.map((item) => (
                             <SwiperSlide key={item.name}>
-                                <blockquote className="testimonial-card h-full w-full rounded-md border border-gray-200 bg-marketing-card p-4 sm:p-6">
+                                <blockquote className="testimonial-card h-full w-full rounded-md border 
+                                border-gray-200 bg-marketing-card p-4 sm:p-6">
                                     <div className="flex items-start justify-between gap-2 sm:gap-3">
-                                        <div className="relative hrink-0 overflow-hidden rounded-md h-[4.5rem] w-[4.5rem]">
+                                        <div className="relative hrink-0 overflow-hidden rounded-md 
+                                        h-[4.5rem] w-[4.5rem]">
                                             <Image
                                                 fill
                                                 priority
@@ -94,14 +97,16 @@ const MarketingTestimonialsSection = () => {
                                             />
                                         </div>
                                         <span
-                                            className="font-accent -mt-0.5 shrink-0 text-5xl leading-none text-emerald-600 sm:text-7xl"
+                                            className="font-accent -mt-0.5 shrink-0 text-5xl 
+                                            leading-none text-emerald-600 sm:text-7xl"
                                             aria-hidden
                                         >
                                             &ldquo;
                                         </span>
                                     </div>
 
-                                    <p className="mt-4 text-sm leading-[1.65] text-gray-700 sm:mt-5 sm:min-h-[5.25rem] sm:text-[0.9375rem] sm:leading-[1.7]">
+                                    <p className="mt-4 text-sm leading-[1.65] text-gray-700 sm:mt-5 
+                                    sm:min-h-[5.25rem] sm:text-[0.9375rem] sm:leading-[1.7]">
                                         {item.quote}
                                     </p>
 
@@ -117,18 +122,13 @@ const MarketingTestimonialsSection = () => {
                     </Swiper>
                 </div>
 
-                <Animate
-                    animate="while_in_view"
-                    variant="up"
-                    delay={0.7}
-                    duration={0.85}
-                    className="mt-6 flex justify-center sm:mt-8"
-                >
+                <div className="mt-6 flex justify-center sm:mt-8 w-full h-max">
                     <div
                         ref={paginationRef}
-                        className="marketing-testimonial-pagination flex items-center justify-center gap-2"
+                        className="marketing-testimonial-pagination flex 
+                        items-center justify-center gap-2 mt-4 w-full h-max"
                     />
-                </Animate>
+                </div>
             </Animate>
         </section>
     )
