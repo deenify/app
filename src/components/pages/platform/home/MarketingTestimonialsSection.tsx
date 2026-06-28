@@ -1,8 +1,6 @@
 "use client"
 
 import Image from "next/image"
-import { useRef } from "react"
-import type { Swiper as SwiperInstance } from "swiper"
 import { Autoplay, Pagination } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
 import FadeEdge from "@/components/shared/FadeEdge"
@@ -14,19 +12,9 @@ import "swiper/css"
 import "swiper/css/pagination"
 
 const CONTENT_BASE_DELAY = 0.55
+const PAGINATION_CONTAINER_CLASS = "marketing-testimonial-pagination"
 
 const MarketingTestimonialsSection = () => {
-    const paginationRef = useRef<HTMLDivElement>(null)
-
-    const bindPagination = (swiper: SwiperInstance) => {
-        const pag = swiper.params.pagination
-        if (pag && typeof pag !== "boolean") {
-            pag.el = paginationRef.current
-            swiper.pagination.init()
-            swiper.pagination.render()
-            swiper.pagination.update()
-        }
-    }
 
     return (
         <section className="overflow-hidden bg-marketing-light py-14 sm:py-20 lg:py-24">
@@ -60,6 +48,9 @@ const MarketingTestimonialsSection = () => {
                         centeredSlides
                         slidesPerView={1}
                         spaceBetween={12}
+                        observer
+                        observeParents
+                        resizeObserver
                         autoplay={{
                             delay: 4000,
                             disableOnInteraction: false,
@@ -72,13 +63,11 @@ const MarketingTestimonialsSection = () => {
                             1280: { slidesPerView: 2.55, spaceBetween: 16 },
                         }}
                         pagination={{
-                            el: paginationRef.current,
+                            el: `.${PAGINATION_CONTAINER_CLASS}`,
                             clickable: true,
                             bulletClass: "marketing-testimonial-bullet",
                             bulletActiveClass: "marketing-testimonial-bullet-active",
                         }}
-                        onBeforeInit={bindPagination}
-                        onInit={bindPagination}
                     >
                         {TESTIMONIALS.map((item) => (
                             <SwiperSlide key={item.name}>
@@ -124,9 +113,7 @@ const MarketingTestimonialsSection = () => {
 
                 <div className="mt-6 flex justify-center sm:mt-8 w-full h-max">
                     <div
-                        ref={paginationRef}
-                        className="marketing-testimonial-pagination flex 
-                        items-center justify-center gap-2 mt-4 w-full h-max"
+                        className={`${PAGINATION_CONTAINER_CLASS} flex items-center justify-center gap-2 mt-4 w-full h-max`}
                     />
                 </div>
             </Animate>

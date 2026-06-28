@@ -1,8 +1,8 @@
 // app/layout.tsx
 
 import "@/assets/globals.css";
-import "@/env/client"
-import "@/env/server"
+import "@/env/client";
+import "@/env/server";
 
 import type { Metadata } from "next";
 import { cn } from "@/lib/utils/clsx";
