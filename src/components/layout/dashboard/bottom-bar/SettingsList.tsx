@@ -26,8 +26,6 @@ interface SettingsListItemProps {
 }
 
 const SettingsList = () => {
-    const router = useRouter()
-
     // State management for all toggles
     const [lightMode, setLightMode] = React.useState(true)
     const [darkMode, setDarkMode] = React.useState(false)

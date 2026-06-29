@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { cn } from "@/lib/utils/clsx"
-import { RotateCcw, Plus, Sparkles, SquircleDashed } from "lucide-react"
+import { RotateCcw, Plus, Sparkles } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { DHIKR_TARGET_QUICK, type DhikrPreset } from "./content"
 

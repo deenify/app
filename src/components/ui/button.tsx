@@ -151,7 +151,7 @@ export const Button = <C extends React.ElementType = "button">({
             }}
             className={cn(
                 "relative inline-flex items-center justify-center gap-2 rounded-md font-medium outline-none",
-                "cursor-pointer overflow-hidden px-[30px]",
+                "cursor-pointer overflow-hidden px-[30px] will-change-transform transform-gpu",
                 "focus-visible:ring-0 focus-visible:ring-none focus-visible:ring-offset-0",
                 "disabled:pointer-events-none disabled:opacity-70",
                 "ease-out duration-200",

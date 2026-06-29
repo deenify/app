@@ -199,10 +199,10 @@ export const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                                 </div>
 
                                 <h4 className="text-gray-900 font-semibold text-base font-heading mb-2">
-                                    You're all caught up!
+                                    You&apos;re all caught up!
                                 </h4>
                                 <p className="text-sm text-gray-500 mb-4 leading-relaxed max-w-[240px]">
-                                    No new notifications at the moment. We'll notify you when something important happens.
+                                    No new notifications at the moment. We&apos;ll notify you when something important happens.
                                 </p>
                                 <Button
                                     variant="link"

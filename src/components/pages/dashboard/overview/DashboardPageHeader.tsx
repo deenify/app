@@ -3,7 +3,6 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { LayoutDashboard, Sparkles } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { DailyChallengeModal } from "./DailyChallengeModal"
 import SectionHeader from "@/components/shared/SectionHeader"

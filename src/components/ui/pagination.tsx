@@ -48,8 +48,6 @@ export function Pagination({
     scrollContainerId,
     scrollDelay = 0
 }: PaginationProps) {
-    if (totalPages <= 1) return null
-
     const handlePageChange = (p: number) => {
         if (p < 1 || p > totalPages || p === page) return
 
@@ -70,8 +68,8 @@ export function Pagination({
         }
     }
 
-    // Stable pagination logic: calculates which page numbers/dots to show
     const items = React.useMemo(() => {
+        if (totalPages <= 1) return []
         const range = (s: number, e: number) => Array.from({ length: Math.max(0, e - s + 1) }, (_, i) => s + i)
 
         // Mobile: Show max 5 items total (compact range)
@@ -91,6 +89,8 @@ export function Pagination({
         return [1, "dots", ...range(lSib, rSib), "dots", totalPages]
     }, [page, totalPages, isMobile])
 
+
+    if (totalPages <= 1) return null
 
     // Generic styles  
     const alignClass = { left: "justify-start", center: "justify-center", right: "justify-end" }[align]

@@ -3,7 +3,6 @@
 import React from "react"
 import { Button } from "@/components/ui/button"
 import { Input, type SearchItem } from "@/components/ui/input"
-import { LanguageSelector } from "@/components/shared/LanguageSelector"
 import { NotificationsPopover } from "@/components/shared/NotificationsPopover"
 import {
     UserProfileDropdown,
@@ -15,8 +14,6 @@ import MenuIcon from "@/assets/svg/menu/DashboardHamburger"
 import Logo from "@/components/shared/Logo"
 import { DEFAULT_SEARCH_ITEMS } from "./content"
 import { useBreakpoint } from "@/hooks/useBreakpoint"
-import { clientEnv } from "@/env/client"
-import { Search } from "lucide-react"
 
 interface DashboardHeaderProps {
     userPreferences?: UserPreferences

@@ -46,7 +46,6 @@ const ProfilePersonalizationPage = () => {
     const [font, setFont] = useState<(typeof fontSizes)[number]>("Medium")
     const [accent, setAccent] = useState<(typeof accents)[number]["id"]>("emerald")
     const [saving, setSaving] = useState(false)
-    const selectedLanguage = languages.find((item) => item.code === lang)
 
     const handleSave = () => {
         setSaving(true)

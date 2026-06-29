@@ -29,7 +29,7 @@ const DashboardBottombar = ({
 }: DashboardBottombarProps) => {
 
     const [selectedLanguage, setSelectedLanguage] = useState("en")
-    const [searchOpen, setSearchOpen] = useState(false)
+    const [, setSearchOpen] = useState(false)
     const pathname = usePathname()
 
     // Use external state as single source of truth - no internal state conflicts

@@ -209,6 +209,7 @@ export function RecentActivityModal({ isOpen, onOpenChange, initialItems }: Rece
 
                             return (
                                 <motion.div
+                                    key={item.id}
                                     transition={{ duration: 0.3 }}
                                     className="group relative flex items-start sm:gap-4 gap-2 sm:p-4 p-2 py-3 rounded-lg
                                      border border-layout-separator bg-white hover:border-emerald-200 

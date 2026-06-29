@@ -4,23 +4,15 @@ import React, { useState } from "react"
 import { Modal } from "@/components/shared/Modal"
 import { usePagination } from "@/hooks/usePagination"
 import { useBreakpoint } from "@/hooks/useBreakpoint"
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {
-    Search,
     Plus,
-    Globe,
-    ChevronRight
+    Globe
 } from "lucide-react"
 import { cn } from "@/lib/utils/clsx"
 import { Pagination } from "@/components/ui/pagination"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from "@/components/ui/popover"
-import { Badge } from "@/components/ui/badge"
+
+
 import ContributorAvatar from "./ContributorAvatar"
 
 interface WorldwideAdkarModalProps {
@@ -177,7 +169,7 @@ export function WorldwideAdkarModal({
 
                     {paginatedItems.length === 0 && (
                         <div className="col-span-full py-16 text-center">
-                            <p className="text-sm text-gray-400 font-medium">No results found for "{search}"</p>
+                            <p className="text-sm text-gray-400 font-medium">No results found for &quot;{search}&quot;</p>
                         </div>
                     )}
                 </div>

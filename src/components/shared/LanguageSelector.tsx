@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState } from "react"
-import { Globe, ChevronDown, Check, X } from "lucide-react"
+import { Globe, ChevronDown, Check } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
     DropdownMenu,

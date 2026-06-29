@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useMemo, useRef, useState } from "react"
-import { motion } from "framer-motion"
 import { Users } from "lucide-react"
 import SectionHeader from "@/components/shared/SectionHeader"
 import {

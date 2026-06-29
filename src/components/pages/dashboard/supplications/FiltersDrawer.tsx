@@ -20,7 +20,7 @@ type FiltersDrawerProps = {
 const FiltersDrawer = ({ isMobileFilterOpen,
     setIsMobileFilterOpen, clearAllFilters,
     selectedCategories, selectedTags, toggleCategory,
-    toggleTag, categoryCounts, filteredAndSorted
+    toggleTag, categoryCounts,
 }: FiltersDrawerProps) => {
 
     const filterCount = selectedCategories.size + selectedTags.size;

@@ -222,7 +222,7 @@ const HadithCard = ({
                                     <BookmarkButton
                                         isBookmarked={false}
                                         buttonProps={{
-                                            onClick: (e: React.MouseEvent<HTMLButtonElement>) => { },
+                                            onClick: () => { },
                                             "aria-label": "Bookmark hadith",
                                         }}
                                         classNames={{ icon: "text-gray-500 hover:text-emerald-700" }}

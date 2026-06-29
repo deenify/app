@@ -78,7 +78,6 @@ export function useChartViewport({
     const layoutRef = useRef(layout)
     const initialRef = useRef(initialViewport)
     const lockedRef = useRef(locked)
-    const rafRef = useRef<number | null>(null)
     const dragRef = useRef<{ px: number; py: number; ox: number; oy: number } | null>(null)
     const pinchRef = useRef<{ dist: number; scale: number; midX: number; midY: number } | null>(null)
     const pointersRef = useRef(new Map<number, { x: number; y: number }>())

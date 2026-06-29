@@ -69,7 +69,10 @@ function LineageCanvasInner<T extends Record<string, unknown> = Record<string, u
     const locked = canvasControls?.locked ?? false
 
     const layout = useMemo(() => layoutLineageGraph(graph), [graph])
-    const cfg = { ...DEFAULT_CFG, ...graph.layout }
+    const cfg = useMemo(
+        () => ({ ...DEFAULT_CFG, ...graph.layout }),
+        [graph.layout]
+    )
     const { scale, fitToView, zoomIn, zoomOut, panBy } = useChartViewport({
         bounds: layout.bounds,
         layout: {
@@ -152,7 +155,7 @@ function LineageCanvasInner<T extends Record<string, unknown> = Record<string, u
                 }
             })
             .filter(Boolean) as { id: string; d: string; routing: LineageEdgeRouting }[]
-    }, [graph.edges, scaled, cfg.direction, forceRouting])
+    }, [graph, scaled, cfg.direction, forceRouting])
 
     const selectNode = (id: string) => {
         if (locked) return
