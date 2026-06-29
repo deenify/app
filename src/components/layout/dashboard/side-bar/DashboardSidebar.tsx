@@ -178,7 +178,7 @@ const DashboardSidebar = (
                         {sidebarExpanded ? (
                             <div className="bg-emerald-50 rounded-lg border border-emerald-100 w-full h-full p-3 flex flex-col justify-center">
                                 <p className="text-xs text-emerald-800 text-center leading-relaxed line-clamp-2">
-                                    "Verily, in the remembrance of Allah do hearts find rest."
+                                    &quot;Verily, in the remembrance of Allah do hearts find rest.&quot;
                                 </p>
                                 <p className="text-xs text-emerald-600 text-center mt-1.5">- Quran 13:28</p>
                             </div>

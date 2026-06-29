@@ -80,7 +80,7 @@ export default function MiraclesPage() {
 
     const filtered = useMemo(() => {
         const q = searchQuery.trim().toLowerCase()
-        let result = MIRACLES_TOPICS.filter((t) => {
+        const result = MIRACLES_TOPICS.filter((t) => {
             const catOk = selectedCategories.size === 0 || selectedCategories.has(t.category)
             const searchOk =
                 !q ||

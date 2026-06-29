@@ -1,6 +1,6 @@
 "use client"
 
-import { ChevronRight, X } from "lucide-react"
+import { X } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { MARKETING_NAV } from "./content"
@@ -8,7 +8,6 @@ import { cn } from "@/lib/utils/clsx"
 import Logo from "@/components/shared/Logo"
 import { Button } from "@/components/ui/button"
 import { useScrollLock } from "@/hooks/useScrollLock"
-import { clientEnv } from "@/env/client"
 
 interface MobileSidebarProps {
     isOpen: boolean

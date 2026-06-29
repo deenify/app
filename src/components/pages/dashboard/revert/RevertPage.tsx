@@ -6,7 +6,6 @@ import { CheckCircle2, ChevronDown, Filter, Flame } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import FilterDropdown from "@/components/shared/FilterDropdown"
 import SectionHeader from "@/components/shared/SectionHeader"
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils/clsx"
 import {

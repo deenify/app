@@ -1,18 +1,15 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { motion, AnimatePresence, Easing } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import { Modal } from "@/components/shared/Modal"
 import { Badge } from "@/components/ui/badge"
 import {
-    Sparkles,
     Trophy,
-    CheckCircle2,
     Zap,
 } from "lucide-react"
 import { DAILY_CHALLENGES, type ChallengeItem } from "./content"
 import { ChallengeCard } from "./ChallengeCard"
-import Image from "next/image"
 import CloseButton from "@/components/shared/buttons/CloseButton"
 
 interface DailyChallengeModalProps {

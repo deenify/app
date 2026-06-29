@@ -1,7 +1,7 @@
 "use client"
 
 import { useMemo } from "react"
-import { BookOpen, CheckCircle2, Clock3, Sparkles, Star } from "lucide-react"
+import { BookOpen, CheckCircle2, Clock3, Star } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import BackButton from "@/components/shared/buttons/BackButton"

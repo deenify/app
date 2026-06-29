@@ -80,7 +80,7 @@ export default function StoriesPage() {
 
     const filtered = useMemo(() => {
         const q = searchQuery.trim().toLowerCase()
-        let result = STORIES_TOPICS.filter((s) => {
+        const result = STORIES_TOPICS.filter((s) => {
             const catOk = selectedCategories.size === 0 || selectedCategories.has(s.category)
             const searchOk =
                 !q ||

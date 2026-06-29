@@ -10,8 +10,6 @@ import {
 import SupplicationsCollectionsSection from "./SupplicationsCollectionsSection"
 import SupplicationsSidebar from "./SupplicationsSidebar"
 import SupplicationsTopBar from "./SupplicationsTopBar"
-import { Drawer, DrawerContent, DrawerThumb } from "@/components/ui/drawer"
-import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import SectionHeader from "@/components/shared/SectionHeader"
 import FiltersDrawer from "./FiltersDrawer"

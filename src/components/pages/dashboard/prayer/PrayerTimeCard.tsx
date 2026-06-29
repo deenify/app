@@ -27,7 +27,6 @@ export default function PrayerTimeCard({
     isCurrent,
     logged,
     onToggle,
-    variant = "daily",
 }: PrayerTimeCardProps) {
     const { main, period } = splitTime(entry.time)
 

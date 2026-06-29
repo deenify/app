@@ -112,7 +112,7 @@ export default function HadithPage() {
 
     const processedTopics = useMemo(() => {
         const book = HadithCollections.find((c) => c.id === topicsCollectionId)
-        let list = sortTopics(book?.topics ?? [], "az")
+        const list = sortTopics(book?.topics ?? [], "az")
         if (!searchQuery.trim()) return list
         const q = searchQuery.toLowerCase().trim()
         return list.filter(

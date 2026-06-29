@@ -146,7 +146,7 @@ export default function SupplicationsSidebar({
                         </div>
                         <div className="space-y-2">
                             <p className="text-xs leading-relaxed text-emerald-900/80 font-medium italic text-left">
-                                "I respond to the call of the caller when he calls upon Me."
+                                &quot;I respond to the call of the caller when he calls upon Me.&quot;
                             </p>
                             <div className="flex items-center gap-2">
                                 <div className="h-px flex-1 bg-emerald-200/50" />

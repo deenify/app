@@ -1,7 +1,6 @@
 "use client"
 
 import { useMemo } from "react"
-import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { getGuideById, getGuideSectionsMock } from "./content"
 import GuideDetailHeader from "./GuideDetailHeader"

@@ -5,6 +5,7 @@ import MarketingFooter from './footer/MarketingFooter'
 import MarketingHeader from './header/MarketingHeader'
 import MobileSidebar from './header/MobileSidebar'
 import { ScrollContainerProvider } from '@/context/ScrollContainerContext'
+import MarketingFloatWrapper from './MarketingFloatWrapper'
 
 interface MarketingLayoutWrapperProps {
     readonly children: ReactNode
@@ -37,6 +38,7 @@ const MarketingLayoutWrapper = ({ children }: MarketingLayoutWrapperProps) => {
                         {children}
                     </div>
                     <MarketingFooter />
+                    <MarketingFloatWrapper containerRef={scrollRef} />
                 </div>
             </ScrollContainerProvider>
         </div>

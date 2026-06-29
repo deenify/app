@@ -1,11 +1,10 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion } from "framer-motion"
 import SectionHeader from "@/components/shared/SectionHeader"
 import { Badge } from "@/components/ui/badge"
-import { Card, CardContent } from "@/components/ui/card"
-import { Hand, Moon, Sparkles, Zap, Info, ShieldCheck, Heart } from "lucide-react"
+import { Hand, Sparkles, Zap } from "lucide-react"
 import { DHIKR_EDITORIAL, DHIKR_PRESETS, type DhikrPreset } from "./content"
 import DhikrCounterPanel from "./DhikrCounterPanel"
 import DhikrPresetGrid from "./DhikrPresetGrid"
@@ -13,7 +12,7 @@ import DhikrSidebar from "./DhikrSidebar"
 import { DhikrAddModal } from "./DhikrAddModal"
 import { WorldwideAdkarModal } from "./WorldwideAdkarModal"
 export default function DhikrPage() {
-    const [presets, setPresets] = useState<DhikrPreset[]>(DHIKR_PRESETS)
+    const [presets] = useState<DhikrPreset[]>(DHIKR_PRESETS)
     const [customPresets, setCustomPresets] = useState<DhikrPreset[]>([])
     const [presetId, setPresetId] = useState(presets[0].id)
     const [count, setCount] = useState(0)

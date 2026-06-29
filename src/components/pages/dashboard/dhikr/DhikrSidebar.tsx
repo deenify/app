@@ -95,7 +95,7 @@ export default function DhikrSidebar({ preset, progress }: DhikrSidebarProps) {
                     Teaching note
                 </p>
                 <p className="mt-3 text-[13px] leading-relaxed text-amber-950/80 font-medium italic">
-                    "{DHIKR_TEACHING_NOTE}"
+                    &quot;{DHIKR_TEACHING_NOTE}&quot;
                 </p>
             </section>
         </aside>

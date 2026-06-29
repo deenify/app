@@ -5,11 +5,8 @@ import { Headphones, TrendingUp, Users, Wallet } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Animate from "@/components/shared/motion/Animate"
 import { clientEnv } from "@/env/client"
-import { useBreakpoint } from "@/hooks/useBreakpoint"
 
 const MarketingHeroSection = () => {
-    const isMobile = useBreakpoint("md", "down")
-
     return (
         <section className="relative overflow-hidden bg-white pb-12 pt-8 sm:pb-20 sm:pt-14">
             <div className="container">

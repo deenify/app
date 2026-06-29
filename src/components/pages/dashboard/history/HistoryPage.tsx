@@ -80,7 +80,7 @@ export default function HistoryPage() {
 
     const filtered = useMemo(() => {
         const q = searchQuery.trim().toLowerCase()
-        let result = HISTORY_TOPICS.filter((t) => {
+        const result = HISTORY_TOPICS.filter((t) => {
             const catOk = selectedCategories.size === 0 || selectedCategories.has(t.category)
             const searchOk =
                 !q ||

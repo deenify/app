@@ -86,7 +86,7 @@ export default function GuidesPage() {
 
     const filteredGuides = useMemo(() => {
         const q = searchQuery.trim().toLowerCase()
-        let result = GuidesMock.filter((g) => {
+        const result = GuidesMock.filter((g) => {
             const matchCategory = selectedCategories.size === 0 || selectedCategories.has(g.category)
             const matchDifficulty = selectedDifficulties.size === 0 || selectedDifficulties.has(g.difficulty)
             const matchSearch = !q || g.title.toLowerCase().includes(q) || g.excerpt.toLowerCase().includes(q)
