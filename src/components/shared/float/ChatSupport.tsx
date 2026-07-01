@@ -209,8 +209,8 @@ const ChatSupport = ({ isVisible, isOpen, onToggle, onClose }: ChatSupportProps)
                                 placeholder="Enter your response..."
                                 className="min-h-10 h-10 max-h-[120px] flex-1 resize-none overflow-hidden
                                 rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2
-                                text-sm text-slate-900 outline-none transition scrollbar-thin  
-                                focus:border-emerald-500 "
+                                text-base placeholder:text-sm text-slate-900 outline-none transition scrollbar-thin  
+                                focus:border-emerald-500"
                             />
                             <Button
                                 type="button"
