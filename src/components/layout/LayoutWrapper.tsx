@@ -3,7 +3,7 @@
 import { cn } from '@/lib/utils/clsx'
 import React from 'react'
 import { ReactNode } from 'react'
-import { useViewportFix } from '@/hooks/useViewportFix'
+// import { useViewportFix } from '@/hooks/useViewportFix'
 
 interface LayoutWrapperProptype {
     readonly children: ReactNode
@@ -11,7 +11,7 @@ interface LayoutWrapperProptype {
 
 
 const LayoutWrapper = ({ children }: LayoutWrapperProptype) => {
-    useViewportFix();
+    // useViewportFix();
 
     return (
         <div className={cn('layout flex')}>

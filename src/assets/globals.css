@@ -115,7 +115,6 @@
     html,
     body {
         width: 100%;
-        min-height: 100%;
         background: white;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
@@ -123,11 +122,20 @@
         overscroll-behavior: none;
     }
 
+
+    html {
+        width: 100%;
+        height: 100dvh;
+        overflow: hidden;
+    }
+
     body {
         margin: 0;
         overflow: hidden;
         font-family: var(--font-noto, system-ui, ui-sans-serif, sans-serif);
-
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
     }
 
     .layout {
