@@ -11,7 +11,7 @@ import {
     FOOTER_LEGAL,
     FOOTER_LINK_SECTIONS,
     FOOTER_SOCIAL_LINKS,
-    handleFocusIn,
+    // handleFocusIn,
 } from "./content"
 import { AppleIcon } from "@/assets/svg/social/AppleIcon"
 import { PlayStoreIcon } from "@/assets/svg/social/PlayStoreIcon"
@@ -179,16 +179,16 @@ const MarketingFooter = () => {
                                         type="email"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
-                                        onFocus={() => handleFocusIn(isMobile)}
-                                        onBlur={() =>
-                                            setTimeout(() =>
-                                                window.scrollTo({
-                                                    top: 0,
-                                                    left: 0,
-                                                    behavior: "instant"
-                                                }), 100
-                                            )
-                                        }
+                                        // onFocus={() => handleFocusIn(isMobile)}
+                                        // onBlur={() =>
+                                        //     setTimeout(() =>
+                                        //         window.scrollTo({
+                                        //             top: 0,
+                                        //             left: 0,
+                                        //             behavior: "instant"
+                                        //         }), 100
+                                        //     )
+                                        // }
                                         placeholder="you@email.com"
                                         classNames={{ input: "h-11 w-full min-w-0 rounded-full" }}
                                         required
