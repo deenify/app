@@ -2,6 +2,7 @@ import { LinkedinIcon } from "@/assets/svg/social/LinkedinIcon";
 import { InstagramIcon } from "@/assets/svg/social/InstagramIcon";
 import { FacebookIcon } from "@/assets/svg/social/FacebookIcon";
 import { XIcon } from "@/assets/svg/social/XIcon";
+import { clientEnv } from "@/env/client";
 
 export type FooterLink = { label: string; href: string }
 
@@ -86,8 +87,8 @@ export const FOOTER_LEGAL: FooterLink[] = [
 
 // Social Links 
 export const FOOTER_SOCIAL_LINKS = [
-    { icon: XIcon, label: "X", href: "https://x.com" },
-    { icon: InstagramIcon, label: "Instagram", href: "https://instagram.com" },
-    { icon: FacebookIcon, label: "Facebook", href: "https://facebook.com" },
-    { icon: LinkedinIcon, label: "Linkedin", href: "https://linkedin.com" },
+    { icon: XIcon, label: "X", href: clientEnv.APP_TWITTER },
+    { icon: InstagramIcon, label: "Instagram", href: clientEnv.APP_INSTAGRAM },
+    { icon: FacebookIcon, label: "Facebook", href: clientEnv.APP_FACEBOOK },
+    { icon: LinkedinIcon, label: "Linkedin", href: clientEnv.APP_LINKEDIN },
 ]
