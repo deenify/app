@@ -3,12 +3,10 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import DashboardHead from "../generic/DashboardHead"
 import { getDashboardHeadMeta } from "../generic/dashboardHeaderMeta"
-import { Book, Calendar, Heart, Moon, Sparkles } from "lucide-react"
-import { englishDate, islamicDate } from "@/lib/utils/format-date"
+import { Sparkles } from "lucide-react"
 import { useScrollIntoView } from "@/hooks/useScrollIntoView"
 import {
     CALENDAR_EDITORIAL,

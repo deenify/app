@@ -14,7 +14,6 @@ import {
     ListOrdered,
 } from "lucide-react"
 import { Input } from "@/components/ui/input"
-import { Badge } from "@/components/ui/badge"
 import DashboardHead from "../generic/DashboardHead"
 import { getDashboardHeadMeta } from "../generic/dashboardHeaderMeta"
 import Tabs, { type TabItem } from "@/components/shared/Tabs"
@@ -22,7 +21,6 @@ import FilterDropdown, { type FilterOption } from "@/components/shared/FilterDro
 import {
     HadithCollections,
     MockHadithSaved,
-    TOTAL_HADITH_COUNT_DISPLAY,
     type HadithCollectionType,
     type HadithTopicType,
 } from "./content"

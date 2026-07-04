@@ -1,10 +1,9 @@
 "use client"
 
 import { useState } from "react"
-import { Bell, Calendar, MapPin, Settings, Sparkles } from "lucide-react"
+import { Calendar, MapPin, Sparkles } from "lucide-react"
 import { motion } from "framer-motion"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
 import DashboardHead from "../generic/DashboardHead"
 import { getDashboardHeadMeta } from "../generic/dashboardHeaderMeta"
 import PrayerRhythmSidebar from "./PrayerRhythmSidebar"

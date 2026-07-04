@@ -21,7 +21,7 @@ Build-Tree .
 $script:output | Out-File -Encoding UTF8 structure.txt
 
 
-----------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
 
 
 ├── .vscode
@@ -58,9 +58,21 @@ $script:output | Out-File -Encoding UTF8 structure.txt
 │   │   │   │   ├── prayer
 │   │   │   │   │   ├── presense-hero-background.avif
 │   │   │   ├── marketing
+│   │   │   │   ├── home
+│   │   │   │   │   ├── dashboard-banner.webp
+│   │   │   │   │   ├── mobile-overview.webp
+│   ├── llms.txt
+│   ├── manifest.webmanifest
+│   ├── sitemap.xml
 ├── scripts
-│   ├── dev-ip.ts
-│   ├── dev-qr.ts
+│   ├── development
+│   │   ├── dev-ip.ts
+│   │   ├── dev-qr.ts
+│   ├── generate
+│   │   ├── index.ts
+│   │   ├── llms.ts
+│   │   ├── manifest.ts
+│   │   ├── sitemap.ts
 ├── src
 │   ├── app
 │   │   ├── (auth)
@@ -96,21 +108,6 @@ $script:output | Out-File -Encoding UTF8 structure.txt
 │   │   │   │   ├── page.tsx
 │   │   │   ├── prayer
 │   │   │   │   ├── page.tsx
-│   │   │   ├── profile
-│   │   │   │   ├── account
-│   │   │   │   │   ├── page.tsx
-│   │   │   │   ├── notifications
-│   │   │   │   │   ├── page.tsx
-│   │   │   │   ├── personalization
-│   │   │   │   │   ├── page.tsx
-│   │   │   │   ├── privacy
-│   │   │   │   │   ├── page.tsx
-│   │   │   │   ├── security
-│   │   │   │   │   ├── page.tsx
-│   │   │   │   ├── settings
-│   │   │   │   │   ├── page.tsx
-│   │   │   │   ├── layout.tsx
-│   │   │   │   ├── page.tsx
 │   │   │   ├── prophets
 │   │   │   │   ├── page.tsx
 │   │   │   ├── qibla
@@ -142,12 +139,24 @@ $script:output | Out-File -Encoding UTF8 structure.txt
 │   │   │   │   ├── page.tsx
 │   │   │   ├── layout.tsx
 │   │   │   ├── page.tsx
+│   │   ├── profile
+│   │   │   ├── account
+│   │   │   │   ├── page.tsx
+│   │   │   ├── notifications
+│   │   │   │   ├── page.tsx
+│   │   │   ├── personalization
+│   │   │   │   ├── page.tsx
+│   │   │   ├── privacy
+│   │   │   │   ├── page.tsx
+│   │   │   ├── security
+│   │   │   │   ├── page.tsx
+│   │   │   ├── settings
+│   │   │   │   ├── page.tsx
+│   │   │   ├── layout.tsx
+│   │   │   ├── page.tsx
 │   │   ├── layout.tsx
 │   │   ├── not-found.tsx
 │   ├── assets
-│   │   ├── fonts
-│   │   │   ├── instrument-serif
-│   │   │   │   ├── OFL.txt
 │   │   ├── svg
 │   │   │   ├── menu
 │   │   │   │   ├── DashboardHamburger.tsx
@@ -192,6 +201,7 @@ $script:output | Out-File -Encoding UTF8 structure.txt
 │   │   │   │   │   ├── MarketingDesktopNav.tsx
 │   │   │   │   │   ├── MarketingHeader.tsx
 │   │   │   │   │   ├── MobileSidebar.tsx
+│   │   │   │   ├── MarketingFloatWrapper.tsx
 │   │   │   │   ├── MarketingLayoutWrapper.tsx
 │   │   │   ├── LayoutWrapper.tsx
 │   │   ├── pages
@@ -225,6 +235,10 @@ $script:output | Out-File -Encoding UTF8 structure.txt
 │   │   │   │   │   ├── content.ts
 │   │   │   │   │   ├── DonatePage.tsx
 │   │   │   │   │   ├── DonatePaymentPage.tsx
+│   │   │   │   ├── generic
+│   │   │   │   │   ├── DashboardBreadcrum.tsx
+│   │   │   │   │   ├── DashboardHead.tsx
+│   │   │   │   │   ├── dashboardHeaderMeta.ts
 │   │   │   │   ├── guides
 │   │   │   │   │   ├── content.ts
 │   │   │   │   │   ├── GuideDetailContent.tsx
@@ -262,7 +276,6 @@ $script:output | Out-File -Encoding UTF8 structure.txt
 │   │   │   │   │   ├── DashboardDailyProgress.tsx
 │   │   │   │   │   ├── DashboardInspirationCard.tsx
 │   │   │   │   │   ├── DashboardPage.tsx
-│   │   │   │   │   ├── DashboardPageHeader.tsx
 │   │   │   │   │   ├── DashboardPrayerSchedule.tsx
 │   │   │   │   │   ├── DashboardRecentActivity.tsx
 │   │   │   │   │   ├── DashboardStats.tsx
@@ -328,7 +341,6 @@ $script:output | Out-File -Encoding UTF8 structure.txt
 │   │   │   │   │   ├── SupportPage.tsx
 │   │   │   │   ├── content.ts
 │   │   │   ├── platform
-│   │   │   │   ├── developer-api
 │   │   │   │   ├── home
 │   │   │   │   │   ├── content.ts
 │   │   │   │   │   ├── MarketingAboutSection.tsx
@@ -397,6 +409,9 @@ $script:output | Out-File -Encoding UTF8 structure.txt
 │   │   │   │   │   ├── TimelineArc.tsx
 │   │   │   │   │   ├── TimelineGradientDefs.tsx
 │   │   │   │   │   ├── TimelineMarkers.tsx
+│   │   │   ├── float
+│   │   │   │   ├── ChatSupport.tsx
+│   │   │   │   ├── JumpBack.tsx
 │   │   │   ├── motion
 │   │   │   │   ├── Animate.tsx
 │   │   │   │   ├── inViewViewport.ts
@@ -409,7 +424,6 @@ $script:output | Out-File -Encoding UTF8 structure.txt
 │   │   │   ├── Logo.tsx
 │   │   │   ├── Modal.tsx
 │   │   │   ├── NotificationsPopover.tsx
-│   │   │   ├── SectionHeader.tsx
 │   │   │   ├── Tabs.tsx
 │   │   │   ├── UserProfileDropdown.tsx
 │   │   ├── ui
@@ -444,8 +458,6 @@ $script:output | Out-File -Encoding UTF8 structure.txt
 │   │   ├── useScrollLock.ts
 │   │   ├── useViewportFix.ts
 │   ├── lib
-│   │   ├── app
-│   │   ├── motion
 │   │   ├── notification
 │   │   │   ├── notify.ts
 │   │   │   ├── permissions.ts
@@ -461,9 +473,14 @@ $script:output | Out-File -Encoding UTF8 structure.txt
 │   │   │   ├── index.ts
 │   │   │   ├── quran.store.ts
 │   │   │   ├── quran.types.ts
+│   │   ├── support
+│   │   │   ├── index.ts
+│   │   │   ├── support.store.ts
+│   │   │   ├── support.types.ts
 │   ├── middleware.ts
 ├── .env.example
 ├── .env.local
+├── .eslintrc.json
 ├── .gitignore
 ├── components.json
 ├── config.ts
@@ -477,4 +494,3 @@ $script:output | Out-File -Encoding UTF8 structure.txt
 ├── structure.txt
 ├── tailwind.config.ts
 ├── tsconfig.json
-├── tsconfig.tsbuildinfo
