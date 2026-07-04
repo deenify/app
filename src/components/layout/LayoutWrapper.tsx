@@ -3,7 +3,6 @@
 import { cn } from '@/lib/utils/clsx'
 import React from 'react'
 import { ReactNode } from 'react'
-// import { useViewportFix } from '@/hooks/useViewportFix'
 
 interface LayoutWrapperProptype {
     readonly children: ReactNode
@@ -11,11 +10,9 @@ interface LayoutWrapperProptype {
 
 
 const LayoutWrapper = ({ children }: LayoutWrapperProptype) => {
-    // useViewportFix();
-
     return (
         <div className={cn('layout flex')}>
-            <div className='flex flex-col flex-1 overflow-y-auto scrollbar-content'>
+            <div className='flex flex-col flex-1 min-h-0 overflow-hidden'>
                 {children}
             </div>
         </div>

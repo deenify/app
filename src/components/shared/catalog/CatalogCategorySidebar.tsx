@@ -47,7 +47,7 @@ export default function CatalogCategorySidebar({
     return (
         <aside className={cn("flex w-full flex-col gap-8", className)}>
             {!hideHeader && (
-                <div className="flex items-center justify-between border-b border-gray-100 pb-2">
+                <div className="flex items-center justify-between border-b border-layout-separator pb-2">
                     <div className="flex items-center gap-1.5">
                         <Filter className="h-4 w-4 text-gray-900" />
                         <h2 className="text-[11px] font-black uppercase tracking-wider text-gray-900">

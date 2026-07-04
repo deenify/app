@@ -1,23 +1,23 @@
 "use client"
 
 import { useState } from "react"
-import { Bell, Calendar, Clock, MapPin, Settings, Sparkles } from "lucide-react"
+import { Calendar, MapPin, Sparkles } from "lucide-react"
 import { motion } from "framer-motion"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import SectionHeader from "@/components/shared/SectionHeader"
+import DashboardHead from "../generic/DashboardHead"
+import { getDashboardHeadMeta } from "../generic/dashboardHeaderMeta"
 import PrayerRhythmSidebar from "./PrayerRhythmSidebar"
 import PrayerSchedulePanel from "./PrayerSchedulePanel"
 import {
     DEFAULT_LOCATION_LABEL,
     DEMO_FAJR_STREAK,
     INITIAL_LOGGED,
-    PRAYER_EDITORIAL
 } from "./content"
 import { islamicDate } from "@/lib/utils/format-date"
 
 
 export default function PrayerPage() {
+    const pageContent = getDashboardHeadMeta("/prayer")
     const [logged, setLogged] = useState(INITIAL_LOGGED)
 
     const toggleLogged = (id: string) => {
@@ -26,13 +26,12 @@ export default function PrayerPage() {
 
     return (
         <div className="bg-white">
-            <SectionHeader
-                variant="emerald"
-                icon={Clock}
-                label="Prayer rhythm"
-                heading="The day, measured in remembrance"
-                descriptions={[PRAYER_EDITORIAL.arcLead]}
-                classNames={{ heading: "max-w-[560px]" }}
+            <DashboardHead
+                lead={pageContent?.lead}
+                accent={pageContent?.accent}
+                subtitle={pageContent?.subtitle}
+                mobileSubtitle={pageContent?.mobileSubtitle}
+                separator
             >
                 <div className="flex flex-wrap gap-2 pt-1">
                     <Badge variant="outline" >
@@ -48,28 +47,7 @@ export default function PrayerPage() {
                         Asr time
                     </Badge>
                 </div>
-                <div className="flex flex-wrap gap-2 pt-3">
-                    <Button
-                        variant="secondary"
-                        type="button"
-                        shouldScale
-                        className="gap-2"
-                        size="sm"
-                    >
-                        <Bell className="h-4 w-4" />
-                        Notifications
-                    </Button>
-                    <Button
-                        variant="secondary"
-                        type="button"
-                        shouldScale className="gap-2"
-                        size="sm"
-                    >
-                        <Settings className="h-4 w-4" />
-                        Calculation settings
-                    </Button>
-                </div>
-            </SectionHeader>
+            </DashboardHead>
 
             <section className="relative">
                 <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
@@ -80,7 +58,7 @@ export default function PrayerPage() {
                     />
                 </div>
 
-                <div className="container relative py-8 sm:py-10">
+                <div className="container relative pb-8 sm:pb-10">
                     <div className="mx-auto grid max-w-6xl items-start gap-4 sm:gap-5 lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-5 xl:grid-cols-[minmax(0,1fr)_320px] xl:gap-8">
                         <PrayerSchedulePanel
                             logged={logged}

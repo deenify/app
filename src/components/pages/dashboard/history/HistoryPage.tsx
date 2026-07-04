@@ -1,9 +1,10 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { CheckCircle2, Database, Scroll, Sparkles } from "lucide-react"
+import { CheckCircle2, Database, Sparkles } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
-import SectionHeader from "@/components/shared/SectionHeader"
+import DashboardHead from "../generic/DashboardHead"
+import { getDashboardHeadMeta } from "../generic/dashboardHeaderMeta"
 import CatalogTopBar from "@/components/shared/catalog/CatalogTopBar"
 import CatalogFilterChips from "@/components/shared/catalog/CatalogFilterChips"
 import CatalogCategorySidebar from "@/components/shared/catalog/CatalogCategorySidebar"
@@ -14,7 +15,7 @@ import { Pagination } from "@/components/ui/pagination"
 import { usePagination } from "@/hooks/usePagination"
 import { useCatalogPageSize } from "@/hooks/useCatalogPageSize"
 import HistoryCard from "./HistoryCard"
-import { HISTORY_CATEGORIES, HISTORY_EDITORIAL, HISTORY_TOPICS } from "./content"
+import { HISTORY_CATEGORIES, HISTORY_TOPICS } from "./content"
 
 type HistoryExploreTabId = "collections" | "bookmarks"
 type HistorySortOption = "recommended" | "shortest" | "longest" | "alphabetical"
@@ -32,6 +33,7 @@ const sortOptions = [
 ]
 
 export default function HistoryPage() {
+    const pageContent = getDashboardHeadMeta("/history")
     const [searchQuery, setSearchQuery] = useState("")
     const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set())
     const [sortBy, setSortBy] = useState<HistorySortOption>("recommended")
@@ -122,12 +124,12 @@ export default function HistoryPage() {
 
     return (
         <div>
-            <SectionHeader
-                variant="amber"
-                icon={Scroll}
-                label={HISTORY_EDITORIAL.badge}
-                heading="Islamic History · Catalog"
-                descriptions={[HISTORY_EDITORIAL.lead]}
+            <DashboardHead
+                lead={pageContent?.lead}
+                accent={pageContent?.accent}
+                subtitle={pageContent?.subtitle}
+                mobileSubtitle={pageContent?.mobileSubtitle}
+                separator
             >
                 <div className="flex flex-wrap items-center gap-4 pt-2">
                     <Badge variant="outline" className="gap-1.5">
@@ -143,9 +145,12 @@ export default function HistoryPage() {
                         <span className="text-xs text-gray-900">Plain language</span>
                     </Badge>
                 </div>
-            </SectionHeader>
+            </DashboardHead>
 
-            <main className="container relative py-10 lg:py-16" id="history-collections-section">
+            <main
+                id="history-collections-section"
+                className="container relative pb-10 lg:pb-16"
+            >
                 <div className="flex flex-col items-start gap-7 lg:flex-row 2xl:gap-10">
                     <div className="sticky top-0 hidden w-56 shrink-0 lg:block 2xl:w-64">
                         <CatalogCategorySidebar
@@ -166,7 +171,10 @@ export default function HistoryPage() {
                         <CatalogTopBar
                             searchQuery={searchQuery}
                             onSearchChange={setSearchQuery}
-                            searchPlaceholder={activeTab === "bookmarks" ? "Search your saved history..." : "Search history, eras, or events..."}
+                            searchPlaceholder={activeTab === "bookmarks"
+                                ? "Search your saved history..."
+                                : "Search history, eras, or events..."
+                            }
                             scopeFilter={{
                                 value: activeTab,
                                 onChange: (v) => setActiveTab(v as HistoryExploreTabId),

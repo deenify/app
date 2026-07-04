@@ -1,4 +1,7 @@
-import { useEffect } from 'react';
+"use client"
+
+import { RefObject, useEffect, useLayoutEffect } from 'react';
+import { usePathname } from 'next/navigation';
 
 /**
  * 🔹 Surgical fix for mobile keyboard viewport offset bug.
@@ -28,4 +31,20 @@ export const useViewportFix = () => {
             document.removeEventListener('touchstart', handleResetScroll);
         };
     }, []);
+};
+
+
+// Reset scroll when route changes
+export const useScrollReset = (scrollRef?: RefObject<HTMLElement | null>) => {
+    const pathname = usePathname()
+
+    useLayoutEffect(() => {
+        const resetScroll = () => {
+            window.scrollTo({ top: 0, left: 0, behavior: "instant" })
+            if (scrollRef?.current) scrollRef.current.scrollTo({ top: 0, left: 0, behavior: "instant" })
+        }
+
+        resetScroll()
+
+    }, [pathname, scrollRef]);
 };

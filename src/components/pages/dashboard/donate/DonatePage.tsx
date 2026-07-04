@@ -2,15 +2,17 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { Check, Gift, Heart } from "lucide-react"
-import SectionHeader from "@/components/shared/SectionHeader"
+import { Check, Heart } from "lucide-react"
+import DashboardHead from "../generic/DashboardHead"
+import { getDashboardHeadMeta } from "../generic/dashboardHeaderMeta"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils/clsx"
-import { DONATE_EDITORIAL, DONATE_NOTE, DONATE_TIERS } from "./content"
+import { DONATE_NOTE, DONATE_TIERS } from "./content"
 
 export default function DonatePage() {
+    const pageContent = getDashboardHeadMeta("/donate")
     const [search, setSearch] = useState("")
 
     const tiers = DONATE_TIERS.filter(
@@ -22,14 +24,13 @@ export default function DonatePage() {
 
     return (
         <div className="bg-gray-50">
-            <SectionHeader
-                layoutScope="center"
+            <DashboardHead
+                lead={pageContent?.lead}
+                accent={pageContent?.accent}
+                subtitle={pageContent?.subtitle}
+                mobileSubtitle={pageContent?.mobileSubtitle}
+                centered
                 className="bg-white"
-                variant="emerald"
-                icon={Gift}
-                label={DONATE_EDITORIAL.badge}
-                heading={DONATE_EDITORIAL.title}
-                descriptions={[DONATE_EDITORIAL.lead]}
             />
 
             <section className="border-t border-layout-separator bg-[linear-gradient(180deg,#f8faf8_0%,#f0f7f4_100%)]">

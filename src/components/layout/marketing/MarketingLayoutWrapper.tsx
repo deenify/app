@@ -5,6 +5,7 @@ import MarketingFooter from './footer/MarketingFooter'
 import MarketingHeader from './header/MarketingHeader'
 import MobileSidebar from './header/MobileSidebar'
 import { ScrollContainerProvider } from '@/context/ScrollContainerContext'
+import { useScrollReset } from '@/hooks/useViewportFix'
 import MarketingFloatWrapper from './MarketingFloatWrapper'
 
 interface MarketingLayoutWrapperProps {
@@ -14,6 +15,7 @@ interface MarketingLayoutWrapperProps {
 const MarketingLayoutWrapper = ({ children }: MarketingLayoutWrapperProps) => {
     const scrollRef = useRef<HTMLDivElement>(null)
     const [isMenuOpen, setIsMenuOpen] = useState(false)
+    useScrollReset(scrollRef)
 
     return (
         <div className='layout flex flex-col'>
@@ -21,7 +23,7 @@ const MarketingLayoutWrapper = ({ children }: MarketingLayoutWrapperProps) => {
                 <div
                     ref={scrollRef}
                     id='marketing-layout-wrapper-scroll-container'
-                    className='flex-1 overflow-y-auto scrollbar-content flex flex-col justify-between relative'
+                    className='flex-1 min-h-0 overflow-y-auto scrollbar-content flex flex-col justify-between relative'
                 >
                     <div className='sticky inset-0 bottom-auto z-50'>
                         <MarketingHeader

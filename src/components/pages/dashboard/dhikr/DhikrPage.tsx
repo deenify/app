@@ -2,16 +2,18 @@
 
 import { useMemo, useState } from "react"
 import { motion } from "framer-motion"
-import SectionHeader from "@/components/shared/SectionHeader"
+import DashboardHead from "../generic/DashboardHead"
+import { getDashboardHeadMeta } from "../generic/dashboardHeaderMeta"
 import { Badge } from "@/components/ui/badge"
-import { Hand, Sparkles, Zap } from "lucide-react"
-import { DHIKR_EDITORIAL, DHIKR_PRESETS, type DhikrPreset } from "./content"
+import { Sparkles, Zap } from "lucide-react"
+import { DHIKR_PRESETS, type DhikrPreset } from "./content"
 import DhikrCounterPanel from "./DhikrCounterPanel"
 import DhikrPresetGrid from "./DhikrPresetGrid"
 import DhikrSidebar from "./DhikrSidebar"
 import { DhikrAddModal } from "./DhikrAddModal"
 import { WorldwideAdkarModal } from "./WorldwideAdkarModal"
 export default function DhikrPage() {
+    const pageContent = getDashboardHeadMeta("/dhikr")
     const [presets] = useState<DhikrPreset[]>(DHIKR_PRESETS)
     const [customPresets, setCustomPresets] = useState<DhikrPreset[]>([])
     const [presetId, setPresetId] = useState(presets[0].id)
@@ -97,13 +99,11 @@ export default function DhikrPage() {
 
     return (
         <div>
-            <SectionHeader
-                variant="emerald"
-                icon={Hand}
-                label="Presence Lab"
-                heading="Adkar counter · disciplined remembrance"
-                descriptions={[DHIKR_EDITORIAL.lens]}
-                classNames={{ heading: "max-w-[600px] tracking-tight text-2xl sm:text-3xl lg:text-4xl" }}
+            <DashboardHead
+                lead={pageContent?.lead}
+                accent={pageContent?.accent}
+                subtitle={pageContent?.subtitle}
+                mobileSubtitle={pageContent?.mobileSubtitle}
             >
                 <div className="flex flex-wrap gap-2 pt-4">
                     <Badge variant="emerald" className="gap-1.5 px-3 py-1 bg-emerald-50 text-emerald-700 border-emerald-100 shadow-sm text-[10px] sm:text-xs">
@@ -115,9 +115,9 @@ export default function DhikrPage() {
                         Real-time synchronization
                     </Badge>
                 </div>
-            </SectionHeader>
+            </DashboardHead>
 
-            <section className="container relative py-6 sm:py-12">
+            <section className="container relative pb-6 sm:pb-12">
                 {/* Subtle Background Elements */}
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
                     <motion.div

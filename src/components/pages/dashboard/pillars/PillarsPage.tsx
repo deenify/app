@@ -3,13 +3,15 @@
 import { useMemo, useState } from "react"
 import { Input } from "@/components/ui/input"
 import { motion, AnimatePresence } from "framer-motion"
-import { ChevronDown, Target } from "lucide-react"
-import SectionHeader from "@/components/shared/SectionHeader"
+import { ChevronDown } from "lucide-react"
+import DashboardHead from "../generic/DashboardHead"
+import { getDashboardHeadMeta } from "../generic/dashboardHeaderMeta"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils/clsx"
-import { PILLARS, PILLARS_EDITORIAL } from "./content"
+import { PILLARS } from "./content"
 
 export default function PillarsPage() {
+    const pageContent = getDashboardHeadMeta("/pillars")
     const [openId, setOpenId] = useState<string | null>("shahada")
     const [search, setSearch] = useState("")
 
@@ -26,14 +28,13 @@ export default function PillarsPage() {
 
     return (
         <div className="bg-gray-50">
-            <SectionHeader
-                layoutScope="center"
+            <DashboardHead
+                lead={pageContent?.lead}
+                accent={pageContent?.accent}
+                subtitle={pageContent?.subtitle}
+                mobileSubtitle={pageContent?.mobileSubtitle}
                 className="bg-white"
-                variant="emerald"
-                icon={Target}
-                label={PILLARS_EDITORIAL.badge}
-                heading={PILLARS_EDITORIAL.title}
-                descriptions={[PILLARS_EDITORIAL.lead]}
+                centered
             />
 
             <section className="border-t border-layout-separator bg-[linear-gradient(180deg,#f8faf8_0%,#f0f7f4_100%)]">

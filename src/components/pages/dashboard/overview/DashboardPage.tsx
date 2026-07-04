@@ -11,21 +11,25 @@ import {
     DASHBOARD_ACTIVITY_DATA,
     DASHBOARD_CHART_SERIES,
     DASHBOARD_DAILY_GOALS,
-    DASHBOARD_EDITORIAL,
     DASHBOARD_INSPIRATION,
     DASHBOARD_PRAYER_HIGHLIGHT,
     DASHBOARD_RECENT_ACTIVITY,
     DASHBOARD_STATS,
 } from "./content"
-import DashboardPageHeader from "./DashboardPageHeader"
+import DashboardHead from "../generic/DashboardHead"
+import { getDashboardHeadMeta } from "../generic/dashboardHeaderMeta"
 
 export default function DashboardPage() {
+
+    const DashboardContent = getDashboardHeadMeta("/dashboard")
+
     return (
         <div className="bg-white">
-            <DashboardPageHeader
-                badge={DASHBOARD_EDITORIAL.badge}
-                title={DASHBOARD_EDITORIAL.title}
-                lead={DASHBOARD_EDITORIAL.lead}
+            <DashboardHead
+                lead={DashboardContent?.lead}
+                accent={DashboardContent?.accent}
+                subtitle={DashboardContent?.subtitle}
+                mobileSubtitle={DashboardContent?.mobileSubtitle}
             />
 
             <div className="container space-y-6 py-6 sm:space-y-8 sm:py-8">

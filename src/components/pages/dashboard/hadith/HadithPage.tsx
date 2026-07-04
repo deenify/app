@@ -10,19 +10,17 @@ import {
     CalendarDays,
     CalendarRange,
     Clock,
-    FileText,
     History,
     ListOrdered,
 } from "lucide-react"
 import { Input } from "@/components/ui/input"
-import { Badge } from "@/components/ui/badge"
-import SectionHeader from "@/components/shared/SectionHeader"
+import DashboardHead from "../generic/DashboardHead"
+import { getDashboardHeadMeta } from "../generic/dashboardHeaderMeta"
 import Tabs, { type TabItem } from "@/components/shared/Tabs"
 import FilterDropdown, { type FilterOption } from "@/components/shared/FilterDropdown"
 import {
     HadithCollections,
     MockHadithSaved,
-    TOTAL_HADITH_COUNT_DISPLAY,
     type HadithCollectionType,
     type HadithTopicType,
 } from "./content"
@@ -90,6 +88,7 @@ function sortTopics(list: HadithTopicType[], mode: SortMode): HadithTopicType[] 
 }
 
 export default function HadithPage() {
+    const pageContent = getDashboardHeadMeta("/hadith")
     const [searchQuery, setSearchQuery] = useState("")
     const [collectionSort, setCollectionSort] = useState<SortMode>("az")
     /** Topics tab: which collection’s thematic index is shown (default Sahih Muslim). */
@@ -177,43 +176,14 @@ export default function HadithPage() {
 
     return (
         <div>
-            <SectionHeader
-                variant="emerald"
-                icon={FileText}
-                label="Hadith & Prophetic tradition"
-                heading={
-                    <>
-                        <span className="inline">
-                            Explore hadiths <br className="sm:hidden" />—{" "}
-                        </span>
-                        <span className="inline-block font-arabic text-3xl font-medium text-emerald-700">
-                            (الحديث)
-                        </span>
-                    </>
-                }
-                descriptions={[
-                    "Authentic narrations from the Prophet ﷺ — organised by major collections and themes so you can study, verify chains, and apply guidance with clarity.",
-                ]}
-                classNames={{ descriptionsWrapper: "space-y-3 sm:space-y-3" }}
+            <DashboardHead
+                lead={pageContent?.lead}
+                accent={pageContent?.accent}
+                subtitle={pageContent?.subtitle}
+                mobileSubtitle={pageContent?.mobileSubtitle}
             >
-                <section>
-                    <p className="hidden max-w-2xl text-sm leading-relaxed text-gray-500 md:block">
-                        Use search and sort below to browse books. Switch to Topics for thematic access, or Saved for your
-                        bookmarked narrations.
-                    </p>
-                    <div className="flex flex-wrap items-center gap-2 pt-0.5">
-                        <Badge variant="outline">
-                            6 collections
-                        </Badge>
-                        <span aria-hidden className="inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-gray-400" />
-                        <Badge variant="purple">
-                            {TOTAL_HADITH_COUNT_DISPLAY} narrations
-                        </Badge>
-                    </div>
-                </section>
-
                 <section className="bg-white">
-                    <div className="space-y-4 pt-5 sm:pt-8">
+                    <div className="space-y-4 pt-2 sm:pt-4">
                         <main className="space-y-4">
                             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
                                 <Input
@@ -222,9 +192,7 @@ export default function HadithPage() {
                                     placeholder={searchPlaceholder}
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
-                                    classNames={{
-                                        input: "h-10 rounded-md border-gray-200 bg-gray-50 text-base placeholder:text-gray-400 focus:bg-white min-w-0 flex-1"
-                                    }}
+                                    classNames={{ input: "h-10" }}
                                 />
                                 <div className="w-full sm:w-[260px] sm:shrink-0">
                                     <FilterDropdown
@@ -259,7 +227,7 @@ export default function HadithPage() {
                         </main>
                     </div>
                 </section>
-            </SectionHeader>
+            </DashboardHead>
 
             <div className="bg-[linear-gradient(180deg,#f8faf8_0%,#f0f7f4_100%)]">
                 {activeTab === "collections" && <HadithCollectionsTabSection collections={processedCollections} />}

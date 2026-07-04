@@ -2,14 +2,14 @@
 
 import { useMemo, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
-import { CheckCircle2, ChevronDown, Filter, Flame } from "lucide-react"
+import { CheckCircle2, ChevronDown, Filter } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import FilterDropdown from "@/components/shared/FilterDropdown"
-import SectionHeader from "@/components/shared/SectionHeader"
+import DashboardHead from "../generic/DashboardHead"
+import { getDashboardHeadMeta } from "../generic/dashboardHeaderMeta"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils/clsx"
 import {
-    REVERT_EDITORIAL,
     REVERT_STEPS,
     REVERT_TRACKS,
     WHY_ISLAM_SECTIONS,
@@ -17,6 +17,7 @@ import {
 } from "./content"
 
 export default function RevertPage() {
+    const pageContent = getDashboardHeadMeta("/revert")
     const [track, setTrack] = useState<RevertTrackId>("become-muslim")
     const [search, setSearch] = useState("")
     const [openSectionId, setOpenSectionId] = useState<string | null>("creator")
@@ -50,14 +51,13 @@ export default function RevertPage() {
 
     return (
         <div className="bg-gray-50">
-            <SectionHeader
-                layoutScope="center"
+            <DashboardHead
+                lead={pageContent?.lead}
+                accent={pageContent?.accent}
+                subtitle={pageContent?.subtitle}
+                mobileSubtitle={pageContent?.mobileSubtitle}
                 className="bg-white"
-                variant="amber"
-                icon={Flame}
-                label={REVERT_EDITORIAL.badge}
-                heading={REVERT_EDITORIAL.title}
-                descriptions={[REVERT_EDITORIAL.lead]}
+                centered
             />
 
             <section className="border-t border-layout-separator">

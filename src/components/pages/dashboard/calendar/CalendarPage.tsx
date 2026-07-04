@@ -3,11 +3,10 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import SectionHeader from "@/components/shared/SectionHeader"
-import { Book, Calendar, Heart, Moon, Sparkles } from "lucide-react"
-import { englishDate, islamicDate } from "@/lib/utils/format-date"
+import DashboardHead from "../generic/DashboardHead"
+import { getDashboardHeadMeta } from "../generic/dashboardHeaderMeta"
+import { Sparkles } from "lucide-react"
 import { useScrollIntoView } from "@/hooks/useScrollIntoView"
 import {
     CALENDAR_EDITORIAL,
@@ -19,43 +18,21 @@ import CalendarSidebar from "./CalendarSidebar"
 import CalendarPanel from "./CalendarPanel"
 
 export default function CalendarPage() {
+    const pageContent = getDashboardHeadMeta("/calendar")
     const [monthIndex, setMonthIndex] = useState<number>(() => getHijriToday().monthIndex)
     const { ref: calendarRef, scrollIntoView: scrollToCalendar } = useScrollIntoView({ offset: 96 })
 
     return (
         <div>
-            <SectionHeader
-                variant="purple"
-                icon={Calendar}
-                label="Lunar orientation"
-                heading="Hijri calendar as a map of sacred time"
-                descriptions={[CALENDAR_EDITORIAL.lunarLead]}
-                classNames={{ heading: "max-w-[620px]" }}
-            >
-                <div className="flex flex-wrap items-center gap-3 pt-1">
-                    <Badge variant="purple" className="gap-1.5">
-                        <Moon className="h-4 w-4" />
-                        Today: {islamicDate(Date.now())}
-                    </Badge>
-                    <span className="hidden h-1.5 w-1.5 rounded-full bg-gray-300 sm:inline-block" />
-                    <Badge variant="secondary" className="gap-1.5">
-                        <Calendar className="h-4 w-4 text-gray-600" />
-                        {englishDate(Date.now())}
-                    </Badge>
-                </div>
-                <div className="flex flex-wrap gap-2 pt-2">
-                    <Button href="/guides" variant="secondary" shouldScale className="gap-2" size="sm">
-                        <Book className="h-4 w-4" />
-                        Seasonal guides
-                    </Button>
-                    <Button href="/donate" variant="secondary" shouldScale className="gap-2" size="sm">
-                        <Heart className="h-4 w-4" />
-                        Charity & zakāh hub
-                    </Button>
-                </div>
-            </SectionHeader>
+            <DashboardHead
+                lead={pageContent?.lead}
+                accent={pageContent?.accent}
+                subtitle={pageContent?.subtitle}
+                mobileSubtitle={pageContent?.mobileSubtitle}
+                separator
+            />
 
-            <section className="container relative py-8 sm:py-10">
+            <section className="container relative pb-8 sm:pb-10">
                 <div className="overflow-hidden relative">
                     <motion.div
                         aria-hidden
