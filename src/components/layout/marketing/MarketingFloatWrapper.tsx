@@ -52,8 +52,8 @@ const MarketingFloatWrapper = ({ containerRef }: MarketingFloatingSupportProps) 
     }
 
     return (
-        <div className="pointer-events-none fixed bottom-10 right-5 sm:right-6 z-[80] flex 
-        flex-col items-end gap-2">
+        <div className="pointer-events-none fixed bottom-6 right-3 z-[80] flex max-w-[calc(100vw-1.5rem)]
+        flex-col items-end gap-2 xs:bottom-8 xs:right-5 sm:bottom-10 sm:right-6">
             <JumpBack
                 isVisible={showJumpBack}
                 onClick={scrollToTop}
