@@ -1,7 +1,7 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { X, Library, Sparkles, Database, CheckCircle2 } from "lucide-react"
+import { X, Database, Sparkles, CheckCircle2 } from "lucide-react"
 import {
     SUPPLICATIONS_MOCK,
     type SupplicationCategoryId,
@@ -11,7 +11,8 @@ import SupplicationsCollectionsSection from "./SupplicationsCollectionsSection"
 import SupplicationsSidebar from "./SupplicationsSidebar"
 import SupplicationsTopBar from "./SupplicationsTopBar"
 import { Badge } from "@/components/ui/badge"
-import SectionHeader from "@/components/shared/SectionHeader"
+import DashboardHead from "../generic/DashboardHead"
+import { getDashboardHeadMeta } from "../generic/dashboardHeaderMeta"
 import FiltersDrawer from "./FiltersDrawer"
 
 export type SupplicationsViewMode = "grid" | "list"
@@ -24,6 +25,7 @@ const scopeOptions = [
 ]
 
 export default function SupplicationsPage() {
+    const pageContent = getDashboardHeadMeta("/supplications")
     const [searchQuery, setSearchQuery] = useState("")
     const [selectedCategories, setSelectedCategories] = useState<Set<SupplicationCategoryId>>(new Set())
     const [selectedTags, setSelectedTags] = useState<Set<SupplicationTag>>(new Set())
@@ -123,12 +125,12 @@ export default function SupplicationsPage() {
 
     return (
         <div>
-            <SectionHeader
-                variant="emerald"
-                icon={Library}
-                label="Supplications"
-                heading="Supplications · Catalog"
-                descriptions={["A curated collection of prophetic cadences architected for retrieval whenever the heart calls for words finer than your own."]}
+            <DashboardHead
+                lead={pageContent?.lead}
+                accent={pageContent?.accent}
+                subtitle={pageContent?.subtitle}
+                mobileSubtitle={pageContent?.mobileSubtitle}
+                separator
             >
                 <div className="flex flex-wrap items-center gap-4 pt-2">
                     <Badge variant="outline" className="gap-1.5">
@@ -144,10 +146,10 @@ export default function SupplicationsPage() {
                         <span className="text-xs text-gray-900">Premium Cadence</span>
                     </Badge>
                 </div>
-            </SectionHeader>
+            </DashboardHead>
 
             <main
-                className="container py-10 lg:py-16 relative"
+                className="container relative pb-10 lg:pb-16"
                 id="supplications-collections-section"
             >
                 <div className="flex flex-col lg:flex-row 2xl:gap-10 gap-7 items-start">

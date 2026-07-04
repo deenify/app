@@ -1,8 +1,8 @@
 "use client"
 
 import { useEffect, useMemo, useRef, useState } from "react"
-import { Users } from "lucide-react"
-import SectionHeader from "@/components/shared/SectionHeader"
+import DashboardHead from "../generic/DashboardHead"
+import { getDashboardHeadMeta } from "../generic/dashboardHeaderMeta"
 import {
     ChartSidebarControls,
     LineageCanvas,
@@ -24,6 +24,7 @@ import { PROPHETIC_NODES } from "./prophetic-data"
 import PropheticDetailModal from "./PropheticDetailModal"
 
 export default function ProphetsPage() {
+    const pageContent = getDashboardHeadMeta("/prophets")
     const canvasRef = useRef<LineageCanvasHandle>(null)
     const [selectedId, setSelectedId] = useState<string | null>(null)
     const [edgeRouting, setEdgeRouting] = useState<LineageEdgeRouting>("orthogonal")
@@ -66,16 +67,15 @@ export default function ProphetsPage() {
 
     return (
         <div className="bg-white">
-            <SectionHeader
-                layoutScope="center"
-                variant="emerald"
-                icon={Users}
-                label={PROPHETIC_CHAIN_EDITORIAL.badge}
-                heading={PROPHETIC_CHAIN_EDITORIAL.title}
-                descriptions={[PROPHETIC_CHAIN_EDITORIAL.lead]}
+            <DashboardHead
+                lead={pageContent?.lead}
+                accent={pageContent?.accent}
+                subtitle={pageContent?.subtitle}
+                mobileSubtitle={pageContent?.mobileSubtitle}
+                separator
             />
 
-            <section className="container py-6 sm:px-6 sm:py-8">
+            <section className="container pb-6 sm:pb-8">
                 <div className="mx-auto grid max-w-[1400px] gap-6 lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-8">
                     <div className="flex flex-col gap-5 lg:sticky lg:top-24 lg:self-start">
                         <ChartSidebarControls

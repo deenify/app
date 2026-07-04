@@ -1,9 +1,10 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { CheckCircle2, Database, GraduationCap, Sparkles } from "lucide-react"
+import { CheckCircle2, Database, Sparkles } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
-import SectionHeader from "@/components/shared/SectionHeader"
+import DashboardHead from "../generic/DashboardHead"
+import { getDashboardHeadMeta } from "../generic/dashboardHeaderMeta"
 import CatalogTopBar from "@/components/shared/catalog/CatalogTopBar"
 import CatalogFilterChips from "@/components/shared/catalog/CatalogFilterChips"
 import CatalogCategorySidebar from "@/components/shared/catalog/CatalogCategorySidebar"
@@ -34,6 +35,7 @@ const sortOptions = [
 ]
 
 export default function GuidesPage() {
+    const pageContent = getDashboardHeadMeta("/guides")
     const [searchQuery, setSearchQuery] = useState("")
     const [selectedCategories, setSelectedCategories] = useState<Set<GuideCategoryId>>(new Set())
     const [selectedDifficulties, setSelectedDifficulties] = useState<Set<GuideDifficulty>>(new Set())
@@ -140,14 +142,12 @@ export default function GuidesPage() {
 
     return (
         <div>
-            <SectionHeader
-                variant="emerald"
-                icon={GraduationCap}
-                label="Guides & learning"
-                heading="Guides · Catalog"
-                descriptions={[
-                    "Curated learning paths for everyday worship, character, and foundational knowledge — structured for clarity and consistency.",
-                ]}
+            <DashboardHead
+                lead={pageContent?.lead}
+                accent={pageContent?.accent}
+                subtitle={pageContent?.subtitle}
+                mobileSubtitle={pageContent?.mobileSubtitle}
+                separator
             >
                 <div className="flex flex-wrap items-center gap-4 pt-2">
                     <Badge variant="outline" className="gap-1.5">
@@ -163,9 +163,12 @@ export default function GuidesPage() {
                         <span className="text-xs text-gray-900">Structured paths</span>
                     </Badge>
                 </div>
-            </SectionHeader>
+            </DashboardHead>
 
-            <main className="container relative py-10 lg:py-16" id="guides-collections-section">
+            <main
+                className="container relative pb-10 lg:pb-16"
+                id="guides-collections-section"
+            >
                 <div className="flex flex-col items-start gap-7 lg:flex-row 2xl:gap-10">
                     <div className="sticky top-0 hidden w-56 shrink-0 lg:block 2xl:w-64">
                         <CatalogCategorySidebar

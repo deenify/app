@@ -13,7 +13,6 @@ import { useRouter } from "next/navigation"
 import MenuIcon from "@/assets/svg/menu/DashboardHamburger"
 import Logo from "@/components/shared/Logo"
 import { DEFAULT_SEARCH_ITEMS } from "./content"
-import { useBreakpoint } from "@/hooks/useBreakpoint"
 
 interface DashboardHeaderProps {
     userPreferences?: UserPreferences
@@ -30,7 +29,6 @@ const DashboardHeader: React.FC<DashboardHeaderProps> = ({
     className,
 }) => {
     const router = useRouter()
-    const isLgUp = useBreakpoint("lg", "up")
 
     // Search selection Helper 
     const handleSearchSelect = (item: SearchItem) => {
@@ -60,14 +58,11 @@ const DashboardHeader: React.FC<DashboardHeaderProps> = ({
             <section className="container-header-footer">
                 <div className="flex items-center justify-between w-full gap-2 sm:gap-4">
                     <div className="min-w-0 flex-1">
-                        {isLgUp ? (
-                            <>
-                                <h4>{getGreeting(userPreferences?.name)}</h4>
-                                <p className="text-sm text-gray-500">Welcome to Deenify dashboard</p>
-                            </>
-                        ) : (
-                            <Logo />
-                        )}
+                        <Logo className="lg:hidden block" />
+                        <div className="hidden lg:block">
+                            <h4 className="text-lg font-semibold">{getGreeting(userPreferences?.name)}</h4>
+                            <p className="text-sm text-gray-500">Welcome to Deenify dashboard</p>
+                        </div>
                     </div>
 
                     <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">

@@ -5,7 +5,6 @@ import {
     ArrowDownWideNarrow,
     ArrowUpDown,
     ArrowUpWideNarrow,
-    BookOpenText,
     CalendarClock,
     CalendarDays,
     CalendarRange,
@@ -21,7 +20,8 @@ import ListenTabSection from "./ListenTabSection"
 import BookmarksTabSection from "./BookmarksTabSection"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
-import SectionHeader from "@/components/shared/SectionHeader"
+import DashboardHead from "../generic/DashboardHead"
+import { getDashboardHeadMeta } from "../generic/dashboardHeaderMeta"
 import Tabs, { TabItem } from "@/components/shared/Tabs"
 import FilterDropdown, { type FilterOption } from "@/components/shared/FilterDropdown"
 import type { OrderMode } from "./QuranOrderDropdown"
@@ -64,6 +64,7 @@ const bookmarkDateOptions: FilterOption[] = [
 ]
 
 export default function QuranPage() {
+    const pageContent = getDashboardHeadMeta("/quran")
     const [searchQuery, setSearchQuery] = useState("")
     const [orderMode, setOrderMode] = useState<OrderMode>("quran")
     const [reciterId, setReciterId] = useState<string | number>("all")
@@ -137,43 +138,14 @@ export default function QuranPage() {
 
     return (
         <div>
-            <SectionHeader
-                variant="purple"
-                icon={BookOpenText}
-                label="The Holy Quran"
-                heading={
-                    <>
-                        <span className="inline">
-                            Explore the <br className="sm:hidden" /> Quran —{" "}
-                        </span>
-                        <span className="inline-block font-arabic text-3xl font-medium text-emerald-700">
-                            (القرآن)
-                        </span>
-                    </>
-                }
-                descriptions={[
-                    "The full Quran in one place — each surah with its Arabic name, translation, verse count, and place of revelation so you can recite, reflect (tadabbur), and memorise with focus.",
-                ]}
-                classNames={{ descriptionsWrapper: "space-y-3 sm:space-y-3" }}
+            <DashboardHead
+                lead={pageContent?.lead}
+                accent={pageContent?.accent}
+                subtitle={pageContent?.subtitle}
+                mobileSubtitle={pageContent?.mobileSubtitle}
             >
-                <section>
-                    <p className="max-w-2xl text-sm leading-relaxed text-gray-500 hidden md:block">
-                        Use the search and order options below to find any surah or browse by revelation order. Switch to
-                        the Listen tab to hear the Quran recited.
-                    </p>
-                    <div className="flex flex-wrap items-center gap-2 pt-0.5">
-                        <Badge variant="outline" className="border-gray-200 bg-white px-2.5 py-1 text-xs font-medium text-gray-700">
-                            114 surahs
-                        </Badge>
-                        <span aria-hidden className="inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-gray-400" />
-                        <Badge variant="outline" className="border-purple-200 bg-purple-50 px-2.5 py-1 text-xs font-medium text-purple-700">
-                            6,236 verses
-                        </Badge>
-                    </div>
-                </section>
-
                 <section className="bg-white">
-                    <div className="space-y-4 pt-5 sm:pt-8">
+                    <div className="space-y-4 pt-2 sm:pt-4">
                         <main className="space-y-4">
                             {/* Surah-search & order-dropdown */}
                             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
@@ -220,7 +192,7 @@ export default function QuranPage() {
                         </main>
                     </div>
                 </section>
-            </SectionHeader>
+            </DashboardHead>
 
             {/* Read, Listen tabs - content */}
             <main className="bg-[linear-gradient(180deg,#f8faf8_0%,#f0f7f4_100%)]">

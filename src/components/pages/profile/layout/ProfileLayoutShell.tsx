@@ -7,6 +7,7 @@ import ProfileSidebar from "./ProfileSidebar"
 import ProfilePageHeader from "./ProfilePageHeader"
 import { profileSidebarContent } from "../content"
 import ProfileDrawer from "./ProfileDrawer"
+import DashboardLayoutWrapper from "@/components/layout/dashboard/DashboardLayoutWrapper"
 
 interface ProfileLayoutShellProps {
     readonly children: ReactNode
@@ -30,33 +31,35 @@ const ProfileLayoutShell = ({ children }: ProfileLayoutShellProps) => {
 
 
     return (
-        <div className="bg-gray-50">
-            <section className="border-b border-gray-100 bg-white">
-                <div className="container px-4 sm:px-6 md:px-6">
-                    <div className="mx-auto max-w-6xl py-6 sm:py-8 md:py-10">
-                        <ProfileHeader />
-                    </div>
-                </div>
-            </section>
-
-            <section>
-                <div className="container px-4 sm:px-6 md:px-6">
-                    <div className="mx-auto max-w-6xl py-6 sm:py-8">
-                        <ProfilePageHeader />
-                        <ProfileDrawer
-                            mobileNavOpen={mobileNavOpen}
-                            setMobileNavOpen={setMobileNavOpen}
-                            ActivePageContent={ActivePageContent}
-                        />
-
-                        <div className="mt-6 flex items-start gap-6">
-                            <ProfileSidebar />
-                            <div className="min-w-0 flex-1 h-max">{children}</div>
+        <DashboardLayoutWrapper>
+            <div className="bg-gray-50">
+                <section className="border-b border-gray-100 bg-white">
+                    <div className="container px-4 sm:px-6 md:px-6">
+                        <div className="mx-auto max-w-6xl py-6 sm:py-8 md:py-10">
+                            <ProfileHeader />
                         </div>
                     </div>
-                </div>
-            </section>
-        </div>
+                </section>
+
+                <section>
+                    <div className="container px-4 sm:px-6 md:px-6">
+                        <div className="mx-auto max-w-6xl py-6 sm:py-8">
+                            <ProfilePageHeader />
+                            <ProfileDrawer
+                                mobileNavOpen={mobileNavOpen}
+                                setMobileNavOpen={setMobileNavOpen}
+                                ActivePageContent={ActivePageContent}
+                            />
+
+                            <div className="mt-6 flex items-start gap-6">
+                                <ProfileSidebar />
+                                <div className="min-w-0 flex-1 h-max">{children}</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </DashboardLayoutWrapper>
     )
 }
 

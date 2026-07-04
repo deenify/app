@@ -2,17 +2,19 @@
 
 import { useMemo, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Bot, ChevronDown, HelpCircle, Mail, Sparkles } from "lucide-react"
-import SectionHeader from "@/components/shared/SectionHeader"
+import { Bot, ChevronDown, Mail, Sparkles } from "lucide-react"
+import DashboardHead from "../generic/DashboardHead"
+import { getDashboardHeadMeta } from "../generic/dashboardHeaderMeta"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils/clsx"
-import { SUPPORT_CHANNELS, SUPPORT_EDITORIAL, SUPPORT_FAQS } from "./content"
+import { SUPPORT_CHANNELS, SUPPORT_FAQS } from "./content"
 import SupportChatWidget from "./SupportChatWidget"
 import { clientEnv } from "@/env/client"
 
 export default function SupportPage() {
+    const pageContent = getDashboardHeadMeta("/support")
     const [openId, setOpenId] = useState<string | null>(SUPPORT_FAQS[0]?.id ?? null)
     const [faqSearch, setFaqSearch] = useState("")
 
@@ -28,14 +30,13 @@ export default function SupportPage() {
 
     return (
         <div className="bg-gray-50">
-            <SectionHeader
-                layoutScope="center"
+            <DashboardHead
+                lead={pageContent?.lead}
+                accent={pageContent?.accent}
+                subtitle={pageContent?.subtitle}
+                mobileSubtitle={pageContent?.mobileSubtitle}
                 className="bg-white"
-                variant="blue"
-                icon={HelpCircle}
-                label={SUPPORT_EDITORIAL.badge}
-                heading={SUPPORT_EDITORIAL.title}
-                descriptions={[SUPPORT_EDITORIAL.lead]}
+                centered
             />
 
             <section className="border-t border-layout-separator">

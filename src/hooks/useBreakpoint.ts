@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 
 type BreakpointKey = "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
 type Direction = "up" | "down";
@@ -21,7 +21,7 @@ export function useBreakpoint<K extends BreakpointKey>(
 ): boolean {
     const [matches, setMatches] = useState(false);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (typeof window === "undefined") return;
 
         const pxValue = breakpoints[breakpointKey];

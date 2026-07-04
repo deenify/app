@@ -2,23 +2,25 @@
 
 import { motion } from "framer-motion"
 import { Badge } from "@/components/ui/badge"
-import SectionHeader from "@/components/shared/SectionHeader"
+import DashboardHead from "../generic/DashboardHead"
+import { getDashboardHeadMeta } from "../generic/dashboardHeaderMeta"
 import { Card, CardContent } from "@/components/ui/card"
-import { Compass, Info, Sparkles } from "lucide-react"
+import { Info, Sparkles } from "lucide-react"
 import { QIBLA_EDITORIAL } from "./content"
 import QiblaCompass from "./QiblaCompass"
 import QiblaSidebar from "./QiblaSidebar"
 
 export default function QiblaPage() {
+    const pageContent = getDashboardHeadMeta("/qibla")
+
     return (
         <div>
-            <SectionHeader
-                variant="emerald"
-                icon={Compass}
-                label="Qibla & direction"
-                heading="Face the House with clarity"
-                descriptions={[QIBLA_EDITORIAL.lead]}
-                classNames={{ heading: "max-w-[520px]" }}
+            <DashboardHead
+                lead={pageContent?.lead}
+                accent={pageContent?.accent}
+                subtitle={pageContent?.subtitle}
+                mobileSubtitle={pageContent?.mobileSubtitle}
+                separator
             >
                 <div className="flex flex-wrap gap-2 pt-2">
                     <Badge
@@ -32,9 +34,9 @@ export default function QiblaPage() {
                         Demo bearing · connect GPS later
                     </Badge>
                 </div>
-            </SectionHeader>
+            </DashboardHead>
 
-            <section className="container relative py-8 sm:py-10">
+            <section className="container relative pb-8 sm:pb-10">
                 <div className="relative overflow-hidden">
                     <motion.div
                         aria-hidden
