@@ -1,5 +1,5 @@
 import Image from "next/image"
-import MarketingSectionHeading from "./MarketingSectionHeading"
+import MarketingSectionHead from "./MarketingSectionHead"
 import { FEATURE_CARDS } from "./content"
 import Stagger from "@/components/shared/motion/Stagger"
 
@@ -8,7 +8,7 @@ const MarketingFeaturesSection = () => {
         <section id="features" className="bg-white py-14 sm:py-20 lg:py-24">
             <div className="container">
                 <div className="mx-auto max-w-2xl text-center">
-                    <MarketingSectionHeading
+                    <MarketingSectionHead
                         lead={<>Smart features for <br className="block xs:hidden" /> a composed</>}
                         accent="deen"
                         subtitle="Each module is built like a product in its own right — prayer, 

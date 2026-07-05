@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Plus, Minus } from "lucide-react"
 import { cn } from "@/lib/utils/clsx"
-import MarketingSectionHeading from "./MarketingSectionHeading"
+import MarketingSectionHead from "./MarketingSectionHead"
 import Stagger from "@/components/shared/motion/Stagger"
 import { FAQ_ITEMS } from "./content"
 
@@ -17,7 +17,7 @@ const MarketingFaqSection = () => {
         <section id="faq" className="bg-marketing-light py-16 sm:py-24">
             <div className="container">
                 <div className="mx-auto max-w-2xl text-center">
-                    <MarketingSectionHeading
+                    <MarketingSectionHead
                         lead="Frequently asked"
                         accent="questions"
                         subtitle="Straight answers — the kind you would expect before 

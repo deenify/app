@@ -9,7 +9,7 @@ type MarketingSectionHeadingProps = {
     align?: "left" | "center"
 }
 
-const MarketingSectionHeading = ({
+const MarketingSectionHead = ({
     lead,
     accent,
     subtitle,
@@ -56,4 +56,4 @@ const MarketingSectionHeading = ({
     )
 }
 
-export default MarketingSectionHeading
+export default MarketingSectionHead

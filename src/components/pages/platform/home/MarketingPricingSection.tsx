@@ -4,7 +4,7 @@ import { useState } from "react"
 import { ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils/clsx"
-import MarketingSectionHeading from "./MarketingSectionHeading"
+import MarketingSectionHead from "./MarketingSectionHead"
 import { PRICING_PLANS, type PricingPlan } from "./content"
 import { Badge } from "@/components/ui/badge"
 import Stagger from "@/components/shared/motion/Stagger"
@@ -104,7 +104,7 @@ const MarketingPricingSection = () => {
         <section id="pricing" className="bg-white py-14 sm:py-20 lg:py-24">
             <div className="container">
                 <div className="mx-auto max-w-2xl text-center">
-                    <MarketingSectionHeading
+                    <MarketingSectionHead
                         lead="Transparent"
                         accent="pricing"
                         subtitle="Begin without friction. Upgrade when you want deeper libraries and a direct hand in what we build next."
