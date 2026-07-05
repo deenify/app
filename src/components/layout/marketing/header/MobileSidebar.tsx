@@ -7,7 +7,7 @@ import { MARKETING_NAV } from "./content"
 import { cn } from "@/lib/utils/clsx"
 import Logo from "@/components/shared/Logo"
 import { Button } from "@/components/ui/button"
-import { useScrollLock } from "@/hooks/useScrollLock"
+import { useScrollLock } from "@/hooks/useViewportFix"
 
 interface MobileSidebarProps {
     isOpen: boolean

@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import React from "react"
-import { useScrollContainer } from "@/context/ScrollContainerContext"
+import { useScrollContainer } from "@/hooks/useViewportFix"
 import { motionEase, resolveInViewViewport } from "@/components/shared/motion/inViewViewport"
 
 type ViewportOptions = {

@@ -2,7 +2,7 @@
 
 import { motion, ViewportOptions } from "framer-motion"
 import { type ReactNode } from "react"
-import { useScrollContainer } from "@/context/ScrollContainerContext"
+import { useScrollContainer } from "@/hooks/useViewportFix"
 import { motionEase, resolveInViewViewport } from "@/components/shared/motion/inViewViewport"
 
 type StaggerProps = {

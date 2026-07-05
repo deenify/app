@@ -36,6 +36,7 @@ export default function RootLayout({ children }: RootLayoutProptype) {
                 redHatText.variable,
                 instrumentSerif.variable,
                 moonwalk.variable,
+                "scrollbar-hide"
             )}
         >
             <body className={notoSans.className}>

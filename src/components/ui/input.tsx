@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils/clsx"
 import { Search, LucideIcon } from "lucide-react"
 import * as React from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { onInputBlur, onInputFocus } from "@/hooks/useViewportFix"
 
 type LabelVariantEnum = "default" | "profile" | "auth"
 
@@ -48,7 +49,9 @@ function Input({
     classNames,
     labelVariant = "default",
     textarea = false,
-    ...props
+    onFocus,
+    onBlur,
+    ...inputProps
 }: InputProps) {
     const [showDropdown, setShowDropdown] = React.useState(false)
     const containerRef = React.useRef<HTMLDivElement>(null)
@@ -75,13 +78,24 @@ function Input({
         setShowDropdown(false)
     }
 
+    const handleFocus = (event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        onInputFocus(event.currentTarget)
+        onFocus?.(event as React.FocusEvent<HTMLInputElement>)
+        if (search && filteredItems.length > 0) setShowDropdown(true)
+    }
+
+    const handleBlur = (event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        onInputBlur()
+        onBlur?.(event as React.FocusEvent<HTMLInputElement>)
+    }
+
     return (
         <div className={cn("flex-1 min-w-0", className)}>
 
             {/* Input Label  */}
             {label.length > 0 && (
                 <label
-                    htmlFor={props.id}
+                    htmlFor={inputProps.id}
                     className={cn(
                         "w-max pb-2 flex gap-1",
                         // Variants 
@@ -130,9 +144,9 @@ function Input({
                         search && "pl-9",
                         classNames?.input,
                     )}
-                    onFocus={() => search && filteredItems.length > 0 && setShowDropdown(true)}
-                    // onBlur={() => setTimeout(() => window.scrollTo({ top: 0, left: 0, behavior: 'instant' }), 100)}
-                    {...props}
+                    onFocusCapture={handleFocus}
+                    onBlur={handleBlur}
+                    {...inputProps}
                 />
 
                 {/* Search Suggestions - Dropdown  */}
