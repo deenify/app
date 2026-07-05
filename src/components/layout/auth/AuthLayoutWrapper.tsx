@@ -1,35 +1,31 @@
 "use client"
 
-import React, { useRef } from 'react'
-import { ReactNode } from 'react'
-import AuthHeader from './header/AuthHeader'
-import { ScrollContainerProvider } from '@/context/ScrollContainerContext'
-import { useScrollReset } from '@/hooks/useViewportFix'
+import React, { ReactNode } from "react"
+import AuthHeader from "./header/AuthHeader"
+import { useScrollReset } from "@/hooks/useViewportFix"
 
 interface AuthLayoutWrapperProps {
     readonly children: ReactNode
 }
 
+const AUTH_SCROLL_ID = "auth-layout-wrapper-scroll-container"
 
 const AuthLayoutWrapper = ({ children }: AuthLayoutWrapperProps) => {
-    const scrollRef = useRef<HTMLDivElement>(null)
-    useScrollReset(scrollRef)
+    useScrollReset(AUTH_SCROLL_ID)
 
     return (
-        <ScrollContainerProvider containerRef={scrollRef} >
-            <div
-                id='auth-layout-wrapper-scroll-container'
-                className='flex-1 min-h-0 overflow-y-auto scrollbar-thin flex flex-col'
-                ref={scrollRef}
-            >
-                <div className='sticky inset-0 bottom-auto z-50'>
-                    <AuthHeader />
-                </div>
-                <main className='flex-1 flex flex-col items-center justify-center'>
-                    {children}
-                </main>
+        <div
+            id={AUTH_SCROLL_ID}
+            data-app-scroll
+            className="app-scroll scrollbar-thin flex min-h-0 flex-1 flex-col overflow-y-auto"
+        >
+            <div className="sticky inset-x-0 top-0 z-50">
+                <AuthHeader />
             </div>
-        </ScrollContainerProvider>
+            <main className="flex flex-1 flex-col items-center justify-center">
+                {children}
+            </main>
+        </div>
     )
 }
 

@@ -6,21 +6,19 @@ import ChatSupport from "@/components/shared/float/ChatSupport"
 import JumpBack from "@/components/shared/float/JumpBack"
 
 interface MarketingFloatingSupportProps {
-    containerRef: React.RefObject<HTMLDivElement>
+    scrollContainerId: string
 }
-
 
 const SHOW_AFTER_PX = 400
 
-const MarketingFloatWrapper = ({ containerRef }: MarketingFloatingSupportProps) => {
+const MarketingFloatWrapper = ({ scrollContainerId }: MarketingFloatingSupportProps) => {
     const pathname = usePathname()
     const [showChatSupport, setShowChatSupport] = useState(true)
     const [showJumpBack, setShowJumpBack] = useState(false)
     const [isChatOpen, setIsChatOpen] = useState(false)
 
     useEffect(() => {
-        const container = containerRef.current
-
+        const container = document.getElementById(scrollContainerId)
         if (!container) return
 
         const handleScroll = () => {
@@ -32,19 +30,17 @@ const MarketingFloatWrapper = ({ containerRef }: MarketingFloatingSupportProps) 
             const isNearTopOrBottom = scrollTop > SHOW_AFTER_PX && !isNearBottom
 
             setShowJumpBack(isNearTopOrBottom)
-            setShowChatSupport(isNearBottom ? false : true)
+            setShowChatSupport(!isNearBottom)
         }
 
         handleScroll()
         container.addEventListener("scroll", handleScroll, { passive: true })
 
-        return () => {
-            container.removeEventListener("scroll", handleScroll)
-        }
-    }, [containerRef])
+        return () => container.removeEventListener("scroll", handleScroll)
+    }, [scrollContainerId])
 
     const scrollToTop = () => {
-        containerRef.current?.scrollTo({ top: 0, behavior: "smooth" })
+        document.getElementById(scrollContainerId)?.scrollTo({ top: 0, behavior: "smooth" })
     }
 
     if (pathname !== "/") {
@@ -52,12 +48,8 @@ const MarketingFloatWrapper = ({ containerRef }: MarketingFloatingSupportProps) 
     }
 
     return (
-        <div className="pointer-events-none fixed bottom-6 right-3 z-[80] flex max-w-[calc(100vw-1.5rem)]
-        flex-col items-end gap-2 xs:bottom-8 xs:right-5 sm:bottom-10 sm:right-6">
-            <JumpBack
-                isVisible={showJumpBack}
-                onClick={scrollToTop}
-            />
+        <div className="pointer-events-none fixed bottom-6 right-3 z-[80] flex max-w-[calc(100vw-1.5rem)] flex-col items-end gap-2 xs:bottom-8 xs:right-5 sm:bottom-10 sm:right-6">
+            <JumpBack isVisible={showJumpBack} onClick={scrollToTop} />
             <ChatSupport
                 isVisible={showChatSupport}
                 isOpen={isChatOpen}
