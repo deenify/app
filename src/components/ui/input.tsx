@@ -80,13 +80,13 @@ function Input({
 
     const handleFocus = (event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         onInputFocus(event.currentTarget)
-        onFocus?.(event)
+        onFocus?.(event as React.FocusEvent<HTMLInputElement>)
         if (search && filteredItems.length > 0) setShowDropdown(true)
     }
 
     const handleBlur = (event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         onInputBlur()
-        onBlur?.(event)
+        onBlur?.(event as React.FocusEvent<HTMLInputElement>)
     }
 
     return (
