@@ -7,7 +7,7 @@ import { useBreakpoint } from "@/hooks/useBreakpoint"
 import FadeEdge from "@/components/shared/FadeEdge"
 import InfiniteMarquee from "@/components/shared/InfiniteMarquee"
 import Stagger from "@/components/shared/motion/Stagger"
-import MarketingSectionHeading from "./MarketingSectionHeading"
+import MarketingSectionHead from "./MarketingSectionHead"
 import { WORKSPACE_MARQUEE_ROWS, type WorkspaceModule } from "./content"
 import { Button } from "@/components/ui/button"
 
@@ -89,7 +89,7 @@ const MarketingWorkspaceSection = () => {
         <section className="overflow-hidden bg-white py-14 sm:py-20 lg:py-24">
             <div className="container">
                 <div className="mx-auto max-w-2xl text-center">
-                    <MarketingSectionHeading
+                    <MarketingSectionHead
                         lead={<>One workspace for <br className='block xs:hidden' /> your entire</>}
                         accent="routine"
                         subtitle={!isMdUp

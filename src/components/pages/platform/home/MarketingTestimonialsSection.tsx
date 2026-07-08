@@ -5,7 +5,7 @@ import { Autoplay, Pagination } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
 import FadeEdge from "@/components/shared/FadeEdge"
 import Animate from "@/components/shared/motion/Animate"
-import MarketingSectionHeading from "./MarketingSectionHeading"
+import MarketingSectionHead from "./MarketingSectionHead"
 import { TESTIMONIALS } from "./content"
 
 import "swiper/css"
@@ -20,7 +20,7 @@ const MarketingTestimonialsSection = () => {
         <section className="overflow-hidden bg-marketing-light py-14 sm:py-20 lg:py-24">
             <div className="container">
                 <div className="mx-auto max-w-2xl text-center">
-                    <MarketingSectionHeading
+                    <MarketingSectionHead
                         lead={<>Trusted by users <br className='block xs:hidden' /> across the</>}
                         accent="world"
                         subtitle="Voices from designers, chaplains, and everyday Muslims

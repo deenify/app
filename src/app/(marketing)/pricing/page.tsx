@@ -1,15 +1,16 @@
+// app/pricing/page.tsx
 import { Metadata } from "next"
+import PricingPage from "@/components/pages/platform/pricing/PricingPage"
 import { serverEnv } from "@/env/server"
 
 export const metadata: Metadata = {
     title: { absolute: `${serverEnv.APP_NAME} - Pricing` },
-    description: `Compare the different plans and features of ${serverEnv.APP_NAME}.`,
+    description:
+        `Compare ${serverEnv.APP_NAME} plans — begin free with prayer, Quran, and dhikr. Upgrade for sync, depth, and community allocation.`,
 }
 
-const PricingPage = () => {
-    return (
-        <div>PricingPage</div>
-    )
+const Page = () => {
+    return <PricingPage />
 }
 
-export default PricingPage
+export default Page

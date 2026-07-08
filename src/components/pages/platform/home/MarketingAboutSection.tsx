@@ -1,7 +1,7 @@
 "use client"
 
 import { CheckCircle2 } from "lucide-react"
-import MarketingSectionHeading from "./MarketingSectionHeading"
+import MarketingSectionHead from "./MarketingSectionHead"
 import Stagger from "@/components/shared/motion/Stagger"
 import { clientEnv } from "@/env/client"
 import { useBreakpoint } from "@/hooks/useBreakpoint"
@@ -32,7 +32,7 @@ const MarketingAboutSection = () => {
             <div className="container">
                 <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
                     <div>
-                        <MarketingSectionHeading
+                        <MarketingSectionHead
                             lead={isXsUp
                                 ? ("Software with the gravity")
                                 : ("Software with gravity")}

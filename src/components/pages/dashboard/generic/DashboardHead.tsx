@@ -65,7 +65,7 @@ const DashboardHead = ({
                             className="font-heading marketing-section-heading leading-[1.2]"
                         >
                             {lead}{" "}
-                            <span className="font-accent text-[1.05em] italic text-emerald-600 lowercase tracking-wide">
+                            <span className="font-accent text-[1.05em] italic text-emerald-600">
                                 {accent}
                             </span>
                         </h2>

@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button"
 import Animate from "@/components/shared/motion/Animate"
-import MarketingSectionHeading from "./MarketingSectionHeading"
+import MarketingSectionHead from "./MarketingSectionHead"
 
 const MarketingCtaSection = () => {
     return (
@@ -18,7 +18,7 @@ const MarketingCtaSection = () => {
                     />
                     <div className="relative">
                         <div className="mx-auto max-w-2xl">
-                            <MarketingSectionHeading
+                            <MarketingSectionHead
                                 lead={<>Ready to compose <br className='block xs:hidden' /> your daily</>}
                                 accent="deen?"
                                 subtitle="Step into a dashboard designed for Muslims who value 
