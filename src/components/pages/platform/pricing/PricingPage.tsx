@@ -5,7 +5,7 @@ import MarketingPageHero from "../generic/MarketingPageHero"
 import MarketingPricingSection from "../home/MarketingPricingSection"
 import MarketingCtaSection from "../home/MarketingCtaSection"
 import PricingComparisonSection from "./PricingComparisonSection"
-import PricingNotesSection from "./PricingNotesSection"
+import PricingPaymentTrustSection from "./PricingPaymentTrustSection"
 import { clientEnv } from "@/env/client"
 
 const PricingPage = () => {
@@ -30,7 +30,7 @@ const PricingPage = () => {
             <div id="comparison">
                 <PricingComparisonSection />
             </div>
-            <PricingNotesSection />
+            <PricingPaymentTrustSection />
             <MarketingCtaSection />
         </div>
     )
