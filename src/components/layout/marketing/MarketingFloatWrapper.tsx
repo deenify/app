@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
 import ChatSupport from "@/components/shared/float/ChatSupport"
 import JumpBack from "@/components/shared/float/JumpBack"
+import { isMarketingRoute } from "../routes.config"
 
 interface MarketingFloatingSupportProps {
     scrollContainerId: string
@@ -43,7 +44,7 @@ const MarketingFloatWrapper = ({ scrollContainerId }: MarketingFloatingSupportPr
         document.getElementById(scrollContainerId)?.scrollTo({ top: 0, behavior: "smooth" })
     }
 
-    if (pathname !== "/") {
+    if (!isMarketingRoute(pathname)) {
         return null
     }
 

@@ -309,4 +309,35 @@
         @apply w-6 bg-emerald-600;
     }
 
+    /* Features tour — card stack swiper (rewind; no rotate glitch) */
+    .features-tour-stack-swiper {
+        width: 100%;
+        height: 520px;
+    }
+
+    @media (min-width: 640px) {
+        .features-tour-stack-swiper {
+            height: 560px;
+        }
+    }
+
+    .features-tour-stack-swiper .swiper-wrapper {
+        transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .features-tour-stack-swiper .swiper-slide {
+        border-radius: 1rem;
+        overflow: hidden;
+        background: transparent;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        transform: translateZ(0);
+    }
+
+    .features-tour-stack-card {
+        height: 100%;
+        min-height: 480px;
+        will-change: transform;
+    }
+
 }

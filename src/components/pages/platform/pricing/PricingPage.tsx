@@ -2,10 +2,10 @@
 
 import { Tag } from "lucide-react"
 import MarketingPageHero from "../generic/MarketingPageHero"
+import MarketingCtaSection from "../generic/MarketingCtaSection"
 import MarketingPricingSection from "../home/MarketingPricingSection"
-import MarketingCtaSection from "../home/MarketingCtaSection"
 import PricingComparisonSection from "./PricingComparisonSection"
-import PricingNotesSection from "./PricingNotesSection"
+import PricingPaymentTrustSection from "./PricingPaymentTrustSection"
 import { clientEnv } from "@/env/client"
 
 const PricingPage = () => {
@@ -30,8 +30,14 @@ const PricingPage = () => {
             <div id="comparison">
                 <PricingComparisonSection />
             </div>
-            <PricingNotesSection />
-            <MarketingCtaSection />
+            <PricingPaymentTrustSection />
+            <MarketingCtaSection
+                lead={<>Ready to compose <br className="block xs:hidden" /> your daily</>}
+                accent="deen?"
+                subtitle="Step into a dashboard designed for Muslims who value clarity, craft, and continuity — from first prayer to lifelong learning."
+                primaryCta={{ label: "Open Dashboard", href: "/dashboard" }}
+                secondaryCta={{ label: "View plans", href: "#pricing" }}
+            />
         </div>
     )
 }
