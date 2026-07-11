@@ -21,7 +21,7 @@ Build-Tree .
 $script:output | Out-File -Encoding UTF8 structure.txt
 
 
-------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------
 
 
 ├── .vscode
@@ -133,6 +133,8 @@ $script:output | Out-File -Encoding UTF8 structure.txt
 │   │   │   │   ├── page.tsx
 │   │   │   ├── contact
 │   │   │   │   ├── page.tsx
+│   │   │   ├── faqs
+│   │   │   │   ├── page.tsx
 │   │   │   ├── features
 │   │   │   │   ├── page.tsx
 │   │   │   ├── pricing
@@ -201,6 +203,7 @@ $script:output | Out-File -Encoding UTF8 structure.txt
 │   │   │   │   │   ├── MarketingDesktopNav.tsx
 │   │   │   │   │   ├── MarketingHeader.tsx
 │   │   │   │   │   ├── MobileSidebar.tsx
+│   │   │   │   ├── content.ts
 │   │   │   │   ├── MarketingFloatWrapper.tsx
 │   │   │   │   ├── MarketingLayoutWrapper.tsx
 │   │   │   ├── LayoutWrapper.tsx
@@ -341,6 +344,34 @@ $script:output | Out-File -Encoding UTF8 structure.txt
 │   │   │   │   │   ├── SupportPage.tsx
 │   │   │   │   ├── content.ts
 │   │   │   ├── platform
+│   │   │   │   ├── about
+│   │   │   │   │   ├── AboutBentoSection.tsx
+│   │   │   │   │   ├── AboutCaseStudySection.tsx
+│   │   │   │   │   ├── AboutPage.tsx
+│   │   │   │   │   ├── AboutTeamSection.tsx
+│   │   │   │   │   ├── AboutTimelineSection.tsx
+│   │   │   │   │   ├── content.ts
+│   │   │   │   ├── contact
+│   │   │   │   │   ├── ContactChannelsSection.tsx
+│   │   │   │   │   ├── ContactFormSection.tsx
+│   │   │   │   │   ├── ContactPage.tsx
+│   │   │   │   │   ├── content.ts
+│   │   │   │   ├── faqs
+│   │   │   │   │   ├── content.ts
+│   │   │   │   │   ├── FaqContactSection.tsx
+│   │   │   │   │   ├── FaqListSection.tsx
+│   │   │   │   │   ├── FaqsPage.tsx
+│   │   │   │   ├── features
+│   │   │   │   │   ├── content.ts
+│   │   │   │   │   ├── FeaturesBentoSection.tsx
+│   │   │   │   │   ├── FeaturesJourneySection.tsx
+│   │   │   │   │   ├── FeaturesPage.tsx
+│   │   │   │   │   ├── FeaturesTourStackSection.tsx
+│   │   │   │   ├── generic
+│   │   │   │   │   ├── MarketingCtaSection.tsx
+│   │   │   │   │   ├── MarketingPageHero.tsx
+│   │   │   │   │   ├── MarketingSplitSection.tsx
+│   │   │   │   │   ├── PricingCard.tsx
 │   │   │   │   ├── home
 │   │   │   │   │   ├── content.ts
 │   │   │   │   │   ├── MarketingAboutSection.tsx
@@ -349,10 +380,15 @@ $script:output | Out-File -Encoding UTF8 structure.txt
 │   │   │   │   │   ├── MarketingFeaturesSection.tsx
 │   │   │   │   │   ├── MarketingHeroSection.tsx
 │   │   │   │   │   ├── MarketingPricingSection.tsx
-│   │   │   │   │   ├── MarketingSectionHeading.tsx
+│   │   │   │   │   ├── MarketingSectionHead.tsx
 │   │   │   │   │   ├── MarketingTestimonialsSection.tsx
 │   │   │   │   │   ├── MarketingTrustSection.tsx
 │   │   │   │   │   ├── MarketingWorkspaceSection.tsx
+│   │   │   │   ├── pricing
+│   │   │   │   │   ├── content.ts
+│   │   │   │   │   ├── PricingComparisonSection.tsx
+│   │   │   │   │   ├── PricingPage.tsx
+│   │   │   │   │   ├── PricingPaymentTrustSection.tsx
 │   │   │   ├── profile
 │   │   │   │   ├── generic
 │   │   │   │   │   ├── SwitchItem.tsx
@@ -445,7 +481,6 @@ $script:output | Out-File -Encoding UTF8 structure.txt
 │   ├── constant
 │   │   ├── quranic-conatant.ts
 │   ├── context
-│   │   ├── ScrollContainerContext.tsx
 │   ├── env
 │   │   ├── client.ts
 │   │   ├── server.ts
@@ -455,7 +490,6 @@ $script:output | Out-File -Encoding UTF8 structure.txt
 │   │   ├── useIncrementalReveal.ts
 │   │   ├── usePagination.ts
 │   │   ├── useScrollIntoView.ts
-│   │   ├── useScrollLock.ts
 │   │   ├── useViewportFix.ts
 │   ├── lib
 │   │   ├── notification
@@ -477,6 +511,8 @@ $script:output | Out-File -Encoding UTF8 structure.txt
 │   │   │   ├── index.ts
 │   │   │   ├── support.store.ts
 │   │   │   ├── support.types.ts
+│   ├── utils
+│   │   ├── scroll
 │   ├── middleware.ts
 ├── .env.example
 ├── .env.local

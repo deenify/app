@@ -62,25 +62,8 @@ export const PRICING_COMPARISON: PricingComparisonRow[] = [
     },
 ]
 
-export type PricingNote = {
-    title: string
-    description: string
-}
-
-export const PRICING_NOTES: PricingNote[] = [
-    {
-        title: "No hidden tiers",
-        description:
-            "Every plan lists exactly what you receive. Upgrades unlock depth — not essential worship tools.",
-    },
-    {
-        title: "Cancel anytime",
-        description:
-            "Paid plans renew monthly. Downgrade or cancel from your profile without contacting support.",
-    },
-    {
-        title: "Community-first allocation",
-        description:
-            "Enterprise contributions support verified content, outreach, and transparent charitable allocation.",
-    },
+export const PRICING_PAYMENT_STATS = [
+    { value: "256-bit", label: "SSL encrypted" },
+    { value: "Cancel", label: "Anytime" },
+    { value: "0 hidden", label: "Fees" },
 ]

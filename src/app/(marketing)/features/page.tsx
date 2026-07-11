@@ -1,17 +1,16 @@
-import React from 'react'
+// app/features/page.tsx
 import { Metadata } from "next"
+import FeaturesPage from "@/components/pages/platform/features/FeaturesPage"
 import { serverEnv } from "@/env/server"
 
 export const metadata: Metadata = {
     title: { absolute: `${serverEnv.APP_NAME} - Features` },
-    description: `Learn about the features of ${serverEnv.APP_NAME} and how they can help you in your daily life.`,
+    description:
+        `Explore ${serverEnv.APP_NAME} features — fourteen modules across worship, sacred text, learning catalogs, and community care in one coherent dashboard.`,
 }
 
-
-const FeaturesPage = () => {
-    return (
-        <div>FeaturesPage</div>
-    )
+const Page = () => {
+    return <FeaturesPage />
 }
 
-export default FeaturesPage
+export default Page
