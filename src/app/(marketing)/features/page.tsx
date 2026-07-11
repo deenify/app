@@ -6,7 +6,7 @@ import { serverEnv } from "@/env/server"
 export const metadata: Metadata = {
     title: { absolute: `${serverEnv.APP_NAME} - Features` },
     description:
-        `Explore ${serverEnv.APP_NAME} features — prayer, Quran, catalogs, dhikr, and fourteen modules in one coherent dashboard.`,
+        `Explore ${serverEnv.APP_NAME} features — fourteen modules across worship, sacred text, learning catalogs, and community care in one coherent dashboard.`,
 }
 
 const Page = () => {

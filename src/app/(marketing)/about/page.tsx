@@ -6,7 +6,7 @@ import { serverEnv } from "@/env/server"
 export const metadata: Metadata = {
     title: { absolute: `${serverEnv.APP_NAME} - About` },
     description:
-        `Learn about the mission, craft, and values behind ${serverEnv.APP_NAME} — Islamic software built with editorial discipline.`,
+        `Learn about the mission, craft, and values behind ${serverEnv.APP_NAME} — Islamic software authored with editorial discipline for daily practice.`,
 }
 
 const Page = () => {

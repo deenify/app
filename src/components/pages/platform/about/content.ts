@@ -1,94 +1,106 @@
-import {
-    BookOpen,
-    Compass,
-    Eye,
-    Heart,
-    Layers,
-    Scale,
-    Shield,
-    Sparkles,
-    Users,
-} from "lucide-react"
-import type { SplitPoint, SplitSectionVariant } from "../generic/MarketingSplitSection"
+import { Heart, PenLine, Scale, Shield, type LucideIcon } from "lucide-react"
 
-export type AboutStat = {
+export type TimelineMilestone = {
+    title: string
+    description: string
+}
+
+export type AboutValueTile = {
+    icon: LucideIcon
+    title: string
+    description: string
+}
+
+export type CraftMetric = {
     value: string
     label: string
 }
 
-export type AboutSplitContent = {
-    eyebrow: string
-    lead: string
-    accent: string
-    description: string
-    points: SplitPoint[]
-    image: string
-    imageAlt: string
-    imagePosition: "left" | "right"
-    variant: SplitSectionVariant
-    theme: "white" | "muted"
-    primaryCta?: { label: string; href: string }
+export type TeamMember = {
+    name: string
+    role: string
+    bio: string
+    avatar: string
 }
 
-export const ABOUT_SPLITS: AboutSplitContent[] = [
+export const ABOUT_TIMELINE: TimelineMilestone[] = [
     {
-        eyebrow: "How it started",
-        lead: "We were tired of",
-        accent: "scattered apps",
+        title: "Five apps, zero continuity",
         description:
-            "Prayer in one app, Quran in another, duas buried in a PDF. We built Deenify because daily practice should live in one place — not across five icons on your home screen.",
-        points: [
-            { icon: Heart, text: "Made by people who actually use it between prayers" },
-            { icon: Layers, text: "One dashboard instead of a folder of single-purpose apps" },
-            { icon: Eye, text: "Designed to stay out of your way once you're reading" },
-        ],
-        image: "/images/pages/marketing/home/mobile-overview.webp",
-        imageAlt: "Deenify mobile overview",
-        imagePosition: "left",
-        variant: "default",
-        theme: "white",
-        primaryCta: { label: "See what's inside", href: "/features" },
+            "Prayer in one place, Quran in another, duas in a PDF. Every switch broke focus. We wanted one screen we trusted between prayers.",
     },
     {
-        eyebrow: "How we build",
-        lead: "Calm screens for",
-        accent: "long reading",
+        title: "One dashboard, fourteen modules",
         description:
-            "Quran nights and hadith study need space to breathe. We obsess over line height, margins, and motion — the small things you feel but don't name when a screen just works.",
-        points: [
-            { icon: BookOpen, text: "Typography tuned for surah-length sessions" },
-            { icon: Sparkles, text: "Animations that guide, never distract" },
-            { icon: Compass, text: "Layouts tested from phone to wide monitor" },
-        ],
-        image: "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1200&q=80",
-        imageAlt: "Thoughtful reading environment",
-        imagePosition: "right",
-        variant: "inset-panel",
-        theme: "muted",
+            "We designed each module like its own product — then unified them under one sidebar, one account, and one visual language.",
     },
     {
-        eyebrow: "What we won't bend on",
-        lead: "Trust is not a",
-        accent: "feature toggle",
+        title: "Used daily, across 40+ countries",
         description:
-            "Scholarly sources, honest privacy, and free access to worship essentials — these aren't upsells. They're the baseline for software that sits next to someone's deen.",
-        points: [
-            { icon: Scale, text: "Content cited against established scholarly sources" },
-            { icon: Shield, text: "Your data stays yours — export or delete anytime" },
-            { icon: Users, text: "Supporter plans fund content, not basic prayer tools" },
-        ],
-        image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1200&q=80",
-        imageAlt: "Community and learning",
-        imagePosition: "left",
-        variant: "accent-bar",
-        theme: "white",
-        primaryCta: { label: "View plans", href: "/pricing" },
+            "Study circles, masjid educators, and individual practitioners now rely on a single shell for worship, reading, and learning.",
     },
 ]
 
-export const ABOUT_STATS: AboutStat[] = [
-    { value: "12k+", label: "Active users" },
-    { value: "40+", label: "Countries" },
-    { value: "500+", label: "Communities" },
-    { value: "14", label: "Core modules" },
+export const ABOUT_VALUE_TILES: AboutValueTile[] = [
+    {
+        icon: PenLine,
+        title: "Authored, not assembled",
+        description: "One visual language across prayer, catalogs, and settings.",
+    },
+    {
+        icon: Heart,
+        title: "Worship stays free",
+        description: "Prayer, qibla, and core Quran — never behind a paywall.",
+    },
+    {
+        icon: Scale,
+        title: "Sources cited",
+        description: "Hadith and guides reference established scholarship.",
+    },
+    {
+        icon: Shield,
+        title: "Your data, yours",
+        description: "Export or delete from profile — no ticket required.",
+    },
+]
+
+export const ABOUT_CRAFT_POINTS = [
+    "Typography and spacing designed for long reading sessions",
+    "Prayer presence panels tuned for mobile and desktop",
+    "Scholar-aware catalogs with filters, bookmarks, and detail pages",
+    "A single account across worship, study, and remembrance",
+]
+
+export const ABOUT_CRAFT_METRICS: CraftMetric[] = [
+    { value: "14+", label: "Core modules" },
+    { value: "6", label: "Curated catalogs" },
+    { value: "40+", label: "Countries reached" },
+    { value: "24/7", label: "Prayer awareness" },
+]
+
+export const ABOUT_TEAM: TeamMember[] = [
+    {
+        name: "Yusuf Rahman",
+        role: "Co-founder, Product",
+        bio: "Leads product direction with a focus on calm interfaces for daily worship and study.",
+        avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80",
+    },
+    {
+        name: "Amina Noor",
+        role: "Co-founder, Engineering",
+        bio: "Owns the dashboard architecture — performance, sync, and module continuity.",
+        avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80",
+    },
+    {
+        name: "Omar El-Hassan",
+        role: "Head of Content",
+        bio: "Curates hadith, guides, and catalogs against established scholarly sources.",
+        avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80",
+    },
+    {
+        name: "Fatima Karim",
+        role: "Community Lead",
+        bio: "Runs faith-aware support and community programs with the same clarity as the product.",
+        avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80",
+    },
 ]

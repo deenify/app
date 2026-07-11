@@ -2,7 +2,7 @@
 
 import { CircleHelp } from "lucide-react"
 import MarketingPageHero from "../generic/MarketingPageHero"
-import MarketingCtaSection from "../home/MarketingCtaSection"
+import MarketingCtaSection from "../generic/MarketingCtaSection"
 import FaqContactSection from "./FaqContactSection"
 import FaqListSection from "./FaqListSection"
 import { clientEnv } from "@/env/client"
@@ -29,7 +29,13 @@ const FaqsPage = () => {
                 <FaqListSection />
             </div>
             <FaqContactSection />
-            <MarketingCtaSection />
+            <MarketingCtaSection
+                lead={<>Ready to compose <br className="block xs:hidden" /> your daily</>}
+                accent="deen?"
+                subtitle="Step into a dashboard designed for Muslims who value clarity, craft, and continuity — from first prayer to lifelong learning."
+                primaryCta={{ label: "Open Dashboard", href: "/dashboard" }}
+                secondaryCta={{ label: "Contact us", href: "/contact" }}
+            />
         </div>
     )
 }

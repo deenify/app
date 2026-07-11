@@ -1,147 +1,233 @@
 import {
+    BookHeart,
     BookOpen,
     Calendar,
     Compass,
-    Filter,
+    GraduationCap,
+    HandHeart,
     Headphones,
+    Heart,
+    Landmark,
     Library,
     Moon,
     Repeat2,
+    Scroll,
+    Sparkles,
     type LucideIcon,
 } from "lucide-react"
-import type { SplitPoint, SplitSectionVariant, SplitStat } from "../generic/MarketingSplitSection"
 
-export type FeatureModule = {
+export type TourPanel = {
+    id: string
+    step: string
+    label: string
+    title: string
+    accent: string
+    description: string
+    image: string
+    highlights: { icon: LucideIcon; text: string }[]
+    href: string
+    cta: string
+}
+
+export type BentoModule = {
     label: string
     icon: LucideIcon
     description: string
     href: string
+    className: string
 }
 
-export type FeatureSplitContent = {
-    eyebrow: string
-    lead: string
-    accent: string
-    description: string
-    points: SplitPoint[]
-    stats?: SplitStat[]
-    image: string
-    imageAlt: string
-    imagePosition: "left" | "right"
-    variant: SplitSectionVariant
-    theme: "white" | "muted"
-    primaryCta?: { label: string; href: string }
-    secondaryCta?: { label: string; href: string }
-}
-
-export type RoutineStep = {
-    icon: LucideIcon
+export type JourneyMoment = {
     time: string
-    label: string
+    module: string
     detail: string
+    icon: LucideIcon
+    tint: string
 }
 
-export const FEATURE_ROUTINE_STEPS: RoutineStep[] = [
+export const FEATURE_TOUR_PANELS: TourPanel[] = [
     {
-        icon: Moon,
-        time: "Before Fajr",
-        label: "Check prayer schedule",
-        detail: "See what's next and stay on rhythm",
+        id: "worship",
+        step: "01",
+        label: "Worship",
+        title: "Start every day with",
+        accent: "prayer rhythm",
+        description:
+            "Open the app to see what's next — not to dig through menus. Schedules, qibla, and Hijri dates live where you expect them.",
+        image: "/images/pages/dashboard/prayer/presense-hero-background.avif",
+        highlights: [
+            { icon: Moon, text: "Five daily prayers, location-aware" },
+            { icon: Compass, text: "Qibla without leaving the view" },
+            { icon: Calendar, text: "Hijri calendar at a glance" },
+            { icon: Repeat2, text: "Dhikr presets for between tasks" },
+        ],
+        href: "/prayer",
+        cta: "Open prayer module",
     },
     {
-        icon: BookOpen,
-        time: "After Fajr",
-        label: "Read a few ayat",
-        detail: "Pick up where you left off",
+        id: "read",
+        step: "02",
+        label: "Sacred text",
+        title: "Sit down to",
+        accent: "read & reflect",
+        description:
+            "Quran and hadith with calm typography — bookmark a verse today, pick up exactly there tomorrow.",
+        image: "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1200&q=80",
+        highlights: [
+            { icon: BookOpen, text: "Read and listen with adjustable type" },
+            { icon: Headphones, text: "Reciter audio, verse by verse" },
+            { icon: Library, text: "Hadith collections and saved passages" },
+        ],
+        href: "/quran",
+        cta: "Open Quran module",
     },
     {
-        icon: Repeat2,
-        time: "Between tasks",
-        label: "Quick dhikr",
-        detail: "A preset counter for the in-between moments",
+        id: "learn",
+        step: "03",
+        label: "Learning",
+        title: "Return to catalogs",
+        accent: "worth keeping",
+        description:
+            "Duas, guides, history, and stories — filterable libraries that behave like serious reading products.",
+        image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1200&q=80",
+        highlights: [
+            { icon: Heart, text: "Supplications with collection filters" },
+            { icon: GraduationCap, text: "Guides for reverts and deepening study" },
+            { icon: Landmark, text: "History and stories with bookmarks" },
+        ],
+        href: "/guides",
+        cta: "Browse guides",
     },
 ]
 
-export const FEATURE_MODULES: FeatureModule[] = [
+export const FEATURE_BENTO_MODULES: BentoModule[] = [
     {
         label: "Prayer",
         icon: Moon,
-        description: "Location-aware schedules with presence panels tuned for every breakpoint.",
+        description: "Schedules & presence panels",
         href: "/prayer",
+        className: "sm:col-span-2 sm:row-span-2",
     },
     {
         label: "Quran",
         icon: BookOpen,
-        description: "Read, listen, and bookmark with typography built for long sessions.",
+        description: "Read, listen, bookmark",
         href: "/quran",
+        className: "sm:col-span-2",
     },
     {
         label: "Hadith",
         icon: Library,
-        description: "Collections, topics, and saved passages in a scholarly reading layout.",
+        description: "Collections & topics",
         href: "/hadith",
+        className: "",
     },
     {
         label: "Qibla",
         icon: Compass,
-        description: "Compass guidance with calm visual feedback — no gimmicky overlays.",
+        description: "Compass direction",
         href: "/qibla",
+        className: "",
     },
     {
         label: "Calendar",
         icon: Calendar,
-        description: "Hijri rhythm with day detail panels and month navigation.",
+        description: "Hijri day panels",
         href: "/calendar",
+        className: "",
     },
     {
         label: "Dhikr",
         icon: Repeat2,
-        description: "Presets, counters, and shared remembrance without friction.",
+        description: "Presets & counters",
         href: "/dhikr",
+        className: "",
+    },
+    {
+        label: "Duas",
+        icon: Heart,
+        description: "Supplication library",
+        href: "/supplications",
+        className: "sm:col-span-2",
+    },
+    {
+        label: "Guides",
+        icon: GraduationCap,
+        description: "Structured pathways",
+        href: "/guides",
+        className: "",
+    },
+    {
+        label: "History",
+        icon: Landmark,
+        description: "Islamic narratives",
+        href: "/history",
+        className: "",
+    },
+    {
+        label: "Miracles",
+        icon: Sparkles,
+        description: "Prophetic signs",
+        href: "/miracles",
+        className: "",
+    },
+    {
+        label: "Stories",
+        icon: BookHeart,
+        description: "Moral parables",
+        href: "/stories",
+        className: "",
+    },
+    {
+        label: "Pillars",
+        icon: Scroll,
+        description: "Five pillars",
+        href: "/pillars",
+        className: "",
+    },
+    {
+        label: "Donate",
+        icon: HandHeart,
+        description: "One-tap sadaqah",
+        href: "/donate",
+        className: "",
+    },
+    {
+        label: "Support",
+        icon: Headphones,
+        description: "Faith-aware help",
+        href: "/support",
+        className: "",
     },
 ]
 
-/** Two deep-dive splits — the module grid above already maps the full shell */
-export const FEATURE_SPLITS: FeatureSplitContent[] = [
+export const FEATURE_JOURNEY: JourneyMoment[] = [
     {
-        eyebrow: "Where most days start",
-        lead: "Prayer times that fit",
-        accent: "real life",
-        description:
-            "You open the app to know what's next — not to hunt through menus. Prayer panels, qibla, and Hijri calendar sit where you expect them, tuned for phone and desktop alike.",
-        points: [
-            { icon: Moon, text: "Five daily prayers with location-aware schedules" },
-            { icon: Compass, text: "Qibla direction without leaving the prayer view" },
-            { icon: Calendar, text: "Hijri dates alongside your week at a glance" },
-        ],
-        stats: [
-            { value: "5×", label: "Daily prayers" },
-            { value: "40+", label: "Calc methods" },
-        ],
-        image: "/images/pages/dashboard/prayer/presense-hero-background.avif",
-        imageAlt: "Prayer presence panel with serene backdrop",
-        imagePosition: "left",
-        variant: "floating-stats",
-        theme: "white",
-        primaryCta: { label: "Open prayer", href: "/prayer" },
+        time: "Fajr",
+        module: "Prayer",
+        detail: "Check schedule · stay on rhythm",
+        icon: Moon,
+        tint: "from-emerald-600/90 to-emerald-800/90",
     },
     {
-        eyebrow: "When you sit to read",
-        lead: "Quran and hadith with",
-        accent: "room to focus",
-        description:
-            "Long sessions deserve calm typography — not cramped feeds. Read, listen, bookmark, and return to the same verse tomorrow exactly where you stopped.",
-        points: [
-            { icon: BookOpen, text: "Read and listen with adjustable type and spacing" },
-            { icon: Headphones, text: "Reciter audio with verse-level navigation" },
-            { icon: Filter, text: "Bookmarks that sync across your devices" },
-        ],
-        image: "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1200&q=80",
-        imageAlt: "Quran reading experience with warm lighting",
-        imagePosition: "right",
-        variant: "accent-bar",
-        theme: "muted",
-        primaryCta: { label: "Open Quran", href: "/quran" },
-        secondaryCta: { label: "Browse hadith", href: "/hadith" },
+        time: "Morning",
+        module: "Quran",
+        detail: "A few ayat from your bookmark",
+        icon: BookOpen,
+        tint: "from-teal-600/90 to-emerald-700/90",
+    },
+    {
+        time: "Afternoon",
+        module: "Dhikr",
+        detail: "Quick remembrance between tasks",
+        icon: Repeat2,
+        tint: "from-emerald-700/90 to-teal-800/90",
+    },
+    {
+        time: "Evening",
+        module: "Guides",
+        detail: "Study or browse hadith",
+        icon: GraduationCap,
+        tint: "from-emerald-800/90 to-gray-900/90",
     },
 ]

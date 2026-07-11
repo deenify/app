@@ -2,11 +2,11 @@
 
 import { PenLine } from "lucide-react"
 import MarketingPageHero from "../generic/MarketingPageHero"
-import MarketingSplitSection from "../generic/MarketingSplitSection"
-import MarketingCtaSection from "../home/MarketingCtaSection"
-import AboutCommunitySection from "./AboutCommunitySection"
-import AboutPromiseSection from "./AboutPromiseSection"
-import { ABOUT_SPLITS } from "./content"
+import MarketingCtaSection from "../generic/MarketingCtaSection"
+import AboutBentoSection from "./AboutBentoSection"
+import AboutCaseStudySection from "./AboutCaseStudySection"
+import AboutTeamSection from "./AboutTeamSection"
+import AboutTimelineSection from "./AboutTimelineSection"
 import { clientEnv } from "@/env/client"
 
 const AboutPage = () => {
@@ -25,54 +25,20 @@ const AboutPage = () => {
                 image="/images/pages/marketing/home/mobile-overview.webp"
                 imageAlt="Deenify on mobile"
                 primaryCta={{ label: "Try the dashboard", href: "/dashboard" }}
+                secondaryCta={{ label: "Read our story", href: "#story" }}
+            />
+
+            <AboutTimelineSection />
+            <AboutCaseStudySection />
+            <AboutBentoSection />
+            <AboutTeamSection />
+            <MarketingCtaSection
+                lead={<>Join the people building <br className="block xs:hidden" /> with</>}
+                accent="intention"
+                subtitle={`If ${clientEnv.APP_NAME}'s mission resonates — start free, explore the dashboard, and make daily practice feel authored again.`}
+                primaryCta={{ label: "Try the dashboard", href: "/dashboard" }}
                 secondaryCta={{ label: "See features", href: "/features" }}
             />
-
-            <MarketingSplitSection
-                eyebrow={ABOUT_SPLITS[0].eyebrow}
-                lead={ABOUT_SPLITS[0].lead}
-                accent={ABOUT_SPLITS[0].accent}
-                description={ABOUT_SPLITS[0].description}
-                points={ABOUT_SPLITS[0].points}
-                image={ABOUT_SPLITS[0].image}
-                imageAlt={ABOUT_SPLITS[0].imageAlt}
-                imagePosition={ABOUT_SPLITS[0].imagePosition}
-                variant={ABOUT_SPLITS[0].variant}
-                theme={ABOUT_SPLITS[0].theme}
-                primaryCta={ABOUT_SPLITS[0].primaryCta}
-            />
-
-            <AboutCommunitySection />
-
-            <MarketingSplitSection
-                eyebrow={ABOUT_SPLITS[1].eyebrow}
-                lead={ABOUT_SPLITS[1].lead}
-                accent={ABOUT_SPLITS[1].accent}
-                description={ABOUT_SPLITS[1].description}
-                points={ABOUT_SPLITS[1].points}
-                image={ABOUT_SPLITS[1].image}
-                imageAlt={ABOUT_SPLITS[1].imageAlt}
-                imagePosition={ABOUT_SPLITS[1].imagePosition}
-                variant={ABOUT_SPLITS[1].variant}
-                theme={ABOUT_SPLITS[1].theme}
-            />
-
-            <MarketingSplitSection
-                eyebrow={ABOUT_SPLITS[2].eyebrow}
-                lead={ABOUT_SPLITS[2].lead}
-                accent={ABOUT_SPLITS[2].accent}
-                description={ABOUT_SPLITS[2].description}
-                points={ABOUT_SPLITS[2].points}
-                image={ABOUT_SPLITS[2].image}
-                imageAlt={ABOUT_SPLITS[2].imageAlt}
-                imagePosition={ABOUT_SPLITS[2].imagePosition}
-                variant={ABOUT_SPLITS[2].variant}
-                theme={ABOUT_SPLITS[2].theme}
-                primaryCta={ABOUT_SPLITS[2].primaryCta}
-            />
-
-            <AboutPromiseSection />
-            <MarketingCtaSection />
         </div>
     )
 }
