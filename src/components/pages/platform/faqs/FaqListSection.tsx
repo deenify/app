@@ -1,71 +1,13 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { Minus, Plus } from "lucide-react"
 import { cn } from "@/lib/utils/clsx"
-import Stagger from "@/components/shared/motion/Stagger"
+import Accordion from "@/components/shared/Accordion"
 import MarketingSectionHead from "../home/MarketingSectionHead"
-import { FAQ_CATEGORIES, FAQ_PAGE_ITEMS, type FaqEntry } from "./content"
+import { FAQ_CATEGORIES, FAQ_PAGE_ITEMS } from "./content"
 
 const CONTENT_BASE_DELAY = 0.45
 const STAGGER_STEP = 0.07
-
-type FaqAccordionProps = {
-    items: FaqEntry[]
-    defaultOpenIndex?: number | null
-}
-
-const FaqAccordion = ({ items, defaultOpenIndex = 0 }: FaqAccordionProps) => {
-    const [openIndex, setOpenIndex] = useState<number | null>(defaultOpenIndex)
-
-    return (
-        <div className="divide-y divide-layout-separator overflow-hidden rounded-md border border-layout-separator 
-        sm:rounded-2xl">
-            {items.map((item, index) => {
-                const open = openIndex === index
-
-                return (
-                    <Stagger
-                        key={item.question}
-                        index={index}
-                        animation="while_in_view"
-                        variant="up"
-                        baseDelay={CONTENT_BASE_DELAY}
-                        delay={STAGGER_STEP}
-                        duration={0.85}
-                    >
-                        <div>
-                            <button
-                                type="button"
-                                className="flex w-full items-center justify-between gap-4 bg-marketing-card px-5 
-                                py-4 text-left sm:px-6 sm:py-5"
-                                onClick={() => setOpenIndex(open ? null : index)}
-                                aria-expanded={open}
-                            >
-                                <span className="text-sm font-medium text-gray-900 sm:text-base">
-                                    {item.question}
-                                </span>
-                                {open ? (
-                                    <Minus className="h-4 w-4 shrink-0 text-emerald-600" />
-                                ) : (
-                                    <Plus className="h-4 w-4 shrink-0 text-gray-500" />
-                                )}
-                            </button>
-                            <div
-                                className={cn(
-                                    "overflow-hidden bg-marketing-card px-5 transition-all duration-300 sm:px-6",
-                                    open ? "max-h-56 pb-5" : "max-h-0"
-                                )}
-                            >
-                                <p className="text-sm leading-relaxed text-gray-600">{item.answer}</p>
-                            </div>
-                        </div>
-                    </Stagger>
-                )
-            })}
-        </div>
-    )
-}
 
 const FaqListSection = () => {
     const [activeCategory, setActiveCategory] = useState(FAQ_CATEGORIES[0].id)
@@ -114,7 +56,19 @@ const FaqListSection = () => {
                     )}
 
                     <div className="mt-6 sm:mt-8">
-                        <FaqAccordion key={activeCategory} items={filteredItems} defaultOpenIndex={0} />
+                        <Accordion
+                            key={activeCategory}
+                            items={filteredItems}
+                            defaultOpenIndex={0}
+                            size="sm"
+                            shape="soft"
+                            stagger
+                            staggerProps={{
+                                baseDelay: CONTENT_BASE_DELAY,
+                                delay: STAGGER_STEP,
+                                duration: 0.85,
+                            }}
+                        />
                     </div>
                 </div>
             </div>
