@@ -22,7 +22,7 @@ const accordionItemVariants = tv({
 })
 
 const accordionTriggerVariants = tv({
-  base: "group flex flex-1 items-center justify-between text-left transition-all outline-none disabled:pointer-events-none disabled:opacity-50",
+  base: "group flex flex-1 items-center justify-between text-left transition-all outline-none disabled:pointer-events-none disabled:opacity-50 transform-gpu",
   variants: {
     variant: {
       default:
@@ -43,7 +43,7 @@ const accordionTriggerVariants = tv({
 })
 
 const accordionContentVariants = tv({
-  base: "overflow-hidden text-sm transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down",
+  base: "overflow-hidden text-sm transition-all transform-gpu will-change-[height,transform] data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down",
   variants: {
     variant: {
       default: "",
@@ -127,7 +127,7 @@ const AccordionTrigger = React.forwardRef<
         {!hideIcon && iconVariant === "chevron" && (
           <ChevronDown
             className={cn(
-              "h-4 w-4 shrink-0 transition-transform duration-200",
+              "h-4 w-4 shrink-0 transform-gpu will-change-transform transition-transform duration-200",
               classNames?.icon
             )}
           />
@@ -136,14 +136,14 @@ const AccordionTrigger = React.forwardRef<
           <>
             <Plus
               className={cn(
-                "h-4 w-4 shrink-0 text-gray-500 group-data-[state=open]:hidden",
+                "h-4 w-4 shrink-0 transform-gpu text-gray-500 group-data-[state=open]:hidden",
                 classNames?.icon,
                 classNames?.iconClosed
               )}
             />
             <Minus
               className={cn(
-                "hidden h-4 w-4 shrink-0 text-emerald-600 group-data-[state=open]:block",
+                "hidden h-4 w-4 shrink-0 transform-gpu text-emerald-600 group-data-[state=open]:block",
                 classNames?.icon,
                 classNames?.iconOpen
               )}

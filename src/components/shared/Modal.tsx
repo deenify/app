@@ -50,6 +50,7 @@ export function Modal({
                                 transition={{ duration: 0.28 }}
                                 className={cn(
                                     "fixed inset-0 z-[9998] bg-black/50 backdrop-blur-sm",
+                                    "transform-gpu will-change-[opacity]",
                                     classNames?.overlay
                                 )}
                             />
@@ -65,6 +66,7 @@ export function Modal({
                                         "rounded-md border border-layout-separator",
                                         "bg-background shadow-2xl outline-none",
                                         "w-[min(calc(100vw-2rem),700px)] max-h-[90dvh]",
+                                        "transform-gpu will-change-transform",
                                         className,
                                     )}
                                 >

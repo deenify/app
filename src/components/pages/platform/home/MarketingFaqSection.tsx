@@ -1,6 +1,6 @@
 "use client"
 
-import Accordion from "@/components/shared/Accordion"
+import AccordionList from "@/components/shared/AccordionList"
 import MarketingSectionHead from "./MarketingSectionHead"
 import { FAQ_ITEMS } from "./content"
 
@@ -20,7 +20,7 @@ const MarketingFaqSection = () => {
                     />
                 </div>
 
-                <Accordion
+                <AccordionList
                     items={FAQ_ITEMS}
                     defaultOpenIndex={0}
                     shape="rounded"

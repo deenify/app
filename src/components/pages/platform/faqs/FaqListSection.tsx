@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react"
 import { cn } from "@/lib/utils/clsx"
-import Accordion from "@/components/shared/Accordion"
+import AccordionList from "@/components/shared/AccordionList"
 import MarketingSectionHead from "../home/MarketingSectionHead"
 import { FAQ_CATEGORIES, FAQ_PAGE_ITEMS } from "./content"
 
@@ -55,19 +55,19 @@ const FaqListSection = () => {
                         <p className="mt-4 text-center text-sm text-gray-600 sm:mt-5">{activeMeta.description}</p>
                     )}
 
-                    <div className="mt-6 sm:mt-8">
-                        <Accordion
+                    <div className="mt-6 sm:mt-10 md:mt-12">
+                        <AccordionList
                             key={activeCategory}
                             items={filteredItems}
                             defaultOpenIndex={0}
-                            size="sm"
-                            shape="soft"
+                            shape="rounded"
                             stagger
                             staggerProps={{
                                 baseDelay: CONTENT_BASE_DELAY,
                                 delay: STAGGER_STEP,
                                 duration: 0.85,
                             }}
+                            className="mx-auto max-w-3xl"
                         />
                     </div>
                 </div>

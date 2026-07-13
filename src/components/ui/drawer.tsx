@@ -27,6 +27,7 @@ const DrawerOverlay = React.forwardRef<
         ref={ref}
         className={cn(
             "fixed inset-0 z-[80] bg-black/70 backdrop-blur-sm",
+            "transform-gpu will-change-[opacity]",
             "data-[state=open]:animate-in data-[state=closed]:animate-out",
             "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
             "duration-500",
@@ -52,7 +53,8 @@ const DrawerContent = ({
         {shouldShowOverlay && <DrawerOverlay overlayStyle={overlayStyle} />}
         <DrawerPrimitive.Content
             className={cn(
-                "fixed inset-x-0 bottom-0 z-[81] h-auto rounded-t-xl rounded-b-none border border-b-0 bg-white overflow-hidden",
+                "fixed inset-x-0 bottom-0 z-[81] h-auto overflow-hidden rounded-t-xl rounded-b-none border border-b-0 bg-white",
+                "transform-gpu will-change-transform",
                 className
             )}
             {...props}
