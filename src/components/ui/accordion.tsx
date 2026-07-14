@@ -127,7 +127,7 @@ const AccordionTrigger = React.forwardRef<
         {!hideIcon && iconVariant === "chevron" && (
           <ChevronDown
             className={cn(
-              "h-4 w-4 shrink-0 transform-gpu will-change-transform transition-transform duration-200",
+              "h-4 w-4 shrink-0 transform-gpu will-change-transform transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
               classNames?.icon
             )}
           />
@@ -136,14 +136,14 @@ const AccordionTrigger = React.forwardRef<
           <>
             <Plus
               className={cn(
-                "h-4 w-4 shrink-0 transform-gpu text-gray-500 group-data-[state=open]:hidden",
+                "h-4 w-4 shrink-0 transform-gpu text-gray-500 transition-opacity duration-300 group-data-[state=open]:hidden",
                 classNames?.icon,
                 classNames?.iconClosed
               )}
             />
             <Minus
               className={cn(
-                "hidden h-4 w-4 shrink-0 transform-gpu text-emerald-600 group-data-[state=open]:block",
+                "hidden h-4 w-4 shrink-0 transform-gpu text-emerald-600 transition-opacity duration-300 group-data-[state=open]:block",
                 classNames?.icon,
                 classNames?.iconOpen
               )}

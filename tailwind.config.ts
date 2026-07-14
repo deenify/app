@@ -202,8 +202,8 @@ const config: Config = {
     		animation: {
     			'marquee-left': 'marquee-left linear infinite',
     			'marquee-right': 'marquee-right linear infinite',
-    			'accordion-down': 'accordion-down 0.28s cubic-bezier(0.22, 1, 0.36, 1)',
-    			'accordion-up': 'accordion-up 0.24s cubic-bezier(0.22, 1, 0.36, 1)'
+    			'accordion-down': 'accordion-down 0.42s cubic-bezier(0.22, 1, 0.36, 1)',
+    			'accordion-up': 'accordion-up 0.42s cubic-bezier(0.22, 1, 0.36, 1)'
     		}
     	}
     },
