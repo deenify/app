@@ -59,8 +59,13 @@ const AboutCaseStudySection = () => {
                                 variant="up"
                                 delay={0.07}
                                 duration={0.5}
+                                className="h-full"
                             >
-                                <div className="rounded-md border border-gray-100 bg-white p-3.5 text-center shadow-sm sm:rounded-2xl sm:p-6">
+                                <div
+                                    className="flex h-full min-h-[104px] flex-col items-center justify-center 
+                                    rounded-md border border-gray-100 bg-white p-3.5 text-center shadow-sm 
+                                    sm:min-h-[120px] sm:rounded-2xl sm:p-6"
+                                >
                                     <p className="font-heading text-3xl font-semibold text-emerald-700">
                                         {stat.value}
                                     </p>

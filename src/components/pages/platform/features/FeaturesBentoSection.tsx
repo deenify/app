@@ -24,7 +24,7 @@ const FeaturesBentoSection = () => {
                 </div>
 
                 <div
-                    className="mx-auto mt-10 grid max-w-5xl auto-rows-[minmax(120px,auto)] grid-cols-2 gap-3 
+                    className="mx-auto mt-10 grid max-w-5xl auto-rows-[minmax(120px,auto)] grid-cols-2 gap-2 
                     sm:mt-12 sm:grid-cols-4 sm:gap-4"
                 >
                     {FEATURE_BENTO_MODULES.map((mod, index) => {
@@ -47,33 +47,33 @@ const FeaturesBentoSection = () => {
                                         "group relative flex h-full flex-col justify-between overflow-hidden rounded-2xl border",
                                         "transition-all duration-300 hover:border-emerald-300 hover:shadow-[0_16px_40px_rgba(16,185,129,0.12)]",
                                         isFeatured
-                                            ? "border-emerald-200 bg-gradient-to-br from-emerald-600 to-emerald-800 p-6 text-white sm:p-7"
-                                            : "border-gray-100 bg-marketing-card p-4 sm:p-5",
+                                            ? "border-emerald-200 bg-gradient-to-br from-emerald-600 to-emerald-800 p-5 text-white sm:p-7"
+                                            : "border-gray-100 bg-marketing-card p-3.5 sm:p-5",
                                         mod.className
                                     )}
                                 >
-                                    <div>
+                                    <div className="min-w-0">
                                         <span
                                             className={cn(
-                                                "flex h-9 w-9 items-center justify-center rounded-full sm:h-10 sm:w-10",
+                                                "flex h-9 w-9 items-center justify-center rounded-full transition-colors sm:h-10 sm:w-10",
                                                 isFeatured
                                                     ? "bg-white/15 text-white"
-                                                    : "bg-emerald-50 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white"
+                                                    : "bg-white text-gray-900 group-hover:bg-emerald-600 group-hover:text-white"
                                             )}
                                         >
                                             <Icon className="h-4 w-4" strokeWidth={1.9} />
                                         </span>
                                         <h3
                                             className={cn(
-                                                "mt-4 font-heading font-semibold",
-                                                isFeatured ? "text-xl sm:text-2xl" : "text-base text-gray-900"
+                                                "mt-3 truncate font-heading font-semibold sm:mt-4",
+                                                isFeatured ? "text-xl sm:text-2xl" : "text-sm text-gray-900 sm:text-base"
                                             )}
                                         >
                                             {mod.label}
                                         </h3>
                                         <p
                                             className={cn(
-                                                "mt-1 text-sm",
+                                                "mt-1 truncate text-xs sm:text-sm",
                                                 isFeatured ? "text-emerald-100" : "text-gray-500"
                                             )}
                                         >
@@ -83,7 +83,7 @@ const FeaturesBentoSection = () => {
 
                                     <ArrowUpRight
                                         className={cn(
-                                            "mt-4 h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5",
+                                            "mt-3 h-4 w-4 shrink-0 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 sm:mt-4",
                                             isFeatured ? "text-emerald-200" : "text-gray-300 group-hover:text-emerald-600"
                                         )}
                                     />

@@ -210,7 +210,11 @@ export function useScrollReset(containerId?: string) {
     const pathname = usePathname()
 
     useLayoutEffect(() => {
-        const panel = containerId ? document.getElementById(containerId) : null
+        const panel = containerId
+            ? document.getElementById(containerId)
+            : null
+
+        panel?.scrollTo({ top: 0, behavior: "instant" })
         resetPageScroll(panel)
     }, [pathname, containerId])
 }

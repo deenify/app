@@ -1,74 +1,21 @@
 "use client"
 
-import { useMemo, useState } from "react"
-import { Minus, Plus } from "lucide-react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { cn } from "@/lib/utils/clsx"
-import Stagger from "@/components/shared/motion/Stagger"
+import AccordionList from "@/components/shared/AccordionList"
+import FadeEdge from "@/components/shared/FadeEdge"
 import MarketingSectionHead from "../home/MarketingSectionHead"
-import { FAQ_CATEGORIES, FAQ_PAGE_ITEMS, type FaqEntry } from "./content"
+import { FAQ_CATEGORIES, FAQ_PAGE_ITEMS } from "./content"
 
 const CONTENT_BASE_DELAY = 0.45
 const STAGGER_STEP = 0.07
-
-type FaqAccordionProps = {
-    items: FaqEntry[]
-    defaultOpenIndex?: number | null
-}
-
-const FaqAccordion = ({ items, defaultOpenIndex = 0 }: FaqAccordionProps) => {
-    const [openIndex, setOpenIndex] = useState<number | null>(defaultOpenIndex)
-
-    return (
-        <div className="divide-y divide-layout-separator overflow-hidden rounded-md border border-layout-separator 
-        sm:rounded-2xl">
-            {items.map((item, index) => {
-                const open = openIndex === index
-
-                return (
-                    <Stagger
-                        key={item.question}
-                        index={index}
-                        animation="while_in_view"
-                        variant="up"
-                        baseDelay={CONTENT_BASE_DELAY}
-                        delay={STAGGER_STEP}
-                        duration={0.85}
-                    >
-                        <div>
-                            <button
-                                type="button"
-                                className="flex w-full items-center justify-between gap-4 bg-marketing-card px-5 
-                                py-4 text-left sm:px-6 sm:py-5"
-                                onClick={() => setOpenIndex(open ? null : index)}
-                                aria-expanded={open}
-                            >
-                                <span className="text-sm font-medium text-gray-900 sm:text-base">
-                                    {item.question}
-                                </span>
-                                {open ? (
-                                    <Minus className="h-4 w-4 shrink-0 text-emerald-600" />
-                                ) : (
-                                    <Plus className="h-4 w-4 shrink-0 text-gray-500" />
-                                )}
-                            </button>
-                            <div
-                                className={cn(
-                                    "overflow-hidden bg-marketing-card px-5 transition-all duration-300 sm:px-6",
-                                    open ? "max-h-56 pb-5" : "max-h-0"
-                                )}
-                            >
-                                <p className="text-sm leading-relaxed text-gray-600">{item.answer}</p>
-                            </div>
-                        </div>
-                    </Stagger>
-                )
-            })}
-        </div>
-    )
-}
+const SCROLL_EDGE_PX = 4
 
 const FaqListSection = () => {
     const [activeCategory, setActiveCategory] = useState(FAQ_CATEGORIES[0].id)
+    const tabsRef = useRef<HTMLDivElement>(null)
+    const [showLeftFade, setShowLeftFade] = useState(false)
+    const [showRightFade, setShowRightFade] = useState(true)
 
     const filteredItems = useMemo(
         () => FAQ_PAGE_ITEMS.filter((item) => item.categoryId === activeCategory),
@@ -76,6 +23,34 @@ const FaqListSection = () => {
     )
 
     const activeMeta = FAQ_CATEGORIES.find((category) => category.id === activeCategory)
+
+    const updateTabFades = useCallback(() => {
+        const el = tabsRef.current
+        if (!el) return
+
+        const { scrollLeft, scrollWidth, clientWidth } = el
+        const maxScroll = scrollWidth - clientWidth
+        const canScroll = maxScroll > SCROLL_EDGE_PX
+
+        setShowLeftFade(canScroll && scrollLeft > SCROLL_EDGE_PX)
+        setShowRightFade(canScroll && scrollLeft < maxScroll - SCROLL_EDGE_PX)
+    }, [])
+
+    useEffect(() => {
+        const el = tabsRef.current
+        if (!el) return
+
+        updateTabFades()
+
+        const resizeObserver = new ResizeObserver(() => updateTabFades())
+        resizeObserver.observe(el)
+
+        window.addEventListener("resize", updateTabFades)
+        return () => {
+            resizeObserver.disconnect()
+            window.removeEventListener("resize", updateTabFades)
+        }
+    }, [updateTabFades])
 
     return (
         <section className="bg-marketing-light py-14 sm:py-20 lg:py-24">
@@ -87,34 +62,58 @@ const FaqListSection = () => {
                 />
 
                 <div className="mx-auto mt-10 max-w-3xl sm:mt-12">
-                    <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide sm:flex-wrap sm:justify-center sm:pb-0">
-                        {FAQ_CATEGORIES.map((category) => {
-                            const active = category.id === activeCategory
+                    <div className="relative">
+                        <FadeEdge
+                            className="sm:hidden"
+                            showLeft={showLeftFade}
+                            showRight={showRightFade}
+                        />
 
-                            return (
-                                <button
-                                    key={category.id}
-                                    type="button"
-                                    onClick={() => setActiveCategory(category.id)}
-                                    className={cn(
-                                        "shrink-0 rounded-full border px-4 py-2 text-xs font-medium transition-colors sm:text-sm",
-                                        active
-                                            ? "border-emerald-600 bg-emerald-600 text-white"
-                                            : "border-gray-200 bg-white text-gray-700 hover:border-emerald-200 hover:text-emerald-800"
-                                    )}
-                                >
-                                    {category.label}
-                                </button>
-                            )
-                        })}
+                        <div
+                            ref={tabsRef}
+                            onScroll={updateTabFades}
+                            className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide sm:flex-wrap sm:justify-center sm:overflow-visible sm:pb-0"
+                        >
+                            {FAQ_CATEGORIES.map((category) => {
+                                const active = category.id === activeCategory
+
+                                return (
+                                    <button
+                                        key={category.id}
+                                        type="button"
+                                        onClick={() => setActiveCategory(category.id)}
+                                        className={cn(
+                                            "shrink-0 rounded-full border px-4 py-2 text-xs font-medium transition-colors sm:text-sm",
+                                            active
+                                                ? "border-emerald-600 bg-emerald-600 text-white"
+                                                : "border-gray-200 bg-white text-gray-700 hover:border-emerald-200 hover:text-emerald-800"
+                                        )}
+                                    >
+                                        {category.label}
+                                    </button>
+                                )
+                            })}
+                        </div>
                     </div>
 
                     {activeMeta && (
                         <p className="mt-4 text-center text-sm text-gray-600 sm:mt-5">{activeMeta.description}</p>
                     )}
 
-                    <div className="mt-6 sm:mt-8">
-                        <FaqAccordion key={activeCategory} items={filteredItems} defaultOpenIndex={0} />
+                    <div className="mt-6 sm:mt-10 md:mt-12">
+                        <AccordionList
+                            key={activeCategory}
+                            items={filteredItems}
+                            defaultOpenIndex={0}
+                            shape="rounded"
+                            stagger
+                            staggerProps={{
+                                baseDelay: CONTENT_BASE_DELAY,
+                                delay: STAGGER_STEP,
+                                duration: 0.85,
+                            }}
+                            className="mx-auto max-w-3xl"
+                        />
                     </div>
                 </div>
             </div>

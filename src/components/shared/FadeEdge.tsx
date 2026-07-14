@@ -5,6 +5,10 @@ type FadeEdgeProps = {
     className?: string
     /** Hide fades on narrow viewports — avoids clipping content on ~300px screens */
     hideBelow?: "sm" | "md" | "lg"
+    /** When false, left fade hides. Default true. */
+    showLeft?: boolean
+    /** When false, right fade hides. Default true. */
+    showRight?: boolean
     classNames?: {
         left?: string
         right?: string
@@ -21,6 +25,8 @@ const FadeEdge = ({
     fadeDirection = "both",
     className,
     hideBelow,
+    showLeft = true,
+    showRight = true,
     classNames,
 }: FadeEdgeProps) => {
     const isLeft = fadeDirection === "left"
@@ -30,15 +36,17 @@ const FadeEdge = ({
 
     const edgeBase = cn(
         "pointer-events-none absolute inset-y-0 z-10",
-        "w-6 xs:w-10 sm:w-16 md:w-24 lg:w-32",
+        "w-10 xs:w-14 sm:w-20 md:w-28 lg:w-36",
         visibility
     )
 
     const leftEdge = (
         <div
+            aria-hidden
             className={cn(
                 edgeBase,
-                "left-0 bg-gradient-to-r from-marketing-light via-marketing-light/90 to-transparent",
+                "left-0 bg-gradient-to-r from-marketing-light from-0% via-marketing-light/55 via-45% to-transparent to-100%",
+                showLeft ? "opacity-100" : "opacity-0",
                 classNames?.left
             )}
         />
@@ -46,9 +54,11 @@ const FadeEdge = ({
 
     const rightEdge = (
         <div
+            aria-hidden
             className={cn(
                 edgeBase,
-                "right-0 bg-gradient-to-l from-marketing-light via-marketing-light/90 to-transparent",
+                "right-0 bg-gradient-to-l from-marketing-light from-0% via-marketing-light/55 via-45% to-transparent to-100%",
+                showRight ? "opacity-100" : "opacity-0",
                 classNames?.right
             )}
         />

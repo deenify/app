@@ -1,18 +1,13 @@
 "use client"
 
-import { useState } from "react"
-import { Plus, Minus } from "lucide-react"
-import { cn } from "@/lib/utils/clsx"
+import AccordionList from "@/components/shared/AccordionList"
 import MarketingSectionHead from "./MarketingSectionHead"
-import Stagger from "@/components/shared/motion/Stagger"
 import { FAQ_ITEMS } from "./content"
 
 const CONTENT_BASE_DELAY = 0.5
 const STAGGER_STEP = 0.08
 
 const MarketingFaqSection = () => {
-    const [openIndex, setOpenIndex] = useState<number | null>(0)
-
     return (
         <section id="faq" className="bg-marketing-light py-16 sm:py-24">
             <div className="container">
@@ -25,51 +20,18 @@ const MarketingFaqSection = () => {
                     />
                 </div>
 
-                <div className="mx-auto mt-12 max-w-3xl divide-y divide-layout-separator rounded-3xl 
-                border border-layout-separator bg-transparent overflow-hidden">
-                    {FAQ_ITEMS.map((item, index) => {
-                        const open = openIndex === index
-
-                        return (
-                            <Stagger
-                                key={item.question}
-                                index={index}
-                                animation="while_in_view"
-                                variant="up"
-                                baseDelay={CONTENT_BASE_DELAY}
-                                delay={STAGGER_STEP}
-                                duration={0.85}
-                            >
-                                <div>
-                                    <button
-                                        type="button"
-                                        className="flex w-full items-center justify-between gap-4 
-                                    bg-marketing-card px-6 py-5 text-left"
-                                        onClick={() => setOpenIndex(open ? null : index)}
-                                        aria-expanded={open}
-                                    >
-                                        <span className="text-sm font-medium text-gray-900 sm:text-base">
-                                            {item.question}
-                                        </span>
-                                        {open ? (
-                                            <Minus className="h-4 w-4 shrink-0 text-emerald-600" />
-                                        ) : (
-                                            <Plus className="h-4 w-4 shrink-0 text-gray-500" />
-                                        )}
-                                    </button>
-                                    <div
-                                        className={cn(
-                                            "overflow-hidden bg-marketing-card px-6 transition-all duration-300",
-                                            open ? "max-h-48 pb-5" : "max-h-0"
-                                        )}
-                                    >
-                                        <p className="text-sm leading-relaxed text-gray-600">{item.answer}</p>
-                                    </div>
-                                </div>
-                            </Stagger>
-                        )
-                    })}
-                </div>
+                <AccordionList
+                    items={FAQ_ITEMS}
+                    defaultOpenIndex={0}
+                    shape="rounded"
+                    stagger
+                    staggerProps={{
+                        baseDelay: CONTENT_BASE_DELAY,
+                        delay: STAGGER_STEP,
+                        duration: 0.85,
+                    }}
+                    className="mx-auto mt-12 max-w-3xl"
+                />
             </div>
         </section>
     )
