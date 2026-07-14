@@ -38,7 +38,7 @@ export const DASHBOARD_ROUTES = [
 
 
 /** Auth route group: (auth) */
-export const AUTH_ROUTES = ["/login", "/register"] as const
+export const AUTH_ROUTES = ["/login", "/register", "/forgot-password", "/reset-password"] as const
 
 
 /** Route types */

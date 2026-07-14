@@ -309,7 +309,7 @@
         @apply w-6 bg-emerald-600;
     }
 
-    /* Features tour — card stack swiper (rewind; no rotate glitch) */
+    /* Features tour — card stack swiper (no rotate; ends stop cleanly) */
     .features-tour-stack-swiper {
         width: 100%;
         height: 520px;

@@ -8,7 +8,8 @@ import { cn } from "@/lib/utils/clsx"
 
 type MarketingPageHeroCta = {
     label: string
-    href: string
+    href?: string
+    onClick?: () => void
 }
 
 type MarketingPageHeroProps = {
@@ -85,6 +86,7 @@ const MarketingPageHero = ({
                                         <Button
                                             variant="default"
                                             href={primaryCta.href}
+                                            onClick={primaryCta.onClick}
                                             className="h-10 w-full rounded-md px-8 text-sm font-medium sm:h-11 
                                             sm:rounded-full xs:w-auto"
                                         >
@@ -95,6 +97,7 @@ const MarketingPageHero = ({
                                         <Button
                                             variant="outline-emerald"
                                             href={secondaryCta.href}
+                                            onClick={secondaryCta.onClick}
                                             className="h-10 w-full rounded-md px-8 text-sm font-medium sm:h-11 
                                             sm:rounded-full xs:w-auto"
                                         >

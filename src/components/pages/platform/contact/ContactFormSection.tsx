@@ -169,31 +169,37 @@ const ContactFormSection = () => {
                         </Animate>
 
                         <Animate variant="up" animate="while_in_view" delay={0.5} duration={0.9}>
-                            <div className="rounded-md border border-gray-100 bg-white p-5 sm:rounded-2xl sm:p-6">
+                            <div className="overflow-hidden rounded-md border border-gray-100 bg-white p-4 xs:p-5 sm:rounded-2xl sm:p-6">
                                 <h3 className="font-heading text-base font-semibold text-gray-900">Before you write</h3>
                                 <ul className="mt-4 space-y-3 text-sm text-gray-600">
-                                    <li className="flex gap-2">
+                                    <li className="flex min-w-0 gap-2">
                                         <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500" />
-                                        Check our{" "}
-                                        <a href="/faqs" className="font-medium text-emerald-700 hover:underline">
-                                            FAQs
-                                        </a>{" "}
-                                        for quick answers
+                                        <span className="min-w-0 flex-1 text-pretty break-words">
+                                            Check our{" "}
+                                            <a href="/faqs" className="font-medium text-emerald-700 hover:underline">
+                                                FAQs
+                                            </a>{" "}
+                                            for quick answers
+                                        </span>
                                     </li>
-                                    <li className="flex gap-2">
+                                    <li className="flex min-w-0 gap-2">
                                         <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500" />
-                                        Active users can open{" "}
-                                        <a href="/support" className="font-medium text-emerald-700 hover:underline">
-                                            in-app support
-                                        </a>
+                                        <span className="min-w-0 flex-1 text-pretty break-words">
+                                            Active users can open{" "}
+                                            <a href="/support" className="font-medium text-emerald-700 hover:underline">
+                                                in-app support
+                                            </a>
+                                        </span>
                                     </li>
-                                    <li className="flex gap-2">
+                                    <li className="flex min-w-0 gap-2">
                                         <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500" />
-                                        Billing questions? See{" "}
-                                        <a href="/pricing" className="font-medium text-emerald-700 hover:underline">
-                                            pricing
-                                        </a>{" "}
-                                        first
+                                        <span className="min-w-0 flex-1 text-pretty break-words">
+                                            Billing questions? See{" "}
+                                            <a href="/pricing" className="font-medium text-emerald-700 hover:underline">
+                                                pricing
+                                            </a>{" "}
+                                            first
+                                        </span>
                                     </li>
                                 </ul>
                             </div>

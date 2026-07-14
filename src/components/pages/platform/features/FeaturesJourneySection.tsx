@@ -1,5 +1,6 @@
 "use client"
 
+import { useBreakpoint } from "@/hooks/useBreakpoint"
 import Stagger from "@/components/shared/motion/Stagger"
 import { cn } from "@/lib/utils/clsx"
 import { clientEnv } from "@/env/client"
@@ -9,6 +10,8 @@ const STAGGER_STEP = 0.1
 const CONTENT_BASE_DELAY = 0.4
 
 const FeaturesJourneySection = () => {
+    const isLgUp = useBreakpoint("lg", "up")
+
     return (
         <section className="overflow-hidden bg-marketing-light py-14 sm:py-20">
             <div className="container">
@@ -30,6 +33,7 @@ const FeaturesJourneySection = () => {
                             <Stagger
                                 key={moment.time}
                                 index={index}
+                                animate={isLgUp}
                                 animation="while_in_view"
                                 variant="up"
                                 baseDelay={CONTENT_BASE_DELAY}

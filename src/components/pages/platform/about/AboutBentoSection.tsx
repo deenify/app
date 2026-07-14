@@ -19,7 +19,7 @@ const AboutBentoSection = () => {
                     />
                 </div>
 
-                <div className="mx-auto mt-10 grid max-w-4xl grid-cols-2 gap-3 sm:mt-12 sm:gap-4 lg:grid-cols-4">
+                <div className="mx-auto mt-10 grid max-w-4xl grid-cols-2 gap-2 sm:mt-12 sm:gap-4 lg:grid-cols-4">
                     {ABOUT_VALUE_TILES.map((tile, index) => {
                         const Icon = tile.icon
 
@@ -34,16 +34,16 @@ const AboutBentoSection = () => {
                                 duration={0.85}
                             >
                                 <article
-                                    className="flex aspect-square flex-col justify-between rounded-md border 
-                                    border-gray-100 bg-white p-4 shadow-sm sm:rounded-2xl sm:p-5"
+                                    className="flex aspect-square flex-col gap-3 rounded-md border 
+                                    border-gray-100 bg-white p-3.5 shadow-sm sm:gap-4 sm:rounded-2xl sm:p-5"
                                 >
                                     <span
-                                        className="flex h-9 w-9 items-center justify-center rounded-full 
+                                        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full 
                                         bg-emerald-50 text-emerald-600"
                                     >
                                         <Icon className="h-4 w-4" strokeWidth={1.9} />
                                     </span>
-                                    <div>
+                                    <div className="min-w-0">
                                         <h3 className="font-heading text-sm font-semibold text-gray-900 sm:text-base">
                                             {tile.title}
                                         </h3>

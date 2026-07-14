@@ -2,7 +2,6 @@
 
 import { useCallback, useState } from "react"
 import Image from "next/image"
-import { ChevronLeft, ChevronRight } from "lucide-react"
 import type { Swiper as SwiperInstance } from "swiper"
 import { EffectCards } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
@@ -28,16 +27,6 @@ const FeaturesTourStackSection = () => {
         [swiper, isAnimating]
     )
 
-    const goPrev = useCallback(() => {
-        if (!swiper || isAnimating) return
-        swiper.slidePrev()
-    }, [swiper, isAnimating])
-
-    const goNext = useCallback(() => {
-        if (!swiper || isAnimating) return
-        swiper.slideNext()
-    }, [swiper, isAnimating])
-
     return (
         <section id="tour" className="overflow-hidden bg-marketing-light py-14 sm:py-20 lg:py-24">
             <div className="container">
@@ -54,49 +43,24 @@ const FeaturesTourStackSection = () => {
                     animate="while_in_view"
                     delay={0.35}
                     duration={1}
-                    className="relative mx-auto mt-10 max-w-[340px] sm:mt-14 sm:max-w-[380px] lg:max-w-[420px]"
+                    className="relative mx-auto mt-10 w-full max-w-[min(100%,300px)] xs:max-w-[340px] sm:mt-14 
+                    sm:max-w-[380px] lg:max-w-[420px]"
                 >
-                    <button
-                        type="button"
-                        aria-label="Previous tour step"
-                        onClick={goPrev}
-                        disabled={isAnimating}
-                        className="absolute -left-2 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center 
-                        justify-center rounded-full border border-gray-200 bg-white text-gray-700 shadow-md 
-                        transition-colors hover:border-emerald-200 hover:text-emerald-700 disabled:opacity-50 
-                        sm:-left-14 sm:h-11 sm:w-11"
-                    >
-                        <ChevronLeft className="h-5 w-5" />
-                    </button>
-
-                    <button
-                        type="button"
-                        aria-label="Next tour step"
-                        onClick={goNext}
-                        disabled={isAnimating}
-                        className="absolute -right-2 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center 
-                        justify-center rounded-full border border-gray-200 bg-white text-gray-700 shadow-md 
-                        transition-colors hover:border-emerald-200 hover:text-emerald-700 disabled:opacity-50 
-                        sm:-right-14 sm:h-11 sm:w-11"
-                    >
-                        <ChevronRight className="h-5 w-5" />
-                    </button>
-
                     <Swiper
                         className="features-tour-stack-swiper"
                         modules={[EffectCards]}
                         effect="cards"
                         grabCursor
-                        rewind
-                        speed={650}
-                        resistanceRatio={0.65}
+                        speed={780}
+                        resistanceRatio={0.85}
+                        threshold={8}
                         cardsEffect={{
                             slideShadows: false,
                             rotate: false,
-                            perSlideOffset: 10,
+                            perSlideOffset: 7,
                         }}
                         onSwiper={setSwiper}
-                        onSlideChange={(instance) => setActiveIndex(instance.realIndex)}
+                        onSlideChange={(instance) => setActiveIndex(instance.activeIndex)}
                         onTransitionStart={() => setIsAnimating(true)}
                         onTransitionEnd={() => setIsAnimating(false)}
                     >
@@ -192,7 +156,7 @@ const FeaturesTourStackSection = () => {
                 </Animate>
 
                 <p className="mx-auto mt-6 max-w-sm text-center text-xs text-gray-500 sm:text-sm">
-                    Drag or use arrows — each card opens the live module in your dashboard.
+                    Swipe the stack or tap a tip — each card opens the live module in your dashboard.
                 </p>
             </div>
         </section>

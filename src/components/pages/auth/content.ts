@@ -1,4 +1,4 @@
-import { BookOpen, HeartHandshake, LucideIcon, ShieldCheck, Sparkles, Users } from "lucide-react";
+import { BookOpen, HeartHandshake, KeyRound, LockKeyhole, LucideIcon, MailCheck, ShieldCheck, Sparkles, Users } from "lucide-react";
 
 
 // Sign in highlights
@@ -31,5 +31,39 @@ export const REGISTER_HIGHLIGHTS: { icon: LucideIcon; text: string }[] = [
     {
         icon: ShieldCheck,
         text: "Private sign-up—you control what you save and share.",
+    },
+]
+
+
+// Forgot password highlights
+export const FORGOT_PASSWORD_HIGHLIGHTS: { icon: LucideIcon; text: string }[] = [
+    {
+        icon: MailCheck,
+        text: "We email a secure reset link that expires shortly.",
+    },
+    {
+        icon: ShieldCheck,
+        text: "Your reading progress and settings stay untouched.",
+    },
+    {
+        icon: LockKeyhole,
+        text: "Only you can set a new password from that link.",
+    },
+]
+
+
+// Reset password highlights
+export const RESET_PASSWORD_HIGHLIGHTS: { icon: LucideIcon; text: string }[] = [
+    {
+        icon: KeyRound,
+        text: "Choose a strong password you have not used here before.",
+    },
+    {
+        icon: ShieldCheck,
+        text: "You will be signed out of other sessions for safety.",
+    },
+    {
+        icon: LockKeyhole,
+        text: "After saving, sign in again with your new password.",
     },
 ]
