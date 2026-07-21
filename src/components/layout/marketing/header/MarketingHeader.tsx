@@ -5,6 +5,8 @@ import MarketingDesktopNav from "./MarketingDesktopNav"
 import { cn } from "@/lib/utils/clsx"
 import MarketingHamburger from "@/assets/svg/menu/MarketingHamburger"
 import Logo from "@/components/shared/Logo"
+import { useBreakpoint } from "@/hooks/useBreakpoint"
+import { MARKETING_HEADER_HEIGHT } from "./content"
 
 interface MarketingHeaderProps {
     className?: string
@@ -12,14 +14,20 @@ interface MarketingHeaderProps {
     isMenuOpen: boolean
 }
 
+
 const MarketingHeader = ({ className, onMenuOpen, isMenuOpen }: MarketingHeaderProps) => {
+    const isMobile = useBreakpoint("sm")
+    const headerHeight = MARKETING_HEADER_HEIGHT(isMobile)
+
     return (
         <header className={cn(
             "z-50 border-b border-layout-separator bg-white/90 md:bg-white/80",
             "backdrop-blur-md ease-out duration-300",
             className
         )}>
-            <section className="container-header-footer flex h-[72px] items-center justify-between gap-4 sm:h-[76px]">
+            <section className="container-header-footer flex items-center justify-between gap-4"
+                style={{ height: headerHeight }}
+            >
                 <main className="w-full max-w-[150px]">
                     <Logo />
                 </main>

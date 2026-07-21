@@ -176,7 +176,7 @@ const ContactFormSection = () => {
                                         <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500" />
                                         <span className="min-w-0 flex-1 text-pretty break-words">
                                             Check our{" "}
-                                            <a href="/faqs" className="font-medium text-emerald-700 hover:underline">
+                                            <a href="/faqs" className="font-medium text-emerald-700 hover:underline inline-block">
                                                 FAQs
                                             </a>{" "}
                                             for quick answers
@@ -186,7 +186,7 @@ const ContactFormSection = () => {
                                         <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500" />
                                         <span className="min-w-0 flex-1 text-pretty break-words">
                                             Active users can open{" "}
-                                            <a href="/support" className="font-medium text-emerald-700 hover:underline">
+                                            <a href="/support" className="font-medium text-emerald-700 hover:underline inline-block">
                                                 in-app support
                                             </a>
                                         </span>
@@ -195,7 +195,7 @@ const ContactFormSection = () => {
                                         <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500" />
                                         <span className="min-w-0 flex-1 text-pretty break-words">
                                             Billing questions? See{" "}
-                                            <a href="/pricing" className="font-medium text-emerald-700 hover:underline">
+                                            <a href="/pricing" className="font-medium text-emerald-700 hover:underline inline-block">
                                                 pricing
                                             </a>{" "}
                                             first

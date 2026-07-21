@@ -45,10 +45,10 @@ const FeaturesBentoSection = () => {
                                     href={mod.href}
                                     className={cn(
                                         "group relative flex h-full flex-col justify-between overflow-hidden rounded-2xl border",
-                                        "transition-all duration-300 hover:border-emerald-300 hover:shadow-[0_16px_40px_rgba(16,185,129,0.12)]",
+                                        "transition-all duration-300",
                                         isFeatured
-                                            ? "border-emerald-200 bg-gradient-to-br from-emerald-600 to-emerald-800 p-5 text-white sm:p-7"
-                                            : "border-gray-100 bg-marketing-card p-3.5 sm:p-5",
+                                            ? "border-emerald-200 bg-gradient-to-br from-emerald-600 to-emerald-800 p-5 text-white sm:p-7 hover:border-emerald-300 hover:shadow-[0_16px_40px_rgba(16,185,129,0.18)]"
+                                            : "border-gray-100 bg-marketing-card p-3.5 sm:p-5 hover:border-emerald-300 hover:bg-emerald-50/80 hover:shadow-[0_16px_40px_rgba(16,185,129,0.12)]",
                                         mod.className
                                     )}
                                 >

@@ -15,7 +15,6 @@ import {
 } from "./content"
 import { AppleIcon } from "@/assets/svg/social/AppleIcon"
 import { PlayStoreIcon } from "@/assets/svg/social/PlayStoreIcon"
-import { useBreakpoint } from "@/hooks/useBreakpoint"
 import { clientEnv } from "@/env/client"
 import Logo from "@/components/shared/Logo"
 
@@ -30,8 +29,6 @@ const APP_STORE_LINKS = [
 ] as const
 
 const MarketingFooter = () => {
-    const isMobile = useBreakpoint("md", "down")
-
     const [email, setEmail] = useState("")
     const year = new Date().getFullYear()
 
