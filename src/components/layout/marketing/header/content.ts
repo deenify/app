@@ -15,3 +15,6 @@ export const MARKETING_NAV: MarketingNavItem[] = [
     { label: "FAQs", href: "/faqs", icon: CircleHelp },
     { label: "Contact", href: "/contact", icon: Mail },
 ]
+
+
+export const MARKETING_HEADER_HEIGHT = (isMobile: boolean) => isMobile ? 72 : 76
