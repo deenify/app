@@ -6,7 +6,7 @@
         "dev": "next dev -p 1426",
         "dev-ip": "tsx scripts/development/dev-ip.ts",
         "dev-qr": "tsx scripts/development/dev-qr.ts",
-        "generate": "tsx scripts/generate/index.ts",
+        "generate": "tsx scripts/generate-seo/index.ts",
         "build": "next build",
         "start": "next start",
         "lint": "next lint",

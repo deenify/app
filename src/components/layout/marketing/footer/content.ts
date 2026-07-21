@@ -80,8 +80,8 @@ export const FOOTER_LINK_SECTIONS = [
 
 // Copyright Links 
 export const FOOTER_LEGAL: FooterLink[] = [
-    { label: "Terms & Conditions", href: "/#terms" },
-    { label: "Privacy Policy", href: "/#privacy" },
+    { label: "Terms & Conditions", href: "/terms" },
+    { label: "Privacy Policy", href: "/privacy" },
     { label: "Refund Policy", href: "/#refund" },
 ]
 
