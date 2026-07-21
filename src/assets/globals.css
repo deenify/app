@@ -191,19 +191,19 @@
 
     /* Containers */
     .container {
-        @apply overflow-hidden w-full max-w-[1202px] mx-auto px-5 sm:px-8 lg:px-12;
+        @apply w-full max-w-[1202px] mx-auto px-5 sm:px-8 lg:px-12;
     }
 
     .container-narrow {
-        @apply overflow-hidden mx-auto w-full max-w-5xl px-5 sm:px-8 lg:px-12;
+        @apply mx-auto w-full max-w-5xl px-5 sm:px-8 lg:px-12;
     }
 
     .container-wide {
-        @apply overflow-hidden mx-auto w-full max-w-[1680px] px-5 sm:px-8 lg:px-12;
+        @apply mx-auto w-full max-w-[1680px] px-5 sm:px-8 lg:px-12;
     }
 
     .container-header-footer {
-        @apply overflow-hidden mx-auto w-full max-w-[1480px] px-5 sm:px-8 lg:px-12;
+        @apply mx-auto w-full max-w-[1480px] px-5 sm:px-8 lg:px-12;
     }
 
 

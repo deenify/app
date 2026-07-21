@@ -36,7 +36,7 @@ const ContactChannelsSection = () => {
                                 duration={0.85}
                             >
                                 <article className="flex h-full flex-col rounded-md border border-gray-100 bg-marketing-card p-5 sm:rounded-2xl sm:p-6">
-                                    <span className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-50 text-emerald-600">
+                                    <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-gray-900">
                                         <Icon className="h-4 w-4" strokeWidth={1.9} />
                                     </span>
                                     <h3 className="mt-4 font-heading text-base font-semibold text-gray-900">
