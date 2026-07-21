@@ -6,6 +6,8 @@ import MarketingHeader from "./header/MarketingHeader"
 import MobileSidebar from "./header/MobileSidebar"
 import { useScrollReset } from "@/hooks/useViewportFix"
 import MarketingFloatWrapper from "./MarketingFloatWrapper"
+import { MARKETING_HEADER_HEIGHT } from "./header/content"
+import { useBreakpoint } from "@/hooks/useBreakpoint"
 
 interface MarketingLayoutWrapperProps {
     readonly children: ReactNode
@@ -15,6 +17,7 @@ const MARKETING_SCROLL_ID = "marketing-layout-wrapper-scroll-container"
 
 const MarketingLayoutWrapper = ({ children }: MarketingLayoutWrapperProps) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
+    const isMobile = useBreakpoint("sm", "up")
 
     useScrollReset(MARKETING_SCROLL_ID)
 
@@ -33,7 +36,10 @@ const MarketingLayoutWrapper = ({ children }: MarketingLayoutWrapperProps) => {
                     />
                 </div>
 
-                <div className="relative pt-20">
+                <div
+                    className="relative"
+                    style={{ paddingTop: MARKETING_HEADER_HEIGHT(isMobile) }}
+                >
                     <MobileSidebar
                         isOpen={isMenuOpen}
                         onClose={() => setIsMenuOpen(false)}
