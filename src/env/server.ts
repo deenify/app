@@ -1,22 +1,41 @@
 // src/env/server.ts
+import "server-only";
 import { z } from "zod";
 
+
+if (typeof window !== "undefined") {
+    throw new Error(`serverEnv imported in browser. Stack:\n${new Error().stack}`);
+}
+
+
+// Schema 
 const serverEnvSchema = z.object({
-  MONGODB_QURAN_URI: z.string().url(),
-  MONGODB_HADITH_CHAPTERWISE_ABM_URI: z.string().url(),
-  MONGODB_HADITH_CHAPTERWISE_ITN_URI: z.string().url(),
-  MONGODB_HADITH_BOOKWISE_URI: z.string().url(),
-  MONGODB_SUPPLICATION_URI: z.string().url(),
+    // App Configurations 
+    APP_NAME: z.string().min(1),
+
+    // Backend Configurations 
+    API_URL: z.string().url(),
+    API_KEY: z.string().min(1),
+    SUPABASE_URL: z.string().url(),
+    SUPABASE_KEY: z.string().min(1),
+    ENCODING_SECRET: z.string().min(1),
+    JWT_SECRET: z.string().min(1),
 });
 
+
+// Environmental Variables 
 export const serverEnv = serverEnvSchema.parse({
-  MONGODB_QURAN_URI: process.env.MONGODB_QURAN_URI,
-  MONGODB_HADITH_CHAPTERWISE_ABM_URI:
-    process.env.MONGODB_HADITH_CHAPTERWISE_ABM_URI,
-  MONGODB_HADITH_CHAPTERWISE_ITN_URI:
-    process.env.MONGODB_HADITH_CHAPTERWISE_ITN_URI,
-  MONGODB_HADITH_BOOKWISE_URI: process.env.MONGODB_HADITH_BOOKWISE_URI,
-  MONGODB_SUPPLICATION_URI: process.env.MONGODB_SUPPLICATION_URI,
+    // App Configurations 
+    APP_NAME: process.env.NEXT_PUBLIC_APP_NAME,
+
+    // Backend Configurations 
+    API_URL: process.env.NEXT_PUBLIC_API_URL,
+    API_KEY: process.env.NEXT_PUBLIC_API_KEY,
+    SUPABASE_URL: process.env.SUPABASE_URL,
+    SUPABASE_KEY: process.env.SUPABASE_KEY,
+    ENCODING_SECRET: process.env.ENCODING_SECRET,
+    JWT_SECRET: process.env.JWT_SECRET,
 });
+
 
 export type ServerEnv = z.infer<typeof serverEnvSchema>;

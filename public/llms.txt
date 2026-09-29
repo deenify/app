@@ -1,0 +1,23 @@
+# Deenify
+
+Your daily Islamic lifestyle app — Quran, Hadith, Adhan, Qibla, and more.
+
+Website: https://deenify.pro
+Support: support@deenify.pro
+
+## Overview
+
+Deenify is an Islamic lifestyle platform that provides tools and educational resources for Muslims worldwide.
+
+## Features
+
+- Quran
+- Hadith
+- Prayer Times
+- Adhan
+- Qibla
+- Islamic Guides
+
+## Canonical URL
+
+https://deenify.pro
