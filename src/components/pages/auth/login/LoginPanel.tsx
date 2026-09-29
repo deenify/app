@@ -1,0 +1,43 @@
+"use client"
+
+import Animate from "@/components/shared/motion/Animate"
+import { Button } from "@/components/ui/button"
+import LoginForm from "./LoginForm"
+
+const LoginPanel = () => {
+    return (
+        <div>
+            <Animate variant="up" delay={0.18} duration={0.62}>
+                <h2 className="pb-2 font-semibold tracking-tight text-gray-900 text-[26px] sm:text-3xl">
+                    Sign in
+                </h2>
+            </Animate>
+            <Animate variant="up" delay={0.28} duration={0.68}>
+                <p className="max-w-md text-pretty text-sm leading-normal text-gray-600 sm:max-w-lg sm:text-[15px] hidden sm:block">
+                    Sign in to continue your Quran, Hadith, guides and learning with personalized tracking and synced progress.
+                </p>
+                <p className="max-w-md text-pretty text-sm leading-normal text-gray-600 sm:max-w-lg sm:text-[15px] block sm:hidden">
+                    Continue Quran, Hadith, and learning with synced personalized progress.
+                </p>
+            </Animate>
+            <Animate variant="up" delay={0.38} duration={0.72}>
+                <LoginForm className="mt-6 space-y-4 sm:mt-7" />
+            </Animate>
+            <Animate variant="up" delay={0.48} duration={0.72}>
+                <p className="px-1 pt-4 text-center text-sm leading-snug text-gray-600 sm:px-0">
+                    Don&apos;t have an account?{" "}
+                    <Button
+                        href="/register"
+                        variant="link"
+                        size="max"
+                        className="inline-flex text-sm font-semibold text-emerald-700"
+                    >
+                        Sign up
+                    </Button>
+                </p>
+            </Animate>
+        </div>
+    )
+}
+
+export default LoginPanel

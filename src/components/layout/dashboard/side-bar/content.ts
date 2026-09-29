@@ -1,0 +1,47 @@
+// dashboard/side-bar/Content.ts 
+
+import {
+    Clock,
+    BookOpen, FileText,
+    Calendar, Compass, Hand,
+    BookHeart, GraduationCap,
+    Scroll, Users, Star, Target,
+    Heart, Flame, HelpCircle, Gift,
+    LayoutDashboard
+} from 'lucide-react';
+
+export const sidebarSections = [
+    {
+        title: 'Main',
+        items: [
+            { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+            { href: '/prayer', label: 'Prayer Times', icon: Clock },
+            { href: '/quran', label: 'Quran', icon: BookOpen },
+            { href: '/hadith', label: 'Hadith', icon: FileText },
+            { href: '/calendar', label: 'Calendar', icon: Calendar },
+            { href: '/qibla', label: 'Qibla Finder', icon: Compass },
+            { href: '/dhikr', label: 'Dhikr Counter', icon: Hand },
+        ],
+    },
+    {
+        title: 'Learn',
+        items: [
+            { href: '/supplications', label: 'Supplications', icon: BookHeart },
+            { href: '/guides', label: 'Guides & Learning', icon: GraduationCap },
+            { href: '/history', label: 'Islamic History', icon: Scroll },
+            { href: '/prophets', label: 'Prophetic Chain', icon: Users },
+            { href: '/miracles', label: 'Islamic Miracles', icon: Star },
+            { href: '/stories', label: 'Prophetic Stories', icon: Heart },
+            { href: '/pillars', label: 'Five Pillars', icon: Target },
+            { href: '/revert', label: 'Becoming Muslim', icon: Flame },
+        ],
+    },
+    {
+        title: 'Support',
+        items: [
+            { href: '/support', label: 'Support Center', icon: HelpCircle },
+            { href: '/donate', label: 'Donate', icon: Gift },
+        ],
+    },
+];
+

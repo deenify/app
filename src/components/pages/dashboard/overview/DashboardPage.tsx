@@ -1,0 +1,65 @@
+"use client"
+
+import { PRAYER_WINDOWS } from "@/components/pages/dashboard/content"
+import { DashboardConsistencyChart } from "./DashboardConsistencyChart"
+import { DashboardDailyProgress } from "./DashboardDailyProgress"
+import { DashboardInspirationCard } from "./DashboardInspirationCard"
+import { DashboardPrayerSchedule } from "./DashboardPrayerSchedule"
+import { DashboardRecentActivity } from "./DashboardRecentActivity"
+import { DashboardStats } from "./DashboardStats"
+import {
+    DASHBOARD_ACTIVITY_DATA,
+    DASHBOARD_CHART_SERIES,
+    DASHBOARD_DAILY_GOALS,
+    DASHBOARD_INSPIRATION,
+    DASHBOARD_PRAYER_HIGHLIGHT,
+    DASHBOARD_RECENT_ACTIVITY,
+    DASHBOARD_STATS,
+} from "./content"
+import DashboardHead from "../generic/DashboardHead"
+import { getDashboardHeadMeta } from "../generic/dashboardHeaderMeta"
+
+export default function DashboardPage() {
+
+    const DashboardContent = getDashboardHeadMeta("/dashboard")
+
+    return (
+        <div className="bg-white">
+            <DashboardHead
+                lead={DashboardContent?.lead}
+                accent={DashboardContent?.accent}
+                subtitle={DashboardContent?.subtitle}
+                mobileSubtitle={DashboardContent?.mobileSubtitle}
+            />
+
+            <div className="container space-y-6 py-6 sm:space-y-8 sm:py-8">
+                <DashboardStats items={DASHBOARD_STATS} />
+
+                <div className="grid gap-6 lg:grid-cols-3 h-max">
+                    <DashboardConsistencyChart
+                        title="Consistency analytics"
+                        description="Activity across spiritual categories"
+                        data={DASHBOARD_ACTIVITY_DATA}
+                        series={DASHBOARD_CHART_SERIES}
+                    />
+                    <DashboardPrayerSchedule
+                        prayers={PRAYER_WINDOWS}
+                        highlightId={DASHBOARD_PRAYER_HIGHLIGHT}
+                    />
+                </div>
+
+                <div className="grid gap-6 lg:grid-cols-3">
+                    <DashboardRecentActivity items={DASHBOARD_RECENT_ACTIVITY} />
+                    <div className="space-y-6">
+                        <DashboardDailyProgress goals={DASHBOARD_DAILY_GOALS} />
+                        <DashboardInspirationCard
+                            badge={DASHBOARD_INSPIRATION.badge}
+                            quote={DASHBOARD_INSPIRATION.quote}
+                            source={DASHBOARD_INSPIRATION.source}
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}

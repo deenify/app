@@ -1,0 +1,26 @@
+{
+    "id": "/",
+    "name": "Deenify",
+    "short_name": "Deenify",
+    "description": "Your daily Islamic lifestyle app — Quran, Hadith, Adhan, Qibla, and more.",
+    "lang": "en",
+    "dir": "ltr",
+    "start_url": "/",
+    "scope": "/",
+    "display": "standalone",
+    "orientation": "portrait-primary",
+    "background_color": "#ffffff",
+    "theme_color": "#10b981",
+    "icons": [
+        {
+            "src": "/icons/favicon.ico",
+            "sizes": "any",
+            "type": "image/x-icon"
+        },
+        {
+            "src": "/icons/apple-touch-icon.png",
+            "sizes": "180x180",
+            "type": "image/png"
+        }
+    ]
+}
